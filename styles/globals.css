@@ -1,0 +1,70 @@
+@import-normalize;
+/* bring in normalize.css styles */
+
+/* styles-varibles */
+
+:root {
+  --mainBgColor: rgba(12, 13, 46, 0.9);
+  --addBgColor: #010225;
+  --thirdBgColor: #494b81;
+  --mainTextColor: #ffffff;
+  --accentColor: #1190cb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding: 0;
+  list-style: none;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+input {
+  outline: none;
+  border: solid 1px;
+  border-radius: 5px;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
