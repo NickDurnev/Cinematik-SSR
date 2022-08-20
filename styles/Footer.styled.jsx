@@ -6,7 +6,7 @@ export const StyledFooter = styled.footer`
 `;
 
 export const Container = styled.section`
-  width: 400px;
+  width: 100%;
   margin: 0 auto;
   & > p {
     margin-top: 10px;

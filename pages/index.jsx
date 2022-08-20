@@ -8,7 +8,7 @@ export default function Home() {
       <Head>
         <title>Home page</title>
         <meta name="description" content="App for searching movies" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/vercel.svg" />
       </Head>
 
       <Hero />

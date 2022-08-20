@@ -1,18 +1,36 @@
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import ReviewList from '../components/ReviewList';
+import AddReview from '../components/AddReview';
 
-export const getStaticProps = async () => {
-  const response = await fetch('http://localhost:3000/api/reviews');
-  const data = await response.json();
+export default function Reviews() {
+  const [reviews, setReviews] = useState([]);
 
-  if (!data) {
-    return { notFound: true };
-  }
+  const fetchReviews = async () => {
+    const response = await fetch('http://localhost:3000/api/reviews');
+    const data = await response.json();
 
-  return { props: { reviews: data } };
-};
+    if (!data) {
+      return { notFound: true };
+    }
+    setReviews(data);
+  };
 
-export default function Reviews({ reviews }) {
+  const addReview = async review => {
+    const response = await fetch('http://localhost:3000/api/reviews', {
+      method: 'POST',
+      body: JSON.stringify(review),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    fetchReviews();
+  };
+
+  useEffect(() => {
+    fetchReviews();
+  }, []);
+
   return (
     <>
       <Head>
@@ -20,6 +38,7 @@ export default function Reviews({ reviews }) {
         <meta name="description" content="Users reviews" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <AddReview addReview={review => addReview(review)} />
       <ReviewList reviews={reviews} />
     </>
   );

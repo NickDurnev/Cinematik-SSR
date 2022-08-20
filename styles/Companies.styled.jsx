@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import Image from 'next/image';
+import { device } from '../services/deviceSizes';
 
 export const Section = styled.section`
   padding: 30px;
@@ -9,11 +9,16 @@ export const Section = styled.section`
 
   & > h3 {
     margin: 0 auto;
-    width: 630px;
+    width: 70vw;
     font-weight: 400;
-    font-size: 40px;
+    font-size: 25px;
     line-height: 135%;
     color: var(--mainTextColor);
+
+    @media ${device.tablet} {
+      font-weight: 400;
+      font-size: 40px;
+    }
   }
 `;
 

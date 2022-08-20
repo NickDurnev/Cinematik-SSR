@@ -1,32 +1,60 @@
-import { Button } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Button, Avatar } from '@mui/material';
+import stringAvatar from '../services/avatarFormatter';
+import { Container, CustomButton } from '../styles/UserBar.styled';
 
 const UserBar = ({ authData }) => {
+  const [isSizeScreen, setIsSizeScreen] = useState(null);
+
+  useEffect(() => {
+    // You now have access to `window`
+    if (window.matchMedia('(min-width: 768px)').matches) {
+      setIsSizeScreen('tablet');
+    }
+  }, []);
+
   const { user, error, isLodaing } = authData;
-  if (isLodaing) {
-    return <div>IsLoading...</div>;
-  }
+
   if (error) {
     return <div>{error.message}</div>;
   }
+
   return (
-    <>
+    <Container>
+      {isLodaing && <div>Loading...</div>}
       {user ? (
         <div>
-          <h3>Welcome {user.name}</h3>
-          <a href="/api/auth/logout">Logout</a>
-          <Button
-            sx={{ ml: '20px' }}
-            variant="contained"
-            color="accentColor"
-            href="https://nickdurnev.github.io/goit-react-hw-05-movies/"
-          >
-            Go to App
-          </Button>
+          {isSizeScreen && (
+            <Avatar
+              {...stringAvatar(`${user.name}`)}
+              sx={{ width: 60, height: 60, fontSize: 25 }}
+            />
+          )}
+          <div>
+            <h3>Welcome {user.name}</h3>
+            <CustomButton
+              variant="contained"
+              color="accentColor"
+              href="/api/auth/logout"
+            >
+              Logout
+            </CustomButton>
+            <CustomButton
+              sx={{ ml: '20px' }}
+              variant="contained"
+              color="accentColor"
+              href="https://nickdurnev.github.io/goit-react-hw-05-movies/"
+            >
+              Go to App
+            </CustomButton>
+          </div>
         </div>
       ) : (
-        <a href="/api/auth/login">Login</a>
+        <Button variant="contained" color="accentColor" href="/api/auth/login">
+          Login
+        </Button>
       )}
-    </>
+    </Container>
   );
 };
 

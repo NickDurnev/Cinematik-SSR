@@ -13,6 +13,7 @@ export const LogoWrap = styled.div`
 `;
 
 export const NavWrap = styled.div`
+  width: auto;
   display: flex;
   align-items: center;
 `;

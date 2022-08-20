@@ -2,5 +2,11 @@
 import { reviews } from './data/reviews';
 
 export default function handler(req, res) {
-  res.status(200).json(reviews);
+  if (req.method === 'GET') {
+    res.status(200).json(reviews);
+  } else if (req.method === 'POST') {
+    const review = req.body;
+    reviews.push(review);
+    res.status(201).json(review);
+  }
 }

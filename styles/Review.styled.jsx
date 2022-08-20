@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
 
-export const Wrap = styled.li`
+export const Wrap = styled(motion.li)`
   width: 100%;
   display: flex;
   justify-content: space-between;

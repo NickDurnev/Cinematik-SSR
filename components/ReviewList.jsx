@@ -1,10 +1,19 @@
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import Review from './Review';
+import { device } from '../services/deviceSizes';
 
 const List = styled.ul`
-  padding: 20px 25vw;
+  padding: 10px 10vw;
   background-color: var(--addBgColor);
+
+  @media ${device.tablet} {
+    padding: 30px 20vw;
+  }
+
+  @media ${device.laptop} {
+    padding: 30px 30vw;
+  }
 `;
 
 const ReviewList = ({ reviews }) => {

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,12 +14,22 @@ import UserBar from './userBar';
 import { Header, LogoWrap, NavWrap } from '../styles/AppBar.styled';
 
 const pages = [
-  { name: 'Benefits', href: '/benefits' },
+  { name: 'Home', href: '/' },
+  // { name: 'Benefits', href: '/benefits' },
   { name: 'Reviews', href: '/reviews' },
 ];
 
 const ResponsiveAppBar = ({ authData }) => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [isSizeScreen, setIsSizeScreen] = useState(null);
+
+  useEffect(() => {
+    // You now have access to `window`
+    if (window.matchMedia('(min-width: 768px)').matches) {
+      setIsSizeScreen('tablet');
+    }
+  }, []);
+
+  const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget);
@@ -35,7 +45,11 @@ const ResponsiveAppBar = ({ authData }) => {
         <Container maxWidth="xl">
           <Toolbar
             disableGutters
-            sx={{ display: 'flex', justifyContent: 'space-between' }}
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              height: 80,
+            }}
           >
             <LogoWrap>
               <PlayCircleFilledWhiteIcon
@@ -71,7 +85,7 @@ const ResponsiveAppBar = ({ authData }) => {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
-                color="inherit"
+                color="mainTextColor"
               >
                 <MenuIcon />
               </IconButton>
@@ -100,27 +114,32 @@ const ResponsiveAppBar = ({ authData }) => {
                 ))}
               </Menu>
             </Box>
-            <PlayCircleFilledWhiteIcon
-              sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
-            />
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'roboto',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              LOGO
-            </Typography>
+            {isSizeScreen && (
+              <>
+                <PlayCircleFilledWhiteIcon
+                  color="accentColor"
+                  sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
+                />
+                <Typography
+                  variant="h5"
+                  noWrap
+                  component="a"
+                  href="/"
+                  sx={{
+                    mr: 2,
+                    display: { xs: 'flex', md: 'none' },
+                    flexGrow: 1,
+                    fontFamily: 'roboto',
+                    fontWeight: 700,
+                    letterSpacing: '.3rem',
+                    color: '#fff',
+                    textDecoration: 'none',
+                  }}
+                >
+                  CINEMATIK
+                </Typography>
+              </>
+            )}
             <NavWrap>
               <nav>
                 <Box

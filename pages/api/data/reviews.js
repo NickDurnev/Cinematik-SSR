@@ -1,6 +1,6 @@
 export const reviews = [
   {
-    createdAt: '2022-08-08T04:41:54.571Z',
+    createdAt: '13-01-2022',
     name: 'Lewis Hegmann',
     avatar:
       'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/539.jpg',
@@ -9,7 +9,7 @@ export const reviews = [
     id: '1',
   },
   {
-    createdAt: '2022-08-08T04:47:42.118Z',
+    createdAt: '23-01-2022',
     name: 'Delbert Schimmel',
     avatar:
       'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/956.jpg',
@@ -18,7 +18,7 @@ export const reviews = [
     id: '2',
   },
   {
-    createdAt: '2022-08-08T13:58:27.558Z',
+    createdAt: '18-02-2022',
     name: 'Guadalupe Kunde',
     avatar:
       'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/654.jpg',
@@ -27,7 +27,7 @@ export const reviews = [
     id: '3',
   },
   {
-    createdAt: '2022-08-07T19:34:36.292Z',
+    createdAt: '26-02-2022',
     name: 'Erma Lowe PhD',
     avatar:
       'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/996.jpg',
@@ -36,7 +36,7 @@ export const reviews = [
     id: '4',
   },
   {
-    createdAt: '2022-08-08T01:43:32.810Z',
+    createdAt: '13-03-2022',
     name: 'Douglas Osinski',
     avatar:
       'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/968.jpg',
@@ -45,7 +45,7 @@ export const reviews = [
     id: '5',
   },
   {
-    createdAt: '2022-08-08T11:27:29.236Z',
+    createdAt: '19-03-2022',
     name: 'Taylor Harber V',
     avatar:
       'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/138.jpg',
@@ -54,7 +54,7 @@ export const reviews = [
     id: '6',
   },
   {
-    createdAt: '2022-08-08T18:43:50.972Z',
+    createdAt: '01-04-2022',
     name: 'Wanda Kuvalis',
     avatar:
       'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/378.jpg',
@@ -63,7 +63,7 @@ export const reviews = [
     id: '7',
   },
   {
-    createdAt: '2022-08-08T08:58:02.952Z',
+    createdAt: '19-04-2022',
     name: 'Charlene Ryan',
     avatar:
       'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/757.jpg',
@@ -72,7 +72,7 @@ export const reviews = [
     id: '8',
   },
   {
-    createdAt: '2022-08-08T10:27:19.341Z',
+    createdAt: '10-05-2022',
     name: 'Phil Ebert III',
     avatar:
       'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/888.jpg',
@@ -81,7 +81,7 @@ export const reviews = [
     id: '9',
   },
   {
-    createdAt: '2022-08-08T06:55:42.436Z',
+    createdAt: '02-06-2022',
     name: 'Noel Kuhn Jr.',
     avatar:
       'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/73.jpg',
@@ -90,7 +90,7 @@ export const reviews = [
     id: '10',
   },
   {
-    createdAt: '2022-08-08T12:21:01.082Z',
+    createdAt: '25-06-2022',
     name: 'Dr. Nettie Corkery',
     avatar:
       'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/691.jpg',
@@ -99,7 +99,7 @@ export const reviews = [
     id: '11',
   },
   {
-    createdAt: '2022-08-08T01:58:13.303Z',
+    createdAt: '27-06-2022',
     name: 'Johnnie Parisian DDS',
     avatar:
       'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/546.jpg',
@@ -108,7 +108,7 @@ export const reviews = [
     id: '12',
   },
   {
-    createdAt: '2022-08-08T11:38:45.087Z',
+    createdAt: '07-07-2022',
     name: 'Conrad Lehner',
     avatar:
       'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/911.jpg',
@@ -117,7 +117,7 @@ export const reviews = [
     id: '13',
   },
   {
-    createdAt: '2022-08-08T05:44:07.364Z',
+    createdAt: '21-07-2022',
     name: 'Shane Stark',
     avatar:
       'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/683.jpg',
