@@ -7,7 +7,7 @@ export default function Reviews() {
   const [reviews, setReviews] = useState([]);
 
   const fetchReviews = async () => {
-    const response = await fetch(`${process.env.API_HOST}/reviews`);
+    const response = await fetch('https://cinematik.vercel.app/reviews');
     const data = await response.json();
 
     if (!data) {
@@ -17,7 +17,7 @@ export default function Reviews() {
   };
 
   const addReview = async review => {
-    const response = await fetch(`${process.env.API_HOST}/reviews`, {
+    const response = await fetch('https://cinematik.vercel.app/reviews', {
       method: 'POST',
       body: JSON.stringify(review),
       headers: {
