@@ -43,7 +43,7 @@ const UserBar = ({ authData }) => {
               sx={{ ml: '20px' }}
               variant="contained"
               color="accentColor"
-              href="https://nickdurnev.github.io/goit-react-hw-05-movies/"
+              href="https://cinamatikapplication.vercel.app/"
             >
               Go to App
             </CustomButton>
