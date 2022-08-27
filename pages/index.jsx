@@ -7,6 +7,7 @@ export default function Home() {
     <>
       <Head>
         <title>Home page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="App for searching movies" />
         <link rel="icon" href="/vercel.svg" />
       </Head>
