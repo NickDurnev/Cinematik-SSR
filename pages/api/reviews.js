@@ -1,12 +1,18 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { reviews } from './data/reviews';
+import dbConnect from '../../db/connection';
+import Review from '../../db/models/Review';
 
-export default function handler(req, res) {
-  if (req.method === 'GET') {
-    res.status(200).json(reviews);
-  } else if (req.method === 'POST') {
-    const review = req.body;
-    reviews.push(review);
-    res.status(201).json(review);
+export default async function addReview(req, res) {
+  await dbConnect();
+  try {
+    const review = await Review.create(req.body);
+    res.status(201).json({
+      status: 'success',
+      code: 201,
+      data: {
+        review,
+      },
+    });
+  } catch (error) {
+    res.status(error.status).json({ success: false, message: error.message });
   }
 }

@@ -24,7 +24,7 @@ const ReviewList = ({ reviews }) => {
   return (
     <List>
       {reviews.map(review => (
-        <Review review={review} key={review.id} />
+        <Review review={review} key={review._id} />
       ))}
     </List>
   );
@@ -35,8 +35,8 @@ ReviewList.propTypes = {
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       avatar: PropTypes.string,
-      rating: PropTypes.number.isRequired,
-      id: PropTypes.string.isRequired,
+      rating: PropTypes.string.isRequired,
+      _id: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
     })
   ),

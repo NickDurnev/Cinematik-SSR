@@ -28,7 +28,7 @@ const Review = ({ review }) => {
         <p>{text}</p>
         <Rating
           name="read-only"
-          value={rating}
+          value={Number(rating)}
           readOnly
           precision={0.5}
           sx={{ mt: 1 }}
@@ -43,7 +43,7 @@ Review.propTypes = {
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       avatar: PropTypes.string,
-      rating: PropTypes.number.isRequired,
+      rating: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
       createdAt: PropTypes.string.isRequired,
     })
