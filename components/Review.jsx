@@ -13,7 +13,7 @@ const Review = ({ review }) => {
       viewport={{ once: true }}
     >
       <div>
-        {avatar ? (
+        {avatar !== 'none' ? (
           <Image src={avatar} alt="Avatar" width={100} height={100} />
         ) : (
           <Avatar

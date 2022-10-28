@@ -2,8 +2,6 @@ import { PropTypes } from 'prop-types';
 import { useUser } from '@auth0/nextjs-auth0';
 import { useState } from 'react';
 import moment from 'moment';
-import { v4 as uuidv4 } from 'uuid';
-import { toast } from 'react-toastify';
 import { Rating } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
@@ -20,18 +18,12 @@ const AddReview = ({ addReview }) => {
   } = useForm();
   const onSubmit = async ({ text }) => {
     const date = moment().format('DD-MM-YYYY');
-    if (!user) {
-      toast('You should be logged in for review');
-      console.log('111');
-      return;
-    }
     const review = {
       createdAt: date,
       name: `${user.name}`,
       avatar: '',
       text: text,
-      rating: value,
-      id: uuidv4(),
+      rating: value.toString(),
     };
     addReview(review);
 

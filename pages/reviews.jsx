@@ -1,17 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useUser } from '@auth0/nextjs-auth0';
+import { toast } from 'react-toastify';
 import Head from 'next/head';
 import ReviewList from '../components/ReviewList';
 import AddReview from '../components/AddReview';
 import dbConnect from '../db/connection';
 import Review from '../db/models/Review';
 
-const BASE_URL = process.env.BASE_URL;
-
 export default function Reviews({ data }) {
   const [reviews, setReviews] = useState([...data]);
+  const { user } = useUser();
 
   const addReview = async review => {
-    const response = await fetch('http://localhost:3000/api/reviews', {
+    const response = await fetch('api/reviews', {
       method: 'POST',
       body: JSON.stringify(review),
       headers: {
@@ -19,6 +20,10 @@ export default function Reviews({ data }) {
       },
     });
     const result = await response.json();
+    if (!result.data) {
+      toast.error('Invalid data');
+      return;
+    }
     setReviews([...reviews, result.data.review]);
   };
 
@@ -30,7 +35,7 @@ export default function Reviews({ data }) {
         <meta name="description" content="Users reviews" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <AddReview addReview={review => addReview(review)} />
+      {user && <AddReview addReview={review => addReview(review)} />}
       <ReviewList reviews={reviews} />
     </>
   );

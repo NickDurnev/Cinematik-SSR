@@ -3,7 +3,10 @@ import mongoose from 'mongoose';
 const ReviewSchema = new mongoose.Schema({
   createdAt: String,
   name: { type: String, required: [true, 'Set name for review'] },
-  avatar: String,
+  avatar: {
+    type: String,
+    default: 'none',
+  },
   text: { type: String, required: [true, 'Set text for review'] },
   rating: { type: String, required: [true, 'Set rating for review'] },
 });

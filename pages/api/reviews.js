@@ -1,7 +1,9 @@
 import dbConnect from '../../db/connection';
 import Review from '../../db/models/Review';
+import validate from '../../db/middlewares/validationMiddleware';
+import schema from '../../db/validation/reviewValidation';
 
-export default async function addReview(req, res) {
+export default validate({ body: schema }, async function addReview(req, res) {
   await dbConnect();
   try {
     const review = await Review.create(req.body);
@@ -15,4 +17,4 @@ export default async function addReview(req, res) {
   } catch (error) {
     res.status(error.status).json({ success: false, message: error.message });
   }
-}
+});

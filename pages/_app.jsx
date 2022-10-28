@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import Layout from '../components/Layouts';
 import { UserProvider } from '@auth0/nextjs-auth0';
 import '../styles/globals.css';
@@ -22,6 +23,18 @@ const theme = createTheme({
   },
 });
 
+export const StyledToastContainer = styled(ToastContainer)`
+  &&&.Toastify__toast-container {
+  }
+  .Toastify__toast {
+    color: ${theme.palette.mainTextColor.main};
+    background-color: ${theme.palette.navColor.main};
+    & > button {
+      color: ${theme.palette.mainTextColor.main};
+    }
+  }
+`;
+
 function MyApp({ Component, pageProps }) {
   return (
     <UserProvider>
@@ -29,7 +42,11 @@ function MyApp({ Component, pageProps }) {
         <Layout>
           <Component {...pageProps} />
         </Layout>
-        <ToastContainer />
+        <StyledToastContainer
+          autoClose={3000}
+          position={'top-center'}
+          limit={1}
+        />
       </ThemeProvider>
     </UserProvider>
   );

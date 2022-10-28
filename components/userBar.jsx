@@ -7,7 +7,6 @@ const UserBar = ({ authData }) => {
   const [isSizeScreen, setIsSizeScreen] = useState(null);
 
   useEffect(() => {
-    // You now have access to `window`
     if (window.matchMedia('(min-width: 768px)').matches) {
       setIsSizeScreen('tablet');
     }
