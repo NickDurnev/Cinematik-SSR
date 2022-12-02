@@ -1,9 +1,11 @@
+import { PropTypes } from 'prop-types';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Button, Avatar } from '@mui/material';
-import stringAvatar from '../services/avatarFormatter';
-import { Container, CustomButton } from '../styles/UserBar.styled';
+import stringAvatar from '../../services/avatarFormatter';
+import { Container, CustomButton } from './UserBar.styled';
 
-const UserBar = ({ authData }) => {
+const UserBar = ({ authData, currentUser }) => {
   const [isSizeScreen, setIsSizeScreen] = useState(null);
 
   useEffect(() => {
@@ -21,7 +23,7 @@ const UserBar = ({ authData }) => {
   return (
     <Container>
       {isLodaing && <div>Loading...</div>}
-      {user ? (
+      {currentUser ? (
         <div>
           {isSizeScreen && (
             <Avatar
@@ -38,14 +40,18 @@ const UserBar = ({ authData }) => {
             >
               Logout
             </CustomButton>
-            <CustomButton
-              sx={{ ml: '20px' }}
-              variant="contained"
-              color="accentColor"
-              href="https://cinamatikapplication.vercel.app/"
+            <Link
+              href={`http://localhost:3006/welcome/${currentUser._id}`}
+              passHref
             >
-              Go to App
-            </CustomButton>
+              <CustomButton
+                sx={{ ml: '20px' }}
+                variant="contained"
+                color="accentColor"
+              >
+                Go to App
+              </CustomButton>
+            </Link>
           </div>
         </div>
       ) : (
@@ -55,6 +61,13 @@ const UserBar = ({ authData }) => {
       )}
     </Container>
   );
+};
+
+UserBar.propTypes = {
+  currentUser: PropTypes.oneOfType([
+    PropTypes.shape({ _id: PropTypes.string.isRequired }),
+    PropTypes.oneOf([null]).isRequired,
+  ]),
 };
 
 export default UserBar;

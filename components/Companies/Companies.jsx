@@ -1,4 +1,4 @@
-import { Section, LogoContainer } from '../styles/Companies.styled';
+import { Section, LogoContainer } from './Companies.styled';
 import Image from 'next/image';
 
 const Companies = () => (

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Container, Title } from '../styles/Hero.styled';
+import { Container, Title } from './Hero.styled';
 import Image from 'next/image';
 
 const Hero = () => {

@@ -1,7 +1,7 @@
 import dbConnect from '../../db/connection';
 import Review from '../../db/models/Review';
-import validate from '../../db/middlewares/validationMiddleware';
-import schema from '../../db/validation/reviewValidation';
+import validate from '../../middlewares/validationMiddleware';
+import schema from '../../middlewares/validation/reviewValidation';
 
 export default validate({ body: schema }, async function addReview(req, res) {
   await dbConnect();

@@ -1,15 +1,20 @@
-import { useState } from 'react';
-import { useUser } from '@auth0/nextjs-auth0';
+import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import Head from 'next/head';
 import ReviewList from '../components/ReviewList';
-import AddReview from '../components/AddReview';
+import AddReview from '../components/AddReviw';
 import dbConnect from '../db/connection';
 import Review from '../db/models/Review';
 
-export default function Reviews({ data }) {
+export default function Reviews({ data, currentUser }) {
   const [reviews, setReviews] = useState([...data]);
-  const { user } = useUser();
+  const [isLeftReview, setIsLeftReview] = useState(null);
+
+  useEffect(() => {
+    if (currentUser) {
+      setIsLeftReview(currentUser.leftReview);
+    }
+  }, [currentUser]);
 
   const addReview = async review => {
     const response = await fetch('api/reviews', {
@@ -24,7 +29,15 @@ export default function Reviews({ data }) {
       toast.error('Invalid data');
       return;
     }
+    await fetch('api/users/review', {
+      method: 'PATCH',
+      body: JSON.stringify({ email: currentUser.email }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     setReviews([...reviews, result.data.review]);
+    setIsLeftReview(true);
   };
 
   return (
@@ -35,7 +48,9 @@ export default function Reviews({ data }) {
         <meta name="description" content="Users reviews" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {user && <AddReview addReview={review => addReview(review)} />}
+      {currentUser && !isLeftReview && (
+        <AddReview addReview={review => addReview(review)} />
+      )}
       <ReviewList reviews={reviews} />
     </>
   );
@@ -45,7 +60,6 @@ export async function getServerSideProps() {
   await dbConnect();
   try {
     const data = await Review.find();
-    console.log(data);
     return { props: { data: JSON.parse(JSON.stringify(data)) } };
   } catch (error) {
     return {

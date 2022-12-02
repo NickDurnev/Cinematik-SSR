@@ -5,7 +5,7 @@ import moment from 'moment';
 import { Rating } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { Container, Form } from '../styles/addReview.styled';
+import { Container, Form } from './AddReview.styled';
 
 const AddReview = ({ addReview }) => {
   const [value, setValue] = useState(2);

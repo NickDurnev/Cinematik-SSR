@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { Rating, Avatar } from '@mui/material';
-import stringAvatar from '../services/avatarFormatter';
+import stringAvatar from '../../services/avatarFormatter';
 import Image from 'next/image';
-import { Wrap, InfoWrap, Name } from '../styles/Review.styled';
+import { Wrap, InfoWrap, Name } from './Review.styled';
 
 const Review = ({ review }) => {
   const { avatar, name, rating, text, createdAt } = review;
@@ -13,7 +13,7 @@ const Review = ({ review }) => {
       viewport={{ once: true }}
     >
       <div>
-        {avatar !== 'none' ? (
+        {avatar !== '' ? (
           <Image src={avatar} alt="Avatar" width={100} height={100} />
         ) : (
           <Avatar

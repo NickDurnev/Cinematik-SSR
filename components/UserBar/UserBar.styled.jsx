@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Button } from '@mui/material';
-import { device } from '../services/deviceSizes';
+import { device } from '../../services/deviceSizes';
 
 export const Container = styled.div`
   height: 100%;

@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
-import { StyledFooter, Container, LogoWrap } from '../styles/Footer.styled';
+import { StyledFooter, Container, LogoWrap } from './Footer.styled';
 
 const Footer = () => (
   <StyledFooter>

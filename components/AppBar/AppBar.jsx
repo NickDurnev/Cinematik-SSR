@@ -1,3 +1,4 @@
+import { PropTypes } from 'prop-types';
 import { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -9,9 +10,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
-import NavLink from './Link';
-import UserBar from './userBar';
-import { Header, LogoWrap, NavWrap } from '../styles/AppBar.styled';
+import NavLink from '../Link';
+import UserBar from '../userBar';
+import { Header, LogoWrap, NavWrap } from './AppBar.styled';
 
 const pages = [
   { name: 'Home', href: '/' },
@@ -19,11 +20,10 @@ const pages = [
   { name: 'Reviews', href: '/reviews' },
 ];
 
-const ResponsiveAppBar = ({ authData }) => {
+const ResponsiveAppBar = ({ authData = null, currentUser }) => {
   const [isSizeScreen, setIsSizeScreen] = useState(null);
 
   useEffect(() => {
-    // You now have access to `window`
     if (window.matchMedia('(min-width: 768px)').matches) {
       setIsSizeScreen('tablet');
     }
@@ -159,7 +159,7 @@ const ResponsiveAppBar = ({ authData }) => {
                   ))}
                 </Box>
               </nav>
-              <UserBar authData={authData} />
+              <UserBar authData={authData} currentUser={currentUser} />
             </NavWrap>
           </Toolbar>
         </Container>
@@ -167,4 +167,9 @@ const ResponsiveAppBar = ({ authData }) => {
     </Header>
   );
 };
+
+AppBar.propTypes = {
+  authData: PropTypes.oneOfType([PropTypes.object, PropTypes.oneOf([null])]),
+};
+
 export default ResponsiveAppBar;

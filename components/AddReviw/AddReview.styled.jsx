@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { device } from '../services/deviceSizes';
+import { device } from '../../services/deviceSizes';
 
 export const Container = styled.div`
   width: 100vw;
