@@ -11,7 +11,7 @@ import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
 import NavLink from '../Link';
-import UserBar from '../userBar';
+import UserBar from '../UserBar';
 import { Header, LogoWrap, NavWrap } from './AppBar.styled';
 
 const pages = [
