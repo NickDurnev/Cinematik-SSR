@@ -5,8 +5,6 @@ import { Button, Avatar } from '@mui/material';
 import stringAvatar from '../../services/avatarFormatter';
 import { Container, CustomButton } from './UserBar.styled';
 
-const APP_BASE_URL = process.env.APP_BASE_URL;
-
 const UserBar = ({ authData, currentUser }) => {
   const [isSizeScreen, setIsSizeScreen] = useState(null);
 
@@ -42,7 +40,10 @@ const UserBar = ({ authData, currentUser }) => {
             >
               Logout
             </CustomButton>
-            <Link href={`${APP_BASE_URL}welcome/${currentUser._id}`} passHref>
+            <Link
+              href={`https://cinamatikapplication.vercel.app/welcome/${currentUser._id}`}
+              passHref
+            >
               <CustomButton
                 sx={{ ml: '20px' }}
                 variant="contained"
