@@ -41,7 +41,7 @@ const UserBar = ({ authData, currentUser }) => {
               Logout
             </CustomButton>
             <Link
-              href={`https://cinematikapplication.vercel.app/welcome/${currentUser._id}`}
+              href={`https://cinematikapplication.vercel.app/${currentUser._id}`}
               passHref
             >
               <CustomButton
