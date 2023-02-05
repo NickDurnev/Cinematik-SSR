@@ -6,7 +6,7 @@ import AddReview from '../components/AddReviw';
 import dbConnect from '../db/connection';
 import Review from '../db/models/Review';
 
-export default function Reviews({ data, currentUser }) {
+const Reviews = ({ data, currentUser }) => {
   const [reviews, setReviews] = useState([...data]);
   const [isLeftReview, setIsLeftReview] = useState(null);
 
@@ -54,7 +54,9 @@ export default function Reviews({ data, currentUser }) {
       <ReviewList reviews={reviews} />
     </>
   );
-}
+};
+
+export default Reviews;
 
 export async function getServerSideProps() {
   await dbConnect();

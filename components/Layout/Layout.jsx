@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
 import ResponsiveAppBar from '../AppBar';
 import Footer from '../Footer';
+import { Container, Wrap } from './Layout.styled';
 
 const Layout = ({ children, setCurrentUser, currentUser = null }) => {
   const [skip, setskip] = useState(false);
@@ -34,11 +35,13 @@ const Layout = ({ children, setCurrentUser, currentUser = null }) => {
   }, [authData]);
 
   return (
-    <>
+    <Container>
       <ResponsiveAppBar authData={authData} currentUser={currentUser} />
-      <main>{children}</main>
-      <Footer />
-    </>
+      <Wrap>
+        <main>{children}</main>
+        <Footer />
+      </Wrap>
+    </Container>
   );
 };
 

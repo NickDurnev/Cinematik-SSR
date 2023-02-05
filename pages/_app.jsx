@@ -11,15 +11,33 @@ const theme = createTheme({
   status: {
     danger: '#e53e3e',
   },
+  components: {
+    MuiList: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#3e3d6b',
+          color: '#fff',
+        },
+      },
+    },
+  },
+  typography: {
+    button: {
+      fontWeight: '400',
+      fontSize: '18px',
+      lineHeight: '18px',
+      textTransform: 'none',
+    },
+  },
   palette: {
     navColor: {
-      main: 'rgba(12, 13, 46, 0.9)',
+      main: 'transparent',
     },
     mainTextColor: {
       main: '#fff',
     },
     accentColor: {
-      main: '#1190cb',
+      main: '#fff',
     },
   },
 });
@@ -35,7 +53,6 @@ export const StyledToastContainer = styled(ToastContainer)`
     }
   }
 `;
-const user = 'user';
 
 function MyApp({ Component, pageProps }) {
   const [currentUser, setCurrentUser] = useState(null);

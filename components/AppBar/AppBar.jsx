@@ -1,15 +1,17 @@
 import { PropTypes } from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import Image from 'next/image';
+//# MUI Components
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
-import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
+
+import useSizeScreen from '../../hooks/useSizeScreen';
 import NavLink from '../Link';
 import UserBar from '../UserBar';
 import { Header, LogoWrap, NavWrap } from './AppBar.styled';
@@ -21,13 +23,7 @@ const pages = [
 ];
 
 const ResponsiveAppBar = ({ authData = null, currentUser }) => {
-  const [isSizeScreen, setIsSizeScreen] = useState(null);
-
-  useEffect(() => {
-    if (window.matchMedia('(min-width: 768px)').matches) {
-      setIsSizeScreen('tablet');
-    }
-  }, []);
+  const isSizeScreen = useSizeScreen();
 
   const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -42,34 +38,38 @@ const ResponsiveAppBar = ({ authData = null, currentUser }) => {
   return (
     <Header>
       <AppBar position="static" color="navColor">
-        <Container maxWidth="xl">
+        <Container maxWidth="false" disableGutters={true}>
           <Toolbar
             disableGutters
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
-              height: 80,
+              padding:
+                isSizeScreen === 'phone' || isSizeScreen === 'tablet'
+                  ? '0 12px'
+                  : ' 0 120px',
+              height: isSizeScreen === 'phone' ? '57px' : '122px',
+              borderBottom: '0.5px solid #fff',
             }}
           >
             <LogoWrap>
-              <PlayCircleFilledWhiteIcon
-                color="accentColor"
-                sx={{
-                  display: { xs: 'none', md: 'flex' },
-                  mr: 1,
-                }}
-              />
+              {isSizeScreen === 'phone' ? (
+                <Image src="/Logo.svg" width={42} height={48} alt="Logo" />
+              ) : (
+                <Image src="/Logo.svg" width={58} height={65} alt="Logo" />
+              )}
               <Typography
-                variant="h6"
                 noWrap
                 component="a"
                 href="/"
                 sx={{
                   mr: 2,
                   display: { xs: 'none', md: 'flex' },
-                  fontFamily: 'roboto',
-                  fontWeight: 700,
-                  letterSpacing: '.3rem',
+                  fontFamily: 'Muller',
+                  fontSize: '20px',
+                  fontWeight: 600,
+                  lineHeight: '24px',
+                  letterSpacing: '0.2em',
                   color: '#fff',
                   textDecoration: 'none',
                 }}
@@ -77,90 +77,96 @@ const ResponsiveAppBar = ({ authData = null, currentUser }) => {
                 CINEMATIK
               </Typography>
             </LogoWrap>
-
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="mainTextColor"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
+            <>
+              <Typography
+                noWrap
+                component="a"
+                href="/"
                 sx={{
-                  display: { xs: 'block', md: 'none' },
+                  mr: 2,
+                  display: { xs: 'flex', md: 'none' },
+                  flexGrow: 1,
+                  fontFamily: 'Muller',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  lineHeight: '17px',
+                  letterSpacing: '0.2em',
+                  color: '#fff',
+                  textDecoration: 'none',
                 }}
               >
-                {pages.map(({ name, href }) => (
-                  <MenuItem key={name} onClick={handleCloseNavMenu}>
-                    <NavLink name={name} href={href} />
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-            {isSizeScreen && (
-              <>
-                <PlayCircleFilledWhiteIcon
-                  color="accentColor"
-                  sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
-                />
-                <Typography
-                  variant="h5"
-                  noWrap
-                  component="a"
-                  href="/"
-                  sx={{
-                    mr: 2,
-                    display: { xs: 'flex', md: 'none' },
-                    flexGrow: 1,
-                    fontFamily: 'roboto',
-                    fontWeight: 700,
-                    letterSpacing: '.3rem',
-                    color: '#fff',
-                    textDecoration: 'none',
-                  }}
-                >
-                  CINEMATIK
-                </Typography>
-              </>
-            )}
-            <NavWrap>
-              <nav>
-                <Box
-                  sx={{
-                    flexGrow: 1,
-                    display: { xs: 'none', md: 'flex' },
-                  }}
-                >
-                  {pages.map(({ name, href }) => (
-                    <NavLink
-                      name={name}
-                      href={href}
-                      key={name}
-                      onClick={handleCloseNavMenu}
-                      sx={{ my: 2, color: 'white', display: 'block' }}
-                    />
-                  ))}
+                CINEMATIK
+              </Typography>
+            </>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              {isSizeScreen !== 'phone' && (
+                <NavWrap>
+                  <nav>
+                    <Box
+                      sx={{
+                        flexGrow: 1,
+                        display: { md: 'flex' },
+                      }}
+                    >
+                      {pages.map(({ name, href }) => (
+                        <NavLink
+                          name={name}
+                          href={href}
+                          key={name}
+                          onClick={handleCloseNavMenu}
+                          sx={{ my: 2, color: 'transparent', display: 'block' }}
+                        />
+                      ))}
+                    </Box>
+                  </nav>
+                  <UserBar authData={authData} currentUser={currentUser} />
+                </NavWrap>
+              )}
+              {isSizeScreen === 'phone' && (
+                <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                  <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={handleOpenNavMenu}
+                    color="mainTextColor"
+                  >
+                    <Image src="/Menu.svg" width={24} height={24} alt="Menu" />
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorElNav}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'left',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'left',
+                    }}
+                    open={Boolean(anchorElNav)}
+                    onClose={handleCloseNavMenu}
+                    sx={{
+                      display: { xs: 'block', md: 'none' },
+                    }}
+                  >
+                    {pages.map(({ name, href }) => (
+                      <MenuItem key={name} onClick={handleCloseNavMenu}>
+                        <NavLink name={name} href={href} />
+                      </MenuItem>
+                    ))}
+                  </Menu>
                 </Box>
-              </nav>
-              <UserBar authData={authData} currentUser={currentUser} />
-            </NavWrap>
+              )}
+            </Box>
           </Toolbar>
         </Container>
       </AppBar>

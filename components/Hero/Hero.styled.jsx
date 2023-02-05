@@ -2,40 +2,107 @@ import styled from '@emotion/styled';
 import { device } from '../../services/deviceSizes';
 
 export const Container = styled.section`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 30px 10px;
-  width: 100%;
-  background-color: var(--addBgColor);
+  padding-top: 55px;
 
-  @media ${device.tablet} {
-    padding: 30px 60px;
+  @media ${device.laptopM} {
+    padding-top: 60px;
+  }
+
+  @media ${device.laptopL} {
+    padding-top: 70px;
   }
 `;
 
 export const Title = styled.h1`
-  width: 45vw;
+  margin-bottom: 10px;
   text-transform: uppercase;
-  font-weight: 600;
-  font-size: 40px;
-  line-height: 50px;
-  position: relative;
-  display: inline-block;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-image: url('/City Lights.jpg');
-  background-size: 40vw 45vw;
+  font-family: 'Technovier';
+  font-size: 35px;
+  line-height: 41px;
+  letter-spacing: 0.05em;
+  color: #fff;
 
   @media ${device.tablet} {
-    width: 40vw;
-    font-size: 55px;
+    font-size: 50px;
     line-height: 70px;
   }
 
-  @media ${'(min-width: 1000px)'} {
-    width: 40vw;
-    font-size: 100px;
-    line-height: 130px;
+  @media ${device.laptopM} {
+    width: 1220px;
+    font-size: 60px;
+    line-height: 100px;
+  }
+
+  @media ${device.laptopL} {
+    width: 1680px;
+    font-size: 80px;
+    line-height: 120px;
+  }
+`;
+
+export const Wrap = styled.section`
+  @media ${device.laptopM} {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  @media ${device.laptopL} {
+    width: 1550px;
+  }
+`;
+
+export const Background = styled.div`
+  position: relative;
+  height: 420px;
+
+  @media ${device.laptopL} {
+    height: 650px;
+  }
+`;
+
+export const Splash = styled.div`
+  position: absolute;
+  top: 30px;
+  left: -130px;
+  width: 302px;
+  height: 302px;
+
+  @media ${device.tablet} {
+    top: 50px;
+    left: -50px;
+    width: 445px;
+    height: 445px;
+  }
+
+  @media ${device.laptopL} {
+    top: 40px;
+    left: -60px;
+    width: 635px;
+    height: 635px;
+  }
+`;
+
+export const Device = styled.div`
+  position: absolute;
+  top: 0;
+  left: 110px;
+  width: 190px;
+  height: 365px;
+
+  @media ${device.tablet} {
+    left: 120px;
+    width: 625px;
+    height: 465px;
+  }
+
+  @media ${device.laptopM} {
+    left: 190px;
+  }
+
+  @media ${device.laptopL} {
+    left: 170px;
+    width: 900px;
+    height: 580px;
   }
 `;

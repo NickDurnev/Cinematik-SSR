@@ -1,11 +1,33 @@
 @import-normalize;
 /* bring in normalize.css styles */
 
+@font-face {
+  font-family: "Technovier";
+  src: url('../fonts/Technovier/Techovier.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Muller";
+  src: url('../fonts/Muller/MullerRegular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Muller";
+  src: url('../fonts/Muller/MullerThin.ttf');
+  font-weight: 300;
+  font-style: normal;
+}
+
+
 /* styles-varibles */
 
 :root {
-  --mainBgColor: rgba(12, 13, 46, 0.9);
-  --addBgColor: #010225;
+  --mainBgColor: #013645;
+  --addBgColor: #3e3d6b;
   --thirdBgColor: #494b81;
   --mainTextColor: #ffffff;
   --accentColor: #1190cb;
@@ -17,7 +39,7 @@
 
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Muller', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -66,5 +88,6 @@ h4,
 h5,
 h6 {
   margin: 0;
+  color:'#fff'
 }
 

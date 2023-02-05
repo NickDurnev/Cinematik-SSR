@@ -1,9 +1,8 @@
 import { PropTypes } from 'prop-types';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Button, Avatar } from '@mui/material';
 import stringAvatar from '../../services/avatarFormatter';
-import { Container, CustomButton } from './UserBar.styled';
+import { Container} from './UserBar.styled';
 
 const UserBar = ({ authData, currentUser }) => {
   const [isSizeScreen, setIsSizeScreen] = useState(null);
@@ -28,34 +27,21 @@ const UserBar = ({ authData, currentUser }) => {
           {isSizeScreen && (
             <Avatar
               {...stringAvatar(`${user.name}`)}
-              sx={{ width: 60, height: 60, fontSize: 25 }}
+              sx={{
+                width: 60,
+                height: 60,
+                fontSize: 25,
+                lineHeight: '25px',
+                letterSpacing: '0.05em',
+                backgroundColor: 'transparent',
+                color: '#fff',
+                border: '1px solid #fff',
+              }}
             />
           )}
-          <div>
-            <h3>Welcome {user.name}</h3>
-            <CustomButton
-              variant="contained"
-              color="accentColor"
-              href="/api/auth/logout"
-            >
-              Logout
-            </CustomButton>
-            <Link
-              href={`https://cinematikapplication.vercel.app/${currentUser._id}`}
-              passHref
-            >
-              <CustomButton
-                sx={{ ml: '20px' }}
-                variant="contained"
-                color="accentColor"
-              >
-                Go to App
-              </CustomButton>
-            </Link>
-          </div>
         </div>
       ) : (
-        <Button variant="contained" color="accentColor" href="/api/auth/login">
+        <Button variant="text" color="accentColor" href="/api/auth/login">
           Login
         </Button>
       )}

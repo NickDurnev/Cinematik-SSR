@@ -1,35 +1,63 @@
-import { useEffect, useState } from 'react';
-import { Container, Title } from './Hero.styled';
 import Image from 'next/image';
+import AppLink from '../AppLink/AppLink';
+import useSizeScreen from '../../hooks/useSizeScreen';
+import {
+  Container,
+  Wrap,
+  Background,
+  Splash,
+  Device,
+  Title,
+} from './Hero.styled';
 
-const Hero = () => {
-  const [isSizeScreen, setIsSizeScreen] = useState(null);
-
-  useEffect(() => {
-    // You now have access to `window`
-    if (window.matchMedia('(min-width: 375px)').matches) {
-      setIsSizeScreen('phone');
-    }
-    if (window.matchMedia('(min-width: 768px)').matches) {
-      setIsSizeScreen('tablet');
-    }
-    if (window.matchMedia('(min-width: 1440px)').matches) {
-      setIsSizeScreen('laptop');
-    }
-  }, []);
+const Hero = ({ currentUser }) => {
+  const isSizeScreen = useSizeScreen();
 
   return (
     <Container>
-      <Title>Movie Change the world</Title>
-      {isSizeScreen === 'phone' && (
-        <Image src="/iPhone 11 Pro.png" alt="Phone" width={300} height={600} />
-      )}
-      {isSizeScreen === 'tablet' && (
-        <Image src="/iPad Pro 11.png" alt="Tablet" width={600} height={900} />
-      )}
-      {isSizeScreen === 'laptop' && (
-        <Image src="/MacBook Pro.png" alt="Laptop" width={1300} height={650} />
-      )}
+      <Title>
+        Movie <br />
+        Change the world
+      </Title>
+      <Wrap>
+        <Background>
+          <Splash>
+            <Image
+              src="/Splash-min.png"
+              alt="Splash"
+              layout="fill"
+              objectFit="contain"
+            />
+          </Splash>
+          <Device>
+            {isSizeScreen === 'phone' && (
+              <Image
+                src="/IPhone-min.png"
+                alt="Phone"
+                layout="fill"
+                objectFit="contain"
+              />
+            )}
+            {isSizeScreen === 'tablet' && (
+              <Image
+                src="/Ipad-min.png"
+                alt="Tablet"
+                layout="fill"
+                objectFit="contain"
+              />
+            )}
+            {isSizeScreen === 'laptop' && (
+              <Image
+                src="/MacBook Pro-min.png"
+                alt="Laptop"
+                width={900}
+                height={580}
+              />
+            )}
+          </Device>
+        </Background>
+        <AppLink currentUser={currentUser} />
+      </Wrap>
     </Container>
   );
 };
