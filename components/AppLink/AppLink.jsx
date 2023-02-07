@@ -24,10 +24,7 @@ const AppLink = ({ currentUser }) => {
             >
               Logout
             </CustomButton>
-            <Link
-              href={`https://cinematikapplication.vercel.app/${currentUser._id}`}
-              passHref
-            >
+            <Link href={`http://localhost:3001/${currentUser._id}`} passHref>
               <CustomButton
                 sx={{ ml: '20px' }}
                 variant="text"

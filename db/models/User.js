@@ -9,6 +9,7 @@ const UserSchema = new Schema(
       unique: true,
     },
     locale: String,
+    picture: String,
     leftReview: {
       type: Boolean,
       default: false,

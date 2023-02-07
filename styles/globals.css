@@ -29,8 +29,8 @@
   --mainBgColor: #013645;
   --addBgColor: #3e3d6b;
   --thirdBgColor: #494b81;
-  --mainTextColor: #ffffff;
-  --accentColor: #1190cb;
+  --mainTextColor: #FFFFFF;
+  --addTextColor: rgba(255, 255, 255, 0.5);
 }
 
 * {

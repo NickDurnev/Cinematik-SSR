@@ -2,10 +2,10 @@ import { PropTypes } from 'prop-types';
 import { useUser } from '@auth0/nextjs-auth0';
 import { useState } from 'react';
 import moment from 'moment';
-import { Rating } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { Container, Form } from './AddReview.styled';
+import { Container, Form, StyledRating } from './AddReview.styled';
 
 const AddReview = ({ addReview }) => {
   const [value, setValue] = useState(2);
@@ -35,8 +35,8 @@ const AddReview = ({ addReview }) => {
       <div>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <textarea
-            placeholder="Type your review"
-            rows="5"
+            placeholder="Add a comment..."
+            rows="11"
             cols="55"
             {...register('text', {
               required: 'You need type something',
@@ -53,16 +53,35 @@ const AddReview = ({ addReview }) => {
               <p style={{ color: 'white', fontSize: '20px' }}>{message}</p>
             )}
           />
-          <Rating
+          <StyledRating
             name="Rating"
             value={value}
             onChange={(event, newValue) => {
               setValue(newValue);
             }}
             precision={0.5}
-            sx={{ mt: 2, mb: 2 }}
+            icon={
+              <StarIcon
+                fontSize="inherit"
+                style={{
+                  width: '20px',
+                  height: '20px',
+                  stroke: '#fff',
+                }}
+              />
+            }
+            emptyIcon={
+              <StarIcon
+                fontSize="inherit"
+                style={{
+                  width: '20px',
+                  height: '20px',
+                  stroke: '#fff',
+                }}
+              />
+            }
           />
-          <button type="submit">Submit</button>
+          <button type="submit">Send</button>
         </Form>
       </div>
     </Container>

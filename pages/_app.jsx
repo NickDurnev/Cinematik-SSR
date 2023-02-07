@@ -2,54 +2,20 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 import Layout from '../components/Layout/Layout';
 import { UserProvider } from '@auth0/nextjs-auth0';
+import { ToastContainer } from 'react-toastify';
+import { ThemeProvider } from '@mui/material/styles';
 import '../styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-const theme = createTheme({
-  status: {
-    danger: '#e53e3e',
-  },
-  components: {
-    MuiList: {
-      styleOverrides: {
-        root: {
-          backgroundColor: '#3e3d6b',
-          color: '#fff',
-        },
-      },
-    },
-  },
-  typography: {
-    button: {
-      fontWeight: '400',
-      fontSize: '18px',
-      lineHeight: '18px',
-      textTransform: 'none',
-    },
-  },
-  palette: {
-    navColor: {
-      main: 'transparent',
-    },
-    mainTextColor: {
-      main: '#fff',
-    },
-    accentColor: {
-      main: '#fff',
-    },
-  },
-});
+import theme from '../services/theme';
 
 export const StyledToastContainer = styled(ToastContainer)`
   &&&.Toastify__toast-container {
   }
   .Toastify__toast {
-    color: ${theme.palette.mainTextColor.main};
-    background-color: ${theme.palette.navColor.main};
+    color: var(--mainTextColor);
+    background-color: var(--mainBgColor);
     & > button {
-      color: ${theme.palette.mainTextColor.main};
+      color: var(--mainTextColor);
     }
   }
 `;
@@ -65,12 +31,12 @@ function MyApp({ Component, pageProps }) {
           currentUser={currentUser}
         >
           <Component {...pageProps} currentUser={currentUser} />
+          <StyledToastContainer
+            autoClose={3000}
+            position={'top-center'}
+            limit={1}
+          />
         </Layout>
-        <StyledToastContainer
-          autoClose={3000}
-          position={'top-center'}
-          limit={1}
-        />
       </ThemeProvider>
     </UserProvider>
   );

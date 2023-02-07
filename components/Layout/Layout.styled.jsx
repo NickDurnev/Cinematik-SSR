@@ -7,7 +7,6 @@ export const Container = styled.div`
     var(--mainBgColor) 0%,
     var(--addBgColor) 100%
   );
-  width: 100vw;
   min-height: 100vh;
 `;
 

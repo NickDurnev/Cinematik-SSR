@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
 const schema = Joi.object({
-  avatar: Joi.string().allow(null, ''),
+  picture: Joi.string().allow(null, ''),
   createdAt: Joi.string(),
   name: Joi.string().trim(true).required(),
   rating: Joi.string().required(),

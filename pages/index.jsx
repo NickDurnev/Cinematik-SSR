@@ -9,7 +9,7 @@ const Home = ({ currentUser }) => {
         <title>Home page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="App for searching movies" />
-        <link rel="icon" href="/vercel.svg" />
+        <link rel="icon" href="/Logo.svg" />
       </Head>
       <Hero currentUser={currentUser} />
       <Companies />

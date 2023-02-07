@@ -10,26 +10,32 @@ const Layout = ({ children, setCurrentUser, currentUser = null }) => {
   const authData = useUser();
 
   const addUser = async user => {
-    const response = await fetch('api/users', {
-      method: 'POST',
-      body: JSON.stringify(user),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return await response.json();
+    try {
+      const response = await fetch('api/users', {
+        method: 'POST',
+        body: JSON.stringify(user),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return await response.json();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const addUserToDB = async userData => {
     const { data } = await addUser(userData);
+    console.log(data);
     setCurrentUser(data.user);
     setskip(true);
   };
 
   useEffect(() => {
     if (authData.user && !skip) {
-      const { name, email, locale } = authData.user;
-      addUserToDB({ name, email, locale });
+      console.log(authData);
+      const { name, email, locale, picture } = authData.user;
+      addUserToDB({ name, email, locale, picture });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authData]);

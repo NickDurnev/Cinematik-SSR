@@ -14,6 +14,7 @@ export const Container = styled.section`
 `;
 
 export const Title = styled.h1`
+  width: 100%;
   margin-bottom: 10px;
   text-transform: uppercase;
   font-family: 'Technovier';
@@ -28,13 +29,13 @@ export const Title = styled.h1`
   }
 
   @media ${device.laptopM} {
-    width: 1220px;
+    width: calc(100vw - 220);
     font-size: 60px;
     line-height: 100px;
   }
 
   @media ${device.laptopL} {
-    width: 1680px;
+    width: calc(100vw - 240);
     font-size: 80px;
     line-height: 120px;
   }
@@ -91,7 +92,7 @@ export const Device = styled.div`
   height: 365px;
 
   @media ${device.tablet} {
-    left: 120px;
+    left: 100px;
     width: 625px;
     height: 465px;
   }

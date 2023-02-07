@@ -21,7 +21,7 @@ export const Container = styled.div`
     margin-bottom: 120px;
   }
 
-  & > h3 {
+  & h3 {
     margin-bottom: 30px;
     font-size: 35px;
     font-weight: 400;

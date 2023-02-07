@@ -5,6 +5,7 @@ import ReviewList from '../components/ReviewList';
 import AddReview from '../components/AddReviw';
 import dbConnect from '../db/connection';
 import Review from '../db/models/Review';
+import { Section } from '../styles/reviews.styled';
 
 const Reviews = ({ data, currentUser }) => {
   const [reviews, setReviews] = useState([...data]);
@@ -41,18 +42,21 @@ const Reviews = ({ data, currentUser }) => {
   };
 
   return (
-    <>
+    <Section>
       <Head>
         <title>Reviews</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Users reviews" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/Logo.svg" />
       </Head>
-      {currentUser && !isLeftReview && (
-        <AddReview addReview={review => addReview(review)} />
-      )}
-      <ReviewList reviews={reviews} />
-    </>
+      <h2>Reviews</h2>
+      <div>
+        {currentUser && !isLeftReview && (
+          <AddReview addReview={review => addReview(review)} />
+        )}
+        <ReviewList reviews={reviews} />
+      </div>
+    </Section>
   );
 };
 

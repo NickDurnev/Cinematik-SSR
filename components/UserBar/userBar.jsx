@@ -1,8 +1,8 @@
 import { PropTypes } from 'prop-types';
 import { useEffect, useState } from 'react';
-import { Button, Avatar } from '@mui/material';
-import stringAvatar from '../../services/avatarFormatter';
-import { Container} from './UserBar.styled';
+import { Button } from '@mui/material';
+import UserAvatar from '../Avatar/UserAvatar';
+import { Container } from './UserBar.styled';
 
 const UserBar = ({ authData, currentUser }) => {
   const [isSizeScreen, setIsSizeScreen] = useState(null);
@@ -23,23 +23,7 @@ const UserBar = ({ authData, currentUser }) => {
     <Container>
       {isLodaing && <div>Loading...</div>}
       {currentUser ? (
-        <div>
-          {isSizeScreen && (
-            <Avatar
-              {...stringAvatar(`${user.name}`)}
-              sx={{
-                width: 60,
-                height: 60,
-                fontSize: 25,
-                lineHeight: '25px',
-                letterSpacing: '0.05em',
-                backgroundColor: 'transparent',
-                color: '#fff',
-                border: '1px solid #fff',
-              }}
-            />
-          )}
-        </div>
+        <div>{isSizeScreen && <UserAvatar name={user.name} size={60} />}</div>
       ) : (
         <Button variant="text" color="accentColor" href="/api/auth/login">
           Login
