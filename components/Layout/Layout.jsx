@@ -26,14 +26,12 @@ const Layout = ({ children, setCurrentUser, currentUser = null }) => {
 
   const addUserToDB = async userData => {
     const { data } = await addUser(userData);
-    console.log(data);
     setCurrentUser(data.user);
     setskip(true);
   };
 
   useEffect(() => {
     if (authData.user && !skip) {
-      console.log(authData);
       const { name, email, locale, picture } = authData.user;
       addUserToDB({ name, email, locale, picture });
     }
