@@ -17,7 +17,7 @@ const Footer = () => {
           <p>CINEMATIK</p>
         </LogoWrap>
         <div>
-          <p>Crafted by Nikita Durnev</p>
+          <p>Crafted by Dumb Gooses Labs</p>
           <p>2023</p>
         </div>
       </Container>
