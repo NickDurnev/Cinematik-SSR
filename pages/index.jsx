@@ -1,4 +1,5 @@
 import Head from 'next/head';
+//#Components
 import Hero from '../components/Hero';
 import Companies from '../components/Companies';
 

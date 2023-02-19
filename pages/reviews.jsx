@@ -1,21 +1,18 @@
-import { useState, useEffect } from 'react';
+import { PropTypes } from 'prop-types';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import Head from 'next/head';
-import ReviewList from '../components/ReviewList';
-import AddReview from '../components/AddReviw';
+//#DB
 import dbConnect from '../db/connection';
 import Review from '../db/models/Review';
+//#Components
+import ReviewList from '../components/ReviewList';
+import AddReview from '../components/AddReviw';
+//#Styles
 import { Section } from '../styles/reviews.styled';
 
-const Reviews = ({ data, currentUser }) => {
+const Reviews = ({ data, currentUser, isLeftReview, setIsLeftReview }) => {
   const [reviews, setReviews] = useState([...data]);
-  const [isLeftReview, setIsLeftReview] = useState(null);
-
-  useEffect(() => {
-    if (currentUser) {
-      setIsLeftReview(currentUser.leftReview);
-    }
-  }, [currentUser]);
 
   const addReview = async review => {
     const response = await fetch('api/reviews', {
@@ -27,7 +24,7 @@ const Reviews = ({ data, currentUser }) => {
     });
     const result = await response.json();
     if (!result.data) {
-      toast.error('Invalid data');
+      toast.error(result.message);
       return;
     }
     await fetch('api/users/review', {
@@ -52,7 +49,10 @@ const Reviews = ({ data, currentUser }) => {
       <h2>Reviews</h2>
       <div>
         {currentUser && !isLeftReview && (
-          <AddReview addReview={review => addReview(review)} />
+          <AddReview
+            addReview={review => addReview(review)}
+            currentUser={currentUser}
+          />
         )}
         <ReviewList reviews={reviews} />
       </div>
@@ -73,3 +73,14 @@ export async function getServerSideProps() {
     };
   }
 }
+
+Reviews.propTypes = {
+  currentUser: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    locale: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    picture: PropTypes.string,
+  }),
+  isLeftReview: PropTypes.bool,
+  setIsLeftReview: PropTypes.func.isRequired,
+};

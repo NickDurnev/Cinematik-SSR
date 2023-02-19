@@ -5,7 +5,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <meta charSet="utf-8" />
-        <meta name="Movie App" content="App for searching movies" />
+        <meta name="CINEMATIK" content="App for searching movies" />
       </Head>
       <body>
         <Main />

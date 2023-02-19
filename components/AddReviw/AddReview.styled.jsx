@@ -61,10 +61,34 @@ export const Form = styled.form`
     }
   }
 
+  @media ${device.laptopM} {
+    max-width: 685px;
+  }
+
+  @media ${device.laptopL} {
+    max-width: 900px;
+  }
+`;
+
+export const Wrap = styled.div`
+  width: 350px;
+  margin-top: 20px;
+  margin-left: auto;
+
+  @media ${device.laptopM} {
+    width: 210px;
+    margi-top: 30px;
+  }
+
+  @media ${device.laptopL} {
+    width: 220px;
+  }
+
   & > button {
     display: block;
-    width: 350px;
+    width: 100%;
     margin: 0 auto;
+    margin-top: 20px;
     padding: 20px;
     color: var(--mainTextColor);
     border: 0.5px solid var(--mainTextColor);
@@ -75,37 +99,24 @@ export const Form = styled.form`
     line-height: 16px;
 
     @media ${device.laptopM} {
-      width: 210px;
-      margin-right: 0;
+      margin-top: 30px;
     }
 
     @media ${device.laptopL} {
-      width: 220px;
       font-size: 27px;
       line-height: 27px;
     }
-  }
-
-  @media ${device.laptopM} {
-    max-width: 685px;
-  }
-
-  @media ${device.laptopL} {
-    max-width: 900px;
   }
 `;
 
 export const StyledRating = styled(Rating)`
   color: var(--mainTextColor);
-  display: flex;
-  justify-content: space-between;
-  width: 140px;
-  margin: 20px auto;
 
-  @media ${device.laptopM} {
-    width: 210px;
-    margin: 30px auto;
-    margin-right: 0;
-    padding-left: 20px;
+  & > span {
+    padding: 0 5px;
+
+    @media ${device.laptopM} {
+      padding: 0 10px;
+    }
   }
 `;

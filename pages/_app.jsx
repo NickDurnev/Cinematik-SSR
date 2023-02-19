@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import Layout from '../components/Layout/Layout';
 import { UserProvider } from '@auth0/nextjs-auth0';
 import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from '@mui/material/styles';
-import '../styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
+import Layout from '../components/Layout/Layout';
+import '../styles/globals.css';
 import theme from '../services/theme';
 
 export const StyledToastContainer = styled(ToastContainer)`
@@ -22,6 +22,13 @@ export const StyledToastContainer = styled(ToastContainer)`
 
 function MyApp({ Component, pageProps }) {
   const [currentUser, setCurrentUser] = useState(null);
+  const [isLeftReview, setIsLeftReview] = useState(null);
+
+  useEffect(() => {
+    if (currentUser) {
+      setIsLeftReview(currentUser.leftReview);
+    }
+  }, [currentUser]);
 
   return (
     <UserProvider>
@@ -30,7 +37,12 @@ function MyApp({ Component, pageProps }) {
           setCurrentUser={user => setCurrentUser(user)}
           currentUser={currentUser}
         >
-          <Component {...pageProps} currentUser={currentUser} />
+          <Component
+            {...pageProps}
+            currentUser={currentUser}
+            isLeftReview={isLeftReview}
+            setIsLeftReview={setIsLeftReview}
+          />
           <StyledToastContainer
             autoClose={3000}
             position={'top-center'}

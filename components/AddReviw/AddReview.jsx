@@ -1,15 +1,15 @@
 import { PropTypes } from 'prop-types';
-import { useUser } from '@auth0/nextjs-auth0';
 import { useState } from 'react';
 import moment from 'moment';
 import StarIcon from '@mui/icons-material/Star';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { Container, Form, StyledRating } from './AddReview.styled';
+import { Container, Form, Wrap, StyledRating } from './AddReview.styled';
 
-const AddReview = ({ addReview }) => {
+const AddReview = ({ addReview, currentUser }) => {
   const [value, setValue] = useState(2);
-  const { user } = useUser();
+  const { name, picture } = currentUser;
+
   const {
     register,
     handleSubmit,
@@ -20,8 +20,8 @@ const AddReview = ({ addReview }) => {
     const date = moment().format('DD-MM-YYYY');
     const review = {
       createdAt: date,
-      name: `${user.name}`,
-      avatar: '',
+      name: name,
+      picture: picture,
       text: text,
       rating: value.toString(),
     };
@@ -44,6 +44,10 @@ const AddReview = ({ addReview }) => {
                 value: 200,
                 message: 'A maximum length is 200 symbols',
               },
+              minLength: {
+                value: 5,
+                message: 'Longer than 5 symbols',
+              },
             })}
           />
           <ErrorMessage
@@ -53,35 +57,37 @@ const AddReview = ({ addReview }) => {
               <p style={{ color: 'white', fontSize: '20px' }}>{message}</p>
             )}
           />
-          <StyledRating
-            name="Rating"
-            value={value}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
-            precision={0.5}
-            icon={
-              <StarIcon
-                fontSize="inherit"
-                style={{
-                  width: '20px',
-                  height: '20px',
-                  stroke: '#fff',
-                }}
-              />
-            }
-            emptyIcon={
-              <StarIcon
-                fontSize="inherit"
-                style={{
-                  width: '20px',
-                  height: '20px',
-                  stroke: '#fff',
-                }}
-              />
-            }
-          />
-          <button type="submit">Send</button>
+          <Wrap>
+            <StyledRating
+              name="Rating"
+              value={value}
+              onChange={(event, newValue) => {
+                setValue(newValue);
+              }}
+              precision={0.5}
+              size="large"
+              icon={
+                <StarIcon
+                  fontSize="inherit"
+                  style={{
+                    stroke: '#fff',
+                  }}
+                />
+              }
+              emptyIcon={
+                <StarIcon
+                  fontSize="inherit"
+                  style={{
+                    stroke: '#fff',
+                  }}
+                />
+              }
+              sx={{
+                fontSize: '25px',
+              }}
+            />
+            <button type="submit">Send</button>
+          </Wrap>
         </Form>
       </div>
     </Container>
@@ -90,6 +96,12 @@ const AddReview = ({ addReview }) => {
 
 AddReview.propTypes = {
   addReview: PropTypes.func.isRequired,
+  currentUser: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    locale: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    picture: PropTypes.string,
+  }).isRequired,
 };
 
 export default AddReview;
