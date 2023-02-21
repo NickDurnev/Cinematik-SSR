@@ -6,6 +6,7 @@ export default function Document() {
       <Head>
         <meta charSet="utf-8" />
         <meta name="CINEMATIK" content="App for searching movies" />
+        <link rel="icon" href="/Logo.svg" />
       </Head>
       <body>
         <Main />
