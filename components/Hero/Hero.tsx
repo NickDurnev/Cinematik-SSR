@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import AppLink from '../AppLink/AppLink';
+import { IUser } from '../../services/interfaces';
 import useSizeScreen from '../../hooks/useSizeScreen';
 import {
   Container,
@@ -10,7 +11,7 @@ import {
   Title,
 } from './Hero.styled';
 
-const Hero = ({ currentUser }) => {
+const Hero = ({ currentUser }: { currentUser: IUser }) => {
   const isSizeScreen = useSizeScreen();
 
   return (

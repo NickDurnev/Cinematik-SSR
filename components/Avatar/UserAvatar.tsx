@@ -1,9 +1,15 @@
-import { PropTypes } from 'prop-types';
 import { Avatar } from '@mui/material';
 import Image from 'next/image';
 import stringAvatar from '../../services/avatarFormatter';
+import { IUser } from '../../services/interfaces';
 
-const UserAvatar = ({ picture, name, size }) => {
+interface IProps {
+  picture?: IUser['picture'];
+  name: IUser['name'];
+  size: number;
+}
+
+const UserAvatar = ({ picture, name, size }: IProps) => {
   return (
     <>
       {picture ? (
@@ -31,12 +37,6 @@ const UserAvatar = ({ picture, name, size }) => {
       )}
     </>
   );
-};
-
-UserAvatar.propTypes = {
-  picture: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  size: PropTypes.number.isRequired,
 };
 
 export default UserAvatar;

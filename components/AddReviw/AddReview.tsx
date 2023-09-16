@@ -1,13 +1,18 @@
-import { PropTypes } from 'prop-types';
 import { useState } from 'react';
 import moment from 'moment';
 import StarIcon from '@mui/icons-material/Star';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import { IUser, IReview } from '../../services/interfaces';
 import { Container, Form, Wrap, StyledRating } from './AddReview.styled';
 
-const AddReview = ({ addReview, currentUser }) => {
-  const [value, setValue] = useState(2);
+interface IProps {
+  addReview: (review: IReview) => void;
+  currentUser: IUser;
+}
+
+const AddReview = ({ addReview, currentUser }: IProps) => {
+  const [value, setValue] = useState<number | null>(2);
   const { name, picture } = currentUser;
 
   const {
@@ -16,14 +21,14 @@ const AddReview = ({ addReview, currentUser }) => {
     reset,
     formState: { errors },
   } = useForm();
-  const onSubmit = async ({ text }) => {
+  const onSubmit = async ({ text }: { text: string }): Promise<void> => {
     const date = moment().format('DD-MM-YYYY');
     const review = {
       createdAt: date,
       name: name,
       picture: picture,
       text: text,
-      rating: value.toString(),
+      rating: value?.toString(),
     };
     addReview(review);
 
@@ -36,8 +41,8 @@ const AddReview = ({ addReview, currentUser }) => {
         <Form onSubmit={handleSubmit(onSubmit)}>
           <textarea
             placeholder="Add a comment..."
-            rows="11"
-            cols="55"
+            rows={11}
+            cols={55}
             {...register('text', {
               required: 'You need type something',
               maxLength: {
@@ -61,7 +66,7 @@ const AddReview = ({ addReview, currentUser }) => {
             <StyledRating
               name="Rating"
               value={value}
-              onChange={(event, newValue) => {
+              onChange={(e, newValue) => {
                 setValue(newValue);
               }}
               precision={0.5}
@@ -92,16 +97,6 @@ const AddReview = ({ addReview, currentUser }) => {
       </div>
     </Container>
   );
-};
-
-AddReview.propTypes = {
-  addReview: PropTypes.func.isRequired,
-  currentUser: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    locale: PropTypes.string,
-    name: PropTypes.string.isRequired,
-    picture: PropTypes.string,
-  }).isRequired,
 };
 
 export default AddReview;

@@ -1,5 +1,6 @@
-import { PropTypes } from 'prop-types';
 import Link from 'next/link';
+import { useTheme } from '@mui/material/styles';
+import { IUser } from '../../services/interfaces';
 import {
   Container,
   ButtonContainer,
@@ -7,7 +8,9 @@ import {
   CustomButton,
 } from './AppLink.styled';
 
-const AppLink = ({ currentUser }) => {
+const AppLink = ({ currentUser }: { currentUser: IUser }) => {
+  const theme = useTheme();
+
   return (
     <Container>
       {currentUser ? (
@@ -19,7 +22,7 @@ const AppLink = ({ currentUser }) => {
           <ButtonContainer>
             <CustomButton
               variant="text"
-              color="accentColor"
+              sx={{ color: theme.palette.accentColor.main }}
               href="/api/auth/logout"
             >
               Logout
@@ -29,9 +32,8 @@ const AppLink = ({ currentUser }) => {
               passHref
             >
               <CustomButton
-                sx={{ ml: '20px' }}
+                sx={{ ml: '20px', color: theme.palette.accentColor.main }}
                 variant="text"
-                color="accentColor"
               >
                 Go to App
               </CustomButton>
@@ -39,19 +41,13 @@ const AppLink = ({ currentUser }) => {
           </ButtonContainer>
         </div>
       ) : (
-        <LoginButton variant="text" color="accentColor" href="/api/auth/login">
+        <LoginButton variant="text" sx={{ color: theme.palette.accentColor.main }}
+          href="/api/auth/login">
           Login
         </LoginButton>
       )}
     </Container>
   );
-};
-
-AppLink.propTypes = {
-  currentUser: PropTypes.oneOfType([
-    PropTypes.shape({ _id: PropTypes.string.isRequired }),
-    PropTypes.oneOf([null]).isRequired,
-  ]),
 };
 
 export default AppLink;

@@ -1,5 +1,4 @@
-import { PropTypes } from 'prop-types';
-import { useState } from 'react';
+import { useState, MouseEvent } from 'react';
 import Image from 'next/image';
 //# MUI Components
 import AppBar from '@mui/material/AppBar';
@@ -10,11 +9,14 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
+import { useTheme } from '@mui/material/styles';
 
 import useSizeScreen from '../../hooks/useSizeScreen';
-import NavLink from '../Link';
+import NavLink from '../NavLink';
 import UserBar from '../UserBar';
 import { Header, LogoWrap, NavWrap } from './AppBar.styled';
+
+import { IAuthData, IUser } from '../../services/interfaces';
 
 const pages = [
   { name: 'Home', href: '/' },
@@ -22,23 +24,29 @@ const pages = [
   { name: 'Reviews', href: '/reviews' },
 ];
 
-const ResponsiveAppBar = ({ authData = null, currentUser }) => {
+interface IProps {
+  authData: IAuthData | null;
+  currentUser: IUser | null;
+}
+
+const ResponsiveAppBar = ({ authData = null, currentUser }: IProps) => {
   const isSizeScreen = useSizeScreen();
+  const theme = useTheme();
 
-  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
-  const handleOpenNavMenu = event => {
-    setAnchorElNav(event.currentTarget);
+  const handleOpenNavMenu = (e: MouseEvent<HTMLButtonElement>) => {
+    setAnchorElNav(e.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (): void => {
     setAnchorElNav(null);
   };
 
   return (
     <Header>
-      <AppBar position="static" color="navColor">
-        <Container maxWidth="false" disableGutters={true}>
+      <AppBar position="static" sx={{ backgroundColor: theme.palette.navColor.main }}>
+        <Container maxWidth={false} disableGutters={true}>
           <Toolbar
             disableGutters
             sx={{
@@ -136,7 +144,7 @@ const ResponsiveAppBar = ({ authData = null, currentUser }) => {
                     aria-controls="menu-appbar"
                     aria-haspopup="true"
                     onClick={handleOpenNavMenu}
-                    color="mainTextColor"
+                    sx={{ color: theme.palette.mainTextColor.main }}
                   >
                     <Image src="/Menu.svg" width={24} height={24} alt="Menu" />
                   </IconButton>
@@ -172,10 +180,6 @@ const ResponsiveAppBar = ({ authData = null, currentUser }) => {
       </AppBar>
     </Header>
   );
-};
-
-AppBar.propTypes = {
-  authData: PropTypes.oneOfType([PropTypes.object, PropTypes.oneOf([null])]),
 };
 
 export default ResponsiveAppBar;

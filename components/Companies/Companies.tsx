@@ -1,10 +1,7 @@
 import { Section, LogoContainer } from './Companies.styled';
 import Image from 'next/image';
-import useSizeScreen from '../../hooks/useSizeScreen';
 
 const Companies = () => {
-  const isSizeScreen = useSizeScreen();
-
   return (
     <Section>
       <h3>Movies by the biggest names in the industry</h3>

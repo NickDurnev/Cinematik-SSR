@@ -13,7 +13,7 @@ const UserBar = ({ authData, currentUser }) => {
     }
   }, []);
 
-  const { user, error, isLodaing } = authData;
+  const { user, error, isLoading } = authData;
 
   if (error) {
     return <div>{error.message}</div>;
@@ -21,7 +21,7 @@ const UserBar = ({ authData, currentUser }) => {
 
   return (
     <Container>
-      {isLodaing && <div>Loading...</div>}
+      {isLoading && <div>Loading...</div>}
       {currentUser ? (
         <div>{isSizeScreen && <UserAvatar name={user.name} size={60} />}</div>
       ) : (
