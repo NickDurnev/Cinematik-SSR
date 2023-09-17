@@ -1,11 +1,20 @@
-import { PropTypes } from 'prop-types';
+import { useTheme } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
+//#Services
+import { IUser, IAuthData } from '../../services/interfaces';
+//#Components
 import { Button } from '@mui/material';
 import UserAvatar from '../Avatar/UserAvatar';
+//#Styles
 import { Container } from './UserBar.styled';
 
-const UserBar = ({ authData, currentUser }) => {
-  const [isSizeScreen, setIsSizeScreen] = useState(null);
+interface IProps {
+  authData: IAuthData | null;
+  currentUser: IUser | null;
+}
+
+const UserBar = ({ authData, currentUser }: IProps) => {
+  const [isSizeScreen, setIsSizeScreen] = useState<string | null>(null);
 
   useEffect(() => {
     if (window.matchMedia('(min-width: 768px)').matches) {
@@ -13,6 +22,9 @@ const UserBar = ({ authData, currentUser }) => {
     }
   }, []);
 
+  const theme = useTheme();
+
+  if (!authData) return null;
   const { user, error, isLoading } = authData;
 
   if (error) {
@@ -23,21 +35,14 @@ const UserBar = ({ authData, currentUser }) => {
     <Container>
       {isLoading && <div>Loading...</div>}
       {currentUser ? (
-        <div>{isSizeScreen && <UserAvatar name={user.name} size={60} />}</div>
+        <div>{isSizeScreen && <UserAvatar name={user?.name} size={60} />}</div>
       ) : (
-        <Button variant="text" color="accentColor" href="/api/auth/login">
+        <Button variant="text" sx={{ color: theme.palette.accentColor.main }} href="/api/auth/login">
           Login
         </Button>
       )}
     </Container>
   );
-};
-
-UserBar.propTypes = {
-  currentUser: PropTypes.oneOfType([
-    PropTypes.shape({ _id: PropTypes.string.isRequired }),
-    PropTypes.oneOf([null]).isRequired,
-  ]),
 };
 
 export default UserBar;

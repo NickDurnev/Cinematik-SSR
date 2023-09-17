@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import moment from 'moment';
-import StarIcon from '@mui/icons-material/Star';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+//#Services
 import { IUser, IReview } from '../../services/interfaces';
+//#Styles
+import StarIcon from '@mui/icons-material/Star';
 import { Container, Form, Wrap, StyledRating } from './AddReview.styled';
 
 interface IProps {

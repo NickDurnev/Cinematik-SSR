@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { device } from '../services/deviceSizes';
 
 const useSizeScreen = () => {
-  const [isSizeScreen, setIsSizeScreen] = useState(null);
+  const [isSizeScreen, setIsSizeScreen] = useState<string | null>(null);
 
   useEffect(() => {
     if (window.matchMedia(device.mobileM).matches) {

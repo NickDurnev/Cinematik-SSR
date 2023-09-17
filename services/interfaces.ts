@@ -15,9 +15,10 @@ export interface IUser {
 }
 
 export interface IReview {
-  createdAt: string;
-  name: string;
+  _id?: string;
+  createdAt?: string | null;
+  name?: string | null;
   rating?: string;
-  picture?: string;
+  picture?: string | null;
   text: string;
 }

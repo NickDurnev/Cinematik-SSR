@@ -1,5 +1,6 @@
 import { useState, useEffect, ReactNode } from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
+import { toast } from 'react-toastify';
 //#Services
 import { addUser } from '../../services/APIService';
 import { IUser } from '../../services/interfaces';
@@ -20,9 +21,14 @@ const Layout = ({ children, setCurrentUser, currentUser = null }: IProps) => {
   const authData = useUser();
 
   const addUserToDB = async (userData: IUser) => {
-    const { data } = await addUser(userData);
-    setCurrentUser(data.user);
-    setskip(true);
+    try {
+      const { data } = await addUser(userData);
+      setCurrentUser(data.user);
+      setskip(true);
+    } catch (error) {
+      console.error('Error adding review:', error);
+      toast.error('An error occurred while adding the user.');
+    }
   };
 
   useEffect(() => {

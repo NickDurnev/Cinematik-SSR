@@ -1,5 +1,6 @@
 import { Avatar } from '@mui/material';
 import Image from 'next/image';
+//#Services
 import stringAvatar from '../../services/avatarFormatter';
 import { IUser } from '../../services/interfaces';
 

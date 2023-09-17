@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import Review from '../Review';
+import { IReview } from '../../services/interfaces';
 import { List } from './ReviewList.styled';
 
-const ReviewList = ({ reviews }) => {
+const ReviewList = ({ reviews }: { reviews: IReview[] }) => {
   if (!reviews) {
     return null;
   }

@@ -1,9 +1,11 @@
-import PropTypes from 'prop-types';
+import { IReview } from '../../services/interfaces';
+//#Components
 import StarIcon from '@mui/icons-material/Star';
 import UserAvatar from '../Avatar/UserAvatar';
+//#Styles
 import { Wrap, Header, StyledRating, InfoWrap, Text } from './Review.styled';
 
-const Review = ({ review }) => {
+const Review = ({ review }: { review: IReview }) => {
   const { picture, name, rating, text, createdAt } = review;
   return (
     <Wrap
@@ -49,18 +51,6 @@ const Review = ({ review }) => {
       </InfoWrap>
     </Wrap>
   );
-};
-
-Review.propTypes = {
-  reviews: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      avatar: PropTypes.string,
-      rating: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-      createdAt: PropTypes.string.isRequired,
-    })
-  ),
 };
 
 export default Review;

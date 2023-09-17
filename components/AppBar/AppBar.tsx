@@ -1,5 +1,9 @@
 import { useState, MouseEvent } from 'react';
+import { useTheme } from '@mui/material/styles';
 import Image from 'next/image';
+//#Services
+import { IAuthData, IUser } from '../../services/interfaces';
+import useSizeScreen from '../../hooks/useSizeScreen';
 //# MUI Components
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -9,14 +13,11 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
-import { useTheme } from '@mui/material/styles';
-
-import useSizeScreen from '../../hooks/useSizeScreen';
+//#Components
 import NavLink from '../NavLink';
 import UserBar from '../UserBar';
+//#Styles
 import { Header, LogoWrap, NavWrap } from './AppBar.styled';
-
-import { IAuthData, IUser } from '../../services/interfaces';
 
 const pages = [
   { name: 'Home', href: '/' },

@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import AppLink from '../AppLink/AppLink';
+//#Services
 import { IUser } from '../../services/interfaces';
 import useSizeScreen from '../../hooks/useSizeScreen';
+//#Styles
 import {
   Container,
   Wrap,

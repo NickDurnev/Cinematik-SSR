@@ -1,5 +1,5 @@
-import { Section, LogoContainer } from './Companies.styled';
 import Image from 'next/image';
+import { Section, LogoContainer } from './Companies.styled';
 
 const Companies = () => {
   return (

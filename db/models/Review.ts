@@ -8,5 +8,6 @@ const ReviewSchema = new mongoose.Schema({
   rating: { type: String, required: [true, 'Set rating for review'] },
 });
 
-module.exports =
+const Review =
   mongoose.models.reviews || mongoose.model('reviews', ReviewSchema);
+export default Review;
