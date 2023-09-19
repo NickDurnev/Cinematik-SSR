@@ -14,6 +14,7 @@ left your review on the Review page.
 
 - Next.js
 - React
+- Typescript
 - Mongoose
 - Auth0
 - Joi
@@ -23,7 +24,6 @@ left your review on the Review page.
 - Framer Motion
 - Moment.js
 - HookForm
-- Prop Types
 
 ## Scripts Usage
 
