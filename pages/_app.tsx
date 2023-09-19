@@ -1,12 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ElementType } from 'react';
 import styled from '@emotion/styled';
 import { UserProvider } from '@auth0/nextjs-auth0';
 import { ToastContainer } from 'react-toastify';
+//#Services
+import { IUser } from '../services/interfaces';
+import theme from '../services/theme';
+//#Components
+import Layout from '../components/Layout/Layout';
+//#Styles
 import { ThemeProvider } from '@mui/material/styles';
 import 'react-toastify/dist/ReactToastify.css';
-import Layout from '../components/Layout/Layout';
 import '../styles/globals.css';
-import theme from '../services/theme';
 
 export const StyledToastContainer = styled(ToastContainer)`
   &&&.Toastify__toast-container {
@@ -20,13 +24,18 @@ export const StyledToastContainer = styled(ToastContainer)`
   }
 `;
 
-function MyApp({ Component, pageProps }) {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [isLeftReview, setIsLeftReview] = useState(null);
+interface IProps {
+  Component: ElementType;
+  pageProps: object;
+}
+
+const MyApp = ({ Component, pageProps }: IProps) => {
+  const [currentUser, setCurrentUser] = useState<IUser | null>(null);
+  const [isLeftReview, setIsLeftReview] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (currentUser) {
-      setIsLeftReview(currentUser.leftReview);
+    if (currentUser?.leftReview) {
+      setIsLeftReview(currentUser?.leftReview);
     }
   }, [currentUser]);
 
@@ -52,6 +61,6 @@ function MyApp({ Component, pageProps }) {
       </ThemeProvider>
     </UserProvider>
   );
-}
+};
 
 export default MyApp;

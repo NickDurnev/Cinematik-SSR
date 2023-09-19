@@ -2,8 +2,10 @@ import Head from 'next/head';
 //#Components
 import Hero from '../components/Hero';
 import Companies from '../components/Companies';
+//#Services
+import { IUser } from '../services/interfaces';
 
-const Home = ({ currentUser }) => {
+const Home = ({ currentUser }: { currentUser: IUser }) => {
   return (
     <>
       <Head>

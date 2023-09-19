@@ -61,7 +61,7 @@ const AddReview = ({ addReview, currentUser }: IProps) => {
             errors={errors}
             name="text"
             render={({ message }) => (
-              <p style={{ color: 'white', fontSize: '20px' }}>{message}</p>
+              <p style={{ color: 'white', fontSize: '20px', marginTop: '10px' }}>{message}</p>
             )}
           />
           <Wrap>

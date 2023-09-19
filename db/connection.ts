@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 declare global {
-  var mongoose: any;
+  var MONGOOSE: any;
 }
 
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -12,10 +12,10 @@ if (!MONGODB_URI) {
   );
 }
 
-let cached = global.mongoose;
+let cached = global.MONGOOSE;
 
 if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
+  cached = global.MONGOOSE = { conn: null, promise: null };
 }
 
 async function dbConnect() {

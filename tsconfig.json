@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext", "es6"],
-    "allowJs": true,
+    "allowJs": false,
     "skipLibCheck": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
@@ -23,7 +23,8 @@
     "**/*.ts",
     "**/*.tsx",
     "components/AppBar/AppBar.tsx",
-    "components/Layout/Layout.jsx"
+    "components/Layout/Layout.jsx",
+    "pages/_app.tsx"
   ],
   "exclude": ["node_modules"]
 }
