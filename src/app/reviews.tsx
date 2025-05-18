@@ -10,7 +10,7 @@ import { IReview, IUser } from '../services/interfaces';
 import ReviewList from '../components/ReviewList';
 import AddReview from '../components/AddReview';
 //#Styles
-import { Section } from '../styles/reviews.styled';
+import { Section } from '../../styles/reviews.styled';
 
 interface IProps {
   data: IReview[];
@@ -19,7 +19,12 @@ interface IProps {
   setIsLeftReview: (isLeftReview: boolean) => void;
 }
 
-const Reviews = ({ data, currentUser, isLeftReview, setIsLeftReview }: IProps) => {
+const Reviews = ({
+  data,
+  currentUser,
+  isLeftReview,
+  setIsLeftReview,
+}: IProps) => {
   const [reviews, setReviews] = useState([...data]);
 
   const addReview = async (review: IReview): Promise<void> => {
@@ -86,4 +91,3 @@ export async function getServerSideProps() {
     };
   }
 }
-

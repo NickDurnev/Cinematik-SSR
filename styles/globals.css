@@ -2,26 +2,25 @@
 /* bring in normalize.css styles */
 
 @font-face {
-  font-family: "Technovier";
+  font-family: 'Technovier';
   src: url('../fonts/Technovier/Techovier.ttf');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Muller";
+  font-family: 'Muller';
   src: url('../fonts/Muller/MullerRegular.ttf');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Muller";
+  font-family: 'Muller';
   src: url('../fonts/Muller/MullerThin.ttf');
   font-weight: 300;
   font-style: normal;
 }
-
 
 /* styles-varibles */
 
@@ -29,7 +28,7 @@
   --mainBgColor: #013645;
   --addBgColor: #3e3d6b;
   --thirdBgColor: #494b81;
-  --mainTextColor: #FFFFFF;
+  --mainTextColor: #ffffff;
   --addTextColor: rgba(255, 255, 255, 0.5);
 }
 
@@ -88,6 +87,5 @@ h4,
 h5,
 h6 {
   margin: 0;
-  color:'#fff'
+  color: '#fff';
 }
-

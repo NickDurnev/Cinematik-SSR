@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { device } from '../services/deviceSizes';
+import { device } from '../src/services/deviceSizes';
 
 export const Section = styled.section`
   width: 100%;

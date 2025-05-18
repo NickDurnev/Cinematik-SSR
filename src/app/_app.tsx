@@ -1,6 +1,5 @@
 import { useState, useEffect, ElementType } from 'react';
 import styled from '@emotion/styled';
-import { UserProvider } from '@auth0/nextjs-auth0';
 import { ToastContainer } from 'react-toastify';
 //#Services
 import { IUser } from '../services/interfaces';
@@ -40,26 +39,24 @@ const MyApp = ({ Component, pageProps }: IProps) => {
   }, [currentUser]);
 
   return (
-    <UserProvider>
-      <ThemeProvider theme={theme}>
-        <Layout
-          setCurrentUser={user => setCurrentUser(user)}
+    <ThemeProvider theme={theme}>
+      <Layout
+        setCurrentUser={user => setCurrentUser(user)}
+        currentUser={currentUser}
+      >
+        <Component
+          {...pageProps}
           currentUser={currentUser}
-        >
-          <Component
-            {...pageProps}
-            currentUser={currentUser}
-            isLeftReview={isLeftReview}
-            setIsLeftReview={setIsLeftReview}
-          />
-          <StyledToastContainer
-            autoClose={3000}
-            position={'top-center'}
-            limit={1}
-          />
-        </Layout>
-      </ThemeProvider>
-    </UserProvider>
+          isLeftReview={isLeftReview}
+          setIsLeftReview={setIsLeftReview}
+        />
+        <StyledToastContainer
+          autoClose={3000}
+          position={'top-center'}
+          limit={1}
+        />
+      </Layout>
+    </ThemeProvider>
   );
 };
 
