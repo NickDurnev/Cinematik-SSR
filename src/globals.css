@@ -2,22 +2,22 @@
 /* bring in normalize.css styles */
 
 @font-face {
-  font-family: 'Technovier';
-  src: url('../fonts/Technovier/Techovier.ttf');
+  font-family: "Technovier";
+  src: url("./fonts/Technovier/Techovier.ttf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Muller';
-  src: url('../fonts/Muller/MullerRegular.ttf');
+  font-family: "Muller";
+  src: url("./fonts/Muller/MullerRegular.ttf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Muller';
-  src: url('../fonts/Muller/MullerThin.ttf');
+  font-family: "Muller";
+  src: url("./fonts/Muller/MullerThin.ttf");
   font-weight: 300;
   font-style: normal;
 }
@@ -38,7 +38,7 @@
 
 body {
   margin: 0;
-  font-family: 'Muller', sans-serif;
+  font-family: "Muller", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -87,5 +87,5 @@ h4,
 h5,
 h6 {
   margin: 0;
-  color: '#fff';
+  color: "#fff";
 }

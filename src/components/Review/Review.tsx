@@ -1,9 +1,9 @@
-import { IReview } from '../../services/interfaces';
+import { Avatar } from "@/components";
 //#Components
-import StarIcon from '@mui/icons-material/Star';
-import UserAvatar from '../Avatar/UserAvatar';
+import StarIcon from "@mui/icons-material/Star";
+import { IReview } from "../../services/interfaces";
 //#Styles
-import { Wrap, Header, StyledRating, InfoWrap, Text } from './Review.styled';
+import { Header, InfoWrap, StyledRating, Text, Wrap } from "./Review.styled";
 
 const Review = ({ review }: { review: IReview }) => {
   const { picture, name, rating, text, createdAt } = review;
@@ -14,7 +14,7 @@ const Review = ({ review }: { review: IReview }) => {
       viewport={{ once: true }}
     >
       <Header>
-        <UserAvatar picture={picture} name={name} size={50} />
+        <Avatar picture={picture} name={name} size={50} />
         <StyledRating
           name="read-only"
           value={Number(rating)}
@@ -24,9 +24,9 @@ const Review = ({ review }: { review: IReview }) => {
             <StarIcon
               fontSize="inherit"
               style={{
-                width: '18px',
-                height: '18px',
-                stroke: '#fff',
+                width: "18px",
+                height: "18px",
+                stroke: "#fff",
               }}
             />
           }
@@ -34,9 +34,9 @@ const Review = ({ review }: { review: IReview }) => {
             <StarIcon
               fontSize="inherit"
               style={{
-                width: '18px',
-                height: '18px',
-                stroke: '#fff',
+                width: "18px",
+                height: "18px",
+                stroke: "#fff",
               }}
             />
           }

@@ -1,47 +1,46 @@
-import { useState, useEffect, ReactNode } from 'react';
-import { useUser } from '@auth0/nextjs-auth0';
-import { toast } from 'react-toastify';
-//#Services
-import { addUser } from '../../services/APIService';
-import { IUser } from '../../services/interfaces';
-//#Components
-import ResponsiveAppBar from '../AppBar';
-import Footer from '../Footer';
-//#Styles
-import { Container, Wrap } from './Layout.styled';
+"use client";
+import { useUser } from "@auth0/nextjs-auth0";
+import { ReactNode, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
+import { UserStore, useUserStore } from "@/hooks/stores";
+import { addUser } from "@/services/user/service";
+import { IAuthUserData } from "@/services/user/types";
+
+import { AppBar } from "@/components";
+import Footer from "../Footer";
+import { Container, Wrap } from "./Layout.styled";
 
 interface IProps {
   children: ReactNode | ReactNode[];
-  setCurrentUser: (user: IUser) => void;
-  currentUser: IUser | null;
 }
 
-const Layout = ({ children, setCurrentUser, currentUser = null }: IProps) => {
-  const [skip, setskip] = useState(false);
+const Layout = ({ children }: IProps) => {
+  const [skip, setSkip] = useState(false);
   const authData = useUser();
+  const setUser = useUserStore((state: UserStore) => state.setUser);
 
-  const addUserToDB = async (userData: IUser) => {
+  const addUserToDB = async (userData: IAuthUserData) => {
     try {
       const { data } = await addUser(userData);
-      setCurrentUser(data.user);
-      setskip(true);
+      setUser(data);
+      setSkip(true);
     } catch (error) {
-      console.error('Error adding review:', error);
-      toast.error('An error occurred while adding the user.');
+      console.error("Error adding review:", error);
+      toast.error("An error occurred while adding the user.");
     }
   };
 
   useEffect(() => {
     if (authData.user && !skip) {
-      const { name, email, locale, picture } = authData.user as IUser;
+      const { name, email, locale, picture } = authData.user as IAuthUserData;
       addUserToDB({ name, email, locale, picture });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authData]);
 
   return (
     <Container>
-      <ResponsiveAppBar authData={authData} currentUser={currentUser} />
+      <AppBar />
       <Wrap>
         <main>{children}</main>
         <Footer />

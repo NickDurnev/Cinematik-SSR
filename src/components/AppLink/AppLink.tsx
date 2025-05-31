@@ -1,25 +1,27 @@
-import Link from 'next/link';
-//#Services
-import { IUser } from '../../services/interfaces';
-//#Styles
-import { useTheme } from '@mui/material/styles';
-import {
-  Container,
-  ButtonContainer,
-  LoginButton,
-  CustomButton,
-} from './AppLink.styled';
+import Link from "next/link";
 
-const AppLink = ({ currentUser }: { currentUser: IUser }) => {
+import { UserStore, useUserStore } from "@/hooks/stores";
+
+//#Styles
+import { useTheme } from "@mui/material/styles";
+import {
+  ButtonContainer,
+  Container,
+  CustomButton,
+  LoginButton,
+} from "./AppLink.styled";
+
+const AppLink = () => {
   const theme = useTheme();
+  const user = useUserStore((state: UserStore) => state.user);
 
   return (
     <Container>
-      {currentUser ? (
+      {user ? (
         <div>
-          <h3 style={{ color: '#fff' }}>
+          <h3 style={{ color: "#fff" }}>
             Welcome <br />
-            {currentUser.name}
+            {user.name}
           </h3>
           <ButtonContainer>
             <CustomButton
@@ -30,11 +32,11 @@ const AppLink = ({ currentUser }: { currentUser: IUser }) => {
               Logout
             </CustomButton>
             <Link
-              href={`https://cinematikapplication.vercel.app/${currentUser._id}`}
+              href={`https://cinematikapplication.vercel.app/${user._id}`}
               passHref
             >
               <CustomButton
-                sx={{ ml: '20px', color: theme.palette.accentColor.main }}
+                sx={{ ml: "20px", color: theme.palette.accentColor.main }}
                 variant="text"
               >
                 Go to App
@@ -43,8 +45,11 @@ const AppLink = ({ currentUser }: { currentUser: IUser }) => {
           </ButtonContainer>
         </div>
       ) : (
-        <LoginButton variant="text" sx={{ color: theme.palette.accentColor.main }}
-          href="/api/auth/login">
+        <LoginButton
+          variant="text"
+          sx={{ color: theme.palette.accentColor.main }}
+          href="/api/auth/login"
+        >
           Login
         </LoginButton>
       )}

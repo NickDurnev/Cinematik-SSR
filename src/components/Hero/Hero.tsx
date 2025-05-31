@@ -1,19 +1,18 @@
-import Image from 'next/image';
-import AppLink from '../AppLink/AppLink';
+import Image from "next/image";
 //#Services
-import { IUser } from '../../services/interfaces';
-import useSizeScreen from '../../hooks/useSizeScreen';
+import useSizeScreen from "../../hooks/useSizeScreen";
+import AppLink from "../AppLink/AppLink";
 //#Styles
 import {
-  Container,
-  Wrap,
   Background,
-  Splash,
+  Container,
   Device,
+  Splash,
   Title,
-} from './Hero.styled';
+  Wrap,
+} from "./Hero.styled";
 
-const Hero = ({ currentUser }: { currentUser: IUser }) => {
+const Hero = () => {
   const isSizeScreen = useSizeScreen();
 
   return (
@@ -33,7 +32,7 @@ const Hero = ({ currentUser }: { currentUser: IUser }) => {
             />
           </Splash>
           <Device>
-            {isSizeScreen === 'phone' && (
+            {isSizeScreen === "phone" && (
               <Image
                 src="/IPhone-min.png"
                 alt="Phone"
@@ -41,7 +40,7 @@ const Hero = ({ currentUser }: { currentUser: IUser }) => {
                 objectFit="contain"
               />
             )}
-            {isSizeScreen === 'tablet' && (
+            {isSizeScreen === "tablet" && (
               <Image
                 src="/Ipad-min.png"
                 alt="Tablet"
@@ -49,7 +48,7 @@ const Hero = ({ currentUser }: { currentUser: IUser }) => {
                 objectFit="contain"
               />
             )}
-            {isSizeScreen === 'laptop' && (
+            {isSizeScreen === "laptop" && (
               <Image
                 src="/MacBook Pro-min.png"
                 alt="Laptop"
@@ -59,7 +58,7 @@ const Hero = ({ currentUser }: { currentUser: IUser }) => {
             )}
           </Device>
         </Background>
-        <AppLink currentUser={currentUser} />
+        <AppLink />
       </Wrap>
     </Container>
   );

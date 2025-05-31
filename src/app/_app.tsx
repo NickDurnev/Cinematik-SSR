@@ -1,15 +1,17 @@
-import { useState, useEffect, ElementType } from 'react';
-import styled from '@emotion/styled';
-import { ToastContainer } from 'react-toastify';
+import { ElementType, useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
+
 //#Services
-import { IUser } from '../services/interfaces';
-import theme from '../services/theme';
+import theme from "@/services/theme";
+
 //#Components
-import Layout from '../components/Layout/Layout';
+import Layout from "@/components/Layout/Layout";
+
 //#Styles
-import { ThemeProvider } from '@mui/material/styles';
-import 'react-toastify/dist/ReactToastify.css';
-import '../styles/globals.css';
+import styled from "@emotion/styled";
+import { ThemeProvider } from "@mui/material/styles";
+import "react-toastify/dist/ReactToastify.css";
+import "../styles/globals.css";
 
 export const StyledToastContainer = styled(ToastContainer)`
   &&&.Toastify__toast-container {
@@ -29,7 +31,6 @@ interface IProps {
 }
 
 const MyApp = ({ Component, pageProps }: IProps) => {
-  const [currentUser, setCurrentUser] = useState<IUser | null>(null);
   const [isLeftReview, setIsLeftReview] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -40,10 +41,7 @@ const MyApp = ({ Component, pageProps }: IProps) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Layout
-        setCurrentUser={user => setCurrentUser(user)}
-        currentUser={currentUser}
-      >
+      <Layout>
         <Component
           {...pageProps}
           currentUser={currentUser}
@@ -52,7 +50,7 @@ const MyApp = ({ Component, pageProps }: IProps) => {
         />
         <StyledToastContainer
           autoClose={3000}
-          position={'top-center'}
+          position={"top-center"}
           limit={1}
         />
       </Layout>

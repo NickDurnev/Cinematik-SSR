@@ -1,36 +1,31 @@
-import { useState, MouseEvent } from 'react';
-import { useTheme } from '@mui/material/styles';
-import Image from 'next/image';
-//#Services
-import { IAuthData, IUser } from '../../services/interfaces';
-import useSizeScreen from '../../hooks/useSizeScreen';
-//# MUI Components
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import Container from '@mui/material/Container';
-import MenuItem from '@mui/material/MenuItem';
+"use client";
+import { useTheme } from "@mui/material/styles";
+import Image from "next/image";
+import { MouseEvent, useState } from "react";
+
+import useSizeScreen from "@/hooks/useSizeScreen";
 //#Components
-import NavLink from '../NavLink';
-import UserBar from '../UserBar';
-//#Styles
-import { Header, LogoWrap, NavWrap } from './AppBar.styled';
+import MuiAppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+
+import NavLink from "../NavLink";
+import UserBar from "../UserBar";
+
+import { Header, LogoWrap, NavWrap } from "./AppBar.styled";
 
 const pages = [
-  { name: 'Home', href: '/' },
+  { name: "Home", href: "/" },
   // { name: 'Benefits', href: '/benefits' },
-  { name: 'Reviews', href: '/reviews' },
+  { name: "Reviews", href: "/reviews" },
 ];
 
-interface IProps {
-  authData: IAuthData | null;
-  currentUser: IUser | null;
-}
-
-const ResponsiveAppBar = ({ authData = null, currentUser }: IProps) => {
+const AppBar = () => {
   const isSizeScreen = useSizeScreen();
   const theme = useTheme();
 
@@ -46,23 +41,26 @@ const ResponsiveAppBar = ({ authData = null, currentUser }: IProps) => {
 
   return (
     <Header>
-      <AppBar position="static" sx={{ backgroundColor: theme.palette.navColor.main }}>
+      <MuiAppBar
+        position="static"
+        sx={{ backgroundColor: theme.palette.navColor.main }}
+      >
         <Container maxWidth={false} disableGutters={true}>
           <Toolbar
             disableGutters
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
+              display: "flex",
+              justifyContent: "space-between",
               padding:
-                isSizeScreen === 'phone' || isSizeScreen === 'tablet'
-                  ? '0 12px'
-                  : ' 0 120px',
-              height: isSizeScreen === 'phone' ? '57px' : '122px',
-              borderBottom: '0.5px solid #fff',
+                isSizeScreen === "phone" || isSizeScreen === "tablet"
+                  ? "0 12px"
+                  : " 0 120px",
+              height: isSizeScreen === "phone" ? "57px" : "122px",
+              borderBottom: "0.5px solid #fff",
             }}
           >
             <LogoWrap>
-              {isSizeScreen === 'phone' ? (
+              {isSizeScreen === "phone" ? (
                 <Image src="/Logo.svg" width={42} height={48} alt="Logo" />
               ) : (
                 <Image src="/Logo.svg" width={58} height={65} alt="Logo" />
@@ -73,14 +71,14 @@ const ResponsiveAppBar = ({ authData = null, currentUser }: IProps) => {
                 href="/"
                 sx={{
                   mr: 2,
-                  display: { xs: 'none', md: 'flex' },
-                  fontFamily: 'Muller',
-                  fontSize: '20px',
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "Muller",
+                  fontSize: "20px",
                   fontWeight: 600,
-                  lineHeight: '24px',
-                  letterSpacing: '0.2em',
-                  color: '#fff',
-                  textDecoration: 'none',
+                  lineHeight: "24px",
+                  letterSpacing: "0.2em",
+                  color: "#fff",
+                  textDecoration: "none",
                 }}
               >
                 CINEMATIK
@@ -93,15 +91,15 @@ const ResponsiveAppBar = ({ authData = null, currentUser }: IProps) => {
                 href="/"
                 sx={{
                   mr: 2,
-                  display: { xs: 'flex', md: 'none' },
+                  display: { xs: "flex", md: "none" },
                   flexGrow: 1,
-                  fontFamily: 'Muller',
-                  fontSize: '14px',
+                  fontFamily: "Muller",
+                  fontSize: "14px",
                   fontWeight: 600,
-                  lineHeight: '17px',
-                  letterSpacing: '0.2em',
-                  color: '#fff',
-                  textDecoration: 'none',
+                  lineHeight: "17px",
+                  letterSpacing: "0.2em",
+                  color: "#fff",
+                  textDecoration: "none",
                 }}
               >
                 CINEMATIK
@@ -109,18 +107,18 @@ const ResponsiveAppBar = ({ authData = null, currentUser }: IProps) => {
             </>
             <Box
               sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
-              {isSizeScreen !== 'phone' && (
+              {isSizeScreen !== "phone" && (
                 <NavWrap>
                   <nav>
                     <Box
                       sx={{
                         flexGrow: 1,
-                        display: { md: 'flex' },
+                        display: { md: "flex" },
                       }}
                     >
                       {pages.map(({ name, href }) => (
@@ -129,16 +127,16 @@ const ResponsiveAppBar = ({ authData = null, currentUser }: IProps) => {
                           href={href}
                           key={name}
                           onClick={handleCloseNavMenu}
-                          sx={{ my: 2, color: 'transparent', display: 'block' }}
+                          sx={{ my: 2, color: "transparent", display: "block" }}
                         />
                       ))}
                     </Box>
                   </nav>
-                  <UserBar authData={authData} currentUser={currentUser} />
+                  <UserBar />
                 </NavWrap>
               )}
-              {isSizeScreen === 'phone' && (
-                <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              {isSizeScreen === "phone" && (
+                <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                   <IconButton
                     size="large"
                     aria-label="account of current user"
@@ -153,18 +151,18 @@ const ResponsiveAppBar = ({ authData = null, currentUser }: IProps) => {
                     id="menu-appbar"
                     anchorEl={anchorElNav}
                     anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'left',
+                      vertical: "bottom",
+                      horizontal: "left",
                     }}
                     keepMounted
                     transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'left',
+                      vertical: "top",
+                      horizontal: "left",
                     }}
                     open={Boolean(anchorElNav)}
                     onClose={handleCloseNavMenu}
                     sx={{
-                      display: { xs: 'block', md: 'none' },
+                      display: { xs: "block", md: "none" },
                     }}
                   >
                     {pages.map(({ name, href }) => (
@@ -178,9 +176,9 @@ const ResponsiveAppBar = ({ authData = null, currentUser }: IProps) => {
             </Box>
           </Toolbar>
         </Container>
-      </AppBar>
+      </MuiAppBar>
     </Header>
   );
 };
 
-export default ResponsiveAppBar;
+export default AppBar;

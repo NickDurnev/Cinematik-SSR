@@ -1,7 +1,7 @@
-import dbConnect from '../../../db/connection';
-import User from '../../../db/models/User';
-import validate from '../../../middlewares/validationMiddleware';
-import schema from '../../../middlewares/validation/userValidation';
+import dbConnect from "../../../db/connection";
+import User from "../../../db/models/User";
+import schema from "../../../middlewares/validation/userValidation";
+import validate from "../../../middlewares/validationMiddleware";
 
 export default validate({ body: schema }, async function addUser(req, res) {
   const { email } = req.body;
@@ -10,23 +10,23 @@ export default validate({ body: schema }, async function addUser(req, res) {
     const user = await User.findOne({ email });
     if (user) {
       res.json({
-        status: 'success',
+        status: "success",
         code: 200,
-        data: {
-          user,
-        },
+        message: "User already exists",
+        data: user,
       });
       return;
     }
     const newUser = await User.create(req.body);
     res.status(201).json({
-      status: 'success',
+      status: "success",
       code: 201,
-      data: {
-        newUser,
-      },
+      message: "User was created",
+      data: newUser,
     });
   } catch (error) {
-    res.status(error.status).json({ success: false, message: error.message });
+    res
+      .status(error.status)
+      .json({ status: "error", code: 400, message: error.message });
   }
 });
