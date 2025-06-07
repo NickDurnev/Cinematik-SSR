@@ -1,12 +1,14 @@
-import { Avatar } from '@mui/material';
-import Image from 'next/image';
+import Image from "next/image";
+
 //#Services
-import stringAvatar from '../../services/avatarFormatter';
-import { IUser } from '../../services/interfaces';
+import stringAvatar from "@/services/avatarFormatter";
+import { IUser } from "@/services/user/types";
+
+import { Avatar } from "@mui/material";
 
 interface IProps {
-  picture?: IUser['picture'];
-  name: IUser['name'];
+  picture?: IUser["picture"];
+  name: IUser["name"];
   size: number;
 }
 
@@ -19,7 +21,7 @@ const UserAvatar = ({ picture, name, size }: IProps) => {
           alt="Avatar"
           width={size}
           height={size}
-          style={{ borderRadius: '50%' }}
+          style={{ borderRadius: "50%" }}
         />
       ) : (
         <Avatar
@@ -28,11 +30,11 @@ const UserAvatar = ({ picture, name, size }: IProps) => {
             width: size,
             height: size,
             fontSize: 25,
-            lineHeight: '25px',
-            letterSpacing: '0.05em',
-            backgroundColor: 'transparent',
-            color: '#fff',
-            border: '1px solid #fff',
+            lineHeight: "25px",
+            letterSpacing: "0.05em",
+            backgroundColor: "transparent",
+            color: "#fff",
+            border: "1px solid #fff",
           }}
         />
       )}

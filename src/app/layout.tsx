@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import Head from "next/head";
 import React from "react";
 
+import QueryProvider from "@/libs/query-provider";
+
 import "react-toastify/dist/ReactToastify.css";
 import "@/globals.css";
 
@@ -23,7 +25,9 @@ export default function RootLayout({ children }: Readonly<Props>) {
         <link rel="icon" href="/Logo.svg" />
       </Head>
       <body>
-        <Auth0Provider>{children}</Auth0Provider>
+        <QueryProvider>
+          <Auth0Provider>{children}</Auth0Provider>
+        </QueryProvider>
       </body>
     </html>
   );

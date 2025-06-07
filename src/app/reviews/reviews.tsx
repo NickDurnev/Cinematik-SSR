@@ -1,14 +1,18 @@
+//#Components
 import Head from "next/head";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import AddReview from "../components/AddReview";
-//#Components
-import ReviewList from "../components/ReviewList";
-//#DB
-import dbConnect from "../db/connection";
-import Review from "../db/models/Review";
+
 //#Services
-import { IReview, IUser } from "../services/interfaces";
+import { useAddReview } from "@/services/review/query-hooks";
+import { IReview, IReviewData } from "@/services/review/types";
+import { IUser } from "@/services/user/types";
+
+//#DB
+import dbConnect from "@/db/connection";
+import Review from "@/db/models/Review";
+
+import { AddReview, ReviewList } from "@/components";
 //#Styles
 import { Section } from "./reviews.styled";
 
@@ -26,21 +30,20 @@ const Reviews = ({
   setIsLeftReview,
 }: IProps) => {
   const [reviews, setReviews] = useState([...data]);
+  const { mutate: addReview, isPending: isReviewPending } = useAddReview();
+  console.log(" isReviewPending:", isReviewPending);
 
-  const addReview = async (review: IReview): Promise<void> => {
+  const handleAddReview = async (review: IReviewData): Promise<void> => {
     try {
-      const response = await fetch("api/reviews", {
-        method: "POST",
-        body: JSON.stringify(review),
-        headers: {
-          "Content-Type": "application/json",
+      addReview(review, {
+        onSuccess: response => {
+          setReviews([...reviews, response.data]);
+          setIsLeftReview(true);
+        },
+        onError: () => {
+          toast.error("An error occurred while adding the review.");
         },
       });
-      const result = await response.json();
-      if (!result.data) {
-        toast.error(result.message);
-        return;
-      }
       await fetch("api/users/review", {
         method: "PATCH",
         body: JSON.stringify({ email: currentUser.email }),
@@ -48,8 +51,6 @@ const Reviews = ({
           "Content-Type": "application/json",
         },
       });
-      setReviews([...reviews, result.data.review]);
-      setIsLeftReview(true);
     } catch (error) {
       console.error("Error adding review:", error);
       toast.error("An error occurred while adding the review.");
@@ -68,7 +69,7 @@ const Reviews = ({
       <div>
         {currentUser && !isLeftReview && (
           <AddReview
-            addReview={(review) => addReview(review)}
+            addReview={review => handleAddReview(review)}
             currentUser={currentUser}
           />
         )}
@@ -86,6 +87,7 @@ export async function getServerSideProps() {
     const data = await Review.find().exec();
     return { props: { data: JSON.parse(JSON.stringify(data)) } };
   } catch (error) {
+    console.log(" error:", error);
     return {
       notFound: true,
     };

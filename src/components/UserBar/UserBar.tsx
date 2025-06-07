@@ -1,9 +1,14 @@
 "use client";
-import { Avatar } from "@/components";
+import { useUser } from "@auth0/nextjs-auth0";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
+import { UserStore, useUserStore } from "@/hooks/stores";
+
 //#Components
+import { Avatar, Spinner } from "@/components";
 import { Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { useEffect, useState } from "react";
 //#Styles
 import { Container } from "./UserBar.styled";
 
@@ -17,17 +22,19 @@ const UserBar = () => {
   }, []);
 
   const theme = useTheme();
+  const authData = useUser();
+  const user = useUserStore((state: UserStore) => state.user);
 
-  const { user, error, isLoading } = authData;
+  const { error, isLoading } = authData;
 
   if (error) {
-    return <div>{error.message}</div>;
+    toast.error(error.message);
   }
 
   return (
     <Container>
-      {isLoading && <div>Loading...</div>}
-      {currentUser ? (
+      {isLoading && <Spinner />}
+      {user ? (
         <div>{isSizeScreen && <Avatar name={user?.name} size={60} />}</div>
       ) : (
         <Button

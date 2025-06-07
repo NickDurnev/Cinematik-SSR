@@ -7,8 +7,8 @@ import { UserStore, useUserStore } from "@/hooks/stores";
 import { addUser } from "@/services/user/service";
 import { IAuthUserData } from "@/services/user/types";
 
-import { AppBar } from "@/components";
-import Footer from "../Footer";
+import { AppBar, Footer } from "@/components";
+
 import { Container, Wrap } from "./Layout.styled";
 
 interface IProps {

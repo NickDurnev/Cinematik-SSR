@@ -24,6 +24,8 @@
       "@/services/*": ["./src/services/*"],
       "@/middlewares/*": ["./src/middlewares/*"],
       "@/types/*": ["./src/types/*"],
+      "@/db/*": ["./src/db/*"],
+      "@/utils/*": ["./src/utils/*"],
       "@/public/*": ["./public/*"]
     },
     "plugins": [

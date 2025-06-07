@@ -4,7 +4,10 @@ import Image from "next/image";
 import { MouseEvent, useState } from "react";
 
 import useSizeScreen from "@/hooks/useSizeScreen";
+
 //#Components
+import { NavLink, UserBar } from "@/components";
+
 import MuiAppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -14,9 +17,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
-import NavLink from "../NavLink";
-import UserBar from "../UserBar";
-
+//#Styles
 import { Header, LogoWrap, NavWrap } from "./AppBar.styled";
 
 const pages = [
