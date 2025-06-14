@@ -1,6 +1,7 @@
-import styled from '@emotion/styled';
-import { Button } from '@mui/material';
-import { device } from '../../services/deviceSizes';
+"use client";
+import { device } from "@/services/deviceSizes";
+import styled from "@emotion/styled";
+import { Button } from "@mui/material";
 
 export const Container = styled.div`
   width: 350px;

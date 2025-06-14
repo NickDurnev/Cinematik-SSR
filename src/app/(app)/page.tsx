@@ -1,14 +1,15 @@
-import Head from "next/head";
+import { Metadata } from "next";
 
 //#Components
 import { Companies, Hero } from "@/components";
 
+export const metadata: Metadata = {
+  title: "Home page",
+};
+
 const Home = () => {
   return (
     <>
-      <Head>
-        <title>Home page</title>
-      </Head>
       <Hero />
       <Companies />
     </>

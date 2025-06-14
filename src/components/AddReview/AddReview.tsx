@@ -1,10 +1,11 @@
+"use client";
 import moment from "moment";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 //#Services
-import { IReviewData } from "@/services/review/types";
-import { IUser } from "@/services/user/types";
+import { IReviewData } from "@/types/review";
+import { IUser } from "@/types/user";
 
 import { ErrorMessage } from "@hookform/error-message";
 

@@ -1,7 +1,9 @@
-import Image from "next/image";
+"use client";
+import { AppLink, Show } from "@/components";
 //#Services
-import useSizeScreen from "../../hooks/useSizeScreen";
-import AppLink from "../AppLink/AppLink";
+import useSizeScreen from "@/hooks/useSizeScreen";
+import Image from "next/image";
+
 //#Styles
 import {
   Background,
@@ -32,30 +34,30 @@ const Hero = () => {
             />
           </Splash>
           <Device>
-            {isSizeScreen === "phone" && (
+            <Show when={isSizeScreen === "phone"}>
               <Image
                 src="/IPhone-min.png"
                 alt="Phone"
                 layout="fill"
                 objectFit="contain"
               />
-            )}
-            {isSizeScreen === "tablet" && (
+            </Show>
+            <Show when={isSizeScreen === "tablet"}>
               <Image
                 src="/Ipad-min.png"
                 alt="Tablet"
                 layout="fill"
                 objectFit="contain"
               />
-            )}
-            {isSizeScreen === "laptop" && (
+            </Show>
+            <Show when={isSizeScreen === "laptop"}>
               <Image
                 src="/MacBook Pro-min.png"
                 alt="Laptop"
                 width={900}
                 height={580}
               />
-            )}
+            </Show>
           </Device>
         </Background>
         <AppLink />

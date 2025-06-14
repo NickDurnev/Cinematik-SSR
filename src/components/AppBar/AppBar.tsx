@@ -6,7 +6,7 @@ import { MouseEvent, useState } from "react";
 import useSizeScreen from "@/hooks/useSizeScreen";
 
 //#Components
-import { NavLink, UserBar } from "@/components";
+import { NavLink, Show, UserBar } from "@/components";
 
 import MuiAppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -113,30 +113,36 @@ const AppBar = () => {
                 alignItems: "center",
               }}
             >
-              {isSizeScreen !== "phone" && (
-                <NavWrap>
-                  <nav>
-                    <Box
-                      sx={{
-                        flexGrow: 1,
-                        display: { md: "flex" },
-                      }}
-                    >
-                      {pages.map(({ name, href }) => (
-                        <NavLink
-                          name={name}
-                          href={href}
-                          key={name}
-                          onClick={handleCloseNavMenu}
-                          sx={{ my: 2, color: "transparent", display: "block" }}
-                        />
-                      ))}
-                    </Box>
-                  </nav>
-                  <UserBar />
-                </NavWrap>
-              )}
-              {isSizeScreen === "phone" && (
+              <Show
+                when={isSizeScreen === "phone"}
+                fallback={
+                  <NavWrap>
+                    <nav>
+                      <Box
+                        sx={{
+                          flexGrow: 1,
+                          display: { md: "flex" },
+                        }}
+                      >
+                        {pages.map(({ name, href }) => (
+                          <NavLink
+                            name={name}
+                            href={href}
+                            key={name}
+                            onClick={handleCloseNavMenu}
+                            sx={{
+                              my: 2,
+                              color: "transparent",
+                              display: "block",
+                            }}
+                          />
+                        ))}
+                      </Box>
+                    </nav>
+                    <UserBar />
+                  </NavWrap>
+                }
+              >
                 <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                   <IconButton
                     size="large"
@@ -173,7 +179,7 @@ const AppBar = () => {
                     ))}
                   </Menu>
                 </Box>
-              )}
+              </Show>
             </Box>
           </Toolbar>
         </Container>

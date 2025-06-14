@@ -1,8 +1,9 @@
+"use client";
 import Image from "next/image";
 
 //#Services
 import stringAvatar from "@/services/avatarFormatter";
-import { IUser } from "@/services/user/types";
+import { IUser } from "@/types/user";
 
 import { Avatar } from "@mui/material";
 

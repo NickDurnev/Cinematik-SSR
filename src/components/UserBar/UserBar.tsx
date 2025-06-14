@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { UserStore, useUserStore } from "@/hooks/stores";
 
 //#Components
-import { Avatar, Spinner } from "@/components";
+import { Avatar, Show, Spinner } from "@/components";
 import { Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 //#Styles
@@ -33,18 +33,27 @@ const UserBar = () => {
 
   return (
     <Container>
-      {isLoading && <Spinner />}
-      {user ? (
-        <div>{isSizeScreen && <Avatar name={user?.name} size={60} />}</div>
-      ) : (
-        <Button
-          variant="text"
-          sx={{ color: theme.palette.accentColor.main }}
-          href="/api/auth/login"
-        >
-          Login
-        </Button>
-      )}
+      <Show when={isLoading}>
+        <Spinner />
+      </Show>
+      <Show
+        when={user}
+        fallback={
+          <Button
+            variant="text"
+            sx={{ color: theme.palette.accentColor.main }}
+            href="/api/auth/login"
+          >
+            Login
+          </Button>
+        }
+      >
+        <div>
+          <Show when={isSizeScreen}>
+            <Avatar name={user?.name} size={60} />
+          </Show>
+        </div>
+      </Show>
     </Container>
   );
 };

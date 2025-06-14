@@ -1,7 +1,7 @@
-import dbConnect from "../../../db/connection";
-import User from "../../../db/models/User";
-import schema from "../../../middlewares/validation/userValidation";
-import validate from "../../../middlewares/validationMiddleware";
+import dbConnect from "@/db/connection";
+import User from "@/db/models/User";
+import schema from "@/middlewares/validation/userValidation";
+import validate from "@/middlewares/validationMiddleware";
 
 export default validate({ body: schema }, async function addUser(req, res) {
   const { email } = req.body;

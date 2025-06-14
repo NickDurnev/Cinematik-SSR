@@ -1,9 +1,9 @@
-import withJoi from 'next-joi';
+import withJoi from "next-joi";
 
 export default withJoi({
-  onValidationError: (req, res, error) => {
+  onValidationError: (_req, res, error) => {
     res
       .status(400)
-      .json({ status: 'error', code: 400, message: error.message });
+      .json({ status: "error", code: 400, message: error.message });
   },
 });

@@ -1,5 +1,6 @@
-import styled from '@emotion/styled';
-import { device } from '../../services/deviceSizes';
+"use client";
+import styled from "@emotion/styled";
+import { device } from "../../services/deviceSizes";
 
 export const StyledFooter = styled.footer`
   width: 100%;

@@ -1,5 +1,6 @@
-import Image from 'next/image';
-import { Section, LogoContainer } from './Companies.styled';
+"use client";
+import Image from "next/image";
+import { LogoContainer, Section } from "./Companies.styled";
 
 const Companies = () => {
   return (

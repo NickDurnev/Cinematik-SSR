@@ -7,4 +7,5 @@ export interface IReviewData {
 
 export interface IReview extends IReviewData {
   _id: string;
+  createdAt: string;
 }

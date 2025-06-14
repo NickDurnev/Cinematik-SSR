@@ -1,18 +1,17 @@
 //#Components
-import Head from "next/head";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
 //#Services
 import { useAddReview } from "@/services/review/query-hooks";
-import { IReview, IReviewData } from "@/services/review/types";
-import { IUser } from "@/services/user/types";
+import { IReview, IReviewData } from "@/types/review";
+import { IUser } from "@/types/user";
 
 //#DB
 import dbConnect from "@/db/connection";
 import Review from "@/db/models/Review";
 
-import { AddReview, ReviewList } from "@/components";
+import { AddReview, ReviewList, Show } from "@/components";
 //#Styles
 import { Section } from "./reviews.styled";
 
@@ -59,20 +58,14 @@ const Reviews = ({
 
   return (
     <Section>
-      <Head>
-        <title>Reviews</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Users reviews" />
-        <link rel="icon" href="/Logo.svg" />
-      </Head>
       <h2>Reviews</h2>
       <div>
-        {currentUser && !isLeftReview && (
+        <Show when={currentUser && !isLeftReview}>
           <AddReview
             addReview={review => handleAddReview(review)}
             currentUser={currentUser}
           />
-        )}
+        </Show>
         <ReviewList reviews={reviews} />
       </div>
     </Section>

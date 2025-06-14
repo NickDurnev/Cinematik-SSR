@@ -1,11 +1,11 @@
-import { Schema, model, models } from 'mongoose';
+import { Schema, model, models } from "mongoose";
 
 const UserSchema = new Schema(
   {
-    name: { type: String, required: [true, 'Set name for user'] },
+    name: { type: String, required: [true, "Set name for user"] },
     email: {
       type: String,
-      required: [true, 'Set email for user'],
+      required: [true, "Set email for user"],
       unique: true,
     },
     locale: String,
@@ -15,9 +15,9 @@ const UserSchema = new Schema(
       default: false,
     },
   },
-  { versionKey: false }
+  { versionKey: false },
 );
 
-const User = models.users || model('users', UserSchema);
+const User = models.users || model("users", UserSchema);
 
 export default User;

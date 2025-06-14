@@ -11,3 +11,5 @@ export { default as Companies } from "./Companies/Companies";
 export { default as AddReview } from "./AddReview/AddReview";
 export { default as AppLink } from "./AppLink/AppLink";
 export { default as Spinner } from "./Spinner";
+export { default as UserAvatar } from "./Avatar";
+export { default as Show } from "./Show";

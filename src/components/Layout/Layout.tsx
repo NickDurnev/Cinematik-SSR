@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 import { UserStore, useUserStore } from "@/hooks/stores";
 import { addUser } from "@/services/user/service";
-import { IAuthUserData } from "@/services/user/types";
+import { IAuthUserData } from "@/types/user";
 
 import { AppBar, Footer } from "@/components";
 

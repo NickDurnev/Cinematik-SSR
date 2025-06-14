@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
-export const StyledLink = styled.a`
+export const StyledLink = styled.p`
   font-weight: 400;
   font-size: 18px;
   line-height: 18px;

@@ -1,9 +1,10 @@
-import { Auth0Provider } from "@auth0/nextjs-auth0";
 import type { Metadata } from "next";
-import Head from "next/head";
 import React from "react";
 
+import Providers from "@/components/Providers";
+import { auth0 } from "@/libs/auth0";
 import QueryProvider from "@/libs/query-provider";
+import { Auth0Provider } from "@auth0/nextjs-auth0";
 
 import "react-toastify/dist/ReactToastify.css";
 import "@/globals.css";
@@ -15,18 +16,22 @@ type Props = {
 export const metadata: Metadata = {
   title: "CINEMATIK",
   description: "App for searching movies",
+  viewport: "width=device-width, initial-scale=1",
+  icons: {
+    icon: "/Logo.svg",
+  },
 };
 
-export default function RootLayout({ children }: Readonly<Props>) {
+export default async function RootLayout({ children }: Readonly<Props>) {
+  const session = await auth0.getSession();
+
   return (
-    <html lang={"en"} suppressHydrationWarning>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/Logo.svg" />
-      </Head>
+    <html lang="en" suppressHydrationWarning>
       <body>
         <QueryProvider>
-          <Auth0Provider>{children}</Auth0Provider>
+          <Auth0Provider user={session?.user}>
+            <Providers>{children}</Providers>
+          </Auth0Provider>
         </QueryProvider>
       </body>
     </html>

@@ -1,5 +1,6 @@
-import Link from 'next/link';
-import { StyledLink } from './NavLink.styled';
+"use client";
+import Link from "next/link";
+import { StyledLink } from "./NavLink.styled";
 
 interface IProps {
   href: string;

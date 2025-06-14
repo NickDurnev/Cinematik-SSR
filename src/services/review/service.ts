@@ -1,7 +1,7 @@
 import { axiosInstance } from "@/libs/axios";
 
-import { IReview, IReviewData } from "@/services/review/types";
 import { IApiResponse } from "@/types/general";
+import { IReview, IReviewData } from "@/types/review";
 
 export const addReview = async (
   review: IReviewData,

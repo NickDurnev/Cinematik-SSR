@@ -1,7 +1,7 @@
 import { axiosInstance } from "@/libs/axios";
 
-import { IAuthUserData, IUser } from "@/services/user/types";
 import { IApiResponse } from "@/types/general";
+import { IAuthUserData, IUser } from "@/types/user";
 
 export const addUser = async (
   user: IAuthUserData,

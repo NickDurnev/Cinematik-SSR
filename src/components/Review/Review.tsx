@@ -1,7 +1,8 @@
+"use client";
 import { Avatar } from "@/components";
+import { IReview } from "@/types/review";
 //#Components
 import StarIcon from "@mui/icons-material/Star";
-import { IReview } from "../../services/interfaces";
 //#Styles
 import { Header, InfoWrap, StyledRating, Text, Wrap } from "./Review.styled";
 

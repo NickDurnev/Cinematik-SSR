@@ -1,4 +1,5 @@
-import { IUser } from "@/services/user/types";
+"use client";
+import { IUser } from "@/types/user";
 import { create } from "zustand";
 
 export interface UserStore {
@@ -6,7 +7,7 @@ export interface UserStore {
   setUser: (user: IUser) => void;
 }
 
-export const useUserStore = create<UserStore>((set) => ({
+export const useUserStore = create<UserStore>(set => ({
   user: {
     _id: "",
     email: "",

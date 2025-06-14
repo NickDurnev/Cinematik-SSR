@@ -1,6 +1,6 @@
-import { Request, Response } from 'express';
-import dbConnect from '../../../db/connection';
-import User from '../../../db/models/User';
+import dbConnect from "@/db/connection";
+import User from "@/db/models/User";
+import { Request, Response } from "express";
 
 export default async function updateUser(req: Request, res: Response) {
   const { email } = req.body;
@@ -10,14 +10,14 @@ export default async function updateUser(req: Request, res: Response) {
     if (!user) {
       res
         .status(404)
-        .json({ status: 'error', code: 404, message: 'User not found' });
+        .json({ status: "error", code: 404, message: "User not found" });
       return;
     }
     await User.updateOne({ leftReview: true }).exec();
     res.json({
-      status: 'success',
+      status: "success",
       code: 200,
-      message: 'User was updated',
+      message: "User was updated",
     });
   } catch (error) {
     res.status(error.status).json({ success: false, message: error.message });
