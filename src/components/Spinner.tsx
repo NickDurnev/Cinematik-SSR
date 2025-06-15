@@ -1,7 +1,12 @@
 "use client";
 import CircularProgress from "@mui/material/CircularProgress";
 
-const Spinner = () => {
+interface SpinnerProps {
+  width?: number;
+  height?: number;
+}
+
+const Spinner = ({ width = 20, height = 20 }: SpinnerProps) => {
   return (
     <>
       <svg width={0} height={0}>
@@ -13,7 +18,11 @@ const Spinner = () => {
         </defs>
       </svg>
       <CircularProgress
-        sx={{ "svg circle": { stroke: "url(#my_gradient)" } }}
+        sx={{
+          width: width,
+          height: height,
+          "svg circle": { stroke: "url(#my_gradient)" },
+        }}
       />
     </>
   );

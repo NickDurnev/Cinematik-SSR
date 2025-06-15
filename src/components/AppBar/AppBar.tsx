@@ -132,7 +132,7 @@ const AppBar = () => {
                             onClick={handleCloseNavMenu}
                             sx={{
                               my: 2,
-                              color: "transparent",
+                              color: "#00000000",
                               display: "block",
                             }}
                           />

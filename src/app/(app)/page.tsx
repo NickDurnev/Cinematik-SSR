@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 //#Components
-import { Companies, Hero } from "@/components";
+import { Companies, Hero } from "@/app/(app)/components";
 
 export const metadata: Metadata = {
   title: "Home page",
@@ -9,10 +9,10 @@ export const metadata: Metadata = {
 
 const Home = () => {
   return (
-    <>
+    <div>
       <Hero />
       <Companies />
-    </>
+    </div>
   );
 };
 

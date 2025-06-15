@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
-import { device } from '../../services/deviceSizes';
-import { Rating } from '@mui/material';
+import styled from "@emotion/styled";
+import { device } from "../../services/deviceSizes";
+import { Rating } from "@mui/material";
 
 export const Container = styled.div`
   width: 100%;
@@ -38,7 +38,7 @@ export const Form = styled.form`
     line-height: 14px;
     border: 0.5px solid var(--mainTextColor);
     border-radius: 10px;
-    background-color: transparent;
+    background-color: #00000000;
     color: var(--mainTextColor);
     outline: none;
 
@@ -93,7 +93,7 @@ export const Wrap = styled.div`
     color: var(--mainTextColor);
     border: 0.5px solid var(--mainTextColor);
     border-radius: 10px;
-    background-color: transparent;
+    background-color: #00000000;
     text-transform: uppercase;
     font-size: 16px;
     line-height: 16px;

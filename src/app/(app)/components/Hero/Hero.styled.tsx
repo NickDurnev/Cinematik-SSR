@@ -1,5 +1,7 @@
-import styled from '@emotion/styled';
-import { device } from '../../services/deviceSizes';
+"use client";
+import styled from "@emotion/styled";
+
+import { device } from "@/services/deviceSizes";
 
 export const Container = styled.section`
   padding-top: 55px;

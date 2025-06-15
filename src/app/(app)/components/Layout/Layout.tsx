@@ -1,5 +1,6 @@
 "use client";
-import { useUser } from "@auth0/nextjs-auth0";
+import type { Session } from "next-auth";
+import { useSession } from "next-auth/react";
 import { ReactNode, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -17,7 +18,7 @@ interface IProps {
 
 const Layout = ({ children }: IProps) => {
   const [skip, setSkip] = useState(false);
-  const authData = useUser();
+  const { data: nextAuthData } = useSession() as { data: Session | null };
   const setUser = useUserStore((state: UserStore) => state.setUser);
 
   const addUserToDB = async (userData: IAuthUserData) => {
@@ -32,11 +33,15 @@ const Layout = ({ children }: IProps) => {
   };
 
   useEffect(() => {
-    if (authData.user && !skip) {
-      const { name, email, locale, picture } = authData.user as IAuthUserData;
-      addUserToDB({ name, email, locale, picture });
+    if (nextAuthData && !skip) {
+      const userData = {
+        name: nextAuthData.user?.name ?? "",
+        email: nextAuthData?.user?.email ?? "",
+        picture: nextAuthData?.user?.image ?? "",
+      };
+      addUserToDB(userData);
     }
-  }, [authData]);
+  }, [nextAuthData]);
 
   return (
     <Container>

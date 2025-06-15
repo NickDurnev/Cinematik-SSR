@@ -5,7 +5,7 @@ import Image from "next/image";
 import stringAvatar from "@/services/avatarFormatter";
 import { IUser } from "@/types/user";
 
-import { Avatar } from "@mui/material";
+import { Avatar as MuiAvatar } from "@mui/material";
 
 interface IProps {
   picture?: IUser["picture"];
@@ -13,7 +13,7 @@ interface IProps {
   size: number;
 }
 
-const UserAvatar = ({ picture, name, size }: IProps) => {
+const Avatar = ({ picture, name, size }: IProps) => {
   return (
     <>
       {picture ? (
@@ -25,7 +25,7 @@ const UserAvatar = ({ picture, name, size }: IProps) => {
           style={{ borderRadius: "50%" }}
         />
       ) : (
-        <Avatar
+        <MuiAvatar
           {...stringAvatar(`${name}`)}
           sx={{
             width: size,
@@ -33,7 +33,7 @@ const UserAvatar = ({ picture, name, size }: IProps) => {
             fontSize: 25,
             lineHeight: "25px",
             letterSpacing: "0.05em",
-            backgroundColor: "transparent",
+            backgroundColor: "#00000000",
             color: "#fff",
             border: "1px solid #fff",
           }}
@@ -43,4 +43,4 @@ const UserAvatar = ({ picture, name, size }: IProps) => {
   );
 };
 
-export default UserAvatar;
+export default Avatar;

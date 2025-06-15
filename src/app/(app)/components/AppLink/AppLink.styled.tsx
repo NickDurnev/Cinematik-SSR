@@ -6,7 +6,7 @@ import { Button } from "@mui/material";
 export const Container = styled.div`
   width: 350px;
   margin: 0 auto;
-  background-color: transparent;
+  background-color: #00000000;
 
   @media ${device.tablet} {
     margin: 100px auto;
@@ -35,16 +35,6 @@ export const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-`;
-
-export const LoginButton = styled(Button)`
-  padding: 20px 130px;
-  font-family: 'Muller';
-  text-transform: uppercase;
-  font-size: 27px;
-  line-height: 27px;
-  border: 1px solid #fff;
-  border-radius: 10px;
 `;
 
 export const CustomButton = styled(Button)`

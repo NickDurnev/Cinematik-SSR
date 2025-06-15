@@ -1,15 +1,10 @@
 "use client";
-import { useUser } from "@auth0/nextjs-auth0";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 
+import { Avatar, Show } from "@/components";
 import { UserStore, useUserStore } from "@/hooks/stores";
 
-//#Components
-import { Avatar, Show, Spinner } from "@/components";
-import { Button } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-//#Styles
+import { LoginButton } from "@/app/(app)/components";
 import { Container } from "./UserBar.styled";
 
 const UserBar = () => {
@@ -21,33 +16,11 @@ const UserBar = () => {
     }
   }, []);
 
-  const theme = useTheme();
-  const authData = useUser();
   const user = useUserStore((state: UserStore) => state.user);
-
-  const { error, isLoading } = authData;
-
-  if (error) {
-    toast.error(error.message);
-  }
 
   return (
     <Container>
-      <Show when={isLoading}>
-        <Spinner />
-      </Show>
-      <Show
-        when={user}
-        fallback={
-          <Button
-            variant="text"
-            sx={{ color: theme.palette.accentColor.main }}
-            href="/api/auth/login"
-          >
-            Login
-          </Button>
-        }
-      >
+      <Show when={user._id} fallback={<LoginButton />}>
         <div>
           <Show when={isSizeScreen}>
             <Avatar name={user?.name} size={60} />

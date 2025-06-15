@@ -1,6 +1,6 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
-declare module '@mui/material/styles/createTheme' {
+declare module "@mui/material/styles/createTheme" {
   interface Theme {
     status: {
       danger: string;
@@ -13,7 +13,7 @@ declare module '@mui/material/styles/createTheme' {
   }
 }
 
-declare module '@mui/material/styles/createPalette' {
+declare module "@mui/material/styles/createPalette" {
   export interface PaletteOptions {
     navColor: { main: string };
     mainTextColor: { main: string };
@@ -28,35 +28,35 @@ declare module '@mui/material/styles/createPalette' {
 
 const theme = createTheme({
   status: {
-    danger: '#e53e3e',
+    danger: "#e53e3e",
   },
   components: {
     MuiList: {
       styleOverrides: {
         root: {
-          backgroundColor: '#3e3d6b',
-          color: '#fff',
+          backgroundColor: "#3e3d6b",
+          color: "#fff",
         },
       },
     },
   },
   typography: {
     button: {
-      fontWeight: '400',
-      fontSize: '18px',
-      lineHeight: '18px',
-      textTransform: 'none',
+      fontWeight: "400",
+      fontSize: "18px",
+      lineHeight: "18px",
+      textTransform: "none",
     },
   },
   palette: {
     navColor: {
-      main: 'transparent',
+      main: "#00000000",
     },
     mainTextColor: {
-      main: '#fff',
+      main: "#fff",
     },
     accentColor: {
-      main: '#fff',
+      main: "#fff",
     },
   },
 });

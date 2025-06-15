@@ -1,13 +1,13 @@
-import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
-import { Rating } from '@mui/material';
-import { device } from '../../services/deviceSizes';
+import styled from "@emotion/styled";
+import { motion } from "framer-motion";
+import { Rating } from "@mui/material";
+import { device } from "../../services/deviceSizes";
 
 export const Wrap = styled(motion.li)`
   width: 100%;
   padding-bottom: 35px;
   color: var(--mainTextColor);
-  background-color: transparent;
+  background-color: #00000000;
   border-bottom: 0.5px solid var(--addTextColor);
 
   & img {
