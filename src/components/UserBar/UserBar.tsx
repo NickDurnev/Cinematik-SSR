@@ -5,7 +5,6 @@ import { Avatar, Show } from "@/components";
 import { UserStore, useUserStore } from "@/hooks/stores";
 
 import { LoginButton } from "@/app/(app)/components";
-import { Container } from "./UserBar.styled";
 
 const UserBar = () => {
   const [isSizeScreen, setIsSizeScreen] = useState<string | null>(null);
@@ -19,7 +18,7 @@ const UserBar = () => {
   const user = useUserStore((state: UserStore) => state.user);
 
   return (
-    <Container>
+    <div className="ml-[50px]">
       <Show when={user._id} fallback={<LoginButton />}>
         <div>
           <Show when={isSizeScreen}>
@@ -27,7 +26,7 @@ const UserBar = () => {
           </Show>
         </div>
       </Show>
-    </Container>
+    </div>
   );
 };
 

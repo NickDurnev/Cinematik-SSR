@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 
-declare module "@mui/material/styles/createTheme" {
+declare module "@mui/material/styles" {
   interface Theme {
     status: {
       danger: string;
@@ -13,7 +13,7 @@ declare module "@mui/material/styles/createTheme" {
   }
 }
 
-declare module "@mui/material/styles/createPalette" {
+declare module "@mui/material/styles" {
   export interface PaletteOptions {
     navColor: { main: string };
     mainTextColor: { main: string };
@@ -27,36 +27,39 @@ declare module "@mui/material/styles/createPalette" {
 }
 
 const theme = createTheme({
+  cssVariables: true,
   status: {
-    danger: "#e53e3e",
+    danger: "var(--destructive)",
   },
   components: {
     MuiList: {
       styleOverrides: {
         root: {
-          backgroundColor: "#3e3d6b",
-          color: "#fff",
+          backgroundColor: "var(--background)",
+          color: "var(--foreground)",
         },
       },
     },
   },
   typography: {
+    fontFamily: "var(--font-muller)",
     button: {
       fontWeight: "400",
       fontSize: "18px",
       lineHeight: "18px",
       textTransform: "none",
+      color: "var(--primary)",
     },
   },
   palette: {
     navColor: {
-      main: "#00000000",
+      main: "transparent",
     },
     mainTextColor: {
-      main: "#fff",
+      main: "var(--foreground)",
     },
     accentColor: {
-      main: "#fff",
+      main: "var(--primary)",
     },
   },
 });

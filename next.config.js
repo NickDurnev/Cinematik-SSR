@@ -8,9 +8,6 @@ const nextConfig = {
       "avatars.githubusercontent.com",
     ],
   },
-  compiler: {
-    emotion: true,
-  },
 };
 
 module.exports = nextConfig;

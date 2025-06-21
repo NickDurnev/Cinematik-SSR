@@ -1,11 +1,12 @@
+import "react-toastify/dist/ReactToastify.css";
+import "./globals.css";
+
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import type { Metadata } from "next";
 import React from "react";
 
 import { AuthProvider, StyleProviders } from "@/components";
 import QueryProvider from "@/libs/query-provider";
-
-import "react-toastify/dist/ReactToastify.css";
-import "@/globals.css";
 
 type Props = {
   children: React.ReactNode;
@@ -26,7 +27,9 @@ export default function RootLayout({ children }: Readonly<Props>) {
       <body>
         <AuthProvider>
           <QueryProvider>
-            <StyleProviders>{children}</StyleProviders>
+            <AppRouterCacheProvider>
+              <StyleProviders>{children}</StyleProviders>
+            </AppRouterCacheProvider>
           </QueryProvider>
         </AuthProvider>
       </body>

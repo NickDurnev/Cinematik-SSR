@@ -1,8 +1,8 @@
 "use client";
-import React from "react";
-
 import theme from "@/services/theme";
 import { ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+import React from "react";
 import ToastProvider from "./ToastProvider";
 
 type Props = {
@@ -11,9 +11,16 @@ type Props = {
 
 export default function StyleProviders({ children }: Props) {
   return (
-    <ThemeProvider theme={theme}>
-      {children}
-      <ToastProvider />
-    </ThemeProvider>
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <ThemeProvider theme={theme}>
+        {children}
+        <ToastProvider />
+      </ThemeProvider>
+    </NextThemesProvider>
   );
 }

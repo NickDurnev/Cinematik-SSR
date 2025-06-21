@@ -17,9 +17,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
-//#Styles
-import { Header, LogoWrap, NavWrap } from "./AppBar.styled";
-
 const pages = [
   { name: "Home", href: "/" },
   // { name: 'Benefits', href: '/benefits' },
@@ -41,7 +38,7 @@ const AppBar = () => {
   };
 
   return (
-    <Header>
+    <header>
       <MuiAppBar
         position="static"
         sx={{ backgroundColor: theme.palette.navColor.main }}
@@ -57,10 +54,10 @@ const AppBar = () => {
                   ? "0 12px"
                   : " 0 120px",
               height: isSizeScreen === "phone" ? "57px" : "122px",
-              borderBottom: "0.5px solid #fff",
+              borderBottom: "0.5px solid var(--color-text-main)",
             }}
           >
-            <LogoWrap>
+            <div className="flex items-center">
               {isSizeScreen === "phone" ? (
                 <Image src="/Logo.svg" width={42} height={48} alt="Logo" />
               ) : (
@@ -73,18 +70,18 @@ const AppBar = () => {
                 sx={{
                   mr: 2,
                   display: { xs: "none", md: "flex" },
-                  fontFamily: "Muller",
+                  fontFamily: "var(--font-muller)",
                   fontSize: "20px",
                   fontWeight: 600,
                   lineHeight: "24px",
                   letterSpacing: "0.2em",
-                  color: "#fff",
+                  color: "var(--color-text-main)",
                   textDecoration: "none",
                 }}
               >
                 CINEMATIK
               </Typography>
-            </LogoWrap>
+            </div>
             <>
               <Typography
                 noWrap
@@ -94,12 +91,12 @@ const AppBar = () => {
                   mr: 2,
                   display: { xs: "flex", md: "none" },
                   flexGrow: 1,
-                  fontFamily: "Muller",
+                  fontFamily: "var(--font-muller)",
                   fontSize: "14px",
                   fontWeight: 600,
                   lineHeight: "17px",
                   letterSpacing: "0.2em",
-                  color: "#fff",
+                  color: "var(--color-text-main)",
                   textDecoration: "none",
                 }}
               >
@@ -116,12 +113,15 @@ const AppBar = () => {
               <Show
                 when={isSizeScreen === "phone"}
                 fallback={
-                  <NavWrap>
+                  <div className="flex w-auto items-center">
                     <nav>
                       <Box
                         sx={{
                           flexGrow: 1,
                           display: { md: "flex" },
+                          "& a+a": {
+                            marginLeft: "50px",
+                          },
                         }}
                       >
                         {pages.map(({ name, href }) => (
@@ -140,7 +140,7 @@ const AppBar = () => {
                       </Box>
                     </nav>
                     <UserBar />
-                  </NavWrap>
+                  </div>
                 }
               >
                 <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -184,7 +184,7 @@ const AppBar = () => {
           </Toolbar>
         </Container>
       </MuiAppBar>
-    </Header>
+    </header>
   );
 };
 

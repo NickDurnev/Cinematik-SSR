@@ -1,48 +1,49 @@
+import { Button } from "@mui/material";
 import Link from "next/link";
 
 import { LoginButton } from "@/app/(app)/components";
 import { Show } from "@/components";
 import { UserStore, useUserStore } from "@/hooks/stores";
 
-//#Styles
-import { useTheme } from "@mui/material/styles";
-import { ButtonContainer, Container, CustomButton } from "./AppLink.styled";
-
 const AppLink = () => {
-  const theme = useTheme();
   const user = useUserStore((state: UserStore) => state.user);
 
   return (
-    <Container>
+    <div className="laptopM:m-0 mx-auto tablet:mx-auto tablet:my-[100px] laptopL:mb-[120px] laptopM:mb-[20px] tablet:mb-0 w-[350px] bg-transparent">
       <Show when={user._id} fallback={<LoginButton />}>
         <div>
-          <h3 style={{ color: "#fff" }}>
+          <h3
+            className="mb-[30px] font-normal text-[35px] leading-[40px] tracking-[0.05em]"
+            style={{ color: "#fff" }}
+          >
             Welcome <br />
             {user.name}
           </h3>
-          <ButtonContainer>
-            <CustomButton
+          <div className="flex w-full justify-between">
+            <Button
               variant="text"
-              sx={{ color: theme.palette.accentColor.main }}
               href="/api/auth/logout"
+              className="rounded-[10px] border border-white px-[30px] py-[25px] font-muller text-[20px] uppercase leading-[20px]"
+              sx={{ color: "white" }}
             >
               Logout
-            </CustomButton>
+            </Button>
             <Link
               href={`https://cinematikapplication.vercel.app/${user._id}`}
               passHref
             >
-              <CustomButton
-                sx={{ ml: "20px", color: theme.palette.accentColor.main }}
+              <Button
                 variant="text"
+                className="rounded-[10px] border border-white px-[30px] py-[25px] font-muller text-[20px] uppercase leading-[20px]"
+                sx={{ ml: "20px", color: "white" }}
               >
                 Go to App
-              </CustomButton>
+              </Button>
             </Link>
-          </ButtonContainer>
+          </div>
         </div>
       </Show>
-    </Container>
+    </div>
   );
 };
 

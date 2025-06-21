@@ -1,24 +1,8 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
   "vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
-  "files": {
-    "ignoreUnknown": false,
-    "ignore": [
-      "./.next",
-      "./node_modules",
-      "./build",
-      "./dist",
-      "./coverage",
-      "./.cache",
-      "./public",
-      "**/*.min.js",
-      "**/*.bundle.js",
-      "**/vendor/**",
-      ".env*",
-      "*.log"
-    ]
-  },
-  "organizeImports": { "enabled": true },
+  "files": { "ignoreUnknown": false, "includes": ["**"] },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
@@ -34,7 +18,6 @@
       "recommended": false,
       "a11y": {
         "noAriaUnsupportedElements": "error",
-        "noBlankTarget": "error",
         "useAltText": "error",
         "useAriaPropsForRole": "error",
         "useValidAriaProps": "error",
@@ -63,16 +46,16 @@
       "complexity": {
         "noUselessTypeConstraint": "error",
         "noExtraBooleanCast": "error",
-        "noMultipleSpacesInRegularExpressionLiterals": "error",
         "noUselessCatch": "error",
         "noUselessConstructor": "error",
         "noUselessLoneBlockStatements": "error",
         "noUselessTernary": "error",
-        "noWith": "error"
+        "noAdjacentSpacesInRegex": "error",
+        "noArguments": "error"
       },
       "correctness": {
+        "noChildrenProp": "error",
         "noInvalidBuiltinInstantiation": "off",
-        "useArrayLiterals": "off",
         "noUnusedImports": "error",
         "noConstAssign": "error",
         "noConstantCondition": "error",
@@ -81,7 +64,6 @@
         "noGlobalObjectCalls": "error",
         "noInnerDeclarations": "error",
         "noInvalidConstructorSuper": "error",
-        "noNewSymbol": "error",
         "noNonoctalDecimalEscape": "error",
         "noPrecisionLoss": "error",
         "noSelfAssign": "error",
@@ -99,22 +81,23 @@
         "useIsNan": "error",
         "useJsxKeyInIterable": "error",
         "useValidForDirection": "error",
-        "useYield": "error"
+        "useYield": "error",
+        "useValidTypeof": "error"
       },
       "security": {
         "noDangerouslySetInnerHtmlWithChildren": "error",
-        "noGlobalEval": "error"
+        "noGlobalEval": "error",
+        "noBlankTarget": "error"
       },
       "style": {
-        "noArguments": "error",
         "noNamespace": "error",
-        "noVar": "error",
         "useAsConstAssertion": "error",
         "useConst": "error",
         "useBlockStatements": "error",
         "useCollapsedElseIf": "error",
         "useDefaultParameterLast": "error",
-        "useTemplate": "error"
+        "useTemplate": "error",
+        "useArrayLiterals": "off"
       },
       "suspicious": {
         "noExplicitAny": "error",
@@ -147,7 +130,8 @@
         "noUnsafeNegation": "error",
         "useAwait": "error",
         "useGetterReturn": "error",
-        "useValidTypeof": "error"
+        "noWith": "error",
+        "noVar": "error"
       },
       "nursery": {
         "useSortedClasses": {
@@ -156,21 +140,7 @@
           "options": {}
         }
       }
-    },
-    "ignore": [
-      "./.next",
-      "./node_modules",
-      "./build",
-      "./dist",
-      "./coverage",
-      "./.cache",
-      "./public",
-      "**/*.min.js",
-      "**/*.bundle.js",
-      "**/vendor/**",
-      ".env*",
-      "*.log"
-    ]
+    }
   },
   "javascript": {
     "formatter": {
@@ -185,8 +155,6 @@
     }
   },
   "overrides": [
-    {
-      "include": ["*.js", "*.mjs", "*.jsx", "*.ts", "*.tsx"]
-    }
+    { "includes": ["**/*.js", "**/*.mjs", "**/*.jsx", "**/*.ts", "**/*.tsx"] }
   ]
 }

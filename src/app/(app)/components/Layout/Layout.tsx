@@ -10,8 +10,6 @@ import { IAuthUserData } from "@/types/user";
 
 import { AppBar, Footer } from "@/components";
 
-import { Container, Wrap } from "./Layout.styled";
-
 interface IProps {
   children: ReactNode | ReactNode[];
 }
@@ -44,13 +42,13 @@ const Layout = ({ children }: IProps) => {
   }, [nextAuthData]);
 
   return (
-    <Container>
+    <div className="min-h-screen bg-gradient-to-b from-accent-foreground to-ring">
       <AppBar />
-      <Wrap>
+      <div className="laptop-l:px-[120px] laptop-m:px-[110px] px-[15px] tablet:px-[60px]">
         <main>{children}</main>
         <Footer />
-      </Wrap>
-    </Container>
+      </div>
+    </div>
   );
 };
 

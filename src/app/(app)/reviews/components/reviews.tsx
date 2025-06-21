@@ -12,8 +12,6 @@ import dbConnect from "@/db/connection";
 import Review from "@/db/models/Review";
 
 import { AddReview, ReviewList, Show } from "@/components";
-//#Styles
-import { Section } from "./reviews.styled";
 
 interface IProps {
   data: IReview[];
@@ -57,8 +55,10 @@ const Reviews = ({
   };
 
   return (
-    <Section>
-      <h2>Reviews</h2>
+    <section className="laptopM:flex w-full laptopM:items-start laptopM:justify-between laptopL:py-[80px] laptopM:py-[60px] py-[55px]">
+      <h2 className="laptopM:mb-0 mb-[60px] font-technovier laptopM:text-[50px] text-[35px] text-mainText uppercase laptopM:leading-[59px] leading-[41px] tracking-wider">
+        Reviews
+      </h2>
       <div>
         <Show when={currentUser && !isLeftReview}>
           <AddReview
@@ -68,7 +68,7 @@ const Reviews = ({
         </Show>
         <ReviewList reviews={reviews} />
       </div>
-    </Section>
+    </section>
   );
 };
 

@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { StyledLink } from "./NavLink.styled";
 
 interface IProps {
   href: string;
@@ -8,12 +7,17 @@ interface IProps {
   key?: string;
   onClick?: () => void;
   sx?: object;
+  className?: string;
 }
 
-const NavLink = ({ href, name }: IProps) => {
+const NavLink = ({ href, name, className }: IProps) => {
   return (
-    <Link href={href} passHref>
-      <StyledLink>{name}</StyledLink>
+    <Link
+      href={href}
+      passHref
+      className={`font-normal text-lg text-mainText leading-[18px] ${className}`}
+    >
+      {name}
     </Link>
   );
 };

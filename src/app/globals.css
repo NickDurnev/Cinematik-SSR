@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+:root {
+  --background: oklch(0.16 0.05 264); /* #013645 */
+  --foreground: oklch(1 0 0); /* #ffffff */
+  --card: oklch(0.28 0.1 270); /* #3e3d6b */
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.28 0.1 270);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.35 0.12 268); /* #494b81 */
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.22 0.08 266);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.22 0.08 266);
+  --muted-foreground: oklch(0.63 0 0 / 0.5); /* #ffffff80 */
+  --accent: oklch(1 0 0); /* #ffffff */
+  --accent-foreground: oklch(0.16 0.05 264);
+  --destructive: oklch(0.62 0.2 16.5); /* #e53e3e */
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.22 0.08 266);
+  --input: oklch(0.22 0.08 266);
+  --ring: oklch(0.35 0.12 268);
+}
+
+.dark {
+  --background: oklch(0.16 0.05 264); /* #013645 */
+  --foreground: oklch(1 0 0); /* #ffffff */
+  --card: oklch(0.28 0.1 270); /* #3e3d6b */
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.28 0.1 270);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.35 0.12 268); /* #494b81 */
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.22 0.08 266);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.22 0.08 266);
+  --muted-foreground: oklch(0.63 0 0 / 0.5); /* #ffffff80 */
+  --accent: oklch(1 0 0); /* #ffffff */
+  --accent-foreground: oklch(0.16 0.05 264);
+  --destructive: oklch(0.62 0.2 16.5); /* #e53e3e */
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.22 0.08 266);
+  --input: oklch(0.22 0.08 266);
+  --ring: oklch(0.35 0.12 268);
+}
+
+@theme {
+  --breakpoint-tablet: 768px;
+  --breakpoint-laptop: 1024px;
+  --breakpoint-laptop-m: 1440px;
+  --breakpoint-laptop-l: 1920px;
+  --breakpoint-desktop: 2560px;
+
+  --font-muller: "Muller", sans-serif;
+  --font-technovier: "Technovier", sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@font-face {
+  font-family: "Technovier";
+  src: url("../fonts/Technovier/Techovier.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Muller";
+  src: url("../fonts/Muller/MullerRegular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Muller";
+  src: url("../fonts/Muller/MullerThin.ttf");
+  font-weight: 300;
+  font-style: normal;
+}
+@layer base {
+  * {
+    /* Apply default border color */
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* Improve font smoothing */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}

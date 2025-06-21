@@ -2,14 +2,13 @@
 import CircularProgress from "@mui/material/CircularProgress";
 
 interface SpinnerProps {
-  width?: number;
-  height?: number;
+  size?: number;
 }
 
-const Spinner = ({ width = 20, height = 20 }: SpinnerProps) => {
+const Spinner = ({ size = 20 }: SpinnerProps) => {
   return (
     <>
-      <svg width={0} height={0}>
+      <svg width={size} height={size}>
         <defs>
           <linearGradient id="my_gradient" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#e01cd5" />
@@ -18,9 +17,8 @@ const Spinner = ({ width = 20, height = 20 }: SpinnerProps) => {
         </defs>
       </svg>
       <CircularProgress
+        size={size}
         sx={{
-          width: width,
-          height: height,
           "svg circle": { stroke: "url(#my_gradient)" },
         }}
       />
