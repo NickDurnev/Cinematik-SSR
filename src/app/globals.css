@@ -47,8 +47,8 @@
 @theme {
   --breakpoint-tablet: 768px;
   --breakpoint-laptop: 1024px;
-  --breakpoint-laptop-m: 1440px;
-  --breakpoint-laptop-l: 1920px;
+  --breakpoint-laptopM: 1440px;
+  --breakpoint-laptopL: 1920px;
   --breakpoint-desktop: 2560px;
 
   --font-muller: "Muller", sans-serif;

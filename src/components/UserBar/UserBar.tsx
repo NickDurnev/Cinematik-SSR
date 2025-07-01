@@ -1,10 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-
-import { Avatar, Show } from "@/components";
+import { Avatar, LoginButton, Show } from "@/components";
 import { UserStore, useUserStore } from "@/hooks/stores";
-
-import { LoginButton } from "@/app/(app)/components";
 
 const UserBar = () => {
   const [isSizeScreen, setIsSizeScreen] = useState<string | null>(null);

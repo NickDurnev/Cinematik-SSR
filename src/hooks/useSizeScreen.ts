@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-import { device } from "@/services/deviceSizes";
+import { device } from "@/utils/deviceSizes";
 
 const useSizeScreen = () => {
   const [isSizeScreen, setIsSizeScreen] = useState<string | null>(null);

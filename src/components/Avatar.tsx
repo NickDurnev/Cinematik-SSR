@@ -1,11 +1,10 @@
 "use client";
-import Image from "next/image";
-
-//#Services
-import stringAvatar from "@/services/avatarFormatter";
-import { IUser } from "@/types/user";
 
 import { Avatar as MuiAvatar } from "@mui/material";
+import Image from "next/image";
+import { IUser } from "@/types/user";
+//#Services
+import stringAvatar from "@/utils/avatarFormatter";
 
 interface IProps {
   picture?: IUser["picture"];

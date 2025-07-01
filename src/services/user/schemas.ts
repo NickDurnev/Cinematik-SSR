@@ -1,0 +1,52 @@
+import * as z from "zod";
+
+const passwordSchema = z
+  .string({
+    required_error: "Password is required",
+  })
+  .trim()
+  .min(8, "Password must be at least 8 characters")
+  .max(32, "Password must be less than 32 characters")
+  .refine(
+    value =>
+      /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/.test(value),
+    {
+      message:
+        "Password must contain at least one uppercase letter, one lowercase letter, and one number",
+    },
+  );
+
+const nameSchema = z
+  .string({
+    required_error: "Name is required",
+  })
+  .trim()
+  .min(2, "Name must be at least 2 characters")
+  .max(20, "Name must be less than 20 characters");
+
+const emailSchema = z
+  .string({
+    required_error: "Email is required",
+  })
+  .trim()
+  .refine(
+    value => /.+@.+\..+/.test(value ?? ""),
+    "Email should be a valid email address",
+  );
+
+export const signupFormSchema =
+  z.object({
+    name: nameSchema,
+    password: passwordSchema,
+    confirmPassword: passwordSchema,
+    email: emailSchema,
+  });
+
+export const loginFormSchema = 
+  z.object({
+    email: emailSchema,
+    password: passwordSchema,
+  });
+
+export type ISignupFormSchema = z.infer<typeof signupFormSchema>;
+export type ILoginFormSchema = z.infer<typeof loginFormSchema>;

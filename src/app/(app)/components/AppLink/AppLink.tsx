@@ -1,8 +1,5 @@
-import { Button } from "@mui/material";
 import Link from "next/link";
-
-import { LoginButton } from "@/app/(app)/components";
-import { Show } from "@/components";
+import { LoginButton, Show, Button } from "@/components";
 import { UserStore, useUserStore } from "@/hooks/stores";
 
 const AppLink = () => {
@@ -13,29 +10,24 @@ const AppLink = () => {
       <Show when={user._id} fallback={<LoginButton />}>
         <div>
           <h3
-            className="mb-[30px] font-normal text-[35px] leading-[40px] tracking-[0.05em]"
-            style={{ color: "#fff" }}
+            className="mb-[30px] color-foreground font-normal text-[35px] leading-[40px] tracking-[0.05em]"
           >
             Welcome <br />
             {user.name}
           </h3>
-          <div className="flex w-full justify-between">
-            <Button
-              variant="text"
-              href="/api/auth/logout"
-              className="rounded-[10px] border border-white px-[30px] py-[25px] font-muller text-[20px] uppercase leading-[20px]"
-              sx={{ color: "white" }}
-            >
-              Logout
-            </Button>
-            <Link
-              href={`https://cinematikapplication.vercel.app/${user._id}`}
-              passHref
-            >
+          <div className="flex w-full justify-between gap-x-5">
+            <Link href="/api/auth/logout" passHref>
               <Button
                 variant="text"
-                className="rounded-[10px] border border-white px-[30px] py-[25px] font-muller text-[20px] uppercase leading-[20px]"
-                sx={{ ml: "20px", color: "white" }}
+                className="px-[30px] py-[25px]"
+              >
+                Logout
+              </Button>
+            </Link>
+            <Link href="/api/auth/logout" passHref>
+              <Button
+                variant="text"
+                className="px-[30px] py-[25px]"
               >
                 Go to App
               </Button>
