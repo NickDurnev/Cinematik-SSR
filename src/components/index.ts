@@ -6,13 +6,15 @@ export { default as Avatar } from "./Avatar";
 export { default as Footer } from "./Footer/Footer";
 export { default as LoginButton } from "./LoginButton";
 export { default as NavLink } from "./NavLink/NavLink";
-//Providers
-export { default as AuthProvider } from "./Providers/AuthProvider";
-export { default as StyleProviders } from "./Providers/StyleProviders";
-export { default as ToastProvider } from "./Providers/ToastProvider";
 export { default as Review } from "./Review/Review";
 export { default as ReviewList } from "./ReviewList/ReviewList";
 export { default as Show } from "./Show";
 export { default as Spinner } from "./Spinner";
 export { default as UserBar } from "./UserBar/UserBar";
 export { default as Button } from "./Button";
+export { default as Input } from "./Input";
+
+//Providers
+export { default as AuthProvider } from "./Providers/AuthProvider";
+export { default as StyleProviders } from "./Providers/StyleProviders";
+export { default as ToastProvider } from "./Providers/ToastProvider";

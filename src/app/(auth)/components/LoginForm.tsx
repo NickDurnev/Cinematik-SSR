@@ -1,7 +1,7 @@
-import { TextField } from "@mui/material";
 import { useForm } from "@tanstack/react-form";
+
+import { Button, Input } from "@/components";
 import { ILoginFormSchema, loginFormSchema } from "@/services/user/schemas";
-import { Button } from "@/components";
 
 type Props = {
     onSubmit: (data: ILoginFormSchema) => Promise<void>;
@@ -16,7 +16,7 @@ const LoginForm = ({ onSubmit, isLoading }: Props) => {
         },
         validators: {
             onChange: loginFormSchema,
-            onBlur: loginFormSchema
+            onBlur: loginFormSchema,
         },
         onSubmit: async ({ value }) => {
             await onSubmit(value);
@@ -36,25 +36,14 @@ const LoginForm = ({ onSubmit, isLoading }: Props) => {
                     console.log(" field:", field.state);
 
                     return (
-                        <TextField
+                        <Input
                             label="Email"
                             type="email"
                             value={field.state.value}
                             onChange={e => {
                                 field.handleChange(e.target.value);
                             }}
-                            fullWidth
                             required
-                            margin="normal"
-                            InputLabelProps={{ style: { color: "var(--foreground)" } }}
-                            InputProps={{
-                                style: {
-                                    color: "var(--foreground)",
-                                    background: "var(--card)",
-                                    borderRadius: 10,
-                                    fontSize: 16,
-                                },
-                            }}
                             error={field.state?.meta?.errors?.length > 0}
                             helperText={field.state?.meta?.errors[0]?.message}
                         />
@@ -64,38 +53,14 @@ const LoginForm = ({ onSubmit, isLoading }: Props) => {
 
             <form.Field name="password">
                 {field => (
-                    <TextField
+                    <Input
                         label="Password"
                         type="password"
                         value={field.state.value}
                         onChange={e => {
                             field.handleChange(e.target.value);
                         }}
-                        fullWidth
                         required
-                        margin="normal"
-                        InputLabelProps={{ style: { color: "var(--foreground)" } }}
-                        InputProps={{
-                            style: {
-                                color: "var(--foreground)",
-                                background: "transparent",
-                                borderRadius: 10,
-                                fontSize: 16,
-                            },
-                        }}
-                        sx={{
-                            "& .MuiOutlinedInput-root": {
-                                "& fieldset": {
-                                    borderColor: "var(--foreground)",
-                                },
-                                "&:hover fieldset": {
-                                    borderColor: "var(--primary)",
-                                },
-                                "&.Mui-focused fieldset": {
-                                    borderColor: "var(--primary)",
-                                },
-                            },
-                        }}
                         error={field.state?.meta?.errors?.length > 0}
                         helperText={field.state?.meta?.errors[0]?.message}
                     />
@@ -104,12 +69,12 @@ const LoginForm = ({ onSubmit, isLoading }: Props) => {
             <form.Subscribe
                 selector={state => [state.canSubmit, state.isSubmitting]}
                 children={([canSubmit, isSubmitting]) => (
-                    <div className="w-full flex justify-center items-center">
+                    <div className="flex w-full items-center justify-center">
                         <Button
                             type="submit"
                             variant="outlined"
                             disabled={!canSubmit || isSubmitting || isLoading}
-                            className="laptop:text-xl tablet:text-lg text-base w-1/2 mx-auto"
+                            className="mx-auto w-1/2 laptop:text-xl tablet:text-lg text-base"
                             sx={{ padding: "10px 0" }}
                         >
                             {isSubmitting ? "Logging in..." : "Login"}
@@ -122,4 +87,3 @@ const LoginForm = ({ onSubmit, isLoading }: Props) => {
 };
 
 export default LoginForm;
-

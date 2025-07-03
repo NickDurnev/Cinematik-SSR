@@ -1,0 +1,40 @@
+import { TextField, TextFieldProps } from "@mui/material";
+
+const defaultSx = {
+    "& .MuiOutlinedInput-root": {
+        "& fieldset": {
+            borderColor: "var(--foreground)",
+        },
+        "&:hover fieldset": {
+            borderColor: "var(--primary)",
+        },
+        "&.Mui-focused fieldset": {
+            borderColor: "var(--primary)",
+        },
+    },
+};
+
+const Input = ({ sx, ...props }: TextFieldProps) => {
+    return (
+        <div className="relative">
+            <TextField
+                {...props}
+                fullWidth
+                margin="normal"
+                slotProps={{
+                    inputLabel: { style: { color: "var(--foreground)" } }, htmlInput: {
+                        style: {
+                            color: "var(--foreground)",
+                            background: "transparent",
+                            borderRadius: 10,
+                            fontSize: 16,
+                        }
+                    }
+                }}
+                sx={[defaultSx, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
+            />
+        </div>
+    );
+};
+
+export default Input;

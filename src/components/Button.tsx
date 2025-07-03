@@ -1,4 +1,5 @@
-import { Button as MuiButton, ButtonProps } from "@mui/material";
+import { ButtonProps, Button as MuiButton } from "@mui/material";
+
 import { cn } from "@/libs/tailwind-merge";
 
 const defaultSx = {
@@ -22,19 +23,22 @@ const defaultSx = {
 };
 
 type Props = ButtonProps & {
-    className?: string,
-}
+    className?: string;
+};
 
 const Button = ({ children, className, sx, ...props }: Props) => {
     return (
         <MuiButton
             {...props}
-            className={cn("rounded-[10px] border border-foreground color-foreground font-muller text-[20px] uppercase leading-[20px]", className)}
+            className={cn(
+                "color-foreground rounded-[10px] border border-foreground font-muller text-[20px] uppercase leading-[20px]",
+                className,
+            )}
             sx={[defaultSx, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
         >
             {children}
         </MuiButton>
-    )
-}
+    );
+};
 
-export default Button
+export default Button;
