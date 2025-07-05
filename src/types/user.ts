@@ -1,18 +1,12 @@
-export interface IAuthData {
-  checkSession: () => Promise<void>;
-  error?: Error;
-  isLoading: boolean;
-  user: IAuthUserData;
-}
-
-export interface IAuthUserData {
+export interface IAuthCredentialsDto {
   email: string;
+  password: string;
   name: string;
-  picture: string;
-  locale?: string;
 }
 
-export interface IUser extends IAuthUserData {
-  _id: string;
-  leftReview: boolean;
+export interface ITokensData {
+  access_token: string;
+  refresh_token: string;
+  access_token_expires: number;
+  refresh_token_expires: number;
 }

@@ -34,19 +34,24 @@ const emailSchema = z
     "Email should be a valid email address",
   );
 
-export const signupFormSchema =
-  z.object({
+export const signupFormSchema = z
+  .object({
     name: nameSchema,
     password: passwordSchema,
-    confirmPassword: passwordSchema,
+    confirmPassword: z.string({
+      required_error: "Please confirm your password",
+    }),
     email: emailSchema,
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
   });
 
-export const loginFormSchema = 
-  z.object({
-    email: emailSchema,
-    password: passwordSchema,
-  });
+export const loginFormSchema = z.object({
+  email: emailSchema,
+  password: passwordSchema,
+});
 
 export type ISignupFormSchema = z.infer<typeof signupFormSchema>;
 export type ILoginFormSchema = z.infer<typeof loginFormSchema>;

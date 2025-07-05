@@ -3,13 +3,13 @@ import { TextField, TextFieldProps } from "@mui/material";
 const defaultSx = {
     "& .MuiOutlinedInput-root": {
         "& fieldset": {
-            borderColor: "var(--foreground)",
+            borderColor: "var(--primary)",
         },
         "&:hover fieldset": {
-            borderColor: "var(--primary)",
+            borderColor: "var(--foreground)",
         },
         "&.Mui-focused fieldset": {
-            borderColor: "var(--primary)",
+            borderColor: "var(--foreground)",
         },
     },
 };

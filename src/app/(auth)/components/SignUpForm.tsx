@@ -1,22 +1,24 @@
 import { useForm } from "@tanstack/react-form";
 
 import { Button, Input } from "@/components";
-import { ILoginFormSchema, loginFormSchema } from "@/services/user/schemas";
+import { ISignupFormSchema, signupFormSchema } from "@/services/user/schemas";
 
 type Props = {
-    onSubmit: (data: ILoginFormSchema) => Promise<void>;
+    onSubmit: (data: ISignupFormSchema) => void;
     isLoading: boolean;
 };
 
-const LoginForm = ({ onSubmit, isLoading }: Props) => {
+const SignUpForm = ({ onSubmit, isLoading }: Props) => {
     const form = useForm({
         defaultValues: {
             email: "",
             password: "",
+            name: "",
+            confirmPassword: "",
         },
         validators: {
-            onChange: loginFormSchema,
-            onBlur: loginFormSchema,
+            onChange: signupFormSchema,
+            onBlur: signupFormSchema,
         },
         onSubmit: async ({ value }) => {
             await onSubmit(value);
@@ -44,8 +46,23 @@ const LoginForm = ({ onSubmit, isLoading }: Props) => {
                         error={field.state?.meta?.errors?.length > 0}
                         helperText={field.state?.meta?.errors[0]?.message}
                     />
-                )
-                }
+                )}
+            </form.Field>
+
+            <form.Field name="name">
+                {field => (
+                    <Input
+                        label="Name"
+                        type="name"
+                        value={field.state.value}
+                        onChange={e => {
+                            field.handleChange(e.target.value);
+                        }}
+                        required
+                        error={field.state?.meta?.errors?.length > 0}
+                        helperText={field.state?.meta?.errors[0]?.message}
+                    />
+                )}
             </form.Field>
 
             <form.Field name="password">
@@ -53,6 +70,22 @@ const LoginForm = ({ onSubmit, isLoading }: Props) => {
                     <Input
                         label="Password"
                         type="password"
+                        value={field.state.value}
+                        onChange={e => {
+                            field.handleChange(e.target.value);
+                        }}
+                        required
+                        error={field.state?.meta?.errors?.length > 0}
+                        helperText={field.state?.meta?.errors[0]?.message}
+                    />
+                )}
+            </form.Field>
+
+            <form.Field name="confirmPassword">
+                {field => (
+                    <Input
+                        label="Confirm Password"
+                        type="confirmPassword"
                         value={field.state.value}
                         onChange={e => {
                             field.handleChange(e.target.value);
@@ -74,7 +107,7 @@ const LoginForm = ({ onSubmit, isLoading }: Props) => {
                             className="mx-auto w-1/2 laptop:text-xl tablet:text-lg text-base"
                             sx={{ padding: "10px 0" }}
                         >
-                            {isSubmitting ? "Logging in..." : "Login"}
+                            {isSubmitting ? "Signing in..." : "Sign Up"}
                         </Button>
                     </div>
                 )}
@@ -83,4 +116,4 @@ const LoginForm = ({ onSubmit, isLoading }: Props) => {
     );
 };
 
-export default LoginForm;
+export default SignUpForm;

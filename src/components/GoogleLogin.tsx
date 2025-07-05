@@ -1,16 +1,15 @@
 "use client";
+
 import { signIn } from "next-auth/react";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { BsGoogle } from "react-icons/bs";
 import { toast } from "react-toastify";
 
-import { Show, Spinner } from "@/components";
-import { Button } from "@mui/material";
+import { Button, Show, Spinner } from "@/components";
 
 const GoogleIcon = BsGoogle as React.ElementType;
 
-const LoginButton = () => {
+const GoogleLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = () => {
@@ -30,13 +29,13 @@ const LoginButton = () => {
       onClick={handleLogin}
       aria-label="Login with Google"
       disabled={isLoading}
-      endIcon={!isLoading && <GoogleIcon size={20} color="#fff" />}
+      startIcon={!isLoading && <GoogleIcon size={20} color="#fff" />}
     >
       <Show when={!isLoading} fallback={<Spinner size={20} />}>
-        Login
+        Continue with Google
       </Show>
     </Button>
   );
 };
 
-export default LoginButton;
+export default GoogleLogin;

@@ -1,22 +1,31 @@
 "use client";
 
 import { Box, Paper, Typography } from "@mui/material";
-import { useState } from "react";
+import { toast } from "react-toastify";
 
 import { GoogleLogin } from "@/components";
-import { ILoginFormSchema } from "@/services/user/schemas";
+import { useSignUpUser } from "@/services/user/query-hooks";
+import { ISignupFormSchema } from "@/services/user/schemas";
 
-import { LoginForm } from "../components";
+import { SignUpForm } from "../components";
 
-const LoginPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
+const SignUpPage = () => {
+  const { mutate: signUpUser, isPending: isSignUpPending } = useSignUpUser();
 
-  const handleSubmit = async (data: ILoginFormSchema) => {
-    console.log(' data:', data);
-    setIsLoading(true);
-    // TODO: Implement email/password login logic
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setIsLoading(false);
+  const handleSubmit = (data: ISignupFormSchema) => {
+    console.log(" data:", data);
+    try {
+      signUpUser(data, {
+        onSuccess: response => {
+          console.log(" response:", response);
+        },
+        onError: () => {
+          toast.error("An error occurred while signing up.");
+        },
+      });
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : "An error occurred while signing up.");
+    }
   };
 
   return (
@@ -41,9 +50,9 @@ const LoginPage = () => {
             letterSpacing: "0.1em",
           }}
         >
-          Login
+          Sign Up
         </Typography>
-        <LoginForm onSubmit={handleSubmit} isLoading={isLoading} />
+        <SignUpForm onSubmit={handleSubmit} isLoading={isSignUpPending} />
         <Box className="mt-4 text-center">
           <Typography
             variant="body1"
@@ -59,4 +68,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;

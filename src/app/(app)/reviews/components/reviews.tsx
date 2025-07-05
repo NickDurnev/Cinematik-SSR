@@ -2,16 +2,14 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 
+import { AddReview, ReviewList, Show } from "@/components";
+//#DB
+import dbConnect from "@/db/connection";
+import Review from "@/db/models/Review";
 //#Services
 import { useAddReview } from "@/services/review/query-hooks";
 import { IReview, IReviewData } from "@/types/review";
 import { IUser } from "@/types/user";
-
-//#DB
-import dbConnect from "@/db/connection";
-import Review from "@/db/models/Review";
-
-import { AddReview, ReviewList, Show } from "@/components";
 
 interface IProps {
   data: IReview[];
