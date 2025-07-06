@@ -1,9 +1,10 @@
 "use client";
 
 import { Box, Paper, Typography } from "@mui/material";
+import Link from "next/link";
 import { toast } from "react-toastify";
 
-import { GoogleLogin } from "@/components";
+import { Button, GoogleLogin } from "@/components";
 import { useSignUpUser } from "@/services/user/query-hooks";
 import { ISignupFormSchema } from "@/services/user/schemas";
 
@@ -12,20 +13,21 @@ import { SignUpForm } from "../components";
 const SignUpPage = () => {
   const { mutate: signUpUser, isPending: isSignUpPending } = useSignUpUser();
 
-  const handleSubmit = (data: ISignupFormSchema) => {
-    console.log(" data:", data);
-    try {
-      signUpUser(data, {
-        onSuccess: response => {
-          console.log(" response:", response);
-        },
-        onError: () => {
-          toast.error("An error occurred while signing up.");
-        },
-      });
-    } catch (error: unknown) {
-      toast.error(error instanceof Error ? error.message : "An error occurred while signing up.");
-    }
+  const handleSubmit = ({ email, password, name }: ISignupFormSchema) => {
+    const payload = {
+      email,
+      password,
+      name,
+    };
+    signUpUser(payload, {
+      onSuccess: response => {
+        console.log(" response:", response);
+      },
+      onError: error => {
+        console.log(" error:", error);
+        toast.error(error?.message);
+      },
+    });
   };
 
   return (
@@ -54,6 +56,11 @@ const SignUpPage = () => {
         </Typography>
         <SignUpForm onSubmit={handleSubmit} isLoading={isSignUpPending} />
         <Box className="mt-4 text-center">
+          <Link href="/login" passHref>
+            <Button customVariant="ghost" aria-label="Sign up">
+              Already have an account?
+            </Button>
+          </Link>
           <Typography
             variant="body1"
             className="mb-2 tablet:text-lg text-base"

@@ -4,6 +4,11 @@ export interface IAuthCredentialsDto {
   name: string;
 }
 
+export type ILoginCredentialsDto = Pick<
+  IAuthCredentialsDto,
+  "email" | "password"
+>;
+
 export interface ITokensData {
   access_token: string;
   refresh_token: string;

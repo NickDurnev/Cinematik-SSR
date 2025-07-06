@@ -1,6 +1,9 @@
 "use client";
+
+import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Avatar, LoginButton, Show } from "@/components";
+
+import { Avatar, Button, Show } from "@/components";
 import { UserStore, useUserStore } from "@/hooks/stores";
 
 const UserBar = () => {
@@ -16,7 +19,14 @@ const UserBar = () => {
 
   return (
     <div className="ml-[50px]">
-      <Show when={user._id} fallback={<LoginButton />}>
+      <Show
+        when={user._id}
+        fallback={
+          <Link href="/login" passHref>
+            <Button variant="text">Login</Button>
+          </Link>
+        }
+      >
         <div>
           <Show when={isSizeScreen}>
             <Avatar name={user?.name} size={60} />

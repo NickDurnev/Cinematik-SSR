@@ -1,22 +1,28 @@
 "use client";
 
 import { Box, Paper, Typography } from "@mui/material";
-import { useState } from "react";
+import Link from "next/link";
+import { toast } from "react-toastify";
 
-import { GoogleLogin } from "@/components";
+import { Button, GoogleLogin } from "@/components";
+import { useLoginUser } from "@/services/user/query-hooks";
 import { ILoginFormSchema } from "@/services/user/schemas";
 
 import { LoginForm } from "../components";
 
 const LoginPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const { mutate: loginUser, isPending: isLoginPending } = useLoginUser();
 
-  const handleSubmit = async (data: ILoginFormSchema) => {
-    console.log(' data:', data);
-    setIsLoading(true);
-    // TODO: Implement email/password login logic
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setIsLoading(false);
+  const handleSubmit = (data: ILoginFormSchema) => {
+    loginUser(data, {
+      onSuccess: response => {
+        console.log(" response:", response);
+      },
+      onError: error => {
+        console.log(" error:", error);
+        toast.error(error?.message);
+      },
+    });
   };
 
   return (
@@ -43,8 +49,13 @@ const LoginPage = () => {
         >
           Login
         </Typography>
-        <LoginForm onSubmit={handleSubmit} isLoading={isLoading} />
+        <LoginForm onSubmit={handleSubmit} isLoading={isLoginPending} />
         <Box className="mt-4 text-center">
+          <Link href="/sign-up" passHref>
+            <Button customVariant="ghost" aria-label="Sign up">
+              Do not have an account yet?
+            </Button>
+          </Link>
           <Typography
             variant="body1"
             className="mb-2 tablet:text-lg text-base"

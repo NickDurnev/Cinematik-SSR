@@ -25,11 +25,11 @@ const GoogleLogin = () => {
 
   return (
     <Button
-      className="flex cursor-pointer items-center gap-x-[10px] rounded-[10px] border border-white px-[30px] py-[10px] font-muller text-[27px] text-white uppercase leading-[27px]"
       onClick={handleLogin}
       aria-label="Login with Google"
+      customVariant="ghost"
       disabled={isLoading}
-      startIcon={!isLoading && <GoogleIcon size={20} color="#fff" />}
+      startIcon={!isLoading && <GoogleIcon size={20} />}
     >
       <Show when={!isLoading} fallback={<Spinner size={20} />}>
         Continue with Google

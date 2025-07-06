@@ -1,16 +1,24 @@
-import { axiosInstance } from "@/libs/axios";
+import { apiClient } from "@/libs/axios";
 import ErrorHelper from "@/libs/error-helper";
 import { IApiResponse } from "@/types/general";
-import { IAuthCredentialsDto, ITokensData } from "@/types/user";
+import {
+  IAuthCredentialsDto,
+  ILoginCredentialsDto,
+  ITokensData,
+} from "@/types/user";
 
 export const signUpUser = async (
-  data: IAuthCredentialsDto,
+  dto: IAuthCredentialsDto,
 ): Promise<ITokensData> => {
   try {
-    const response = await axiosInstance.post<IApiResponse<ITokensData>>(
+    const response = await apiClient.post<IApiResponse<ITokensData>>(
       "auth/signup",
-      data,
+      dto,
     );
+
+    if (!response.data.data) {
+      throw new Error(response.data.message);
+    }
 
     return response.data.data;
   } catch (error) {
@@ -20,17 +28,21 @@ export const signUpUser = async (
 };
 
 export const loginUser = async (
-  data: Pick<IAuthCredentialsDto, "email" | "password">,
-): Promise<IApiResponse<ITokensData>> => {
+  dto: ILoginCredentialsDto,
+): Promise<ITokensData> => {
   try {
-    const response = await axiosInstance.post<IApiResponse<ITokensData>>(
+    const response = await apiClient.post<IApiResponse<ITokensData>>(
       "auth/signin",
-      data,
+      dto,
     );
 
-    return response.data;
-  } catch (e) {
-    console.error(e);
-    throw new Error("Failed to login");
+    if (!response.data.data) {
+      throw new Error(response.data.message);
+    }
+
+    return response.data.data;
+  } catch (error) {
+    const errorMessage = ErrorHelper.getMessage(error);
+    throw new Error(errorMessage ?? "Failed to login.");
   }
 };

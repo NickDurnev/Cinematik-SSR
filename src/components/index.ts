@@ -7,8 +7,6 @@ export { default as Button } from "./Button";
 export { default as Footer } from "./Footer/Footer";
 export { default as GoogleLogin } from "./GoogleLogin";
 export { default as Input } from "./Input";
-export { default as NavLink } from "./NavLink/NavLink";
-//Providers
 export { default as AuthProvider } from "./Providers/AuthProvider";
 export { default as StyleProviders } from "./Providers/StyleProviders";
 export { default as ToastProvider } from "./Providers/ToastProvider";

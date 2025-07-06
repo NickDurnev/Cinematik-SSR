@@ -1,12 +1,4 @@
 "use client";
-import { useTheme } from "@mui/material/styles";
-import Image from "next/image";
-import { MouseEvent, useState } from "react";
-
-import useSizeScreen from "@/hooks/useSizeScreen";
-
-//#Components
-import { NavLink, Show, UserBar } from "@/components";
 
 import MuiAppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -14,8 +6,16 @@ import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { useTheme } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import Image from "next/image";
+import Link from "next/link";
+import { MouseEvent, useState } from "react";
+
+//#Components
+import { Button, Show, UserBar } from "@/components";
+import useSizeScreen from "@/hooks/useSizeScreen";
 
 const pages = [
   { name: "Home", href: "/" },
@@ -125,17 +125,9 @@ const AppBar = () => {
                         }}
                       >
                         {pages.map(({ name, href }) => (
-                          <NavLink
-                            name={name}
-                            href={href}
-                            key={name}
-                            onClick={handleCloseNavMenu}
-                            sx={{
-                              my: 2,
-                              color: "#00000000",
-                              display: "block",
-                            }}
-                          />
+                          <Link key={name} href={href} passHref>
+                            <Button variant="text">{name}</Button>
+                          </Link>
                         ))}
                       </Box>
                     </nav>
@@ -174,7 +166,9 @@ const AppBar = () => {
                   >
                     {pages.map(({ name, href }) => (
                       <MenuItem key={name} onClick={handleCloseNavMenu}>
-                        <NavLink name={name} href={href} />
+                        <Link key={name} href={href} passHref>
+                          <Button variant="text">{name}</Button>
+                        </Link>
                       </MenuItem>
                     ))}
                   </Menu>
