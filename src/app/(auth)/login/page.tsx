@@ -52,8 +52,12 @@ const LoginPage = () => {
         <LoginForm onSubmit={handleSubmit} isLoading={isLoginPending} />
         <Box className="mt-4 text-center">
           <Link href="/sign-up" passHref>
-            <Button customVariant="ghost" aria-label="Sign up">
-              Do not have an account yet?
+            <Button
+              customVariant="ghost"
+              aria-label="Sign up"
+              sx={{ fontSize: 16 }}
+            >
+              Don't have an account yet?
             </Button>
           </Link>
           <Typography

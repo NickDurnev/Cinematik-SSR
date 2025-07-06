@@ -9,6 +9,17 @@ export type ILoginCredentialsDto = Pick<
   "email" | "password"
 >;
 
+export type ISocialLoginDto = Pick<IAuthCredentialsDto, "name" | "email"> & {
+  picture: string;
+};
+
+export interface INextAuthUserData {
+  email: string;
+  name: string;
+  picture: string;
+  locale?: string;
+}
+
 export interface ITokensData {
   access_token: string;
   refresh_token: string;

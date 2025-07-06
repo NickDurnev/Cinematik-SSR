@@ -57,7 +57,11 @@ const SignUpPage = () => {
         <SignUpForm onSubmit={handleSubmit} isLoading={isSignUpPending} />
         <Box className="mt-4 text-center">
           <Link href="/login" passHref>
-            <Button customVariant="ghost" aria-label="Sign up">
+            <Button
+              customVariant="ghost"
+              aria-label="Sign up"
+              sx={{ fontSize: 16 }}
+            >
               Already have an account?
             </Button>
           </Link>

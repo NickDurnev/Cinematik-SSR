@@ -22,7 +22,7 @@ const nameSchema = z
   })
   .trim()
   .min(2, "Name must be at least 2 characters")
-  .max(20, "Name must be less than 20 characters");
+  .max(40, "Name must be less than 40 characters");
 
 const emailSchema = z
   .string({

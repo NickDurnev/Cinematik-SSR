@@ -1,8 +1,11 @@
 "use client";
+
 import { ThemeProvider } from "@mui/material/styles";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import React from "react";
+
 import theme from "@/utils/theme";
+
 import ToastProvider from "./ToastProvider";
 
 type Props = {
