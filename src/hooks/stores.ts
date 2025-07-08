@@ -1,6 +1,8 @@
 "use client";
-import { IUser } from "@/types/user";
+
 import { create } from "zustand";
+
+import { IUser } from "@/types/user";
 
 export interface UserStore {
   user: IUser;
@@ -9,7 +11,7 @@ export interface UserStore {
 
 export const useUserStore = create<UserStore>(set => ({
   user: {
-    _id: "",
+    id: "",
     email: "",
     name: "",
     picture: "",

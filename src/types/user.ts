@@ -26,3 +26,11 @@ export interface ITokensData {
   access_token_expires: number;
   refresh_token_expires: number;
 }
+
+export interface IUser {
+  id: string;
+  name: string;
+  email: string;
+  picture: string;
+  leftReview: boolean;
+}

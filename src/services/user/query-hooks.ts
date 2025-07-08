@@ -1,12 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
-import { setAuthTokens } from "@/utils/cookies";
-import { ITokensData } from "@/types/user";
 
 import {
-  signUpUser,
   loginUser,
+  signUpUser,
   socialLoginUser,
 } from "@/services/user/service";
+import { ITokensData } from "@/types/user";
+import { setAuthTokens } from "@/utils/cookies";
 
 export const useSignUpUser = () => {
   return useMutation({

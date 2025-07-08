@@ -1,5 +1,3 @@
-export { default as Companies } from "../app/(app)/components/Companies/Companies";
-export { default as Layout } from "../app/(app)/components/Layout/Layout";
 export { default as AddReview } from "./AddReview";
 export { default as AppBar } from "./AppBar";
 export { default as Avatar } from "./Avatar";

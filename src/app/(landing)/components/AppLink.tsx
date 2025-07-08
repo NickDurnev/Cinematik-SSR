@@ -12,7 +12,7 @@ const AppLink = () => {
   return (
     <div className="laptopM:m-0 mx-auto tablet:mx-auto tablet:my-[100px] laptopL:mb-[120px] laptopM:mb-[20px] tablet:mb-0 w-[350px] bg-transparent">
       <Show
-        when={user._id}
+        when={user.id}
         fallback={
           <div className="flex items-center laptop:justify-start justify-center">
             <Link href="/login" passHref>

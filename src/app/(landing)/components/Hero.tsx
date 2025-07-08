@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import { AppLink } from "@/app/(app)/components";
+import { AppLink } from "@/app/(landing)/components";
 import { Show } from "@/components";
 import useSizeScreen from "@/hooks/useSizeScreen";
 

@@ -20,7 +20,7 @@ const UserBar = () => {
   return (
     <div className="ml-[50px]">
       <Show
-        when={user._id}
+        when={user.id}
         fallback={
           <Link href="/login" passHref>
             <Button variant="text">Login</Button>

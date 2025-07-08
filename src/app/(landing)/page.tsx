@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 //#Components
-import { Companies, Hero } from "@/app/(app)/components";
+import { Companies, Hero } from "@/app/(landing)/components";
 
 export const metadata: Metadata = {
   title: "Home page",
