@@ -20,6 +20,11 @@ export interface INextAuthUserData {
   locale?: string;
 }
 
+export interface IAuthData {
+  user: IUser;
+  tokens: ITokensData;
+}
+
 export interface ITokensData {
   access_token: string;
   refresh_token: string;
@@ -32,5 +37,5 @@ export interface IUser {
   name: string;
   email: string;
   picture: string;
-  leftReview: boolean;
+  is_left_review: boolean;
 }

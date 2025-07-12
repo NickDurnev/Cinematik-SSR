@@ -8,6 +8,7 @@ import { UserStore, useUserStore } from "@/hooks/stores";
 
 const AppLink = () => {
   const user = useUserStore((state: UserStore) => state.user);
+  console.log("🚀 ~ AppLink ~ user:", user);
 
   return (
     <div className="laptopM:m-0 mx-auto tablet:mx-auto tablet:my-[100px] laptopL:mb-[120px] laptopM:mb-[20px] tablet:mb-0 w-[350px] bg-transparent">

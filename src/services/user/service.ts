@@ -3,16 +3,16 @@ import ErrorHelper from "@/libs/error-helper";
 import { IApiResponse } from "@/types/general";
 import {
   IAuthCredentialsDto,
+  IAuthData,
   ILoginCredentialsDto,
-  ITokensData,
   ISocialLoginDto,
 } from "@/types/user";
 
 export const signUpUser = async (
   dto: IAuthCredentialsDto,
-): Promise<ITokensData> => {
+): Promise<IAuthData> => {
   try {
-    const response = await apiClient.post<IApiResponse<ITokensData>>(
+    const response = await apiClient.post<IApiResponse<IAuthData>>(
       "auth/signup",
       dto,
     );
@@ -30,9 +30,9 @@ export const signUpUser = async (
 
 export const loginUser = async (
   dto: ILoginCredentialsDto,
-): Promise<ITokensData> => {
+): Promise<IAuthData> => {
   try {
-    const response = await apiClient.post<IApiResponse<ITokensData>>(
+    const response = await apiClient.post<IApiResponse<IAuthData>>(
       "auth/signin",
       dto,
     );
@@ -50,9 +50,9 @@ export const loginUser = async (
 
 export const socialLoginUser = async (
   dto: ISocialLoginDto,
-): Promise<ITokensData> => {
+): Promise<IAuthData> => {
   try {
-    const response = await apiClient.post<IApiResponse<ITokensData>>(
+    const response = await apiClient.post<IApiResponse<IAuthData>>(
       "auth/social-login",
       dto,
     );
