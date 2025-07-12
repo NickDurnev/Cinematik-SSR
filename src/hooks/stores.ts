@@ -4,6 +4,7 @@ import { create } from "zustand";
 import { PersistStorage, persist } from "zustand/middleware";
 
 import { IUser } from "@/types/user";
+import { DEFAULT_USER } from "@/utils/constants";
 
 export interface UserStore {
   user: IUser;
@@ -34,13 +35,7 @@ const sessionStorageAdapter: PersistStorage<UserStore> = {
 export const useUserStore = create<UserStore>()(
   persist(
     set => ({
-      user: {
-        id: "",
-        email: "",
-        name: "",
-        picture: "",
-        is_left_review: false,
-      },
+      user: DEFAULT_USER,
       setUser: (user: IUser) => set({ user }),
     }),
     {

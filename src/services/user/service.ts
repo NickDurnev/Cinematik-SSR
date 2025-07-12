@@ -6,6 +6,7 @@ import {
   IAuthData,
   ILoginCredentialsDto,
   ISocialLoginDto,
+  IUser,
 } from "@/types/user";
 
 export const signUpUser = async (
@@ -65,5 +66,15 @@ export const socialLoginUser = async (
   } catch (error) {
     const errorMessage = ErrorHelper.getMessage(error);
     throw new Error(errorMessage ?? "Failed to login.");
+  }
+};
+
+export const getUserProfile = async (): Promise<IUser | null> => {
+  try {
+    const response = await apiClient.get<IApiResponse<IUser>>("/profile");
+    return response?.data?.data;
+  } catch (error) {
+    const errorMessage = ErrorHelper.getMessage(error);
+    throw new Error(errorMessage ?? "Failed to fetch profile.");
   }
 };

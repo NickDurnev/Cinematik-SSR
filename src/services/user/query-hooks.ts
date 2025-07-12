@@ -50,7 +50,6 @@ export const useSocialLoginUser = () => {
     mutationKey: ["social-login"],
     mutationFn: socialLoginUser,
     onSuccess: (optimisticData: IAuthData) => {
-      console.log("🚀 ~ useSocialLoginUser ~ optimisticData:", optimisticData);
       setAuthTokens(
         optimisticData.tokens.access_token,
         optimisticData.tokens.refresh_token,

@@ -5,3 +5,11 @@ export const ENVIRONMENT = process.env.NEXT_PUBLIC_ENVIRONMENT;
 export const REFRESH_EXPIRATION_DAYS = 604800 / 3600 / 24; // 1 week
 
 export const ACCESS_EXPIRATION_MINUTES = 3600 / 60; // 1 hour
+
+export const DEFAULT_USER = {
+  id: "",
+  email: "",
+  name: "",
+  picture: "",
+  is_left_review: false,
+};

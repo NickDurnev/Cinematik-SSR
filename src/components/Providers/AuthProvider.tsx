@@ -1,7 +1,11 @@
 "use client";
+
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-import React, { createContext, useMemo, useState } from "react";
+import React, { createContext, useEffect, useMemo, useState } from "react";
+
+import { UserStore, useUserStore } from "@/hooks/stores";
+import { IUser } from "@/types/user";
 
 export const OAuthDataContext = createContext({
   oAuthData: {} as Session,
@@ -11,8 +15,21 @@ export const OAuthDataContext = createContext({
   setOAuthData: (data: Session) => void;
 });
 
-const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+const AuthProvider = ({
+  children,
+  profileData,
+}: {
+  children: React.ReactNode;
+  profileData: IUser;
+}) => {
   const [oAuthData, setOAuthData] = useState<Session>({} as Session);
+  const setUser = useUserStore((state: UserStore) => state.setUser);
+
+  useEffect(() => {
+    if (profileData) {
+      setUser(profileData);
+    }
+  }, [profileData, setUser]);
 
   const authContextValue = useMemo(() => {
     return {

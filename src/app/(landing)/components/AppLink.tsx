@@ -5,10 +5,12 @@ import Link from "next/link";
 
 import { Button, Show } from "@/components";
 import { UserStore, useUserStore } from "@/hooks/stores";
+import useLogout from "@/hooks/useLogout";
 
 const AppLink = () => {
   const user = useUserStore((state: UserStore) => state.user);
-  console.log("🚀 ~ AppLink ~ user:", user);
+
+  const { handleLogout } = useLogout();
 
   return (
     <div className="laptopM:m-0 mx-auto tablet:mx-auto tablet:my-[100px] laptopL:mb-[120px] laptopM:mb-[20px] tablet:mb-0 w-[350px] bg-transparent">
@@ -39,12 +41,14 @@ const AppLink = () => {
             {user.name}
           </h3>
           <div className="flex w-full justify-between gap-x-5">
-            <Link href="/api/auth/logout" passHref>
-              <Button endIcon={<LogoutIcon />} variant="outlined">
-                Logout
-              </Button>
-            </Link>
-            <Link href="/api/auth/logout" passHref>
+            <Button
+              onClick={handleLogout}
+              endIcon={<LogoutIcon />}
+              variant="outlined"
+            >
+              Logout
+            </Button>
+            <Link href="/" passHref>
               <Button endIcon={<DevicesIcon />} variant="outlined">
                 Go to App
               </Button>
