@@ -18,8 +18,8 @@ const LoginForm = ({ onSubmit, isLoading }: Props) => {
       onChange: loginFormSchema,
       onBlur: loginFormSchema,
     },
-    onSubmit: async ({ value }) => {
-      await onSubmit(value);
+    onSubmit: ({ value }) => {
+      onSubmit(value);
     },
   });
 

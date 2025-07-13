@@ -20,11 +20,7 @@ const SignUpPage = () => {
       name,
     };
     signUpUser(payload, {
-      onSuccess: response => {
-        console.log(" response:", response);
-      },
       onError: error => {
-        console.log(" error:", error);
         toast.error(error?.message);
       },
     });

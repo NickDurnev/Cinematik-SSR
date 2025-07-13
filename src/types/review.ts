@@ -1,11 +1,13 @@
 export interface IReviewData {
-  name: string;
   rating: string;
-  picture: string;
   text: string;
 }
 
-export interface IReview extends IReviewData {
-  _id: string;
-  createdAt: string;
+export interface IReview {
+  id: string;
+  user_id: string;
+  text: string;
+  rating: string;
+  created_at: Date;
+  updated_at: Date;
 }

@@ -1,11 +1,13 @@
 import { Metadata } from "next";
 
+import Reviews from "./components/reviews";
+
 export const metadata: Metadata = {
   title: "Reviews page",
 };
 
-const Reviews = () => {
-  return <>{/* <Reviews /> */}</>;
+const ReviewsPage = () => {
+  return <Reviews />;
 };
 
-export default Reviews;
+export default ReviewsPage;

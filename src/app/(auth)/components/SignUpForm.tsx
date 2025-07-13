@@ -20,8 +20,8 @@ const SignUpForm = ({ onSubmit, isLoading }: Props) => {
       onChange: signupFormSchema,
       onBlur: signupFormSchema,
     },
-    onSubmit: async ({ value }) => {
-      await onSubmit(value);
+    onSubmit: ({ value }) => {
+      onSubmit(value);
     },
   });
 
