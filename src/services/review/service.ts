@@ -1,7 +1,29 @@
 import { apiClient } from "@/libs/axios";
 import ErrorHelper from "@/libs/error-helper";
-import { IApiResponse } from "@/types/general";
+import { IApiResponse, IPaginatedResponse } from "@/types/general";
 import { IReview, IReviewData } from "@/types/review";
+
+export const getReviews = async ({
+  page,
+}: {
+  page: number;
+}): Promise<IPaginatedResponse<IReview>> => {
+  try {
+    const response = await apiClient.get<IPaginatedResponse<IReview>>(
+      "reviews",
+      {
+        params: {
+          page,
+        },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    const errorMessage = ErrorHelper.getMessage(error);
+    throw new Error(errorMessage ?? "Failed to get reviews");
+  }
+};
 
 export const addReview = async (
   review: IReviewData,
@@ -16,25 +38,6 @@ export const addReview = async (
   } catch (error) {
     const errorMessage = ErrorHelper.getMessage(error);
     throw new Error(errorMessage ?? "Failed to add review");
-  }
-};
-
-export const getReviews = async ({
-  page,
-}: {
-  page: number;
-}): Promise<IApiResponse<IReview[]>> => {
-  try {
-    const response = await apiClient.get<IApiResponse<IReview[]>>("reviews", {
-      params: {
-        page,
-      },
-    });
-
-    return response.data;
-  } catch (error) {
-    const errorMessage = ErrorHelper.getMessage(error);
-    throw new Error(errorMessage ?? "Failed to get reviews");
   }
 };
 

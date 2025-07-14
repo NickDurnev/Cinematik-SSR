@@ -1,12 +1,15 @@
 "use client";
-import { Avatar } from "@/components";
-import { IReview } from "@/types/review";
+
 import StarIcon from "@mui/icons-material/Star";
 import { Rating } from "@mui/material";
 import { motion } from "framer-motion";
 
+import { Avatar } from "@/components";
+import { IReview } from "@/types/review";
+import { formatDate } from "@/utils/dateFormatter";
+
 const Review = ({ review }: { review: IReview }) => {
-  const { picture, name, rating, text, createdAt } = review;
+  const { picture, name, rating, text, created_at } = review;
   return (
     <motion.li
       className="w-full border-addText border-b-[0.5px] bg-transparent pb-[35px] text-mainText"
@@ -53,7 +56,7 @@ const Review = ({ review }: { review: IReview }) => {
             {name}
           </p>
           <p className="font-normal text-base text-mainText leading-4">
-            {createdAt}
+            {formatDate(created_at)}
           </p>
         </div>
       </div>

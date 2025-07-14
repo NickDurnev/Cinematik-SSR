@@ -1,11 +1,29 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 
 import {
   addReview,
   deleteReview,
+  getReviews,
   updateReview,
 } from "@/services/review/service";
 import { IReview } from "@/types/review";
+
+export const useReviews = () =>
+  useInfiniteQuery({
+    queryKey: ["orders"],
+    queryFn: ({ pageParam = 1 }) => getReviews({ page: pageParam }),
+    initialPageParam: 1,
+    getNextPageParam: lastPage => {
+      if (lastPage.meta.page < lastPage.meta.total_pages) {
+        return lastPage.meta.page + 1;
+      }
+      return undefined;
+    },
+  });
 
 export const useAddReview = () => {
   const queryClient = useQueryClient();

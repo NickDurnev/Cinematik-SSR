@@ -8,6 +8,8 @@ export interface IReview {
   user_id: string;
   text: string;
   rating: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
+  name: string;
+  picture: string;
 }

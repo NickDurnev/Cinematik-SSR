@@ -1,19 +1,62 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import { toast } from "react-toastify";
 
-import { AddReviewForm, Show } from "@/components";
+import {
+  AddReviewForm,
+  QueryTrigger,
+  Review,
+  Show,
+  Spinner,
+} from "@/components";
 import { UserStore, useUserStore } from "@/hooks/stores";
-import { useAddReview } from "@/services/review/query-hooks";
+import { useAddReview, useReviews } from "@/services/review/query-hooks";
 import { IReviewFormSchema } from "@/services/review/schemas";
+import { IReview } from "@/types/review";
 
 const Reviews = () => {
+  const [reviews, setReviews] = useState<IReview[]>([]);
+  console.log("🚀 ~ Reviews ~ reviews:", reviews);
+  const [hasLoaded, setHasLoaded] = useState(false);
+
   const { user, setUser } = useUserStore((state: UserStore) => state);
 
   const { mutate: addReview, isPending: isReviewPending } = useAddReview();
 
+  const { ref: ListRef, inView } = useInView({
+    threshold: 0.1,
+  });
+
+  const {
+    data: reviewsData,
+    isPending,
+    isSuccess,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useReviews();
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView]);
+
+  console.log("🚀 ~ useEffect ~ reviewsData:", reviewsData);
+
+  useEffect(() => {
+    if (isSuccess || reviewsData?.pages?.length) {
+      setHasLoaded(true);
+      // Concatenate reviews from all pages
+      const allReviews = reviewsData.pages.flatMap(page => page.data);
+      console.log("🚀 ~ useEffect ~ allReviews:", allReviews);
+      setReviews(allReviews);
+    }
+  }, [isSuccess, reviewsData?.pages, hasNextPage]);
+
   const handleSubmit = (review: IReviewFormSchema): void => {
-    console.log("🚀 ~ handleSubmit ~ review:", review);
     addReview(review, {
       onSuccess: () => {
         // setReviews([...reviews, response.data]);
@@ -33,7 +76,27 @@ const Reviews = () => {
       <Show when={user.id && !user.is_left_review}>
         <AddReviewForm onSubmit={handleSubmit} isLoading={isReviewPending} />
       </Show>
-      {/* <ReviewList reviews={reviews} /> */}
+      {hasLoaded && reviews.length === 0 ? (
+        <div className="m-0 mx-auto laptopL:mb-[115px] laptopM:mb-[100px] mb-20 flex w-full laptopL:max-w-[900px] laptopM:max-w-[685px] flex-col gap-3 rounded-2xl text-center">
+          <h2 className="font-technovier text-[35px] text-mainText uppercase leading-[41px] tracking-wider">
+            No reviews yet
+          </h2>
+          <p className="text-main">Be the first to leave a review</p>
+        </div>
+      ) : (
+        <ul className="mx-auto laptopL:w-[900px] laptopM:w-[685px] tablet:w-[500px] laptop:space-y-[80px] space-y-[55px]">
+          {reviews.map(review => (
+            <Review review={review} key={review.id} />
+          ))}
+          {hasNextPage && <QueryTrigger ref={ListRef} />}
+        </ul>
+      )}
+      {isPending ||
+        (isFetchingNextPage && (
+          <div className="py-6">
+            <Spinner />
+          </div>
+        ))}
     </section>
   );
 };
