@@ -1,8 +1,22 @@
 import { ButtonProps, Button as MuiButton } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 
 import { cn } from "@/libs/tailwind-merge";
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "destructive";
+
+const iconButtonSx = {
+  color: "var(--foreground)",
+  "&:hover": {
+    color: "var(--primary)",
+  },
+  "&.Mui-focusVisible": {
+    color: "var(--primary)",
+  },
+  "&.Mui-disabled": {
+    color: "var(--muted-foreground)",
+  },
+};
 
 const defaultSx = {
   borderColor: "var(--primary)",
@@ -64,6 +78,7 @@ const variantSx: Record<ButtonVariant, object> = {
 type Props = ButtonProps & {
   className?: string;
   customVariant?: ButtonVariant;
+  isIconButton?: boolean;
 };
 
 const Button = ({
@@ -71,17 +86,27 @@ const Button = ({
   className,
   sx,
   customVariant = "primary",
+  isIconButton = false,
   ...props
 }: Props) => {
   const selectedVariant = variantSx[customVariant];
 
+  if (isIconButton) {
+    return (
+      <IconButton
+        {...props}
+        className={cn(className, "rounded-full p-2")}
+        sx={[iconButtonSx, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
+      >
+        {children}
+      </IconButton>
+    );
+  }
+
   return (
     <MuiButton
       {...props}
-      className={cn(
-        // "color-foreground rounded-[10px] border border-foreground font-muller text-[20px] uppercase leading-[20px]",
-        className,
-      )}
+      className={cn(className)}
       sx={[selectedVariant, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
     >
       {children}

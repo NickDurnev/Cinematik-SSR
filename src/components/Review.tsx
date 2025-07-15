@@ -1,23 +1,43 @@
 "use client";
 
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import StarIcon from "@mui/icons-material/Star";
 import { Rating } from "@mui/material";
+import Stack from "@mui/material/Stack";
 import { motion } from "framer-motion";
 
-import { Avatar } from "@/components";
+import { Avatar, Button, Show } from "@/components";
+import { UserStore, useUserStore } from "@/hooks/stores";
 import { IReview } from "@/types/review";
 import { formatDate } from "@/utils/dateFormatter";
 
-const Review = ({ review }: { review: IReview }) => {
-  const { picture, name, rating, text, created_at } = review;
+type Props = {
+  review: IReview;
+  handleDelete: () => void;
+  handleUpdate: () => void;
+  isDeletePending: boolean;
+  isUpdatePending: boolean;
+};
+
+const Review = ({
+  review,
+  handleDelete,
+  handleUpdate,
+  isDeletePending,
+  isUpdatePending,
+}: Props) => {
+  const { picture, name, rating, text, created_at, updated_at } = review;
+  const user = useUserStore((state: UserStore) => state.user);
+
   return (
     <motion.li
-      className="w-full border-addText border-b-[0.5px] bg-transparent pb-[35px] text-mainText"
+      className="flex w-full flex-col gap-y-8 border-addText border-b-[0.5px] bg-transparent pb-[35px] text-mainText"
       initial={{ opacity: 0, scale: 0.5 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
     >
-      <div className="laptopM:mb-[50px] mb-[35px] flex w-[210px] items-center justify-between">
+      <div className="flex items-center gap-x-10">
         <Avatar picture={picture} name={name} size={50} />
         <Rating
           className="flex w-[140px] justify-between text-mainText"
@@ -46,17 +66,38 @@ const Review = ({ review }: { review: IReview }) => {
             />
           }
         />
+        <Show when={user.id === review.user_id}>
+          <Stack direction="row" spacing={2}>
+            <Button
+              isIconButton={true}
+              aria-label="delete"
+              disabled={isDeletePending || isUpdatePending}
+              loading={isDeletePending}
+              onClick={handleDelete}
+            >
+              <DeleteIcon />
+            </Button>
+            <Button
+              isIconButton={true}
+              aria-label="update"
+              disabled={isDeletePending || isUpdatePending}
+              loading={isUpdatePending}
+              onClick={handleUpdate}
+            >
+              <EditIcon />
+            </Button>
+          </Stack>
+        </Show>
       </div>
-      <div className="w-full text-left">
-        <p className="laptopL:mb-[65px] laptopM:mb-[50px] mb-[35px] laptopL:w-[690px] laptopM:w-[540px]">
-          {text}
-        </p>
+      <div className="flex w-full flex-col gap-y-5 text-left">
+        <p className="laptopL:w-[690px] laptopM:w-[540px]">{text}</p>
         <div className="flex items-center justify-between">
           <p className="font-normal text-base text-mainText leading-4">
             {name}
           </p>
           <p className="font-normal text-base text-mainText leading-4">
-            {formatDate(created_at)}
+            {created_at !== updated_at && "Edited "}{" "}
+            {formatDate(created_at !== updated_at ? updated_at : created_at)}
           </p>
         </div>
       </div>

@@ -12,7 +12,12 @@ import {
   Spinner,
 } from "@/components";
 import { UserStore, useUserStore } from "@/hooks/stores";
-import { useAddReview, useReviews } from "@/services/review/query-hooks";
+import {
+  useAddReview,
+  useDeleteReview,
+  useReviews,
+  useUpdateReview,
+} from "@/services/review/query-hooks";
 import { IReviewFormSchema } from "@/services/review/schemas";
 import { IReview } from "@/types/review";
 
@@ -24,6 +29,12 @@ const Reviews = () => {
   const { user, setUser } = useUserStore((state: UserStore) => state);
 
   const { mutate: addReview, isPending: isReviewPending } = useAddReview();
+
+  const { mutate: deleteReview, isPending: isDeletePending } =
+    useDeleteReview();
+
+  const { mutate: updateReview, isPending: isUpdatePending } =
+    useUpdateReview();
 
   const { ref: ListRef, inView } = useInView({
     threshold: 0.1,
@@ -44,24 +55,43 @@ const Reviews = () => {
     }
   }, [inView]);
 
-  console.log("🚀 ~ useEffect ~ reviewsData:", reviewsData);
-
   useEffect(() => {
     if (isSuccess || reviewsData?.pages?.length) {
       setHasLoaded(true);
-      // Concatenate reviews from all pages
       const allReviews = reviewsData.pages.flatMap(page => page.data);
-      console.log("🚀 ~ useEffect ~ allReviews:", allReviews);
       setReviews(allReviews);
     }
   }, [isSuccess, reviewsData?.pages, hasNextPage]);
 
   const handleSubmit = (review: IReviewFormSchema): void => {
     addReview(review, {
-      onSuccess: () => {
-        // setReviews([...reviews, response.data]);
+      onSuccess: ({ data: newReview }) => {
         setUser({ ...user, is_left_review: true });
+        setReviews(prev => [
+          { ...newReview, name: user.name, picture: user.picture },
+          ...prev,
+        ]);
       },
+      onError: error => {
+        toast.error(error?.message);
+      },
+    });
+  };
+
+  const handleDelete = (): void => {
+    deleteReview(undefined, {
+      onSuccess: () => {
+        setUser({ ...user, is_left_review: false });
+        setReviews(prev => prev.filter(review => review.user_id !== user.id));
+      },
+      onError: error => {
+        toast.error(error?.message);
+      },
+    });
+  };
+
+  const handleUpdate = (): void => {
+    updateReview(undefined, {
       onError: error => {
         toast.error(error?.message);
       },
@@ -86,7 +116,14 @@ const Reviews = () => {
       ) : (
         <ul className="mx-auto laptopL:w-[900px] laptopM:w-[685px] tablet:w-[500px] laptop:space-y-[80px] space-y-[55px]">
           {reviews.map(review => (
-            <Review review={review} key={review.id} />
+            <Review
+              review={review}
+              key={review.id}
+              handleDelete={handleDelete}
+              handleUpdate={handleUpdate}
+              isDeletePending={isDeletePending}
+              isUpdatePending={isUpdatePending}
+            />
           ))}
           {hasNextPage && <QueryTrigger ref={ListRef} />}
         </ul>
