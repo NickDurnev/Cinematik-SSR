@@ -41,9 +41,14 @@ export const addReview = async (
   }
 };
 
-export const updateReview = async (): Promise<IApiResponse<IReview>> => {
+export const updateReview = async (
+  review: IReviewData,
+): Promise<IApiResponse<IReview>> => {
   try {
-    const response = await apiClient.patch<IApiResponse<IReview>>("reviews");
+    const response = await apiClient.patch<IApiResponse<IReview>>(
+      "reviews",
+      review,
+    );
 
     return response.data;
   } catch (error) {

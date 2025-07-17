@@ -23,7 +23,7 @@ import { IReview } from "@/types/review";
 
 const Reviews = () => {
   const [reviews, setReviews] = useState<IReview[]>([]);
-  console.log("🚀 ~ Reviews ~ reviews:", reviews);
+  const [isReviewUpdateFormOpen, setIsReviewUpdateFormOpen] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
 
   const { user, setUser } = useUserStore((state: UserStore) => state);
@@ -90,8 +90,23 @@ const Reviews = () => {
     });
   };
 
-  const handleUpdate = (): void => {
-    updateReview(undefined, {
+  const handleUpdate = (review: IReviewFormSchema): void => {
+    updateReview(review, {
+      onSuccess: updatedReview => {
+        setReviews(prev => {
+          return prev.map(review => {
+            if (review.user_id === user.id) {
+              return {
+                ...updatedReview.data,
+                name: user.name,
+                picture: user.picture,
+              };
+            }
+            return review;
+          });
+        });
+        setIsReviewUpdateFormOpen(false);
+      },
       onError: error => {
         toast.error(error?.message);
       },
@@ -99,12 +114,16 @@ const Reviews = () => {
   };
 
   return (
-    <section className="laptopM:flex w-full laptopM:items-start laptopM:justify-between laptopL:py-[80px] laptopM:py-[60px] py-[55px]">
-      <h2 className="laptopM:mb-0 mb-[60px] font-technovier laptopM:text-[50px] text-[35px] text-mainText uppercase laptopM:leading-[59px] leading-[41px] tracking-wider">
+    <section className="flex w-full flex-col laptopM:items-start laptopM:justify-between gap-y-16 laptopL:py-[80px] laptopM:py-[60px] py-[55px]">
+      <h2 className="font-technovier laptopM:text-[50px] text-[35px] text-mainText uppercase laptopM:leading-[59px] leading-[41px] tracking-wider">
         Reviews
       </h2>
-      <Show when={user.id && !user.is_left_review}>
-        <AddReviewForm onSubmit={handleSubmit} isLoading={isReviewPending} />
+      <Show when={user.id && (!user.is_left_review || isReviewUpdateFormOpen)}>
+        <AddReviewForm
+          onSubmit={isReviewUpdateFormOpen ? handleUpdate : handleSubmit}
+          isLoading={isUpdatePending || isReviewPending}
+          reviewToUpdate={reviews.find(review => review.user_id === user.id)}
+        />
       </Show>
       {hasLoaded && reviews.length === 0 ? (
         <div className="m-0 mx-auto laptopL:mb-[115px] laptopM:mb-[100px] mb-20 flex w-full laptopL:max-w-[900px] laptopM:max-w-[685px] flex-col gap-3 rounded-2xl text-center">
@@ -114,13 +133,13 @@ const Reviews = () => {
           <p className="text-main">Be the first to leave a review</p>
         </div>
       ) : (
-        <ul className="mx-auto laptopL:w-[900px] laptopM:w-[685px] tablet:w-[500px] laptop:space-y-[80px] space-y-[55px]">
+        <ul className="mx-auto w-full max-w-[600px] laptop:space-y-[80px] space-y-[55px]">
           {reviews.map(review => (
             <Review
               review={review}
               key={review.id}
               handleDelete={handleDelete}
-              handleUpdate={handleUpdate}
+              handleUpdate={() => setIsReviewUpdateFormOpen(true)}
               isDeletePending={isDeletePending}
               isUpdatePending={isUpdatePending}
             />

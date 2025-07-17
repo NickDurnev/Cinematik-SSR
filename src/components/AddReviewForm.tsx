@@ -9,20 +9,24 @@ import { useState } from "react";
 // import { useForm } from "react-hook-form";
 import { Button, Input } from "@/components";
 import { IReviewFormSchema, reviewFormSchema } from "@/services/review/schemas";
+import { IReview } from "@/types/review";
 
 const DEFAULT_RATING = 4;
 
 type Props = {
   onSubmit: (data: IReviewFormSchema) => void;
   isLoading: boolean;
+  reviewToUpdate?: IReview;
 };
 
-const AddReviewForm = ({ onSubmit, isLoading }: Props) => {
-  const [rating, setRating] = useState(DEFAULT_RATING);
+const AddReviewForm = ({ onSubmit, isLoading, reviewToUpdate }: Props) => {
+  const [rating, setRating] = useState(
+    Number(reviewToUpdate?.rating) || DEFAULT_RATING,
+  );
 
   const form = useForm({
     defaultValues: {
-      text: "",
+      text: reviewToUpdate?.text || "",
       rating: DEFAULT_RATING.toString(),
     },
     validators: {
@@ -40,7 +44,7 @@ const AddReviewForm = ({ onSubmit, isLoading }: Props) => {
 
   return (
     <form
-      className="m-0 mx-auto laptopL:mb-[115px] laptopM:mb-[100px] mb-20 flex w-full laptopL:max-w-[900px] laptopM:max-w-[685px] flex-col gap-3 rounded-2xl text-center"
+      className="m-0 mx-auto flex w-full laptopL:max-w-[900px] laptopM:max-w-[685px] flex-col gap-3 rounded-2xl text-center"
       onSubmit={e => {
         e.preventDefault();
         form.handleSubmit();

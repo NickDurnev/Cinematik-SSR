@@ -71,6 +71,14 @@ export const setAuthTokens = (
   });
 };
 
+export const setAccessToken = (accessToken: string): void => {
+  addCookie({
+    name: "accessToken",
+    value: accessToken,
+    minutes: ACCESS_EXPIRATION_MINUTES,
+  });
+};
+
 // Function to clear authentication tokens
 export const clearAuthTokens = (): void => {
   // Expire tokens immediately by setting negative expiration

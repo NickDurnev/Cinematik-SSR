@@ -6,7 +6,7 @@ import axios, {
 } from "axios";
 
 import { API_BASE_URL } from "@/utils/constants";
-import { clearAuthTokens, getCookie, setAuthTokens } from "@/utils/cookies";
+import { clearAuthTokens, getCookie, setAccessToken } from "@/utils/cookies";
 
 // Create axios instance with base URL
 export const apiClient: AxiosInstance = axios.create({
@@ -57,7 +57,6 @@ apiClient.interceptors.response.use(
       try {
         // Get refresh token from cookies
         const refreshToken = await getCookie("refreshToken");
-        console.log(" refreshToken:", refreshToken);
 
         if (!refreshToken) {
           // Instead of redirecting here, throw an error
@@ -73,9 +72,9 @@ apiClient.interceptors.response.use(
         );
 
         // Extract new tokens from response
-        const { access_token, refresh_token } = response.data.data.token;
-        // Save new tokens to cookies
-        setAuthTokens(access_token, refresh_token);
+        const { access_token } = response.data.data;
+
+        setAccessToken(access_token);
 
         // Update Authorization header
         originalRequest.headers.Authorization = `Bearer ${access_token}`;

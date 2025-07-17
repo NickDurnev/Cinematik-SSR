@@ -32,7 +32,7 @@ const Review = ({
 
   return (
     <motion.li
-      className="flex w-full flex-col gap-y-8 border-addText border-b-[0.5px] bg-transparent pb-[35px] text-mainText"
+      className="flex w-full flex-col gap-y-8 border-foreground border-b-[0.5px] bg-transparent pb-6 text-mainText"
       initial={{ opacity: 0, scale: 0.5 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
