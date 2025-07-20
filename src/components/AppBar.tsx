@@ -14,7 +14,7 @@ import Link from "next/link";
 import { MouseEvent, useState } from "react";
 
 //#Components
-import { Button, Show, UserBar } from "@/components";
+import { Button, Show, ThemeSwitcher, UserBar } from "@/components";
 import useSizeScreen from "@/hooks/useSizeScreen";
 
 const pages = [
@@ -57,52 +57,34 @@ const AppBar = () => {
               borderBottom: "0.5px solid var(--color-text-main)",
             }}
           >
-            <div className="flex items-center">
-              {isSizeScreen === "phone" ? (
-                <Image src="/Logo.svg" width={42} height={48} alt="Logo" />
-              ) : (
-                <Image src="/Logo.svg" width={58} height={65} alt="Logo" />
-              )}
-              <Typography
-                noWrap
-                component="a"
-                href="/"
-                sx={{
-                  mr: 2,
-                  display: { xs: "none", md: "flex" },
-                  fontFamily: "var(--font-muller)",
-                  fontSize: "20px",
-                  fontWeight: 600,
-                  lineHeight: "24px",
-                  letterSpacing: "0.2em",
-                  color: "var(--color-text-main)",
-                  textDecoration: "none",
-                }}
-              >
-                CINEMATIK
-              </Typography>
+            <div className="flex items-center gap-x-3">
+              <div className="flex items-center">
+                {isSizeScreen === "phone" ? (
+                  <Image src="/Logo.svg" width={42} height={48} alt="Logo" />
+                ) : (
+                  <Image src="/Logo.svg" width={58} height={65} alt="Logo" />
+                )}
+                <Typography
+                  noWrap
+                  component="a"
+                  href="/"
+                  sx={{
+                    mr: 2,
+                    display: { xs: "none", md: "flex" },
+                    fontFamily: "var(--font-muller)",
+                    fontSize: "20px",
+                    fontWeight: 600,
+                    lineHeight: "24px",
+                    letterSpacing: "0.2em",
+                    color: "var(--color-text-main)",
+                    textDecoration: "none",
+                  }}
+                >
+                  CINEMATIK
+                </Typography>
+              </div>
+              <ThemeSwitcher />
             </div>
-            <>
-              <Typography
-                noWrap
-                component="a"
-                href="/"
-                sx={{
-                  mr: 2,
-                  display: { xs: "flex", md: "none" },
-                  flexGrow: 1,
-                  fontFamily: "var(--font-muller)",
-                  fontSize: "14px",
-                  fontWeight: 600,
-                  lineHeight: "17px",
-                  letterSpacing: "0.2em",
-                  color: "var(--color-text-main)",
-                  textDecoration: "none",
-                }}
-              >
-                CINEMATIK
-              </Typography>
-            </>
             <Box
               sx={{
                 display: "flex",

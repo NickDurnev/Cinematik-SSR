@@ -4,13 +4,18 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Link from "next/link";
 
 import { Button, Show } from "@/components";
-import { UserStore, useUserStore } from "@/hooks/stores";
+import { UserStore, useUserStore, useUserStoreHydrated } from "@/hooks/stores";
 import useLogout from "@/hooks/useLogout";
 
 const AppLink = () => {
   const user = useUserStore((state: UserStore) => state.user);
+  const hydrated = useUserStoreHydrated();
 
   const { handleLogout } = useLogout();
+
+  if (!hydrated) {
+    return null;
+  }
 
   return (
     <div className="laptopM:m-0 mx-auto tablet:mx-auto tablet:my-[100px] laptopL:mb-[120px] laptopM:mb-[20px] tablet:mb-0 w-[350px] bg-transparent">

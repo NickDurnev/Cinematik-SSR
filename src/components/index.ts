@@ -8,6 +8,7 @@ export { default as StyleProviders } from "./Providers/StyleProviders";
 export { default as ToastProvider } from "./Providers/ToastProvider";
 export { default as Review } from "./Review";
 export { default as Show } from "./Show";
+export { default as ThemeSwitcher } from "./ThemeSwitcher";
 export { default as UserBar } from "./UserBar";
 export { default as Button } from "./ui/Button";
 export { default as Input } from "./ui/Input";

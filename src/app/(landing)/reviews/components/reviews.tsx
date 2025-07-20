@@ -81,6 +81,7 @@ const Reviews = () => {
   const handleDelete = (): void => {
     deleteReview(undefined, {
       onSuccess: () => {
+        toast("Review deleted successfully");
         setUser({ ...user, is_left_review: false });
         setReviews(prev => prev.filter(review => review.user_id !== user.id));
       },

@@ -7,20 +7,25 @@ type ButtonVariant = "primary" | "secondary" | "ghost" | "destructive";
 
 const iconButtonSx = {
   color: "var(--foreground)",
+  transition: "all var(--hover-transition) var(--hover-time-function)",
   "&:hover": {
     color: "var(--primary)",
+    transform: "scale(1.1)",
   },
   "&.Mui-focusVisible": {
     color: "var(--primary)",
+    transform: "scale(1.1)",
   },
   "&.Mui-disabled": {
     color: "var(--muted-foreground)",
+    transform: "none",
   },
 };
 
 const defaultSx = {
   borderColor: "var(--primary)",
   color: "var(--foreground)",
+  transition: "all var(--hover-transition) var(--hover-time-function)",
   fontSize: 20,
   borderRadius: "10px",
   padding: "10px 20px",
@@ -95,7 +100,10 @@ const Button = ({
     return (
       <IconButton
         {...props}
-        className={cn(className, "rounded-full p-2")}
+        className={cn(
+          className,
+          "motion-preset-pop motion-loop-once rounded-full p-2",
+        )}
         sx={[iconButtonSx, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
       >
         {children}
@@ -106,7 +114,7 @@ const Button = ({
   return (
     <MuiButton
       {...props}
-      className={cn(className)}
+      className={cn(className, "motion-preset-pop motion-loop-once")}
       sx={[selectedVariant, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
     >
       {children}
