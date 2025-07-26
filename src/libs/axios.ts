@@ -5,10 +5,22 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 
-import { API_BASE_URL } from "@/utils/constants";
+import { API_BASE_URL, IMDB_API_KEY, IMDB_BASE_URL } from "@/utils/constants";
 import { clearAuthTokens, getCookie, setAccessToken } from "@/utils/cookies";
 
-// Create axios instance with base URL
+// IMDB axios instance with base URL
+export const imdbApiClient: AxiosInstance = axios.create({
+  baseURL: IMDB_BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+  params: {
+    api_key: IMDB_API_KEY,
+    language: "en-US",
+  },
+});
+
+// Base axios instance with base URL
 export const apiClient: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
   headers: {
