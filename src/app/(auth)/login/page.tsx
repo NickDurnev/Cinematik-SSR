@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 import Link from "next/link";
 import { toast } from "react-toastify";
 
@@ -37,18 +37,9 @@ const LoginPage = () => {
           background: "var(--background)",
         }}
       >
-        <Typography
-          variant="h4"
-          className="mb-4 tablet:mb-6 text-center font-bold laptop:text-[36px] tablet:text-[32px] text-[28px] tracking-wide"
-          sx={{
-            color: "var(--foreground)",
-            fontFamily: "var(--font-muller)",
-            fontWeight: 600,
-            letterSpacing: "0.1em",
-          }}
-        >
+        <h3 className="mb-4 tablet:mb-6 text-center font-semibold laptop:text-[36px] tablet:text-[32px] text-[24px] tracking-wide">
           Login
-        </Typography>
+        </h3>
         <LoginForm onSubmit={handleSubmit} isLoading={isLoginPending} />
         <Box className="mt-4 flex flex-col gap-y-3 text-center">
           <Link href="/forgot-password" passHref>
@@ -65,18 +56,12 @@ const LoginPage = () => {
               <Button
                 customVariant="ghost"
                 aria-label="Sign up"
-                sx={{ fontSize: 16 }}
+                className="text-base"
               >
                 Don't have an account yet?
               </Button>
             </Link>
-            <Typography
-              variant="body1"
-              className="mb-2 tablet:text-lg text-base"
-              sx={{ color: "var(--foreground)" }}
-            >
-              or
-            </Typography>
+            <p className="text-center">or</p>
             <GoogleLogin />
           </Box>
         </Box>

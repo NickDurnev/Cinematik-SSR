@@ -15,6 +15,11 @@ export type ISocialLoginDto = Pick<IAuthCredentialsDto, "name" | "email"> & {
 
 export type IForgotPasswordDto = Pick<IAuthCredentialsDto, "email">;
 
+export type IResetPasswordDto = {
+  token: string;
+  newPassword: string;
+};
+
 export interface INextAuthUserData {
   email: string;
   name: string;

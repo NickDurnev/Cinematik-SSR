@@ -6,6 +6,7 @@ import {
   IAuthData,
   IForgotPasswordDto,
   ILoginCredentialsDto,
+  IResetPasswordDto,
   ISocialLoginDto,
   IUser,
 } from "@/types/user";
@@ -87,6 +88,25 @@ export const forgotPassword = async (
     const response = await apiClient.post<
       IApiResponse<{ success: boolean; message: string }>
     >("auth/forgot-password", dto);
+
+    if (!response.data.data) {
+      throw new Error(response.data.message);
+    }
+
+    return response.data.data;
+  } catch (error) {
+    const errorMessage = ErrorHelper.getMessage(error);
+    throw new Error(errorMessage ?? "Failed to login.");
+  }
+};
+
+export const resetPassword = async (
+  dto: IResetPasswordDto,
+): Promise<{ success: boolean; message: string }> => {
+  try {
+    const response = await apiClient.post<
+      IApiResponse<{ success: boolean; message: string }>
+    >("auth/reset-password", dto);
 
     if (!response.data.data) {
       throw new Error(response.data.message);

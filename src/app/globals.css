@@ -261,7 +261,19 @@
     list-style: none;
   }
   p {
+    @apply text-foreground;
     margin: 0;
+    font-family: "Muller", sans-serif;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-foreground;
+    margin: 0;
+    font-family: "Muller", sans-serif;
   }
   a {
     text-decoration: none;

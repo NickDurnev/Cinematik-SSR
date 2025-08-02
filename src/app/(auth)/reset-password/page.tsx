@@ -1,20 +1,26 @@
 "use client";
 
 import { Box, Paper } from "@mui/material";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
 
-import { useForgotPassword } from "@/services/user/query-hooks";
-import { IForgotPasswordFormSchema } from "@/services/user/schemas";
+import { useResetPassword } from "@/services/user/query-hooks";
+import { IResetPasswordDto } from "@/types/user";
 
-import { ForgotPasswordForm } from "../components";
+import { ResetPasswordForm } from "../components";
 
 const ForgotPasswordPage = () => {
-  const { mutate: forgotPassword, isPending } = useForgotPassword();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const resetToken = searchParams.get("token");
 
-  const handleSubmit = (data: IForgotPasswordFormSchema) => {
-    forgotPassword(data, {
+  const { mutate: resetPassword, isPending } = useResetPassword();
+
+  const handleSubmit = (data: IResetPasswordDto) => {
+    resetPassword(data, {
       onSuccess: response => {
         toast.success(response.message);
+        router.replace("/login");
       },
       onError: error => {
         console.log(" error:", error);
@@ -36,9 +42,13 @@ const ForgotPasswordPage = () => {
         }}
       >
         <h3 className="mb-4 tablet:mb-6 text-center font-semibold laptop:text-[36px] tablet:text-[32px] text-[24px] tracking-wide">
-          Forgot Password
+          Reset Password
         </h3>
-        <ForgotPasswordForm onSubmit={handleSubmit} isLoading={isPending} />
+        <ResetPasswordForm
+          resetToken={resetToken}
+          onSubmit={handleSubmit}
+          isLoading={isPending}
+        />
       </Paper>
     </Box>
   );

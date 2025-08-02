@@ -90,10 +90,10 @@ const LoginForm = ({ onSubmit, isLoading }: Props) => {
                 type="submit"
                 variant="outlined"
                 disabled={!canSubmit || isSubmitting || isLoading}
-                className="mx-auto w-1/2 laptop:text-xl tablet:text-lg text-base"
+                className="laptop:!text-xl tablet:!text-lg mx-auto w-[40%]"
                 loading={isSubmitting || isLoading}
                 loadingPosition="end"
-                sx={{ padding: "10px 0" }}
+                sx={{ padding: "10px 10px" }}
               >
                 {isSubmitting || isLoading ? "Logging in..." : "Login"}
               </Button>

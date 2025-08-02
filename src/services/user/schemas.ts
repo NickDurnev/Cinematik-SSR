@@ -57,8 +57,21 @@ export const forgotPasswordFormSchema = z.object({
   email: emailSchema,
 });
 
+export const resetPasswordFormSchema = z
+  .object({
+    password: passwordSchema,
+    confirmPassword: z.string({
+      required_error: "Please confirm your password",
+    }),
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
+
 export type ISignupFormSchema = z.infer<typeof signupFormSchema>;
 export type ILoginFormSchema = z.infer<typeof loginFormSchema>;
 export type IForgotPasswordFormSchema = z.infer<
   typeof forgotPasswordFormSchema
 >;
+export type IResetPasswordFormSchema = z.infer<typeof resetPasswordFormSchema>;

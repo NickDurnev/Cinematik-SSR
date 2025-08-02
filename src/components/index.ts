@@ -1,6 +1,7 @@
 export { default as AddReviewForm } from "./AddReviewForm";
 export { default as AppBar } from "./AppBar";
 export { default as Avatar } from "./Avatar";
+export { default as BackButton } from "./BackButton";
 export { default as Footer } from "./Footer";
 export { default as GoogleLogin } from "./GoogleLogin";
 export { default as AuthProvider } from "./Providers/AuthProvider";

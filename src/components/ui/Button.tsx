@@ -26,7 +26,6 @@ const defaultSx = {
   borderColor: "var(--primary)",
   color: "var(--foreground)",
   transition: "all var(--hover-transition) var(--hover-time-function)",
-  fontSize: 20,
   borderRadius: "10px",
   padding: "10px 20px",
   "&:hover": {
@@ -114,7 +113,7 @@ const Button = ({
   return (
     <MuiButton
       {...props}
-      className={cn(className, "motion-preset-pop motion-loop-once")}
+      className={cn(className, "motion-preset-pop motion-loop-once !text-base")}
       sx={[selectedVariant, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
     >
       {children}

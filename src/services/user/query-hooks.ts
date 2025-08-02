@@ -4,6 +4,7 @@ import { UserStore, useUserStore } from "@/hooks/stores";
 import {
   forgotPassword,
   loginUser,
+  resetPassword,
   signUpUser,
   socialLoginUser,
 } from "@/services/user/service";
@@ -65,6 +66,16 @@ export const useForgotPassword = () => {
   return useMutation({
     mutationKey: ["forgot-password"],
     mutationFn: forgotPassword,
+    onSuccess: (optimisticData: { success: boolean; message: string }) => {
+      return optimisticData;
+    },
+  });
+};
+
+export const useResetPassword = () => {
+  return useMutation({
+    mutationKey: ["reset-password"],
+    mutationFn: resetPassword,
     onSuccess: (optimisticData: { success: boolean; message: string }) => {
       return optimisticData;
     },
