@@ -3,14 +3,8 @@
 import { create } from "zustand";
 import { PersistStorage, persist } from "zustand/middleware";
 
-import { IUser } from "@/types/user";
-import { DEFAULT_USER } from "@/utils/constants";
-
-export interface UserStore {
-  user: IUser;
-  setUser: (user: IUser) => void;
-  _hasHydrated?: boolean;
-}
+import { IFormsData, IUser } from "@/types/user";
+import { DEFAULT_FORM_DATA, DEFAULT_USER } from "@/utils/constants";
 
 // Create a sessionStorage adapter
 const sessionStorageAdapter: PersistStorage<UserStore> = {
@@ -33,12 +27,18 @@ const sessionStorageAdapter: PersistStorage<UserStore> = {
   },
 };
 
+export interface UserStore {
+  user: IUser;
+  setUser: (user: IUser) => void;
+  _hasHydrated?: boolean;
+}
+
 // Module-level variable to store set function for hydration workaround
 let userStoreSet: ((state: Partial<UserStore>) => void) | undefined;
 
 export const useUserStore = create<UserStore>()(
   persist(
-    (set, get) => {
+    set => {
       userStoreSet = set;
       return {
         user: DEFAULT_USER,
@@ -47,8 +47,8 @@ export const useUserStore = create<UserStore>()(
       };
     },
     {
-      name: "user-storage", // unique name for the storage key
-      storage: sessionStorageAdapter, // use our custom sessionStorage adapter
+      name: "user-storage",
+      storage: sessionStorageAdapter,
       onRehydrateStorage: () => {
         return () => {
           userStoreSet && userStoreSet({ _hasHydrated: true });
@@ -62,4 +62,23 @@ export const useUserStore = create<UserStore>()(
 export const useUserStoreHydrated = () =>
   useUserStore(state => state._hasHydrated);
 
-export default useUserStore;
+export interface FormsDataStore {
+  data: IFormsData;
+  setData: (data: IFormsData) => void;
+}
+
+export const useFormsDataStore = create<FormsDataStore>()(
+  persist(
+    set => {
+      return {
+        data: DEFAULT_FORM_DATA,
+        setData: (data: IFormsData) => set({ data }),
+        _hasHydrated: false,
+      };
+    },
+    {
+      name: "forms-data-storage",
+      storage: sessionStorageAdapter,
+    },
+  ),
+);

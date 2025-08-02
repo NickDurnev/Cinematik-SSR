@@ -16,3 +16,10 @@ export const DEFAULT_USER = {
   picture: "",
   is_left_review: false,
 };
+
+export const DEFAULT_FORM_DATA = {
+  email: "",
+  name: "",
+  password: "",
+  confirmPassword: "",
+};

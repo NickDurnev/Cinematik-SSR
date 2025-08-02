@@ -4,6 +4,7 @@ import { IApiResponse } from "@/types/general";
 import {
   IAuthCredentialsDto,
   IAuthData,
+  IForgotPasswordDto,
   ILoginCredentialsDto,
   ISocialLoginDto,
   IUser,
@@ -76,5 +77,24 @@ export const getUserProfile = async (): Promise<IUser | null> => {
   } catch (error) {
     const errorMessage = ErrorHelper.getMessage(error);
     throw new Error(errorMessage ?? "Failed to fetch profile.");
+  }
+};
+
+export const forgotPassword = async (
+  dto: IForgotPasswordDto,
+): Promise<{ success: boolean; message: string }> => {
+  try {
+    const response = await apiClient.post<
+      IApiResponse<{ success: boolean; message: string }>
+    >("auth/forgot-password", dto);
+
+    if (!response.data.data) {
+      throw new Error(response.data.message);
+    }
+
+    return response.data.data;
+  } catch (error) {
+    const errorMessage = ErrorHelper.getMessage(error);
+    throw new Error(errorMessage ?? "Failed to login.");
   }
 };

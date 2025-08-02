@@ -13,6 +13,8 @@ export type ISocialLoginDto = Pick<IAuthCredentialsDto, "name" | "email"> & {
   picture: string;
 };
 
+export type IForgotPasswordDto = Pick<IAuthCredentialsDto, "email">;
+
 export interface INextAuthUserData {
   email: string;
   name: string;
@@ -38,4 +40,8 @@ export interface IUser {
   email: string;
   picture: string;
   is_left_review: boolean;
+}
+
+export interface IFormsData extends IAuthCredentialsDto {
+  confirmPassword: string;
 }

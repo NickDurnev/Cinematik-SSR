@@ -2,9 +2,10 @@
 
 import { Avatar as MuiAvatar } from "@mui/material";
 import Image from "next/image";
+
 import { IUser } from "@/types/user";
 //#Services
-import stringAvatar from "@/utils/avatarFormatter";
+import { stringAvatar } from "@/utils/general";
 
 interface IProps {
   picture?: IUser["picture"];

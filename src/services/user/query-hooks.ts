@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 
 import { UserStore, useUserStore } from "@/hooks/stores";
 import {
+  forgotPassword,
   loginUser,
   signUpUser,
   socialLoginUser,
@@ -55,6 +56,16 @@ export const useSocialLoginUser = () => {
         optimisticData.tokens.refresh_token,
       );
       setUser(optimisticData.user);
+      return optimisticData;
+    },
+  });
+};
+
+export const useForgotPassword = () => {
+  return useMutation({
+    mutationKey: ["forgot-password"],
+    mutationFn: forgotPassword,
+    onSuccess: (optimisticData: { success: boolean; message: string }) => {
       return optimisticData;
     },
   });

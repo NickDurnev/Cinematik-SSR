@@ -17,7 +17,7 @@ const defaultSx = {
 
 const Input = ({ sx, ...props }: TextFieldProps) => {
   return (
-    <div className="relative">
+    <div className="motion-preset-pop motion-loop-once relative">
       <TextField
         {...props}
         fullWidth

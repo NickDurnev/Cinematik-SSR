@@ -50,24 +50,35 @@ const LoginPage = () => {
           Login
         </Typography>
         <LoginForm onSubmit={handleSubmit} isLoading={isLoginPending} />
-        <Box className="mt-4 text-center">
-          <Link href="/sign-up" passHref>
+        <Box className="mt-4 flex flex-col gap-y-3 text-center">
+          <Link href="/forgot-password" passHref>
             <Button
               customVariant="ghost"
               aria-label="Sign up"
               sx={{ fontSize: 16 }}
             >
-              Don't have an account yet?
+              Forgot your password?
             </Button>
           </Link>
-          <Typography
-            variant="body1"
-            className="mb-2 tablet:text-lg text-base"
-            sx={{ color: "var(--foreground)" }}
-          >
-            or
-          </Typography>
-          <GoogleLogin />
+          <Box className="text-center">
+            <Link href="/sign-up" passHref>
+              <Button
+                customVariant="ghost"
+                aria-label="Sign up"
+                sx={{ fontSize: 16 }}
+              >
+                Don't have an account yet?
+              </Button>
+            </Link>
+            <Typography
+              variant="body1"
+              className="mb-2 tablet:text-lg text-base"
+              sx={{ color: "var(--foreground)" }}
+            >
+              or
+            </Typography>
+            <GoogleLogin />
+          </Box>
         </Box>
       </Paper>
     </Box>
