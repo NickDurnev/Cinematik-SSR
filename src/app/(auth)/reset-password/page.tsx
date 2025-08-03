@@ -1,9 +1,11 @@
 "use client";
 
 import { Box, Paper } from "@mui/material";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { Suspense } from "react";
 import { toast } from "react-toastify";
 
+import { AnimatedPage, Spinner } from "@/components";
 import { useResetPassword } from "@/services/user/query-hooks";
 import { IResetPasswordDto } from "@/types/user";
 
@@ -11,8 +13,6 @@ import { ResetPasswordForm } from "../components";
 
 const ForgotPasswordPage = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const resetToken = searchParams.get("token");
 
   const { mutate: resetPassword, isPending } = useResetPassword();
 
@@ -30,27 +30,33 @@ const ForgotPasswordPage = () => {
   };
 
   return (
-    <Box
-      className="flex min-h-screen items-center justify-center bg-gradient-to-b from-accent-foreground to-accent px-4 tablet:px-0"
-      sx={{ fontFamily: "var(--font-muller)" }}
-    >
-      <Paper
-        elevation={6}
-        className="z-10 w-full laptop:max-w-[420px] laptopM:max-w-[480px] max-w-[350px] tablet:max-w-[400px] rounded-2xl laptop:p-10 p-4 tablet:p-8"
-        sx={{
-          background: "var(--background)",
-        }}
+    <AnimatedPage>
+      <Box
+        className="flex min-h-screen items-center justify-center bg-gradient-to-b from-accent-foreground to-accent px-4 tablet:px-0"
+        sx={{ fontFamily: "var(--font-muller)" }}
       >
-        <h3 className="mb-4 tablet:mb-6 text-center font-semibold laptop:text-[36px] tablet:text-[32px] text-[24px] tracking-wide">
-          Reset Password
-        </h3>
-        <ResetPasswordForm
-          resetToken={resetToken}
-          onSubmit={handleSubmit}
-          isLoading={isPending}
-        />
-      </Paper>
-    </Box>
+        <Paper
+          elevation={6}
+          className="z-10 w-full laptop:max-w-[420px] laptopM:max-w-[480px] max-w-[350px] tablet:max-w-[400px] rounded-2xl laptop:p-10 p-4 tablet:p-8"
+          sx={{
+            background: "var(--background)",
+          }}
+        >
+          <h3 className="mb-4 tablet:mb-6 text-center font-semibold laptop:text-[36px] tablet:text-[32px] text-[24px] tracking-wide">
+            Reset Password
+          </h3>
+          <Suspense
+            fallback={
+              <div className="flex w-full items-center justify-center py-8">
+                <Spinner size={32} />
+              </div>
+            }
+          >
+            <ResetPasswordForm onSubmit={handleSubmit} isLoading={isPending} />
+          </Suspense>
+        </Paper>
+      </Box>
+    </AnimatedPage>
   );
 };
 

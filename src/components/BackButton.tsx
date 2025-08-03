@@ -3,7 +3,7 @@
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { Button } from "@/components";
 
@@ -21,11 +21,13 @@ const BackButton: FC<BackButtonProps> = ({
   backupUrl,
 }) => {
   const router = useRouter();
+  const [previousUrl, setPreviousUrl] = useState<string>("");
 
-  const previousUrl = document.referrer;
+  useEffect(() => {
+    setPreviousUrl(document.referrer);
+  }, []);
 
   const previousUrlWithoutParams = previousUrl.split("?")[0];
-
   const handleBackClick = () => {
     if (previousUrl.split("?")[1]) {
       router.push(previousUrlWithoutParams);

@@ -14,10 +14,14 @@ type Props = {
 export const metadata: Metadata = {
   title: "CINEMATIK",
   description: "App for searching movies",
-  viewport: "width=device-width, initial-scale=1",
   icons: {
     icon: "/Logo.svg",
   },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 const RootLayout = ({ children }: Readonly<Props>) => {

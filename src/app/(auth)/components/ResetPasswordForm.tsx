@@ -1,16 +1,22 @@
+"use client";
+
 import { useForm } from "@tanstack/react-form";
+import { useSearchParams } from "next/navigation";
 
 import { Button, Input } from "@/components";
 import { resetPasswordFormSchema } from "@/services/user/schemas";
 import { IResetPasswordDto } from "@/types/user";
 
 type Props = {
-  resetToken: string | null;
   onSubmit: (data: IResetPasswordDto) => void;
   isLoading: boolean;
 };
 
-const ResetPasswordForm = ({ resetToken, onSubmit, isLoading }: Props) => {
+const ResetPasswordForm = ({ onSubmit, isLoading }: Props) => {
+  const searchParams = useSearchParams();
+
+  const resetToken = searchParams.get("token");
+
   const form = useForm({
     defaultValues: {
       password: "",

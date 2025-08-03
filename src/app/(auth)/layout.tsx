@@ -5,7 +5,7 @@ import { BackButton } from "@/components";
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <section>
+    <>
       <nav className="tablet:py-4">
         <BackButton backupUrl="/login" />
       </nav>
@@ -19,7 +19,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
         />
       </div>
       {children}
-    </section>
+    </>
   );
 };
 

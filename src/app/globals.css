@@ -44,9 +44,9 @@
   --toastify-color-light: var(--secondary);
   --toastify-color-dark: var(--secondary);
   --toastify-color-info: var(--secondary);
-  --toastify-color-success: #22c55e;
-  --toastify-color-warning: #eab308;
-  --toastify-color-error: #ef4444;
+  --toastify-color-success: var(--secondary);
+  --toastify-color-warning: var(--secondary);
+  --toastify-color-error: var(--secondary);
   --toastify-color-transparent: rgba(255, 255, 255, 0.7);
   --toastify-icon-color-info: var(--primary);
   --toastify-icon-color-success: #22c55e;

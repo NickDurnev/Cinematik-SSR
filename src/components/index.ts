@@ -1,12 +1,13 @@
 export { default as AddReviewForm } from "./AddReviewForm";
 export { default as AppBar } from "./AppBar";
 export { default as Avatar } from "./Avatar";
+export { default as AnimatedPage } from "./animated-wraps/AnimatedPage";
 export { default as BackButton } from "./BackButton";
 export { default as Footer } from "./Footer";
 export { default as GoogleLogin } from "./GoogleLogin";
-export { default as AuthProvider } from "./Providers/AuthProvider";
-export { default as StyleProviders } from "./Providers/StyleProviders";
-export { default as ToastProvider } from "./Providers/ToastProvider";
+export { default as AuthProvider } from "./providers/AuthProvider";
+export { default as StyleProviders } from "./providers/StyleProviders";
+export { default as ToastProvider } from "./providers/ToastProvider";
 export { default as Review } from "./Review";
 export { default as Show } from "./Show";
 export { default as ThemeSwitcher } from "./ThemeSwitcher";
