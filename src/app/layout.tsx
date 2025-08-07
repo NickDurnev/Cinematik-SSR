@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title: "CINEMATIK",
   description: "App for searching movies",
   icons: {
-    icon: "/Logo.svg",
+    icon: "/icons/Logo.svg",
   },
 };
 

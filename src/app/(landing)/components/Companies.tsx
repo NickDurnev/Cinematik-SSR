@@ -5,31 +5,31 @@ import Image from "next/image";
 const Companies = () => {
   const companyLogos = [
     {
-      src: "/Paramount_Pictures_Corporation_logo.svg",
+      src: "/icons/Paramount_Pictures_Corporation_logo.svg",
       width: 150,
       height: 90,
       alt: "Paramount Pictures Logo",
     },
     {
-      src: "/21 Century Fox.svg",
+      src: "/icons/21 Century Fox.svg",
       width: 140,
       height: 115,
       alt: "21 Century Fox Logo",
     },
     {
-      src: "/Universal_Pictures_logo.svg",
+      src: "/icons/Universal_Pictures_logo.svg",
       width: 150,
       height: 110,
       alt: "Universal Pictures Logo",
     },
     {
-      src: "/Disney_wordmark.svg",
+      src: "/icons/Disney_wordmark.svg",
       width: 150,
       height: 80,
       alt: "Disney Logo",
     },
     {
-      src: "/Marvel_Studios_2016_logo.svg",
+      src: "/icons/Marvel_Studios_2016_logo.svg",
       width: 250,
       height: 60,
       alt: "Marvel Studios Logo",

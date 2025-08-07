@@ -60,9 +60,19 @@ const AppBar = () => {
             <div className="flex items-center gap-x-3">
               <div className="flex items-center">
                 {isSizeScreen === "phone" ? (
-                  <Image src="/Logo.svg" width={42} height={48} alt="Logo" />
+                  <Image
+                    src="/icons/Logo.svg"
+                    width={42}
+                    height={48}
+                    alt="Logo"
+                  />
                 ) : (
-                  <Image src="/Logo.svg" width={58} height={65} alt="Logo" />
+                  <Image
+                    src="/icons/Logo.svg"
+                    width={58}
+                    height={65}
+                    alt="Logo"
+                  />
                 )}
                 <Typography
                   noWrap
@@ -126,7 +136,12 @@ const AppBar = () => {
                     onClick={handleOpenNavMenu}
                     sx={{ color: theme.palette.mainTextColor.main }}
                   >
-                    <Image src="/Menu.svg" width={24} height={24} alt="Menu" />
+                    <Image
+                      src="/icons.Menu.svg"
+                      width={24}
+                      height={24}
+                      alt="Menu"
+                    />
                   </IconButton>
                   <Menu
                     id="menu-appbar"

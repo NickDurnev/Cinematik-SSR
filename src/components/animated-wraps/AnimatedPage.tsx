@@ -9,6 +9,35 @@ export default function AnimatedPage({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+
+  // Animation variants for sliding left/right
+  // const variants = {
+  //   initial: (direction: "forward" | "backward") => ({
+  //     x: direction === "forward" ? "100vw" : "-100vw",
+  //     opacity: 0,
+  //   }),
+  //   animate: { x: 0, opacity: 1 },
+  //   exit: (direction: "forward" | "backward") => ({
+  //     x: direction === "forward" ? "-100vw" : "100vw",
+  //     opacity: 0,
+  //   }),
+  // };
+
+  // <AnimatePresence mode="wait" custom={direction}>
+  //   <motion.section
+  //     key={pathname}
+  //     custom={direction}
+  //     variants={variants}
+  //     initial="initial"
+  //     animate="animate"
+  //     exit="exit"
+  //     transition={{ type: "tween", duration: 0.4 }}
+  //     style={{ position: "absolute", width: "100%" }}
+  //   >
+  //     {children}
+  //   </motion.section>
+  // </AnimatePresence>
+
   return (
     <AnimatePresence mode="wait">
       <motion.section

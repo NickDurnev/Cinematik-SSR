@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import useSizeScreen from "@/hooks/useSizeScreen";
 
 const Footer = () => {
@@ -9,9 +10,9 @@ const Footer = () => {
       <section>
         <div className="m-0 flex w-[170px] items-center">
           {isSizeScreen === "phone" ? (
-            <Image src="/Logo.svg" width={42} height={48} alt="Logo" />
+            <Image src="/icons/Logo.svg" width={42} height={48} alt="Logo" />
           ) : (
-            <Image src="/Logo.svg" width={58} height={65} alt="Logo" />
+            <Image src="/icons/Logo.svg" width={58} height={65} alt="Logo" />
           )}
           <p className="font-semibold text-mainText text-xl leading-6 tracking-[0.2em]">
             CINEMATIK
