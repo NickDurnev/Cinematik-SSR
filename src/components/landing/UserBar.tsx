@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Avatar, Button, Show } from "@/components";
 import { UserStore, useUserStore } from "@/hooks/stores";
 
-const UserBar = () => {
+export const UserBar = () => {
   const [isSizeScreen, setIsSizeScreen] = useState<string | null>(null);
 
   useEffect(() => {
@@ -36,5 +36,3 @@ const UserBar = () => {
     </div>
   );
 };
-
-export default UserBar;

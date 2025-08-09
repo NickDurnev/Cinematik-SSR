@@ -1,13 +1,14 @@
+"use client";
+
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 import { ImageWrapper, Show } from "@/components";
 import { cn } from "@/libs/tailwind-merge";
 import { IActor } from "@/types/movie";
 import { cardVariants } from "@/utils/animations";
 
-import Actor404Icon from "/icons/Actor404.svg";
-
-const CastCard = ({ data }: { data: IActor }) => {
+export const CastCard = ({ data }: { data: IActor }) => {
   const { character, name, profile_path } = data;
 
   return (
@@ -25,7 +26,11 @@ const CastCard = ({ data }: { data: IActor }) => {
         when={profile_path}
         fallback={
           <ImageWrapper>
-            <Actor404Icon className="h-auto w-[120px] stroke-current" />
+            <Image
+              src="/icons/Actor404.svg"
+              alt="Actor placeholder"
+              className="h-auto w-[120px]"
+            />{" "}
           </ImageWrapper>
         }
       >
@@ -46,5 +51,3 @@ const CastCard = ({ data }: { data: IActor }) => {
     </motion.div>
   );
 };
-
-export default CastCard;

@@ -6,7 +6,7 @@ interface ShowProps<T> {
   children: React.ReactNode | ((item: T) => React.ReactNode);
 }
 
-const Show = <T,>({
+export const Show = <T,>({
   when,
   fallback = null,
   children,
@@ -18,5 +18,3 @@ const Show = <T,>({
     typeof children === "function" ? children(when) : children
   ) as React.ReactElement;
 };
-
-export default Show;

@@ -12,7 +12,7 @@ type Props = {
   isLoading: boolean;
 };
 
-const ResetPasswordForm = ({ onSubmit, isLoading }: Props) => {
+export const ResetPasswordForm = ({ onSubmit, isLoading }: Props) => {
   const searchParams = useSearchParams();
 
   const resetToken = searchParams.get("token");
@@ -95,5 +95,3 @@ const ResetPasswordForm = ({ onSubmit, isLoading }: Props) => {
     </form>
   );
 };
-
-export default ResetPasswordForm;

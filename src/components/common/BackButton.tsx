@@ -14,7 +14,7 @@ interface BackButtonProps {
   children?: React.ReactNode;
 }
 
-const BackButton: FC<BackButtonProps> = ({
+export const BackButton: FC<BackButtonProps> = ({
   children,
   onBackClick,
   url,
@@ -58,5 +58,3 @@ const BackButton: FC<BackButtonProps> = ({
     </Button>
   );
 };
-
-export default BackButton;

@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
 
@@ -8,7 +10,7 @@ interface IProps {
   delay?: number;
 }
 
-const Notify = ({ children, delay = 0 }: IProps) => (
+export const Notify = ({ children, delay = 0 }: IProps) => (
   <motion.div
     initial={"closed"}
     animate={"open"}
@@ -18,5 +20,3 @@ const Notify = ({ children, delay = 0 }: IProps) => (
     {children}
   </motion.div>
 );
-
-export default Notify;

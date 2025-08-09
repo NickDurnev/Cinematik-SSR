@@ -6,7 +6,7 @@ import { BsMoonStars, BsSun } from "react-icons/bs";
 
 import { Button } from "@/components";
 
-const ThemeSwitcher = () => {
+export const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -37,5 +37,3 @@ const ThemeSwitcher = () => {
     </Button>
   );
 };
-
-export default ThemeSwitcher;

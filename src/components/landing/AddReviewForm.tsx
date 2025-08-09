@@ -17,7 +17,11 @@ type Props = {
   reviewToUpdate?: IReview;
 };
 
-const AddReviewForm = ({ onSubmit, isLoading, reviewToUpdate }: Props) => {
+export const AddReviewForm = ({
+  onSubmit,
+  isLoading,
+  reviewToUpdate,
+}: Props) => {
   const [rating, setRating] = useState(
     Number(reviewToUpdate?.rating) || DEFAULT_RATING,
   );
@@ -118,5 +122,3 @@ const AddReviewForm = ({ onSubmit, isLoading, reviewToUpdate }: Props) => {
     </form>
   );
 };
-
-export default AddReviewForm;

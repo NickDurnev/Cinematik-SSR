@@ -1,4 +1,4 @@
-export { default as ForgotPasswordForm } from "./ForgotPasswordForm";
-export { default as LoginForm } from "./LoginForm";
-export { default as ResetPasswordForm } from "./ResetPasswordForm";
-export { default as SignUpForm } from "./SignUpForm";
+export { ForgotPasswordForm } from "./ForgotPasswordForm";
+export { LoginForm } from "./LoginForm";
+export { ResetPasswordForm } from "./ResetPasswordForm";
+export { SignUpForm } from "./SignUpForm";

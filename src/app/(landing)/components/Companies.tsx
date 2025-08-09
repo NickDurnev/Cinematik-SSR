@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-const Companies = () => {
+export const Companies = () => {
   const companyLogos = [
     {
       src: "/icons/Paramount_Pictures_Corporation_logo.svg",
@@ -59,5 +59,3 @@ const Companies = () => {
     </section>
   );
 };
-
-export default Companies;

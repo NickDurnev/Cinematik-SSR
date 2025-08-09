@@ -5,11 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { pageVariants } from "@/utils/animations";
 
-export default function AnimatedPage({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const AnimatedPage = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
 
   // Animation variants for sliding left/right
@@ -43,4 +39,4 @@ export default function AnimatedPage({
       </motion.section>
     </AnimatePresence>
   );
-}
+};

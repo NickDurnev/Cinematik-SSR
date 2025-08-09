@@ -5,7 +5,7 @@ const SkeletonWrap = () => (
   </div>
 );
 
-const GallerySkeleton = () => {
+export const GallerySkeleton = () => {
   return (
     <div className="mx-auto block w-full items-stretch justify-items-center gap-5 space-y-5 md:grid md:grid-cols-2 md:space-y-0 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
       {Array.from({ length: 20 }).map((_, index) => (
@@ -14,5 +14,3 @@ const GallerySkeleton = () => {
     </div>
   );
 };
-
-export default GallerySkeleton;

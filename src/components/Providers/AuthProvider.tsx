@@ -37,7 +37,7 @@ const getProfile = async () => {
   }
 };
 
-const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [oAuthData, setOAuthData] = useState<Session>({} as Session);
   const setUser = useUserStore((state: UserStore) => state.setUser);
 
@@ -64,5 +64,3 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     </SessionProvider>
   );
 };
-
-export default AuthProvider;

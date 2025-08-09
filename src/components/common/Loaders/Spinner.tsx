@@ -1,11 +1,12 @@
 "use client";
+
 import CircularProgress from "@mui/material/CircularProgress";
 
 interface SpinnerProps {
   size?: number;
 }
 
-const Spinner = ({ size = 20 }: SpinnerProps) => {
+export const Spinner = ({ size = 20 }: SpinnerProps) => {
   return (
     <>
       <svg width={size} height={size}>
@@ -25,5 +26,3 @@ const Spinner = ({ size = 20 }: SpinnerProps) => {
     </>
   );
 };
-
-export default Spinner;

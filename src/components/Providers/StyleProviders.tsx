@@ -4,15 +4,14 @@ import { ThemeProvider } from "@mui/material/styles";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import React from "react";
 
+import { ToastProvider } from "@/components";
 import theme from "@/utils/theme";
-
-import ToastProvider from "./ToastProvider";
 
 type Props = {
   children: React.ReactNode;
 };
 
-export default function StyleProviders({ children }: Props) {
+export const StyleProviders = ({ children }: Props) => {
   return (
     <NextThemesProvider
       attribute="class"
@@ -26,4 +25,4 @@ export default function StyleProviders({ children }: Props) {
       </ThemeProvider>
     </NextThemesProvider>
   );
-}
+};

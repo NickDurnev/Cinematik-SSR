@@ -85,7 +85,7 @@ type Props = ButtonProps & {
   isIconButton?: boolean;
 };
 
-const Button = ({
+export const Button = ({
   children,
   className,
   sx,
@@ -120,5 +120,3 @@ const Button = ({
     </MuiButton>
   );
 };
-
-export default Button;

@@ -8,10 +8,8 @@ type Props = {
   height?: number;
 };
 
-const QueryTrigger = forwardRef<HTMLDivElement, Props>(
+export const QueryTrigger = forwardRef<HTMLDivElement, Props>(
   ({ height = 300 }, ref) => (
     <div className={cn(`h-[${height}px] w-full`)} ref={ref} />
   ),
 );
-
-export default QueryTrigger;

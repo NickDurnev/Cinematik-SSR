@@ -13,7 +13,7 @@ interface IProps {
   size: number;
 }
 
-const Avatar = ({ picture, name, size }: IProps) => {
+export const Avatar = ({ picture, name, size }: IProps) => {
   return (
     <>
       {picture ? (
@@ -42,5 +42,3 @@ const Avatar = ({ picture, name, size }: IProps) => {
     </>
   );
 };
-
-export default Avatar;

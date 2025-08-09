@@ -12,7 +12,7 @@ import { INextAuthUserData } from "@/types/user";
 
 const GoogleIcon = BsGoogle as React.ElementType;
 
-const GoogleLogin = () => {
+export const GoogleLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { data: nextAuthData } = useSession() as { data: Session | null };
   const { mutate: socialLoginUser, isPending: isLoginPending } =
@@ -72,5 +72,3 @@ const GoogleLogin = () => {
     </Button>
   );
 };
-
-export default GoogleLogin;

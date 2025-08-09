@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import useSizeScreen from "@/hooks/useSizeScreen";
 
-const Footer = () => {
+export const Footer = () => {
   const isSizeScreen = useSizeScreen();
 
   return (
@@ -30,5 +30,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;

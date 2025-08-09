@@ -1,3 +1,3 @@
-export { default as AppLink } from "./AppLink";
-export { default as Companies } from "./Companies";
-export { default as Hero } from "./Hero";
+export { AppLink } from "./AppLink";
+export { Companies } from "./Companies";
+export { Hero } from "./Hero";

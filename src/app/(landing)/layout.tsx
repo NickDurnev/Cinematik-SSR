@@ -2,8 +2,7 @@
 
 import { ReactNode } from "react";
 
-import { AppBar, Footer } from "@/components";
-import Spinner from "@/components/ui/Spinner";
+import { AppBar, Footer, Spinner } from "@/components";
 import { useUserStoreHydrated } from "@/hooks/stores";
 
 interface IProps {

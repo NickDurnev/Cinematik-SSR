@@ -15,7 +15,7 @@ type Props = {
   isLoading: boolean;
 };
 
-const ForgotPasswordForm = ({ onSubmit, isLoading }: Props) => {
+export const ForgotPasswordForm = ({ onSubmit, isLoading }: Props) => {
   const { data, setData } = useFormsDataStore();
   const form = useForm({
     defaultValues: {
@@ -94,5 +94,3 @@ const ForgotPasswordForm = ({ onSubmit, isLoading }: Props) => {
     </>
   );
 };
-
-export default ForgotPasswordForm;

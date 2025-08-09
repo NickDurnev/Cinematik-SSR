@@ -12,7 +12,7 @@ type Props = {
   isLoading: boolean;
 };
 
-const LoginForm = ({ onSubmit, isLoading }: Props) => {
+export const LoginForm = ({ onSubmit, isLoading }: Props) => {
   const { data, setData } = useFormsDataStore();
   const form = useForm({
     defaultValues: {
@@ -106,5 +106,3 @@ const LoginForm = ({ onSubmit, isLoading }: Props) => {
     </>
   );
 };
-
-export default LoginForm;

@@ -9,7 +9,7 @@ import { CastCard, Notify, Spinner } from "@/components";
 import { useMovieCast } from "@/services/movies/query-hooks";
 import { IActor } from "@/types/movie";
 
-const Cast = () => {
+export const Cast = () => {
   const params = useParams<{ movieId: string }>();
   const pathname = usePathname();
   const movieId = params?.movieId;
@@ -52,5 +52,3 @@ const Cast = () => {
     );
   }
 };
-
-export default Cast;

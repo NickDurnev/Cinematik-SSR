@@ -3,7 +3,7 @@ interface IProps {
   movieTrailer: string;
 }
 
-const Frame = ({ youtubeURL, movieTrailer }: IProps) => {
+export const Frame = ({ youtubeURL, movieTrailer }: IProps) => {
   return (
     <iframe
       className="h-[230px] tablet:h-[400px] tablet:w-[600px] w-[360px] rounded-[5px] border-0"
@@ -14,5 +14,3 @@ const Frame = ({ youtubeURL, movieTrailer }: IProps) => {
     />
   );
 };
-
-export default Frame;

@@ -13,7 +13,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { MouseEvent, useState } from "react";
 
-//#Components
 import { Button, Show, ThemeSwitcher, UserBar } from "@/components";
 import useSizeScreen from "@/hooks/useSizeScreen";
 
@@ -23,7 +22,7 @@ const pages = [
   { name: "Reviews", href: "/reviews" },
 ];
 
-const AppBar = () => {
+export const AppBar = () => {
   const isSizeScreen = useSizeScreen();
   const theme = useTheme();
 
@@ -178,5 +177,3 @@ const AppBar = () => {
     </header>
   );
 };
-
-export default AppBar;

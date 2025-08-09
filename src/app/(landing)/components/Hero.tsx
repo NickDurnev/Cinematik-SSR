@@ -6,7 +6,7 @@ import { AppLink } from "@/app/(landing)/components";
 import { Show } from "@/components";
 import useSizeScreen from "@/hooks/useSizeScreen";
 
-const Hero = () => {
+export const Hero = () => {
   const isSizeScreen = useSizeScreen();
 
   return (
@@ -57,5 +57,3 @@ const Hero = () => {
     </section>
   );
 };
-
-export default Hero;

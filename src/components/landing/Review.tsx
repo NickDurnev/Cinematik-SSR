@@ -21,7 +21,7 @@ type Props = {
   isUpdatePending: boolean;
 };
 
-const Review = ({
+export const Review = ({
   review,
   handleDelete,
   handleUpdate,
@@ -106,5 +106,3 @@ const Review = ({
     </motion.li>
   );
 };
-
-export default Review;

@@ -15,7 +15,7 @@ const defaultSx = {
   },
 };
 
-const Input = ({ sx, ...props }: TextFieldProps) => {
+export const Input = ({ sx, ...props }: TextFieldProps) => {
   return (
     <div className="motion-preset-pop motion-loop-once relative">
       <TextField
@@ -38,5 +38,3 @@ const Input = ({ sx, ...props }: TextFieldProps) => {
     </div>
   );
 };
-
-export default Input;

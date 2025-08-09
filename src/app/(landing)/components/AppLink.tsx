@@ -1,3 +1,5 @@
+"use client";
+
 import DevicesIcon from "@mui/icons-material/Devices";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -7,7 +9,7 @@ import { Button, Show } from "@/components";
 import { UserStore, useUserStore, useUserStoreHydrated } from "@/hooks/stores";
 import useLogout from "@/hooks/useLogout";
 
-const AppLink = () => {
+export const AppLink = () => {
   const user = useUserStore((state: UserStore) => state.user);
   const hydrated = useUserStoreHydrated();
 
@@ -64,5 +66,3 @@ const AppLink = () => {
     </div>
   );
 };
-
-export default AppLink;

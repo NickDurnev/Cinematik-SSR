@@ -1,3 +1,6 @@
+"use client";
+
+import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
@@ -5,9 +8,7 @@ import { ImageWrapper, Show } from "@/components";
 import { cn } from "@/libs/tailwind-merge";
 import { IActor } from "@/types/movie";
 
-import Actor404Icon from "/icons/Actor404.svg";
-
-const ActorInfo = ({ data }: { data: IActor }) => {
+export const ActorInfo = ({ data }: { data: IActor }) => {
   const params = useParams();
   const actorID = params?.actorID || data.id;
 
@@ -34,7 +35,11 @@ const ActorInfo = ({ data }: { data: IActor }) => {
           when={profile_path}
           fallback={
             <ImageWrapper>
-              <Actor404Icon className="h-auto w-[120px] stroke-current" />
+              <Image
+                src="/icons/Actor404.svg"
+                alt="Actor placeholder"
+                className="h-auto w-[120px]"
+              />
             </ImageWrapper>
           }
         >
@@ -84,5 +89,3 @@ const ActorInfo = ({ data }: { data: IActor }) => {
     </div>
   );
 };
-
-export default ActorInfo;
