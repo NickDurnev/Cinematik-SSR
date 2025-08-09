@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { Avatar, Button, Show } from "@/components";
 import { UserStore, useUserStore } from "@/hooks/stores";
 import { IReview } from "@/types/review";
+import { cardVariants } from "@/utils/animations";
 import { formatDate } from "@/utils/dateFormatter";
 
 type Props = {
@@ -33,8 +34,9 @@ const Review = ({
   return (
     <motion.li
       className="flex w-full flex-col gap-y-8 border-foreground border-b-[0.5px] bg-transparent pb-6 text-mainText"
-      initial={{ opacity: 0, scale: 0.5 }}
-      whileInView={{ opacity: 1, scale: 1 }}
+      variants={cardVariants}
+      initial="closed"
+      whileInView="open"
       viewport={{ once: true }}
     >
       <div className="flex items-center gap-x-10">

@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
-import { Show } from "@/components";
+import { ImageWrapper, Show } from "@/components";
 import { cn } from "@/libs/tailwind-merge";
 import { IActor } from "@/types/movie";
 
-import DefaultActorImage from "./StandartImages/DefaultActorImage";
+import Actor404Icon from "/icons/Actor404.svg";
 
 const ActorInfo = ({ data }: { data: IActor }) => {
   const params = useParams();
@@ -30,7 +30,14 @@ const ActorInfo = ({ data }: { data: IActor }) => {
           profile_path && "bg-[#666666]",
         )}
       >
-        <Show when={profile_path} fallback={<DefaultActorImage />}>
+        <Show
+          when={profile_path}
+          fallback={
+            <ImageWrapper>
+              <Actor404Icon className="h-auto w-[120px] stroke-current" />
+            </ImageWrapper>
+          }
+        >
           <img
             src={`https://image.tmdb.org/t/p/w400${profile_path}`}
             alt={name}

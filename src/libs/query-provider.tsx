@@ -8,7 +8,13 @@ import { ReactNode } from "react";
 import { ENVIRONMENT } from "@/utils/constants";
 
 function makeQueryClient() {
-  return new QueryClient();
+  return new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 300_000,
+      },
+    },
+  });
 }
 
 let clientQueryClient: QueryClient | undefined = undefined;

@@ -3,6 +3,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
+import { pageVariants } from "@/utils/animations";
+
 export default function AnimatedPage({
   children,
 }: {
@@ -11,23 +13,12 @@ export default function AnimatedPage({
   const pathname = usePathname();
 
   // Animation variants for sliding left/right
-  // const variants = {
-  //   initial: (direction: "forward" | "backward") => ({
-  //     x: direction === "forward" ? "100vw" : "-100vw",
-  //     opacity: 0,
-  //   }),
-  //   animate: { x: 0, opacity: 1 },
-  //   exit: (direction: "forward" | "backward") => ({
-  //     x: direction === "forward" ? "-100vw" : "100vw",
-  //     opacity: 0,
-  //   }),
-  // };
 
   // <AnimatePresence mode="wait" custom={direction}>
   //   <motion.section
   //     key={pathname}
   //     custom={direction}
-  //     variants={variants}
+  //     variants={sliderVariants}
   //     initial="initial"
   //     animate="animate"
   //     exit="exit"
@@ -42,9 +33,10 @@ export default function AnimatedPage({
     <AnimatePresence mode="wait">
       <motion.section
         key={pathname}
-        initial={{ opacity: 0, y: 0 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 0 }}
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
         transition={{ duration: 0.3 }}
       >
         {children}

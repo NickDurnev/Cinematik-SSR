@@ -2,7 +2,7 @@ import LogoIcon from "/icons/Logo.svg";
 
 import Navigation from "./Navigation";
 
-const Appbar = () => {
+const AppBar = () => {
   return (
     <header
       className="relative h-auto laptopL:w-[120px] laptopM:w-[90px] tablet:w-[80px] w-[50px] bg-[var(--nav-bar-bg-color)] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] backdrop-blur-[12px]"
@@ -16,4 +16,4 @@ const Appbar = () => {
   );
 };
 
-export default Appbar;
+export default AppBar;
