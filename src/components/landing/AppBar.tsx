@@ -140,7 +140,7 @@ export const AppBar = () => {
                     sx={{ color: theme.palette.mainTextColor.main }}
                   >
                     <Image
-                      src="/icons.Menu.svg"
+                      src="/icons/Menu.svg"
                       width={24}
                       height={24}
                       alt="Menu"
