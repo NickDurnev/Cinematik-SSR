@@ -53,7 +53,7 @@ export const AppBar = () => {
                   ? "0 12px"
                   : " 0 120px",
               height: isSizeScreen === "phone" ? "57px" : "122px",
-              borderBottom: "0.5px solid var(--color-text-main)",
+              borderBottom: "0.5px solid var(--foreground)",
             }}
           >
             <div className="flex items-center gap-x-3">
@@ -85,7 +85,7 @@ export const AppBar = () => {
                     fontWeight: 600,
                     lineHeight: "24px",
                     letterSpacing: "0.2em",
-                    color: "var(--color-text-main)",
+                    color: "var(--foreground)",
                     textDecoration: "none",
                   }}
                 >

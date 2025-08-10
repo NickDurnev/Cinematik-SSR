@@ -41,7 +41,7 @@ export const CastCard = ({ data }: { data: IActor }) => {
         />
       </Show>
       <div className="absolute bottom-0 left-0 h-[70px] w-full bg-[var(--color-nav-bar-bg)] px-[20px] py-[10px] text-left backdrop-blur-[12px]">
-        <p className="mb-[10px] break-words font-bold text-[16px] text-[var(--color-text)] leading-[16px]">
+        <p className="mb-[10px] break-words font-bold text-[16px] leading-[16px]">
           {name}
         </p>
         <p className="break-words text-[16px] text-[var(--color-link)] leading-[16px]">

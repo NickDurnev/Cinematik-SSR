@@ -15,7 +15,7 @@ export const Notify = ({ children, delay = 0 }: IProps) => (
     initial={"closed"}
     animate={"open"}
     variants={itemVariants(delay)}
-    className="w-full rounded-[5px] p-5 text-center text-[var(--color-text)]"
+    className="w-full rounded-[5px] p-5 text-center text-foreground"
   >
     {children}
   </motion.div>

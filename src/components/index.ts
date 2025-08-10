@@ -5,6 +5,8 @@ export { Container } from "./app/Container";
 export { Frame } from "./app/Frame";
 export { ImageWrapper } from "./app/ImageWrapper";
 export { Notify } from "./app/Notify";
+export { SearchInput } from "./app/SearchInput";
+export { UserMenu } from "./app/UserMenu";
 export { AnimatedPage } from "./common/AnimatedPage";
 export { Avatar } from "./common/Avatar";
 export { BackButton } from "./common/BackButton";
