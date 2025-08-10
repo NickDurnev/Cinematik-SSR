@@ -5,9 +5,12 @@ import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { toast } from "react-toastify";
 
-import { CastCard, Notify, Spinner } from "@/components";
 import { useMovieCast } from "@/services/movies/query-hooks";
 import { IActor } from "@/types/movie";
+
+import { Spinner } from "../common/Loaders/Spinner";
+import { CastCard } from "./CastCard";
+import { Notify } from "./Notify";
 
 export const Cast = () => {
   const params = useParams<{ movieId: string }>();

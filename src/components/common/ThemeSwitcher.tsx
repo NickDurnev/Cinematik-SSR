@@ -4,7 +4,7 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { BsMoonStars, BsSun } from "react-icons/bs";
 
-import { Button } from "@/components";
+import { Button } from "../common/Button";
 
 export const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();

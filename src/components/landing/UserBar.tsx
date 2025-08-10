@@ -3,8 +3,11 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { Avatar, Button, Show } from "@/components";
 import { UserStore, useUserStore } from "@/hooks/stores";
+
+import { Avatar } from "../common/Avatar";
+import { Button } from "../common/Button";
+import { Show } from "../common/Show";
 
 export const UserBar = () => {
   const [isSizeScreen, setIsSizeScreen] = useState<string | null>(null);

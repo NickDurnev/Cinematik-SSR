@@ -4,8 +4,8 @@ import "./globals.css";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import type { Metadata } from "next";
 
-import { AuthProvider, StyleProviders } from "@/components";
 import QueryProvider from "@/libs/query-provider";
+import { AuthProvider, StyleProviders } from "@/providers";
 
 type Props = {
   children: React.ReactNode;

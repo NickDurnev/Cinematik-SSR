@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 
-import { Button } from "@/components";
+import { Button } from "../common/Button";
 
 interface BackButtonProps {
   onBackClick?: () => void;

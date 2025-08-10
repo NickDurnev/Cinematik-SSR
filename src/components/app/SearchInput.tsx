@@ -3,8 +3,9 @@
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
-import { Input } from "@/components";
 import { useDebounce } from "@/hooks/useDebounce";
+
+import { Input } from "../common/Input";
 
 interface IProps {
   onChange: (value: string) => void;

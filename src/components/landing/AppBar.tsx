@@ -13,8 +13,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { MouseEvent, useState } from "react";
 
-import { Button, Show, ThemeSwitcher, UserBar } from "@/components";
 import useSizeScreen from "@/hooks/useSizeScreen";
+
+import { Button } from "../common/Button";
+import { Show } from "../common/Show";
+import { ThemeSwitcher } from "../common/ThemeSwitcher";
+import { UserBar } from "./UserBar";
 
 const pages = [
   { name: "Home", href: "/" },

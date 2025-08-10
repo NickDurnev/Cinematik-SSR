@@ -5,9 +5,11 @@ import { Rating } from "@mui/material";
 import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
 
-import { Button, Input } from "@/components";
 import { IReviewFormSchema, reviewFormSchema } from "@/services/review/schemas";
 import { IReview } from "@/types/review";
+
+import { Button } from "../common/Button";
+import { Input } from "../common/Input";
 
 const DEFAULT_RATING = 4;
 

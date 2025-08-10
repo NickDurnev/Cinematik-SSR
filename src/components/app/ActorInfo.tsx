@@ -4,9 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
-import { ImageWrapper, Show } from "@/components";
 import { cn } from "@/libs/tailwind-merge";
 import { IActor } from "@/types/movie";
+
+import { Show } from "../common/Show";
+import { ImageWrapper } from "./ImageWrapper";
 
 export const ActorInfo = ({ data }: { data: IActor }) => {
   const params = useParams();

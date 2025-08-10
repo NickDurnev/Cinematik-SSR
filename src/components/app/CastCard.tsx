@@ -3,10 +3,12 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-import { ImageWrapper, Show } from "@/components";
 import { cn } from "@/libs/tailwind-merge";
 import { IActor } from "@/types/movie";
 import { cardVariants } from "@/utils/animations";
+
+import { Show } from "../common/Show";
+import { ImageWrapper } from "./ImageWrapper";
 
 export const CastCard = ({ data }: { data: IActor }) => {
   const { character, name, profile_path } = data;

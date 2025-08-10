@@ -6,9 +6,10 @@ import React, { useEffect, useState } from "react";
 import { BsGoogle } from "react-icons/bs";
 import { toast } from "react-toastify";
 
-import { Button } from "@/components";
 import { useSocialLoginUser } from "@/services/user/query-hooks";
 import { INextAuthUserData } from "@/types/user";
+
+import { Button } from "../common/Button";
 
 const GoogleIcon = BsGoogle as React.ElementType;
 

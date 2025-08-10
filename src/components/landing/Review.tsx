@@ -7,11 +7,14 @@ import { Rating } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { motion } from "framer-motion";
 
-import { Avatar, Button, Show } from "@/components";
 import { UserStore, useUserStore } from "@/hooks/stores";
 import { IReview } from "@/types/review";
 import { cardVariants } from "@/utils/animations";
 import { formatDate } from "@/utils/dateFormatter";
+
+import { Avatar } from "../common/Avatar";
+import { Button } from "../common/Button";
+import { Show } from "../common/Show";
 
 type Props = {
   review: IReview;

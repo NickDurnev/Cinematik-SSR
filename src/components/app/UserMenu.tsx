@@ -9,9 +9,10 @@ import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
 import { MouseEventHandler, useState } from "react";
 
-import { Avatar } from "@/components";
 import { UserStore, useUserStore } from "@/hooks/stores";
 import useLogout from "@/hooks/useLogout";
+
+import { Avatar } from "../common/Avatar";
 
 export const UserMenu = () => {
   const { handleLogout } = useLogout();
