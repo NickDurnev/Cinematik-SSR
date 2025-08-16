@@ -7,16 +7,20 @@ export { ImageWrapper } from "./app/ImageWrapper";
 export { Notify } from "./app/Notify";
 export { SearchInput } from "./app/SearchInput";
 export { UserMenu } from "./app/UserMenu";
-export { AnimatedPage } from "./common/AnimatedPage";
-export { Avatar } from "./common/Avatar";
-export { BackButton } from "./common/BackButton";
-export { Button } from "./common/Button";
-export { Input } from "./common/Input";
-export { GallerySkeleton } from "./common/Loaders/Skeletons";
-export { Spinner } from "./common/Loaders/Spinner";
-export { QueryTrigger } from "./common/QueryTrigger";
-export { Show } from "./common/Show";
-export { ThemeSwitcher } from "./common/ThemeSwitcher";
+export {
+  AnimatedPage,
+  Avatar,
+  BackButton,
+  Button,
+  CustomLink,
+  GallerySkeleton,
+  Input,
+  Modal,
+  QueryTrigger,
+  Show,
+  Spinner,
+  ThemeSwitcher,
+} from "./common";
 export { AddReviewForm } from "./landing/AddReviewForm";
 export { AppBar } from "./landing/AppBar";
 export { Footer } from "./landing/Footer";

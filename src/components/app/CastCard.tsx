@@ -7,7 +7,7 @@ import { cn } from "@/libs/tailwind-merge";
 import { IActor } from "@/types/movie";
 import { cardVariants } from "@/utils/animations";
 
-import { Show } from "../common/Show";
+import { Show } from "../common";
 import { ImageWrapper } from "./ImageWrapper";
 
 export const CastCard = ({ data }: { data: IActor }) => {
@@ -32,7 +32,7 @@ export const CastCard = ({ data }: { data: IActor }) => {
               src="/icons/Actor404.svg"
               alt="Actor placeholder"
               className="h-auto w-[120px]"
-            />{" "}
+            />
           </ImageWrapper>
         }
       >

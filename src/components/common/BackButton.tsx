@@ -1,11 +1,10 @@
 "use client";
 
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 
-import { Button } from "../common/Button";
+import { Button, CustomLink } from "../common";
 
 interface BackButtonProps {
   onBackClick?: () => void;
@@ -41,11 +40,11 @@ export const BackButton: FC<BackButtonProps> = ({
 
   if (url) {
     return (
-      <Link passHref href={url}>
+      <CustomLink passHref href={url}>
         <Button customVariant="ghost">
           {children ?? <KeyboardBackspaceIcon sx={{ width: 50, height: 50 }} />}
         </Button>
-      </Link>
+      </CustomLink>
     );
   }
 

@@ -1,13 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 
 import { cn } from "@/libs/tailwind-merge";
 import { IActor } from "@/types/movie";
 
-import { Show } from "../common/Show";
+import { CustomLink, Show } from "../common";
 import { ImageWrapper } from "./ImageWrapper";
 
 export const ActorInfo = ({ data }: { data: IActor }) => {
@@ -81,12 +80,12 @@ export const ActorInfo = ({ data }: { data: IActor }) => {
             {popularity ? <p>{popularity.toFixed(1)}</p> : null}
           </li>
         </ul>
-        <Link
+        <CustomLink
           href={`/moviesbyactor/${actorID}`}
           className="mt-12 flex h-[70px] w-[140px] items-center justify-center rounded-[10px] border border-[var(--text-color)] bg-transparent font-muller text-[20px] text-[var(--text-color)] uppercase transition-all duration-300 hover:bg-[#4847473c]"
         >
           Movies
-        </Link>
+        </CustomLink>
       </div>
     </div>
   );

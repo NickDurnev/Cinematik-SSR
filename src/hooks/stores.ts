@@ -3,6 +3,7 @@
 import { create } from "zustand";
 import { PersistStorage, persist } from "zustand/middleware";
 
+import { IGenre } from "@/types/movie";
 import { IFormsData, IUser } from "@/types/user";
 import { DEFAULT_FORM_DATA, DEFAULT_USER } from "@/utils/constants";
 
@@ -78,6 +79,33 @@ export const useFormsDataStore = create<FormsDataStore>()(
     },
     {
       name: "forms-data-storage",
+      storage: sessionStorageAdapter,
+    },
+  ),
+);
+
+type IMoviesData = {
+  genres: IGenre[];
+};
+
+export interface MoviesDataStore {
+  data: {
+    genres: IGenre[];
+  };
+  setData: (data: IMoviesData) => void;
+}
+
+export const useMoviesDataStore = create<MoviesDataStore>()(
+  persist(
+    set => {
+      return {
+        data: { genres: [] },
+        setData: (data: IMoviesData) => set({ data }),
+        _hasHydrated: false,
+      };
+    },
+    {
+      name: "movies-data-storage",
       storage: sessionStorageAdapter,
     },
   ),

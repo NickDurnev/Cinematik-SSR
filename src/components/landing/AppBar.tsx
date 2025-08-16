@@ -10,14 +10,11 @@ import { useTheme } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
-import Link from "next/link";
 import { MouseEvent, useState } from "react";
 
 import useSizeScreen from "@/hooks/useSizeScreen";
 
-import { Button } from "../common/Button";
-import { Show } from "../common/Show";
-import { ThemeSwitcher } from "../common/ThemeSwitcher";
+import { Button, CustomLink, Show, ThemeSwitcher } from "../common";
 import { UserBar } from "./UserBar";
 
 const pages = [
@@ -120,9 +117,9 @@ export const AppBar = () => {
                         }}
                       >
                         {pages.map(({ name, href }) => (
-                          <Link key={name} href={href} passHref>
+                          <CustomLink key={name} href={href} passHref>
                             <Button variant="text">{name}</Button>
-                          </Link>
+                          </CustomLink>
                         ))}
                       </Box>
                     </nav>
@@ -166,9 +163,9 @@ export const AppBar = () => {
                   >
                     {pages.map(({ name, href }) => (
                       <MenuItem key={name} onClick={handleCloseNavMenu}>
-                        <Link key={name} href={href} passHref>
+                        <CustomLink key={name} href={href} passHref>
                           <Button variant="text">{name}</Button>
-                        </Link>
+                        </CustomLink>
                       </MenuItem>
                     ))}
                   </Menu>

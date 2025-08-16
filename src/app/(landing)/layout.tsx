@@ -9,6 +9,8 @@ interface IProps {
   children: ReactNode | ReactNode[];
 }
 
+//TODO Replace hydrated logic to AppBar, make layout SSR
+
 const Layout = ({ children }: IProps) => {
   const hydrated = useUserStoreHydrated();
   return (

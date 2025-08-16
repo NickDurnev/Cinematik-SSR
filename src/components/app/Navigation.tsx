@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import HomeIcon from "/icons/Home.svg";
 import MovieIcon from "/icons/Movie.svg";
 import StarIcon from "/icons/Star.svg";
 import TelIcon from "/icons/Telev.svg";
+
+import { CustomLink } from "../common";
 
 const navItems = [
   { href: "/", icon: HomeIcon, label: "Home" },
@@ -21,7 +22,7 @@ const Navigation = () => {
       {navItems.map(({ href, icon: Icon, label }, idx) => {
         const isActive = pathname === href;
         return (
-          <Link key={href} href={href} passHref>
+          <CustomLink key={href} href={href} passHref>
             <motion.a
               whileTap={{ scale: 1.3 }}
               href={href}
@@ -43,7 +44,7 @@ const Navigation = () => {
             >
               <Icon className="mx-auto h-auto w-[70%] stroke-current" />
             </motion.a>
-          </Link>
+          </CustomLink>
         );
       })}
     </nav>

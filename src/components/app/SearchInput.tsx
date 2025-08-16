@@ -5,7 +5,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 import { useDebounce } from "@/hooks/useDebounce";
 
-import { Input } from "../common/Input";
+import { Input } from "../common";
 
 interface IProps {
   onChange: (value: string) => void;

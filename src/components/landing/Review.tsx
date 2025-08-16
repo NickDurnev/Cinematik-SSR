@@ -12,9 +12,7 @@ import { IReview } from "@/types/review";
 import { cardVariants } from "@/utils/animations";
 import { formatDate } from "@/utils/dateFormatter";
 
-import { Avatar } from "../common/Avatar";
-import { Button } from "../common/Button";
-import { Show } from "../common/Show";
+import { Avatar, Button, Show } from "../common";
 
 type Props = {
   review: IReview;

@@ -8,8 +8,7 @@ import { useState } from "react";
 import { IReviewFormSchema, reviewFormSchema } from "@/services/review/schemas";
 import { IReview } from "@/types/review";
 
-import { Button } from "../common/Button";
-import { Input } from "../common/Input";
+import { Button, Input } from "../common";
 
 const DEFAULT_RATING = 4;
 

@@ -1,10 +1,9 @@
 "use client";
 
 import { Box, Paper } from "@mui/material";
-import Link from "next/link";
 import { toast } from "react-toastify";
 
-import { AnimatedPage, Button, GoogleLogin } from "@/components";
+import { AnimatedPage, Button, CustomLink, GoogleLogin } from "@/components";
 import { useLoginUser } from "@/services/user/query-hooks";
 import { ILoginFormSchema } from "@/services/user/schemas";
 
@@ -43,7 +42,7 @@ const LoginPage = () => {
           </h3>
           <LoginForm onSubmit={handleSubmit} isLoading={isLoginPending} />
           <Box className="mt-4 flex flex-col gap-y-3 text-center">
-            <Link href="/forgot-password" passHref>
+            <CustomLink href="/forgot-password" passHref>
               <Button
                 customVariant="ghost"
                 aria-label="Sign up"
@@ -51,9 +50,9 @@ const LoginPage = () => {
               >
                 Forgot your password?
               </Button>
-            </Link>
+            </CustomLink>
             <Box className="text-center">
-              <Link href="/sign-up" passHref>
+              <CustomLink href="/sign-up" passHref>
                 <Button
                   customVariant="ghost"
                   aria-label="Sign up"
@@ -61,7 +60,7 @@ const LoginPage = () => {
                 >
                   Don't have an account yet?
                 </Button>
-              </Link>
+              </CustomLink>
               <p className="text-center">or</p>
               <GoogleLogin />
             </Box>

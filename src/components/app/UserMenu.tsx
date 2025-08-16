@@ -12,7 +12,7 @@ import { MouseEventHandler, useState } from "react";
 import { UserStore, useUserStore } from "@/hooks/stores";
 import useLogout from "@/hooks/useLogout";
 
-import { Avatar } from "../common/Avatar";
+import { Avatar } from "../common";
 
 export const UserMenu = () => {
   const { handleLogout } = useLogout();

@@ -1,13 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { UserStore, useUserStore } from "@/hooks/stores";
 
-import { Avatar } from "../common/Avatar";
-import { Button } from "../common/Button";
-import { Show } from "../common/Show";
+import { Avatar, Button, CustomLink, Show } from "../common";
 
 export const UserBar = () => {
   const [isSizeScreen, setIsSizeScreen] = useState<string | null>(null);
@@ -25,9 +22,9 @@ export const UserBar = () => {
       <Show
         when={user.id}
         fallback={
-          <Link href="/login" passHref>
+          <CustomLink href="/login" passHref>
             <Button variant="text">Login</Button>
-          </Link>
+          </CustomLink>
         }
       >
         <div>

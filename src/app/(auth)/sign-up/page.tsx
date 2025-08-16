@@ -1,10 +1,9 @@
 "use client";
 
 import { Box, Paper } from "@mui/material";
-import Link from "next/link";
 import { toast } from "react-toastify";
 
-import { AnimatedPage, Button, GoogleLogin } from "@/components";
+import { AnimatedPage, Button, CustomLink, GoogleLogin } from "@/components";
 import { useSignUpUser } from "@/services/user/query-hooks";
 import { ISignupFormSchema } from "@/services/user/schemas";
 
@@ -44,7 +43,7 @@ const SignUpPage = () => {
           </h3>
           <SignUpForm onSubmit={handleSubmit} isLoading={isSignUpPending} />
           <Box className="mt-4 text-center">
-            <Link href="/login" passHref>
+            <CustomLink href="/login" passHref>
               <Button
                 customVariant="ghost"
                 aria-label="Sign up"
@@ -52,7 +51,7 @@ const SignUpPage = () => {
               >
                 Already have an account?
               </Button>
-            </Link>
+            </CustomLink>
             <p className="text-center">or</p>
             <GoogleLogin />
           </Box>

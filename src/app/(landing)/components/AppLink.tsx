@@ -3,9 +3,8 @@
 import DevicesIcon from "@mui/icons-material/Devices";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
-import Link from "next/link";
 
-import { Button, Show } from "@/components";
+import { Button, CustomLink, Show } from "@/components";
 import { UserStore, useUserStore, useUserStoreHydrated } from "@/hooks/stores";
 import useLogout from "@/hooks/useLogout";
 
@@ -25,7 +24,7 @@ export const AppLink = () => {
         when={user.id}
         fallback={
           <div className="flex items-center laptop:justify-start justify-center">
-            <Link href="/login" passHref>
+            <CustomLink href="/login" passHref>
               <Button
                 endIcon={<LoginIcon sx={{ width: 25, height: 25 }} />}
                 variant="outlined"
@@ -38,7 +37,7 @@ export const AppLink = () => {
               >
                 Login
               </Button>
-            </Link>
+            </CustomLink>
           </div>
         }
       >
@@ -55,11 +54,11 @@ export const AppLink = () => {
             >
               Logout
             </Button>
-            <Link href="/" passHref>
+            <CustomLink href="/" passHref>
               <Button endIcon={<DevicesIcon />} variant="outlined">
                 Go to App
               </Button>
-            </Link>
+            </CustomLink>
           </div>
         </div>
       </Show>

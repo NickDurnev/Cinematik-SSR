@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { useSocialLoginUser } from "@/services/user/query-hooks";
 import { INextAuthUserData } from "@/types/user";
 
-import { Button } from "../common/Button";
+import { Button } from "../common";
 
 const GoogleIcon = BsGoogle as React.ElementType;
 

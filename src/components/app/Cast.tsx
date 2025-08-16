@@ -1,14 +1,13 @@
 "use client";
 
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
-import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { toast } from "react-toastify";
 
 import { useMovieCast } from "@/services/movies/query-hooks";
 import { IActor } from "@/types/movie";
 
-import { Spinner } from "../common/Loaders/Spinner";
+import { CustomLink, Spinner } from "../common";
 import { CastCard } from "./CastCard";
 import { Notify } from "./Notify";
 
@@ -45,9 +44,9 @@ export const Cast = () => {
           const { id, cast_id } = actor;
           return (
             <li key={cast_id} className="[&+li]:mt-5 md:[&+li]:mt-0">
-              <Link href={`${pathname}/actor/${id}`}>
+              <CustomLink href={`${pathname}/actor/${id}`}>
                 <CastCard data={actor} />
-              </Link>
+              </CustomLink>
             </li>
           );
         })}
