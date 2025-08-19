@@ -34,7 +34,6 @@ export interface UserStore {
   _hasHydrated?: boolean;
 }
 
-// Module-level variable to store set function for hydration workaround
 let userStoreSet: ((state: Partial<UserStore>) => void) | undefined;
 
 export const useUserStore = create<UserStore>()(
@@ -84,29 +83,23 @@ export const useFormsDataStore = create<FormsDataStore>()(
   ),
 );
 
-type IMoviesData = {
-  genres: IGenre[];
-};
-
 export interface MoviesDataStore {
-  data: {
-    genres: IGenre[];
-  };
-  setData: (data: IMoviesData) => void;
+  genres: IGenre[];
+  setGenres: (genres: IGenre[]) => void;
 }
 
 export const useMoviesDataStore = create<MoviesDataStore>()(
   persist(
-    set => {
-      return {
-        data: { genres: [] },
-        setData: (data: IMoviesData) => set({ data }),
-        _hasHydrated: false,
-      };
-    },
+    set => ({
+      genres: [],
+      setGenres: (genres: IGenre[]) => set({ genres }),
+      _hasHydrated: false,
+    }),
     {
       name: "movies-data-storage",
       storage: sessionStorageAdapter,
     },
   ),
 );
+
+export const useMoviesGenres = () => useMoviesDataStore(state => state.genres);

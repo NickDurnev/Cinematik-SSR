@@ -4,7 +4,7 @@ interface IProps {
   movieId?: string;
 }
 
-const MovieCategories = ({ movieId }: IProps) => {
+export const MovieCategories = ({ movieId }: IProps) => {
   const categories = [
     { name: "Cast", path: `/movies/${movieId}/cast` },
     { name: "Reviews", path: `/movies/${movieId}/reviews` },
@@ -19,12 +19,10 @@ const MovieCategories = ({ movieId }: IProps) => {
             href={path}
             className="rounded-[5px] bg-inherit px-[5px] font-technovier text-[15px] text-[var(--color-add-bg-element)] uppercase leading-[17px] transition-all duration-[var(--theme-hover-transition)] ease-[var(--theme-hover-time-function)] visited:text-[var(--color-text)] hover:text-[var(--color-text)] focus:text-[var(--color-text)] md:text-[18px] md:leading-[21px]"
           >
-            name
+            {name}
           </CustomLink>
         </li>
       ))}
     </ul>
   );
 };
-
-export default MovieCategories;

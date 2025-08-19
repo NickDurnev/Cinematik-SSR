@@ -25,22 +25,37 @@ export interface IGenre {
   name: string;
 }
 
-export interface IMovie {
-  id: number;
-  _id: number;
-  idbID: string;
+interface IBaseMovieData {
   overview: string;
-  poster_path?: string;
   release_date: string;
   title: string;
   tagline: string;
   runtime: number;
-  budget?: number;
   genres: IGenre[];
   vote_average: number;
   genre_ids: number[];
-  category?: string;
+  poster_path?: string;
+  budget?: number;
 }
+
+export interface IMovie extends IBaseMovieData {
+  id: number;
+}
+
+export interface ILibraryMovie extends IBaseMovieData {
+  id: string;
+  idb_id: string;
+  user_id: string;
+  category: ICategory;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IAddToLibraryMovieDto extends IBaseMovieData {
+  category: ICategory;
+}
+
+export type ICategory = "favorites" | "watched";
 
 export interface IReview {
   id: string;

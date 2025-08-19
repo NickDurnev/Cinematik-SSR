@@ -1,12 +1,10 @@
-//#MUI
-
 import StarIcon from "@mui/icons-material/Star";
 import { Rating } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import { ImageWrapper, Show } from "@/components";
-import { useMoviesDataStore } from "@/hooks/stores";
+import { useMoviesGenres } from "@/hooks/stores";
 import { cn } from "@/libs/tailwind-merge";
 import { IGenre, IMovie } from "@/types/movie";
 
@@ -14,21 +12,19 @@ interface IProps {
   movie: IMovie;
 }
 
-const MovieCard = ({ movie }: IProps) => {
+export const MovieCard = ({ movie }: IProps) => {
   const { poster_path, title, vote_average, genre_ids } = movie;
   const [movieGenre, setMovieGenre] = useState<IGenre | null>(null);
-  const { data } = useMoviesDataStore();
+  const genres = useMoviesGenres();
 
   useEffect(() => {
-    if (data?.genres?.length && genre_ids.length) {
-      const movieGenre = data?.genres.find(
-        ({ id }) => Number(id) === genre_ids[0],
-      );
+    if (genres?.length && genre_ids.length) {
+      const movieGenre = genres.find(({ id }) => Number(id) === genre_ids[0]);
       if (movieGenre) {
         setMovieGenre(movieGenre);
       }
     }
-  }, [movie]);
+  }, [movie, genres, genre_ids]);
 
   return (
     <div
