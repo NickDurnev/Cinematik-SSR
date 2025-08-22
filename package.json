@@ -49,6 +49,7 @@
     "babel-plugin-inline-react-svg": "^2.0.2",
     "conventional-changelog-atom": "^5.0.0",
     "lint-staged": "^16.1.2",
+    "react-scan": "^0.4.3",
     "tailwindcss": "^4.1.10",
     "tailwindcss-motion": "^1.1.1",
     "typescript": "^5.8.3"

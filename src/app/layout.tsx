@@ -7,6 +7,8 @@ import type { Metadata } from "next";
 import QueryProvider from "@/libs/query-provider";
 import { AuthProvider, StyleProviders } from "@/providers";
 
+import { ReactScan } from "./react-scan";
+
 type Props = {
   children: React.ReactNode;
 };
@@ -27,6 +29,7 @@ export const viewport = {
 const RootLayout = ({ children }: Readonly<Props>) => {
   return (
     <html lang="en" suppressHydrationWarning>
+      <ReactScan />
       <body>
         <AuthProvider>
           <QueryProvider>
