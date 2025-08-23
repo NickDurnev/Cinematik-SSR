@@ -1,7 +1,12 @@
 import { apiClient } from "@/libs/axios";
 import ErrorHelper from "@/libs/error-helper";
 import { IApiResponse, IPaginatedResponse } from "@/types/general";
-import { IAddToLibraryMovieDto, ICategory, ILibraryMovie } from "@/types/movie";
+import {
+  IAddToLibraryMovieDto,
+  ICategory,
+  ILibraryMovie,
+  ILibraryMoviePartial,
+} from "@/types/library";
 
 export const getLibraryMovies = async ({
   page,
@@ -20,6 +25,22 @@ export const getLibraryMovies = async ({
         },
       },
     );
+
+    return response.data;
+  } catch (error) {
+    const errorMessage = ErrorHelper.getMessage(error);
+    throw new Error(errorMessage ?? "Failed to get movies");
+  }
+};
+
+export const getAllLibraryMovies = async (): Promise<
+  IPaginatedResponse<ILibraryMoviePartial[]>
+> => {
+  try {
+    const response =
+      await apiClient.get<IPaginatedResponse<ILibraryMoviePartial[]>>(
+        "movies/ids",
+      );
 
     return response.data;
   } catch (error) {

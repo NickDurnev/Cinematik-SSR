@@ -10,7 +10,12 @@ import {
   getReviews,
   updateReview,
 } from "@/services/review/service";
-import { IReview } from "@/types/review";
+
+import {
+  processAddQueryData,
+  processDeleteQueryData,
+  processUpdateQueryData,
+} from "../query-utils";
 
 export const useReviews = () =>
   useInfiniteQuery({
@@ -31,12 +36,7 @@ export const useAddReview = () => {
     mutationKey: ["add-review"],
     mutationFn: addReview,
     onSuccess: ({ data }) => {
-      queryClient.setQueryData(["reviews"], (oldData: { data: IReview[] }) => {
-        if (!oldData) {
-          return { data: [data] };
-        }
-        return { ...oldData, data: [data, ...oldData.data] };
-      });
+      processAddQueryData(queryClient, ["reviews"], data);
     },
   });
 };
@@ -47,15 +47,7 @@ export const useUpdateReview = () => {
     mutationKey: ["update-review"],
     mutationFn: updateReview,
     onSuccess: ({ data }) => {
-      queryClient.setQueryData(["reviews"], (oldData: { data: IReview[] }) => {
-        if (!oldData) {
-          return { data: [data] };
-        }
-        return {
-          ...oldData,
-          data: [data, ...oldData.data.filter(review => review.id !== data.id)],
-        };
-      });
+      processUpdateQueryData(queryClient, ["reviews"], data);
     },
   });
 };
@@ -66,15 +58,7 @@ export const useDeleteReview = () => {
     mutationKey: ["delete-review"],
     mutationFn: deleteReview,
     onSuccess: ({ data }) => {
-      queryClient.setQueryData(["reviews"], (oldData: { data: IReview[] }) => {
-        if (!oldData) {
-          return { data: [] };
-        }
-        return {
-          ...oldData,
-          data: oldData.data.filter(review => review.id !== data.id),
-        };
-      });
+      processDeleteQueryData(queryClient, ["reviews"], data);
     },
   });
 };

@@ -1,16 +1,24 @@
 import {
   useInfiniteQuery,
   useMutation,
+  useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
 
 import {
   addMovieToLibrary,
   deleteMovieFromLibrary,
+  getAllLibraryMovies,
   getLibraryMovies,
   updateLibraryMovie,
 } from "@/services/library/service";
-import { ICategory, ILibraryMovie } from "@/types/movie";
+import { ICategory } from "@/types/library";
+
+import {
+  processAddQueryData,
+  processDeleteQueryData,
+  processUpdateQueryData,
+} from "../query-utils";
 
 export const useLibraryMovies = (category: ICategory) =>
   useInfiniteQuery({
@@ -26,21 +34,20 @@ export const useLibraryMovies = (category: ICategory) =>
     },
   });
 
+export const useAllLibraryMovies = () =>
+  useQuery({
+    queryKey: ["all-library-movies"],
+    queryFn: () => getAllLibraryMovies(),
+  });
+
 export const useAddMovieToLibrary = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ["add-movie-to-library"],
     mutationFn: addMovieToLibrary,
     onSuccess: ({ data }) => {
-      queryClient.setQueryData(
-        ["library-movies"],
-        (oldData: { data: ILibraryMovie[] }) => {
-          if (!oldData) {
-            return { data: [data] };
-          }
-          return { ...oldData, data: [data, ...oldData.data] };
-        },
-      );
+      processAddQueryData(queryClient, ["library-movies"], data);
+      processAddQueryData(queryClient, ["all-library-movies"], data);
     },
   });
 };
@@ -51,21 +58,8 @@ export const useUpdateLibraryMovie = () => {
     mutationKey: ["update-library-movie"],
     mutationFn: updateLibraryMovie,
     onSuccess: ({ data }) => {
-      queryClient.setQueryData(
-        ["library-movies"],
-        (oldData: { data: ILibraryMovie[] }) => {
-          if (!oldData) {
-            return { data: [data] };
-          }
-          return {
-            ...oldData,
-            data: [
-              data,
-              ...oldData.data.filter(review => review.id !== data.id),
-            ],
-          };
-        },
-      );
+      processUpdateQueryData(queryClient, ["library-movies"], data);
+      processUpdateQueryData(queryClient, ["all-library-movies"], data);
     },
   });
 };
@@ -76,18 +70,8 @@ export const useDeleteLibraryMovie = () => {
     mutationKey: ["delete-library-movie"],
     mutationFn: deleteMovieFromLibrary,
     onSuccess: ({ data }) => {
-      queryClient.setQueryData(
-        ["library-movies"],
-        (oldData: { data: ILibraryMovie[] }) => {
-          if (!oldData) {
-            return { data: [] };
-          }
-          return {
-            ...oldData,
-            data: oldData.data.filter(review => review.id !== data.id),
-          };
-        },
-      );
+      processDeleteQueryData(queryClient, ["library-movies"], data);
+      processDeleteQueryData(queryClient, ["all-library-movies"], data);
     },
   });
 };

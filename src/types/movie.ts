@@ -25,7 +25,7 @@ export interface IGenre {
   name: string;
 }
 
-interface IBaseMovieData {
+export interface IBaseMovieData {
   overview: string;
   release_date: string;
   title: string;
@@ -41,21 +41,6 @@ interface IBaseMovieData {
 export interface IMovie extends IBaseMovieData {
   id: number;
 }
-
-export interface ILibraryMovie extends IBaseMovieData {
-  id: string;
-  idb_id: string;
-  user_id: string;
-  category: ICategory;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface IAddToLibraryMovieDto extends IBaseMovieData {
-  category: ICategory;
-}
-
-export type ICategory = "favorites" | "watched";
 
 export interface IReview {
   id: string;
@@ -95,21 +80,6 @@ export interface IError {
     };
   };
 }
-
-// type IDataToFetch = Pick<
-//   IMovie,
-//   | "poster_path"
-//   | "title"
-//   | "vote_average"
-//   | "genres"
-//   | "release_date"
-//   | "tagline"
-//   | "runtime"
-//   | "overview"
-//   | "budget"
-// > & {
-//   idbID: IMovie["id"];
-// };
 
 export interface ImdbAPIResponse<T> {
   data: {
