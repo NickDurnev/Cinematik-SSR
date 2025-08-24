@@ -6,7 +6,7 @@ import { BackButton } from "@/components";
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <nav className="tablet:py-4">
+      <nav className="bg-grad-light tablet:py-4">
         <BackButton backupUrl="/login" />
       </nav>
 

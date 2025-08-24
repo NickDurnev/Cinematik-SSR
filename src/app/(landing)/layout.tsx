@@ -14,7 +14,7 @@ interface IProps {
 const Layout = ({ children }: IProps) => {
   const hydrated = useUserStoreHydrated();
   return (
-    <div className="min-h-screen bg-gradient-to-b from-grad-dark to-grad-light">
+    <div className="min-h-screen bg-gradient-to-b from-grad-light to-grad-dark">
       {hydrated ? (
         <AppBar />
       ) : (

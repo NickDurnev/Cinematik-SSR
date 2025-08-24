@@ -5,7 +5,7 @@ import { AppLink } from "@/app/(landing)/components";
 export const Hero = () => {
   return (
     <section className="laptopL:pt-[70px] laptopM:pt-[60px] pt-[55px]">
-      <h1 className="mb-10 laptopL:w-[calc(100vw-240px)] laptopM:w-[calc(100vw-220px)] w-full font-technovier laptopL:text-[80px] laptopM:text-[60px] tablet:text-[50px] text-[35px] text-white uppercase laptopL:leading-[120px] laptopM:leading-[100px] leading-[41px] tablet:leading-[70px] tracking-wider">
+      <h1 className="mb-10 laptopL:w-[calc(100vw-240px)] laptopM:w-[calc(100vw-220px)] w-full font-technovier laptopL:text-[80px] laptopM:text-[60px] tablet:text-[50px] text-[35px] text-foreground uppercase laptopL:leading-[120px] laptopM:leading-[100px] leading-[41px] tablet:leading-[70px] tracking-wider">
         Movies <br />
         Change the world
       </h1>

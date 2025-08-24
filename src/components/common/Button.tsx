@@ -50,12 +50,9 @@ const variantSx: Record<ButtonVariant, object> = {
   secondary: {
     ...defaultSx,
     backgroundColor: "var(--secondary)",
-    color: "var(--secondary-foreground)",
     borderColor: "var(--secondary)",
     "&:hover": {
-      backgroundColor: "var(--secondary-hover)",
-      color: "var(--secondary-foreground)",
-      borderColor: "var(--secondary-hover)",
+      opacity: 0.5,
     },
   },
   ghost: {
@@ -69,12 +66,9 @@ const variantSx: Record<ButtonVariant, object> = {
   destructive: {
     ...defaultSx,
     backgroundColor: "var(--destructive)",
-    color: "var(--destructive-foreground)",
     borderColor: "var(--destructive)",
     "&:hover": {
-      backgroundColor: "var(--destructive-hover)",
-      color: "var(--destructive-foreground)",
-      borderColor: "var(--destructive-hover)",
+      opacity: 0.5,
     },
   },
 };

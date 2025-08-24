@@ -2,20 +2,13 @@
 @plugin "tailwindcss-motion";
 
 :root {
-  --background: #ecf881;
+  --background: #e0e4f2;
   --foreground: #141414;
-  --primary: #4b43a5;
-  --secondary: #2d2e4a;
-  --secondary-foreground: #e3f8f1;
+  --primary: #a1b2d4;
+  --secondary: #c4d6e8;
   --muted: #2d2e4a;
   --muted-foreground: #a1a1a180;
-  --accent: #3e4a7b;
-  --accent-foreground: #181a2a;
-  --destructive: #e97c3c;
-  --destructive-foreground: #ffffff;
-  --border: #2d2e4a;
-  --input: #2d2e4a;
-  --ring: #5e4fff;
+  --destructive: #e94d3c;
 
   --main-text-font-weight: 500;
   --list-item-bcg-color: rgba(157, 153, 153, 0.253);
@@ -24,18 +17,15 @@
   --hover-time-function: linear;
   --animation-duration: 500ms;
   --animation-time-function: linear;
-  --grad-dark: #ecf881;
-  --grad-light: #e3f8f1;
+  --grad-dark: #b7c9e8;
+  --grad-light: #f0f4ff;
   --bg-icon-color: #5ebaf030;
-  --bg-element-color: #d89edb;
-  --add-bg-element-color: rgba(55, 55, 54, 0.7);
   --bg-input-color: rgba(55, 55, 54, 0.1);
   --link-color: #c588c9;
   --modal-bg-color: #f0f5f3;
   --nav-bar-bg-color: rgba(233, 231, 231, 0.5);
   --bg-header: #d9e092;
   --bg-cast-card: #bbc4c58d;
-  --element-color: #fff;
   --bg-element-hover-color: #50aaa6;
   --box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
   --bg-search-bar: #8c6fcfc3;
@@ -71,7 +61,7 @@
     var(--toastify-toast-offset),
     env(safe-area-inset-bottom)
   );
-  --toastify-toast-background: var(--accent);
+  --toastify-toast-background: var(--secondary);
   --toastify-toast-padding: 14px;
   --toastify-toast-min-height: 64px;
   --toastify-toast-max-height: 800px;
@@ -90,7 +80,7 @@
   --toastify-color-progress-light: linear-gradient(
     to right,
     var(--primary),
-    var(--accent)
+    var(--secondary)
   );
   --toastify-color-progress-dark: var(--primary);
   --toastify-color-progress-info: var(--primary);
@@ -103,18 +93,12 @@
 .dark {
   --background: #181a2a;
   --foreground: #ffffffd3;
-  --primary: #5e4fff;
+  --primary: #4b43a5;
   --secondary: #2d2e4a;
-  --secondary-foreground: #ffffff;
   --muted: #2d2e4a;
   --muted-foreground: #a1a1a180;
-  --accent: #3e4a7b;
-  --accent-foreground: #181a2a;
   --destructive: #e97c3c;
-  --destructive-foreground: #ffffff;
-  --border: #2d2e4a;
-  --input: #2d2e4a;
-  --ring: #5e4fff;
+
   --main-text-font-weight: 500;
   --list-item-bcg-color: rgba(157, 153, 153, 0.253);
   --backdrop-color: rgba(0, 0, 0, 0.2);
@@ -125,8 +109,6 @@
   --grad-dark: #013645;
   --grad-light: #3e3d6b;
   --bg-icon-color: #5f5e5a40;
-  --bg-element-color: #e616f4;
-  --add-bg-element-color: rgba(255, 255, 255, 0.5);
   --bg-input-color: rgba(255, 255, 255, 0.2);
   --link-color: #0feffd;
   --modal-bg-color: #6c6d6d;
@@ -137,18 +119,18 @@
   --bg-element-hover-color: #715ba7;
 
   /* Toastify overrides for dark mode */
-  --toastify-color-light: var(--background);
-  --toastify-color-dark: var(--element-color);
-  --toastify-color-info: var(--primary);
-  --toastify-color-success: #22c55e;
-  --toastify-color-warning: #eab308;
-  --toastify-color-error: #ef4444;
+  --toastify-color-light: var(--secondary);
+  --toastify-color-dark: var(--secondary);
+  --toastify-color-info: var(--secondary);
+  --toastify-color-success: var(--secondary);
+  --toastify-color-warning: var(--secondary);
+  --toastify-color-error: var(--secondary);
   --toastify-color-transparent: rgba(0, 0, 0, 0.7);
   --toastify-icon-color-info: var(--primary);
   --toastify-icon-color-success: #22c55e;
   --toastify-icon-color-warning: #eab308;
   --toastify-icon-color-error: #ef4444;
-  --toastify-toast-background: var(--accent);
+  --toastify-toast-background: var(--secondary);
   --toastify-text-color-light: var(--foreground);
   --toastify-text-color-dark: var(--foreground);
   --toastify-text-color-info: var(--foreground);
@@ -159,7 +141,7 @@
   --toastify-color-progress-light: linear-gradient(
     to right,
     var(--primary),
-    var(--accent)
+    var(--secondary)
   );
   --toastify-color-progress-dark: var(--primary);
   --toastify-color-progress-info: var(--primary);
@@ -182,16 +164,9 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
 
   --theme-main-text-font-weight: var(--main-text-font-weight);
   --color-list-item-bcg: var(--list-item-bcg-color);
@@ -203,15 +178,12 @@
   --color-grad-dark: var(--grad-dark);
   --color-grad-light: var(--grad-light);
   --color-bg-icon: var(--bg-icon-color);
-  --color-bg-element: var(--bg-element-color);
-  --color-add-bg-element: var(--add-bg-element-color);
   --color-bg-input: var(--bg-input-color);
   --color-link: var(--link-color);
   --color-modal-bg: var(--modal-bg-color);
   --color-nav-bar-bg: var(--nav-bar-bg-color);
   --color-bg-header: var(--bg-header);
   --color-bg-cast-card: var(--bg-cast-card);
-  --color-element: var(--element-color);
   --color-bg-element-hover: var(--bg-element-hover-color);
   --theme-box-shadow: var(--box-shadow);
   --color-bg-search-bar: var(--bg-search-bar);
@@ -240,7 +212,7 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-secondary;
     box-sizing: border-box;
   }
   body {
@@ -303,13 +275,13 @@
 
 .form-container {
   display: flex;
-  min-height: 100vh;
+  min-height: calc(100vh - 70px);
   align-items: center;
   justify-content: center;
   background-image: linear-gradient(
     to bottom,
-    var(--grad-dark),
-    var(--grad-light)
+    var(--grad-light),
+    var(--grad-dark)
   );
   padding-left: 1rem;
   padding-right: 1rem;
@@ -317,6 +289,7 @@
 
 @media (min-width: 768px) {
   .form-container {
+    min-height: calc(100vh - 102px);
     padding-left: 0;
     padding-right: 0;
   }
@@ -328,5 +301,5 @@
 
 .Toastify__close-button:hover,
 .Toastify__close-button:focus {
-  color: var(--accent);
+  color: var(--secondary);
 }
