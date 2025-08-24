@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
+import { cn } from "@/libs/tailwind-merge";
+
 import HomeIcon from "/icons/Home.svg";
 import MovieIcon from "/icons/Movie.svg";
 import StarIcon from "/icons/Star.svg";
@@ -26,21 +28,12 @@ const Navigation = () => {
             <motion.a
               whileTap={{ scale: 1.3 }}
               href={href}
-              className={[
+              className={cn(
                 "relative mx-auto block w-10 cursor-pointer py-[30px] transition-colors duration-300",
-                isActive
-                  ? "text-[var(--bg-element-color)]"
-                  : "text-[var(--text-color)]",
+                isActive ? "text-bg-element" : "text-foreground",
                 idx !== 0 ? "mt-[30px]" : "",
-              ]
-                .filter(Boolean)
-                .join(" ")}
+              )}
               aria-label={label}
-              style={{
-                color: isActive
-                  ? "var(--bg-element-color, #d89edb)"
-                  : "var(--text-color, #141414)",
-              }}
             >
               <Icon className="mx-auto h-auto w-[70%] stroke-current" />
             </motion.a>

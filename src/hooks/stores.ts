@@ -3,6 +3,7 @@
 import { create } from "zustand";
 import { PersistStorage, persist } from "zustand/middleware";
 
+import { ILibraryMoviePartial } from "@/types/library";
 import { IGenre } from "@/types/movie";
 import { IFormsData, IUser } from "@/types/user";
 import { DEFAULT_FORM_DATA, DEFAULT_USER } from "@/utils/constants";
@@ -86,6 +87,8 @@ export const useFormsDataStore = create<FormsDataStore>()(
 export interface MoviesDataStore {
   genres: IGenre[];
   setGenres: (genres: IGenre[]) => void;
+  library: ILibraryMoviePartial[];
+  setLibrary: (library: ILibraryMoviePartial[]) => void;
 }
 
 export const useMoviesDataStore = create<MoviesDataStore>()(
@@ -93,6 +96,8 @@ export const useMoviesDataStore = create<MoviesDataStore>()(
     set => ({
       genres: [],
       setGenres: (genres: IGenre[]) => set({ genres }),
+      library: [],
+      setLibrary: (library: ILibraryMoviePartial[]) => set({ library }),
       _hasHydrated: false,
     }),
     {
@@ -103,3 +108,5 @@ export const useMoviesDataStore = create<MoviesDataStore>()(
 );
 
 export const useMoviesGenres = () => useMoviesDataStore(state => state.genres);
+export const useMoviesLibrary = () =>
+  useMoviesDataStore(state => state.library);

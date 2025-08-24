@@ -2,8 +2,8 @@
 @plugin "tailwindcss-motion";
 
 :root {
-  --background: #181a2a;
-  --foreground: #e3f8f1;
+  --background: #ecf881;
+  --foreground: #141414;
   --primary: #4b43a5;
   --secondary: #2d2e4a;
   --secondary-foreground: #e3f8f1;
@@ -16,6 +16,7 @@
   --border: #2d2e4a;
   --input: #2d2e4a;
   --ring: #5e4fff;
+
   --main-text-font-weight: 500;
   --list-item-bcg-color: rgba(157, 153, 153, 0.253);
   --backdrop-color: rgba(0, 0, 0, 0.2);
@@ -25,7 +26,6 @@
   --animation-time-function: linear;
   --grad-dark: #ecf881;
   --grad-light: #e3f8f1;
-  --text-color: #141414;
   --bg-icon-color: #5ebaf030;
   --bg-element-color: #d89edb;
   --add-bg-element-color: rgba(55, 55, 54, 0.7);
@@ -102,7 +102,7 @@
 
 .dark {
   --background: #181a2a;
-  --foreground: #ffffff;
+  --foreground: #ffffffd3;
   --primary: #5e4fff;
   --secondary: #2d2e4a;
   --secondary-foreground: #ffffff;
@@ -124,7 +124,6 @@
   --animation-time-function: linear;
   --grad-dark: #013645;
   --grad-light: #3e3d6b;
-  --text-color: #ffffffd3;
   --bg-icon-color: #5f5e5a40;
   --bg-element-color: #e616f4;
   --add-bg-element-color: rgba(255, 255, 255, 0.5);
@@ -150,12 +149,12 @@
   --toastify-icon-color-warning: #eab308;
   --toastify-icon-color-error: #ef4444;
   --toastify-toast-background: var(--accent);
-  --toastify-text-color-light: var(--text-color);
-  --toastify-text-color-dark: var(--text-color);
-  --toastify-text-color-info: var(--text-color);
-  --toastify-text-color-success: var(--text-color);
-  --toastify-text-color-warning: var(--text-color);
-  --toastify-text-color-error: var(--text-color);
+  --toastify-text-color-light: var(--foreground);
+  --toastify-text-color-dark: var(--foreground);
+  --toastify-text-color-info: var(--foreground);
+  --toastify-text-color-success: var(--foreground);
+  --toastify-text-color-warning: var(--foreground);
+  --toastify-text-color-error: var(--foreground);
   --toastify-spinner-color: var(--primary);
   --toastify-color-progress-light: linear-gradient(
     to right,
@@ -203,7 +202,6 @@
   --theme-animation-time-function: var(--animation-time-function);
   --color-grad-dark: var(--grad-dark);
   --color-grad-light: var(--grad-light);
-  --color-text: var(--text-color);
   --color-bg-icon: var(--bg-icon-color);
   --color-bg-element: var(--bg-element-color);
   --color-add-bg-element: var(--add-bg-element-color);
@@ -303,9 +301,31 @@
   }
 }
 
+.form-container {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(
+    to bottom,
+    var(--grad-dark),
+    var(--grad-light)
+  );
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 768px) {
+  .form-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 .Toastify__close-button {
   color: var(--foreground);
 }
+
 .Toastify__close-button:hover,
 .Toastify__close-button:focus {
   color: var(--accent);

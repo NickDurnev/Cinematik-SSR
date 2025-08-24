@@ -17,7 +17,7 @@ export const MovieCategories = ({ movieId }: IProps) => {
         <li key={name} className="flex">
           <CustomLink
             href={path}
-            className="rounded-[5px] bg-inherit px-[5px] font-technovier text-[15px] text-[var(--color-add-bg-element)] uppercase leading-[17px] transition-all duration-[var(--theme-hover-transition)] ease-[var(--theme-hover-time-function)] visited:text-[var(--color-text)] hover:text-[var(--color-text)] focus:text-[var(--color-text)] md:text-[18px] md:leading-[21px]"
+            className="rounded-[5px] bg-inherit px-[5px] font-technovier text-[15px] text-add-bg-element uppercase leading-[17px] transition-all duration-theme-hover-transition ease-theme-hover-time-function visited:text-foreground hover:text-foreground focus:text-foreground md:text-[18px] md:leading-[21px]"
           >
             {name}
           </CustomLink>

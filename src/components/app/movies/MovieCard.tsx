@@ -59,8 +59,8 @@ export const MovieCard = ({ movie }: IProps) => {
           />
         </Show>
 
-        <div className="absolute bottom-0 left-0 flex h-[90px] w-full flex-col items-start justify-between bg-[var(--nav-bar-bg-color)] p-[15px_10px] text-start backdrop-blur-[12px]">
-          <p className="whitespace-normal break-all font-medium text-[var(--text-color)] text-base leading-4 md:font-normal md:text-lg">
+        <div className="absolute bottom-0 left-0 flex h-[90px] w-full flex-col items-start justify-between bg-nav-bar-bg p-[15px_10px] text-start backdrop-blur-[12px]">
+          <p className="whitespace-normal break-all font-medium text-base leading-4 md:font-normal md:text-lg">
             {title}
           </p>
 

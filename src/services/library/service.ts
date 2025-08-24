@@ -2,8 +2,8 @@ import { apiClient } from "@/libs/axios";
 import ErrorHelper from "@/libs/error-helper";
 import { IApiResponse, IPaginatedResponse } from "@/types/general";
 import {
+  CategoryEnum,
   IAddToLibraryMovieDto,
-  ICategory,
   ILibraryMovie,
   ILibraryMoviePartial,
 } from "@/types/library";
@@ -13,7 +13,7 @@ export const getLibraryMovies = async ({
   category,
 }: {
   page: number;
-  category: ICategory;
+  category: CategoryEnum;
 }): Promise<IPaginatedResponse<ILibraryMovie>> => {
   try {
     const response = await apiClient.get<IPaginatedResponse<ILibraryMovie>>(
@@ -69,7 +69,7 @@ export const updateLibraryMovie = async ({
   category,
   movie_id,
 }: {
-  category: ICategory;
+  category: CategoryEnum;
   movie_id: string;
 }): Promise<IApiResponse<ILibraryMovie>> => {
   try {

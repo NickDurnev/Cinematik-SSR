@@ -1,18 +1,21 @@
 import { IBaseMovieData } from "./movie";
 
-export type ICategory = "favorites" | "watched";
+export enum CategoryEnum {
+  WATCHED = "watched",
+  FAVORITES = "favorites",
+}
 
 export interface ILibraryMovie extends IBaseMovieData {
   id: string;
   idb_id: string;
   user_id: string;
-  category: ICategory;
+  category: CategoryEnum;
   created_at: string;
   updated_at: string;
 }
 
 export interface IAddToLibraryMovieDto extends IBaseMovieData {
-  category: ICategory;
+  category: CategoryEnum;
 }
 
 export interface ILibraryMoviePartial

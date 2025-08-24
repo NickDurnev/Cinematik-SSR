@@ -81,8 +81,8 @@ export const ActorInfo = ({ data }: { data: IActor }) => {
           </li>
         </ul>
         <CustomLink
-          href={`/moviesbyactor/${actorID}`}
-          className="mt-12 flex h-[70px] w-[140px] items-center justify-center rounded-[10px] border border-[var(--text-color)] bg-transparent font-muller text-[20px] text-[var(--text-color)] uppercase transition-all duration-300 hover:bg-[#4847473c]"
+          href={`/movies-by-actor/${actorID}`}
+          className="mt-12 flex h-[70px] w-[140px] items-center justify-center rounded-[10px] border border-foreground bg-transparent font-muller text-[20px] text-foreground uppercase transition-all duration-300 hover:bg-[#4847473c]"
         >
           Movies
         </CustomLink>

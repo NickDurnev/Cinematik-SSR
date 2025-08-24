@@ -10,7 +10,7 @@ type ImageWrapperProps = {
 export const ImageWrapper = ({ children, className }: ImageWrapperProps) => (
   <div
     className={cn(
-      "flex h-full w-full items-center justify-center rounded-tl-[10px] rounded-tr-[10px] bg-[var(--color-bg-cast-card)] text-[var(--color-link)]",
+      "flex h-full w-full items-center justify-center rounded-tl-[10px] rounded-tr-[10px] bg-bg-cast-card text-link",
       className,
     )}
   >

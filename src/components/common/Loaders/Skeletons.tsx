@@ -1,7 +1,7 @@
 const SkeletonWrap = () => (
   <div className="flex w-full flex-col items-center">
-    <div className="h-[465px] w-[310px] animate-pulse rounded-md bg-[var(--color-bg-icon)]" />
-    <div className="mt-2 h-[30px] w-[310px] animate-pulse rounded-md bg-[var(--color-bg-icon)]" />
+    <div className="h-[465px] w-[310px] animate-pulse rounded-md bg-bg-icon" />
+    <div className="mt-2 h-[30px] w-[310px] animate-pulse rounded-md bg-bg-icon" />
   </div>
 );
 

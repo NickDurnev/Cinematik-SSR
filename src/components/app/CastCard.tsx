@@ -20,7 +20,7 @@ export const CastCard = ({ data }: { data: IActor }) => {
       whileInView="open"
       viewport={{ once: true }}
       className={cn(
-        "relative mx-auto h-[465px] w-[310px] rounded-[10px] text-[var(--color-link)]",
+        "relative mx-auto h-[465px] w-[310px] rounded-[10px] text-link",
         !profile_path ? "bg-[#666666]" : "",
       )}
     >
@@ -42,11 +42,11 @@ export const CastCard = ({ data }: { data: IActor }) => {
           className="h-auto w-full rounded-t-[10px]"
         />
       </Show>
-      <div className="absolute bottom-0 left-0 h-[70px] w-full bg-[var(--color-nav-bar-bg)] px-[20px] py-[10px] text-left backdrop-blur-[12px]">
+      <div className="absolute bottom-0 left-0 h-[70px] w-full bg-nav-bar-bg px-[20px] py-[10px] text-left backdrop-blur-[12px]">
         <p className="mb-[10px] break-words font-bold text-[16px] leading-[16px]">
           {name}
         </p>
-        <p className="break-words text-[16px] text-[var(--color-link)] leading-[16px]">
+        <p className="break-words text-[16px] text-link leading-[16px]">
           {character}
         </p>
       </div>

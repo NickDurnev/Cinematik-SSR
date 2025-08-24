@@ -12,7 +12,7 @@ import {
   getLibraryMovies,
   updateLibraryMovie,
 } from "@/services/library/service";
-import { ICategory } from "@/types/library";
+import { CategoryEnum } from "@/types/library";
 
 import {
   processAddQueryData,
@@ -20,7 +20,7 @@ import {
   processUpdateQueryData,
 } from "../query-utils";
 
-export const useLibraryMovies = (category: ICategory) =>
+export const useLibraryMovies = (category: CategoryEnum) =>
   useInfiniteQuery({
     queryKey: ["library-movies"],
     queryFn: ({ pageParam = 1 }) =>

@@ -41,7 +41,7 @@ export const Modal = (props: IProps) => {
     <div
       onClick={onClickClose}
       onKeyDown={onKeyDownClose}
-      className="fixed inset-0 z-50 h-full w-full overflow-y-scroll bg-[var(--backdrop-color)] text-[var(--text-color)]"
+      className="fixed inset-0 z-50 h-full w-full overflow-y-scroll bg-backdrop text-foreground"
     >
       <motion.div
         initial="closed"
