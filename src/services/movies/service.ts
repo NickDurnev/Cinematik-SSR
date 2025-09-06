@@ -1,18 +1,15 @@
 import { imdbApiClient } from "@/libs/axios";
 import ErrorHelper from "@/libs/error-helper";
-import { IApiResponse } from "@/types/general";
 import {
   IActor,
   IGenre,
   IMovie,
-  ImdbAPIResponse,
+  ImdbPaginatedResponse,
+  IReview,
   ITrailer,
 } from "@/types/movie";
-import { IReview } from "@/types/review";
 
-export const fetchTrendMovies = async (): Promise<
-  IApiResponse<{ results: IMovie[] }>
-> => {
+export const fetchTrendMovies = async (): Promise<IMovie[]> => {
   try {
     const response = await imdbApiClient.get("trending/movie/day");
     return response.data.results;
@@ -22,7 +19,7 @@ export const fetchTrendMovies = async (): Promise<
   }
 };
 
-export const fetchMoviesGenres = async (): Promise<{ genres: IGenre[] }> => {
+export const fetchMoviesGenres = async (): Promise<IGenre[]> => {
   try {
     const response = await imdbApiClient.get("genre/movie/list");
     return response.data.genres;
@@ -38,7 +35,7 @@ export const fetchMoviesByGenre = async ({
 }: {
   page: number;
   genreId: string;
-}): Promise<ImdbAPIResponse<IMovie>> => {
+}): Promise<ImdbPaginatedResponse<IMovie>> => {
   try {
     const response = await imdbApiClient.get("discover/movie", {
       params: {
@@ -46,7 +43,11 @@ export const fetchMoviesByGenre = async ({
         with_genres: genreId,
       },
     });
-    return response.data;
+    return {
+      data: response.data.results,
+      next_page: page + 1,
+      total_pages: response.data.total_pages,
+    };
   } catch (error) {
     const errorMessage = ErrorHelper.getMessage(error);
     throw new Error(errorMessage ?? "Failed to get movies by genre");
@@ -59,14 +60,18 @@ export const fetchCategoryMovies = async ({
 }: {
   page: number;
   category: string;
-}): Promise<ImdbAPIResponse<IMovie>> => {
+}): Promise<ImdbPaginatedResponse<IMovie>> => {
   try {
     const response = await imdbApiClient.get(`movie/${category}`, {
       params: {
         page,
       },
     });
-    return response.data;
+    return {
+      data: response.data.results,
+      next_page: page + 1,
+      total_pages: response.data.total_pages,
+    };
   } catch (error) {
     const errorMessage = ErrorHelper.getMessage(error);
     throw new Error(errorMessage ?? "Failed to get category movies");
@@ -79,7 +84,7 @@ export const searchMovie = async ({
 }: {
   page: number;
   query: string;
-}): Promise<ImdbAPIResponse<IMovie>> => {
+}): Promise<ImdbPaginatedResponse<IMovie>> => {
   try {
     const response = await imdbApiClient.get("search/movie", {
       params: {
@@ -88,7 +93,11 @@ export const searchMovie = async ({
         include_adult: false,
       },
     });
-    return response.data;
+    return {
+      data: response.data.results,
+      next_page: page + 1,
+      total_pages: response.data.total_pages,
+    };
   } catch (error) {
     const errorMessage = ErrorHelper.getMessage(error);
     throw new Error(errorMessage ?? "Failed to search movie");
@@ -115,14 +124,18 @@ export const similarMovies = async ({
 }: {
   page: number;
   movieId: string;
-}): Promise<ImdbAPIResponse<IMovie>> => {
+}): Promise<ImdbPaginatedResponse<IMovie>> => {
   try {
     const response = await imdbApiClient.get(`movie/${movieId}/similar`, {
       params: {
         page,
       },
     });
-    return response.data;
+    return {
+      data: response.data.results,
+      next_page: page + 1,
+      total_pages: response.data.total_pages,
+    };
   } catch (error) {
     const errorMessage = ErrorHelper.getMessage(error);
     throw new Error(errorMessage ?? "Failed to get similar movies");
@@ -148,7 +161,7 @@ export const filmsByActor = async ({
   actorId,
 }: {
   actorId: string;
-}): Promise<{ cast: IMovie[] }> => {
+}): Promise<IMovie[]> => {
   try {
     const response = await imdbApiClient.get(`person/${actorId}/movie_credits`);
     return response.data;
@@ -162,10 +175,10 @@ export const movieCast = async ({
   movieId,
 }: {
   movieId: string;
-}): Promise<{ cast: IActor[] }> => {
+}): Promise<IActor[]> => {
   try {
     const response = await imdbApiClient.get(`movie/${movieId}/credits`);
-    return response.data;
+    return response.data.cast;
   } catch (error) {
     const errorMessage = ErrorHelper.getMessage(error);
     throw new Error(errorMessage ?? "Failed to get movie cast");
@@ -178,14 +191,18 @@ export const movieReviews = async ({
 }: {
   page: number;
   movieId: string;
-}): Promise<ImdbAPIResponse<IReview>> => {
+}): Promise<ImdbPaginatedResponse<IReview>> => {
   try {
     const response = await imdbApiClient.get(`movie/${movieId}/reviews`, {
       params: {
         page,
       },
     });
-    return response.data;
+    return {
+      data: response.data.results,
+      next_page: page + 1,
+      total_pages: response.data.total_pages,
+    };
   } catch (error) {
     const errorMessage = ErrorHelper.getMessage(error);
     throw new Error(errorMessage ?? "Failed to get movie reviews");

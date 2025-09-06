@@ -7,7 +7,7 @@ interface IProps {
   children: ReactNode;
 }
 
-const MovieList = ({ children }: IProps) => {
+export const MovieList = ({ children }: IProps) => {
   const baseClasses = "mx-auto block w-[310px]";
   const spacingClasses = "[&>li+li]:mt-5";
   const tabletClasses =
@@ -28,5 +28,3 @@ const MovieList = ({ children }: IProps) => {
     </ul>
   );
 };
-
-export default MovieList;

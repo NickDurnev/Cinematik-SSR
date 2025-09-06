@@ -303,3 +303,11 @@
 .Toastify__close-button:focus {
   color: var(--secondary);
 }
+
+.home-movies-container {
+  @apply mx-auto w-[310px] overflow-hidden pb-10 md:w-[640px] xl:w-[1300px] xl:pb-15 2xl:w-[1650px] 2xl:pb-20;
+}
+
+.home-movies-title {
+  @apply mb-5 flex items-center text-left font-technovier text-base text-foreground leading-10 transition-all duration-300 ease-linear after:ml-2 after:content-['>'] hover:text-link focus:text-link xl:mb-10 xl:text-2xl xl:leading-[60px];
+}

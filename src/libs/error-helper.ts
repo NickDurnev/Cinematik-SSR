@@ -6,7 +6,7 @@ interface IApiErrorResponse {
 }
 
 class ErrorHelper {
-  static getMessage(error: unknown): string | undefined {
+  static getMessage(error: unknown): string | null {
     if (isAxiosError<IApiErrorResponse>(error)) {
       if (error.response?.data.errors?.[0]?.message) {
         const { errors } = error.response.data;
@@ -20,7 +20,7 @@ class ErrorHelper {
     if (error instanceof Error) {
       return error.message;
     }
-    return undefined;
+    return null;
   }
 }
 

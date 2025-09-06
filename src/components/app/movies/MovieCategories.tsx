@@ -1,7 +1,7 @@
 import { CustomLink } from "@/components";
 
 interface IProps {
-  movieId?: string;
+  movieId: string;
 }
 
 export const MovieCategories = ({ movieId }: IProps) => {

@@ -19,14 +19,14 @@ import {
 
 export const useReviews = () =>
   useInfiniteQuery({
-    queryKey: ["orders"],
+    queryKey: ["reviews"],
     queryFn: ({ pageParam = 1 }) => getReviews({ page: pageParam }),
     initialPageParam: 1,
     getNextPageParam: lastPage => {
       if (lastPage.meta.page < lastPage.meta.total_pages) {
         return lastPage.meta.page + 1;
       }
-      return undefined;
+      return null;
     },
   });
 

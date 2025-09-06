@@ -126,14 +126,17 @@ const Reviews = () => {
           reviewToUpdate={reviews.find(review => review.user_id === user.id)}
         />
       </Show>
-      {hasLoaded && reviews.length === 0 ? (
-        <div className="m-0 mx-auto laptopL:mb-[115px] laptopM:mb-[100px] mb-20 flex w-full laptopL:max-w-[900px] laptopM:max-w-[685px] flex-col gap-3 rounded-2xl text-center">
-          <h2 className="font-technovier text-[35px] text-mainText uppercase leading-[41px] tracking-wider">
-            No reviews yet
-          </h2>
-          <p className="text-main">Be the first to leave a review</p>
-        </div>
-      ) : (
+      <Show
+        when={hasLoaded && reviews.length !== 0}
+        fallback={
+          <div className="m-0 mx-auto laptopL:mb-[115px] laptopM:mb-[100px] mb-20 flex w-full laptopL:max-w-[900px] laptopM:max-w-[685px] flex-col gap-3 rounded-2xl text-center">
+            <h2 className="font-technovier text-[35px] text-mainText uppercase leading-[41px] tracking-wider">
+              No reviews yet
+            </h2>
+            <p className="text-main">Be the first to leave a review</p>
+          </div>
+        }
+      >
         <ul className="mx-auto w-full max-w-[600px] laptop:space-y-[80px] space-y-[55px]">
           {reviews.map(review => (
             <Review
@@ -147,13 +150,12 @@ const Reviews = () => {
           ))}
           {hasNextPage && <QueryTrigger ref={ListRef} />}
         </ul>
+      </Show>
+      {(isPending || isFetchingNextPage) && (
+        <div className="py-6">
+          <Spinner />
+        </div>
       )}
-      {isPending ||
-        (isFetchingNextPage && (
-          <div className="py-6">
-            <Spinner />
-          </div>
-        ))}
     </section>
   );
 };

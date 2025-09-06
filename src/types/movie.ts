@@ -73,17 +73,8 @@ export interface ILocation {
   from: { location: object; prevLocation: object };
 }
 
-export interface IError {
-  response: {
-    data: {
-      message: string;
-    };
-  };
-}
-
-export interface ImdbAPIResponse<T> {
-  data: {
-    results: T[];
-    total_pages: number;
-  };
+export interface ImdbPaginatedResponse<T> {
+  data: T[];
+  next_page: number;
+  total_pages: number;
 }
