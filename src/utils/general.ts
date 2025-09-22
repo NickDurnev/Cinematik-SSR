@@ -1,6 +1,14 @@
 export const stringAvatar = (name: string): { children: string } => {
+  const names = name.split(" ");
+
+  if (names.length > 1) {
+    return {
+      children: `${names[0][0]}${names[1][0]}`,
+    };
+  }
+
   return {
-    children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
+    children: `${names[0][0]}`,
   };
 };
 

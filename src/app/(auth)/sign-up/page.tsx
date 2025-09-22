@@ -6,10 +6,12 @@ import { toast } from "react-toastify";
 import { AnimatedPage, Button, CustomLink, GoogleLogin } from "@/components";
 import { useSignUpUser } from "@/services/user/query-hooks";
 import { ISignupFormSchema } from "@/services/user/schemas";
-
+import { useRouter } from "next/navigation";
 import { SignUpForm } from "../components";
 
 const SignUpPage = () => {
+  const router = useRouter();
+
   const { mutate: signUpUser, isPending: isSignUpPending } = useSignUpUser();
 
   const handleSubmit = ({ email, password, name }: ISignupFormSchema) => {
@@ -19,6 +21,10 @@ const SignUpPage = () => {
       name,
     };
     signUpUser(payload, {
+      onSuccess: () => {
+        //TODO Add confirm email step later
+        router.replace("/app/home");
+      },
       onError: error => {
         toast.error(error?.message);
       },

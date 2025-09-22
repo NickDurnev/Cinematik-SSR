@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "@tanstack/react-form";
+import { useEffect } from "react";
 
 import { Button, Input } from "@/components";
 import { useFormsDataStore } from "@/hooks/stores";
@@ -28,22 +29,30 @@ export const LoginForm = ({ onSubmit, isLoading }: Props) => {
     },
   });
 
+  const SyncLoginValues = ({
+    values,
+  }: {
+    values: { email: string; password: string };
+  }) => {
+    useEffect(() => {
+      const formData = {
+        confirmPassword: data.confirmPassword,
+        name: data.name,
+        ...values,
+      };
+      const isEqual = deepEqual(data, formData);
+      const isAllEmpty = Object.values(formData).every(val => val === "");
+      if (!isEqual && !isAllEmpty) {
+        setData({ ...data, ...values });
+      }
+    }, [values]);
+    return null;
+  };
+
   return (
     <>
       <form.Subscribe selector={state => state.values}>
-        {values => {
-          const formData = {
-            confirmPassword: data.confirmPassword,
-            name: data.name,
-            ...values,
-          };
-          const isEqual = deepEqual(data, formData);
-          const isAllEmpty = Object.values(formData).every(val => val === "");
-          if (!isEqual && !isAllEmpty) {
-            setData({ ...data, ...values });
-            return null;
-          }
-        }}
+        {values => <SyncLoginValues values={values} />}
       </form.Subscribe>
       <form
         onSubmit={e => {

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { A11y, Autoplay, Navigation } from "swiper/modules";
 import { Swiper as SwiperComponent, SwiperSlide } from "swiper/react";
 
@@ -8,8 +9,6 @@ import "swiper/css/scrollbar";
 
 import { CustomLink, Spinner } from "@/components/common";
 
-import ArrowLeftIcon from "./icons/ArrowLeft.svg";
-import ArrowRightIcon from "./icons/ArrowRight.svg";
 import MovieCard from "./movies/MovieCard";
 
 interface IProps {
@@ -61,7 +60,12 @@ export const Swiper = ({
         className="relative"
       >
         <div className="prev -translate-y-1/2 absolute top-[40%] left-0 z-[2] cursor-pointer xl:top-[45%]">
-          <ArrowLeftIcon width={60} height={60} />
+          <Image
+            src={"/icons/ArrowLeft.svg"}
+            alt={"Arrow Left"}
+            width={60}
+            height={60}
+          />
         </div>
         {movies.map(movie => (
           <SwiperSlide key={movie.id}>
@@ -78,7 +82,12 @@ export const Swiper = ({
           </SwiperSlide>
         )}
         <div className="next -translate-y-1/2 absolute top-[40%] right-0 z-[2] cursor-pointer xl:top-[45%] xl:right-[15px]">
-          <ArrowRightIcon width={60} height={60} />
+          <Image
+            src={"/icons/ArrowRight.svg"}
+            alt={"Arrow Right"}
+            width={60}
+            height={60}
+          />
         </div>
       </SwiperComponent>
     </div>

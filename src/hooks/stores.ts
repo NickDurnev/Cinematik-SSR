@@ -87,6 +87,8 @@ export const useFormsDataStore = create<FormsDataStore>()(
 export interface MoviesDataStore {
   genres: IGenre[];
   setGenres: (genres: IGenre[]) => void;
+  movieSearchName: string;
+  setMovieSearchName: (value: string) => void;
   library: ILibraryMoviePartial[];
   setLibrary: (library: ILibraryMoviePartial[]) => void;
 }
@@ -96,6 +98,8 @@ export const useMoviesDataStore = create<MoviesDataStore>()(
     set => ({
       genres: [],
       setGenres: (genres: IGenre[]) => set({ genres }),
+      movieSearchName: "",
+      setMovieSearchName: (value: string) => set({ movieSearchName: value }),
       library: [],
       setLibrary: (library: ILibraryMoviePartial[]) => set({ library }),
       _hasHydrated: false,
@@ -110,3 +114,8 @@ export const useMoviesDataStore = create<MoviesDataStore>()(
 export const useMoviesGenres = () => useMoviesDataStore(state => state.genres);
 export const useMoviesLibrary = () =>
   useMoviesDataStore(state => state.library);
+
+export const useMovieSearchNameSetter = () =>
+  useMoviesDataStore(state => state.setMovieSearchName);
+export const useMoviesSearchName = () =>
+  useMoviesDataStore(state => state.movieSearchName);

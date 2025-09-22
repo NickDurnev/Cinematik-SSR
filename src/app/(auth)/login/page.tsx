@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Paper } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 import { AnimatedPage, Button, CustomLink, GoogleLogin } from "@/components";
@@ -10,15 +11,16 @@ import { ILoginFormSchema } from "@/services/user/schemas";
 import { LoginForm } from "../components";
 
 const LoginPage = () => {
+  const router = useRouter();
+
   const { mutate: loginUser, isPending: isLoginPending } = useLoginUser();
 
   const handleSubmit = (data: ILoginFormSchema) => {
     loginUser(data, {
-      onSuccess: response => {
-        console.log(" response:", response);
+      onSuccess: () => {
+        router.replace("/app/home");
       },
       onError: error => {
-        console.log(" error:", error);
         toast.error(error?.message);
       },
     });

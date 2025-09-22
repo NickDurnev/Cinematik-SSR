@@ -54,7 +54,7 @@ export const AppLink = () => {
             >
               Logout
             </Button>
-            <CustomLink href="/" passHref>
+            <CustomLink href="/app/home" passHref>
               <Button endIcon={<DevicesIcon />} variant="outlined">
                 Go to App
               </Button>

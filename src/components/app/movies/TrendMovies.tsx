@@ -5,12 +5,7 @@ import { useTrendMovies } from "@/services/movies/query-hooks";
 
 import { Swiper } from "../Swiper";
 
-interface IProps {
-  category: string;
-  title: string;
-}
-
-export const TopCategoryMovies = ({ category, title }: IProps) => {
+export const TrendMovies = () => {
   const { data, error, isPending, isError } = useTrendMovies();
 
   if (isError) {
@@ -19,8 +14,8 @@ export const TopCategoryMovies = ({ category, title }: IProps) => {
 
   return (
     <div className="home-movies-container">
-      <CustomLink href={`/movies/${category}`} className="home-movies-title">
-        {title}
+      <CustomLink href={"/movies/trending"} className="home-movies-title">
+        Trend movies
       </CustomLink>
       <Show when={data?.length !== 0}>
         <Swiper movies={data ?? []} onAutoPlay />

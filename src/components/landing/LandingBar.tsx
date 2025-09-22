@@ -69,7 +69,7 @@ const pages = [
   { name: "Reviews", href: "/reviews" },
 ];
 
-export const AppBar = () => {
+export const LandingBar = () => {
   const hydrated = useUserStoreHydrated();
 
   const isSizeScreen = useSizeScreen();

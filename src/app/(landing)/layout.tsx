@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { AppBar, Footer } from "@/components";
+import { Footer, LandingBar } from "@/components";
 
 interface IProps {
   children: ReactNode | ReactNode[];
@@ -9,7 +9,7 @@ interface IProps {
 const Layout = ({ children }: IProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-grad-light to-grad-dark">
-      <AppBar />
+      <LandingBar />
       <div className="laptop-l:px-[120px] laptop-m:px-[110px] px-[15px] tablet:px-[60px]">
         <main>{children}</main>
         <Footer />
