@@ -49,7 +49,7 @@ export const useSimilarMovies = ({ movieId }: { movieId: string }) =>
 
 export const useCategoryMovies = ({ category }: { category: string }) =>
   useInfiniteQuery({
-    queryKey: ["category-movies"],
+    queryKey: ["category-movies", category],
     queryFn: ({ pageParam = 1 }) =>
       fetchCategoryMovies({ page: pageParam, category }),
     initialPageParam: 1,

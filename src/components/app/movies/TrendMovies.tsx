@@ -13,7 +13,7 @@ export const TrendMovies = () => {
   }
 
   return (
-    <div className="home-movies-container">
+    <div className="home-movies-container swiper-container">
       <CustomLink href={"/movies/trending"} className="home-movies-title">
         Trend movies
       </CustomLink>

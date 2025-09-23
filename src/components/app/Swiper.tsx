@@ -29,6 +29,8 @@ export const Swiper = ({
   const autoplaySettings = onAutoPlay ? { delay: 5000 } : { delay: 2000000 };
 
   const handleReachEnd = () => {
+    console.log("🚀 ~ handleReachEnd:", handleReachEnd);
+
     if (hasNextPage && !isFetchingNextPage && onReachEnd) {
       onReachEnd();
     }
@@ -44,11 +46,17 @@ export const Swiper = ({
           768: {
             slidesPerView: 2,
           },
+          1024: {
+            slidesPerView: 3,
+          },
           1440: {
             slidesPerView: 4,
           },
           1920: {
             slidesPerView: 5,
+          },
+          2560: {
+            slidesPerView: 6,
           },
         }}
         navigation={{
@@ -57,7 +65,7 @@ export const Swiper = ({
         }}
         autoplay={{ ...autoplaySettings }}
         onReachEnd={handleReachEnd}
-        className="relative"
+        className="swiper-container relative"
       >
         <div className="prev -translate-y-1/2 absolute top-[40%] left-0 z-[2] cursor-pointer xl:top-[45%]">
           <Image

@@ -6,12 +6,9 @@ import { TopCategoryMovies, TrendMovies } from "@/components/app/movies";
 const HomePage = () => {
   return (
     <AnimatedPage>
+      <TopCategoryMovies category={"upcoming"} title={"Upcoming movies"} />
       <TrendMovies />
       <TopCategoryMovies category={"top_rated"} title={"Top rated movies"} />
-      <TopCategoryMovies
-        category={"upcoming"}
-        title={"Upcoming rated movies"}
-      />
     </AnimatedPage>
   );
 };

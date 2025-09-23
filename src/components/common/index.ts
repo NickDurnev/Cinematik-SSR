@@ -8,5 +8,6 @@ export { GallerySkeleton } from "./Loaders/Skeletons";
 export { Spinner } from "./Loaders/Spinner";
 export { Modal } from "./Modal";
 export { QueryTrigger } from "./QueryTrigger";
+export { Select } from "./Select";
 export { Show } from "./Show";
 export { ThemeSwitcher } from "./ThemeSwitcher";

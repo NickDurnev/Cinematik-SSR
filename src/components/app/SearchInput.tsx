@@ -35,7 +35,7 @@ export const SearchInput = ({
     if (debounceValue.trim().length) {
       onChange(debounceValue);
     }
-  }, [debounceValue]);
+  }, [debounceValue, onChange]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value.trim());
@@ -57,13 +57,6 @@ export const SearchInput = ({
           size="small"
         />
       </div>
-      <button
-        type="submit"
-        aria-label="search"
-        className="cursor-pointer p-[10px] text-foreground"
-      >
-        <img src="/icons/SearchIcon.svg" alt="Search" width={20} height={20} />
-      </button>
     </form>
   );
 };

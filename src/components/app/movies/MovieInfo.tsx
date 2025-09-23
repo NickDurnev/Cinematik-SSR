@@ -109,6 +109,8 @@ export const MovieInfo = ({ movieData, handleTrailerToggle }: IProps) => {
               <Image
                 src="/icons/Movie404.svg"
                 alt="Movie placeholder"
+                width={120}
+                height={180}
                 className="h-auto w-[120px]"
               />
             </ImageWrapper>

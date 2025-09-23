@@ -41,7 +41,7 @@ export const TopCategoryMovies = ({ category, title }: IProps) => {
   }
 
   return (
-    <div className="home-movies-container">
+    <div className="home-movies-container swiper-container">
       <CustomLink href={`/movies/${category}`} className="home-movies-title">
         {title}
       </CustomLink>

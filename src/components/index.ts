@@ -19,6 +19,7 @@ export {
   Input,
   Modal,
   QueryTrigger,
+  Select,
   Show,
   Spinner,
   ThemeSwitcher,

@@ -12,3 +12,14 @@ export interface IPaginatedResponse<T> {
   message: string;
   meta: { total: number; page: number; limit: number; total_pages: number };
 }
+
+export enum ContentType {
+  MOVIE = "movie",
+  TV = "tv",
+}
+
+export enum SearchType {
+  MOVIE = "movie",
+  TV = "tv",
+  PERSON = "person",
+}

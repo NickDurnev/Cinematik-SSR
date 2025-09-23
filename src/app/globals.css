@@ -305,9 +305,13 @@
 }
 
 .home-movies-container {
-  @apply mx-auto w-[310px] overflow-hidden pb-10 md:w-[640px] xl:w-[1300px] xl:pb-15 2xl:w-[1650px] 2xl:pb-20;
+  @apply mx-auto overflow-hidden pb-10 xl:pb-15 2xl:pb-20;
 }
 
 .home-movies-title {
-  @apply mb-5 flex items-center text-left font-technovier text-base text-foreground leading-10 transition-all duration-300 ease-linear after:ml-2 after:content-['>'] hover:text-link focus:text-link xl:mb-10 xl:text-2xl xl:leading-[60px];
+  @apply mb-5 flex items-center w-fit text-left font-technovier text-base text-foreground leading-10 transition-all duration-300 ease-linear after:ml-2 after:content-['>'] hover:text-link focus:text-link xl:mb-10 xl:text-2xl xl:leading-[60px];
+}
+
+.swiper-container {
+  @apply desktop:w-[1980px] laptop:w-[950px] laptopL:w-[1660px] laptopM:w-[1270px] tablet:w-[630px] w-[310px];
 }

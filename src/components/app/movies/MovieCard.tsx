@@ -24,7 +24,7 @@ export const MovieCard = ({ movie }: IProps) => {
         setMovieGenre(movieGenre);
       }
     }
-  }, [movie, genres, genre_ids]);
+  }, [genres, genre_ids]);
 
   return (
     <div
@@ -47,6 +47,8 @@ export const MovieCard = ({ movie }: IProps) => {
               <Image
                 src="/icons/Movie404.svg"
                 alt="Movie placeholder"
+                width={120}
+                height={180}
                 className="h-auto w-[120px]"
               />
             </ImageWrapper>

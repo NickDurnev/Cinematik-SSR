@@ -1,6 +1,6 @@
 import { TextField, TextFieldProps } from "@mui/material";
 
-const defaultSx = {
+const DEFAULT_INPUT_STYLES = {
   "& .MuiOutlinedInput-root": {
     borderRadius: "10px",
     "& fieldset": {
@@ -33,7 +33,10 @@ export const Input = ({ sx, ...props }: TextFieldProps) => {
             },
           },
         }}
-        sx={[defaultSx, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
+        sx={[
+          DEFAULT_INPUT_STYLES,
+          ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+        ]}
       />
     </div>
   );

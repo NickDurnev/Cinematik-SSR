@@ -3,6 +3,7 @@
 import { create } from "zustand";
 import { PersistStorage, persist } from "zustand/middleware";
 
+import { ContentType } from "@/types/general";
 import { ILibraryMoviePartial } from "@/types/library";
 import { IGenre } from "@/types/movie";
 import { IFormsData, IUser } from "@/types/user";
@@ -87,8 +88,10 @@ export const useFormsDataStore = create<FormsDataStore>()(
 export interface MoviesDataStore {
   genres: IGenre[];
   setGenres: (genres: IGenre[]) => void;
-  movieSearchName: string;
-  setMovieSearchName: (value: string) => void;
+  searchValue: string;
+  setSearchValue: (value: string) => void;
+  contentType: ContentType;
+  setContentType: (contentType: ContentType) => void;
   library: ILibraryMoviePartial[];
   setLibrary: (library: ILibraryMoviePartial[]) => void;
 }
@@ -98,8 +101,10 @@ export const useMoviesDataStore = create<MoviesDataStore>()(
     set => ({
       genres: [],
       setGenres: (genres: IGenre[]) => set({ genres }),
-      movieSearchName: "",
-      setMovieSearchName: (value: string) => set({ movieSearchName: value }),
+      searchValue: "",
+      setSearchValue: (value: string) => set({ searchValue: value }),
+      contentType: ContentType.MOVIE,
+      setContentType: (contentType: ContentType) => set({ contentType }),
       library: [],
       setLibrary: (library: ILibraryMoviePartial[]) => set({ library }),
       _hasHydrated: false,
@@ -115,7 +120,12 @@ export const useMoviesGenres = () => useMoviesDataStore(state => state.genres);
 export const useMoviesLibrary = () =>
   useMoviesDataStore(state => state.library);
 
-export const useMovieSearchNameSetter = () =>
-  useMoviesDataStore(state => state.setMovieSearchName);
-export const useMoviesSearchName = () =>
-  useMoviesDataStore(state => state.movieSearchName);
+export const useSearchValueSetter = () =>
+  useMoviesDataStore(state => state.setSearchValue);
+export const useSearchValue = () =>
+  useMoviesDataStore(state => state.searchValue);
+
+export const useContentTypeSetter = () =>
+  useMoviesDataStore(state => state.setContentType);
+export const useContentType = () =>
+  useMoviesDataStore(state => state.contentType);
