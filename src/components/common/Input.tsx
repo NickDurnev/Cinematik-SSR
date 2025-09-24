@@ -17,7 +17,7 @@ const DEFAULT_INPUT_STYLES = {
 
 export const Input = ({ sx, ...props }: TextFieldProps) => {
   return (
-    <div className="motion-preset-pop motion-loop-once relative">
+    <div className="interactive relative">
       <TextField
         {...props}
         fullWidth

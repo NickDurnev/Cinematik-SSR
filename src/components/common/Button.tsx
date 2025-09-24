@@ -93,10 +93,7 @@ export const Button = ({
     return (
       <IconButton
         {...props}
-        className={cn(
-          className,
-          "motion-preset-pop motion-loop-once rounded-full p-2",
-        )}
+        className={cn(className, "interactive rounded-full p-2")}
         sx={[iconButtonSx, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
       >
         {children}
@@ -107,7 +104,7 @@ export const Button = ({
   return (
     <MuiButton
       {...props}
-      className={cn(className, "motion-preset-pop motion-loop-once !text-base")}
+      className={cn(className, "interactive !text-base")}
       sx={[selectedVariant, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
     >
       {children}

@@ -1,12 +1,35 @@
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import { CustomLink, Show, Spinner } from "@/components/common";
+import { CustomLink, Show, SwiperSkeleton } from "@/components/common";
 import { useTrendMovies } from "@/services/movies/query-hooks";
+import { IMovie } from "@/types/movie";
 
 import { Swiper } from "../Swiper";
 
 export const TrendMovies = () => {
-  const { data, error, isPending, isError } = useTrendMovies();
+  const [movies, setMovies] = useState<IMovie[]>([]);
+
+  const [hasLoaded, setHasLoaded] = useState(false);
+
+  const {
+    data: moviesData,
+    isError,
+    isPending,
+    error,
+    isSuccess,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useTrendMovies();
+
+  useEffect(() => {
+    if (isSuccess || moviesData?.pages?.length) {
+      setHasLoaded(true);
+      const allMovies = moviesData.pages.flatMap(page => page.data);
+      setMovies(allMovies);
+    }
+  }, [isSuccess, moviesData?.pages]);
 
   if (isError) {
     return toast.error(error?.message);
@@ -17,11 +40,17 @@ export const TrendMovies = () => {
       <CustomLink href={"/movies/trending"} className="home-movies-title">
         Trend movies
       </CustomLink>
-      <Show when={data?.length !== 0}>
-        <Swiper movies={data ?? []} onAutoPlay />
+      <Show when={hasLoaded && movies.length !== 0}>
+        <Swiper
+          movies={movies}
+          onReachEnd={fetchNextPage}
+          hasNextPage={hasNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+          onAutoPlay
+        />
       </Show>
       <Show when={isPending}>
-        <Spinner />
+        <SwiperSkeleton />
       </Show>
     </div>
   );

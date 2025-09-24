@@ -315,3 +315,7 @@
 .swiper-container {
   @apply desktop:w-[1980px] laptop:w-[950px] laptopL:w-[1660px] laptopM:w-[1270px] tablet:w-[630px] w-[310px];
 }
+
+.interactive {
+  @apply transition-all motion-preset-pop motion-loop-once duration-300 ease-linear hover:text-link focus:text-link;
+}

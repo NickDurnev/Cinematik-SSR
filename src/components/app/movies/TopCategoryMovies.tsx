@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import { CustomLink, Show, Spinner } from "@/components/common";
+import { CustomLink, Show, SwiperSkeleton } from "@/components/common";
 import { useCategoryMovies } from "@/services/movies/query-hooks";
 import { IMovie } from "@/types/movie";
 
@@ -54,7 +54,7 @@ export const TopCategoryMovies = ({ category, title }: IProps) => {
         />
       </Show>
       <Show when={isPending}>
-        <Spinner />
+        <SwiperSkeleton />
       </Show>
     </div>
   );

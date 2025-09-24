@@ -29,8 +29,6 @@ export const Swiper = ({
   const autoplaySettings = onAutoPlay ? { delay: 5000 } : { delay: 2000000 };
 
   const handleReachEnd = () => {
-    console.log("🚀 ~ handleReachEnd:", handleReachEnd);
-
     if (hasNextPage && !isFetchingNextPage && onReachEnd) {
       onReachEnd();
     }

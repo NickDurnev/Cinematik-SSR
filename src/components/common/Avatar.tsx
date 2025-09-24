@@ -4,6 +4,7 @@ import { Avatar as MuiAvatar } from "@mui/material";
 import Image from "next/image";
 
 import useSizeScreen from "@/hooks/useSizeScreen";
+import { ScreenType } from "@/types/general";
 import { IUser } from "@/types/user";
 import { stringAvatar } from "@/utils/general";
 
@@ -15,7 +16,7 @@ interface IProps {
 
 export const Avatar = ({ picture, name, size }: IProps) => {
   const screenSize = useSizeScreen();
-  const isPhone = screenSize === "phone";
+  const isPhone = screenSize === ScreenType.PHONE;
   const finalSize = isPhone ? 30 : (size ?? 60);
   return (
     <>

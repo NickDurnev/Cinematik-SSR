@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setUser(data ?? DEFAULT_USER);
     };
     fetchProfile();
-  }, []);
+  }, [setUser]);
 
   const authContextValue = useMemo(() => {
     return {

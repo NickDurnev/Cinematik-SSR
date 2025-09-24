@@ -4,7 +4,11 @@ export { BackButton } from "./BackButton";
 export { Button } from "./Button";
 export { CustomLink } from "./CustomLink";
 export { Input } from "./Input";
-export { GallerySkeleton } from "./Loaders/Skeletons";
+export {
+  CardSkeleton,
+  GallerySkeleton,
+  SwiperSkeleton,
+} from "./Loaders/Skeletons";
 export { Spinner } from "./Loaders/Spinner";
 export { Modal } from "./Modal";
 export { QueryTrigger } from "./QueryTrigger";

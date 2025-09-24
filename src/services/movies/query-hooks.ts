@@ -16,9 +16,16 @@ export const useMovieCast = ({ movieId }: { movieId: string }) =>
   });
 
 export const useTrendMovies = () =>
-  useQuery({
+  useInfiniteQuery({
     queryKey: ["trend-movies"],
-    queryFn: () => fetchTrendMovies(),
+    queryFn: ({ pageParam = 1 }) => fetchTrendMovies({ page: pageParam }),
+    initialPageParam: 1,
+    getNextPageParam: lastPage => {
+      if (lastPage.next_page < lastPage.total_pages) {
+        return lastPage.next_page;
+      }
+      return null;
+    },
   });
 
 export const useMovieReviews = ({ movieId }: { movieId: string }) =>

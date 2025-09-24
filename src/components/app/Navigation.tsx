@@ -20,21 +20,19 @@ const navItems = [
 
 const Navigation = () => {
   const pathname = usePathname();
-  console.log("🚀 ~ pathname:", pathname);
   return (
-    <nav className="mt-10 tablet:mt-[125px] flex flex-col items-center">
+    <nav className="mt-0 tablet:mt-[125px] flex h-auto tablet:flex-col items-center tablet:justify-start justify-around">
       {navItems.map(({ href, icon: Icon, label }, idx) => {
         const isActive = pathname === href;
-        console.log("🚀 ~ isActive:", isActive);
 
         return (
           <CustomLink key={href} href={href} passHref>
             <motion.div
               whileTap={{ scale: 1.3 }}
               className={cn(
-                "relative mx-auto block w-10 cursor-pointer py-[30px] transition-colors duration-300",
+                "relative mx-auto block tablet:w-10 w-14 cursor-pointer px-[10px] tablet:px-0 py-[12px] tablet:py-[30px] transition-colors duration-300",
                 isActive ? "text-link" : "text-foreground",
-                idx !== 0 ? "mt-[30px]" : "",
+                idx !== 0 ? "tablet:mt-[30px]" : "",
               )}
               aria-label={label}
             >

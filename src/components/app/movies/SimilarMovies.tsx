@@ -2,7 +2,7 @@ import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDiss
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import { Show, Spinner } from "@/components/common";
+import { CardSkeleton, Show } from "@/components/common";
 import { useSimilarMovies } from "@/services/movies/query-hooks";
 import { IMovie } from "@/types/movie";
 
@@ -57,9 +57,7 @@ export const SimilarMovies = ({ movieId }: { movieId: string }) => {
         />
       </Show>
       <Show when={isPending}>
-        <div className="py-6">
-          <Spinner />
-        </div>
+        <CardSkeleton />
       </Show>
     </>
   );

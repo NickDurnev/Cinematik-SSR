@@ -23,3 +23,12 @@ export enum SearchType {
   TV = "tv",
   PERSON = "person",
 }
+
+export enum ScreenType {
+  PHONE = "phone",
+  TABLET = "tablet",
+  LAPTOP = "laptop",
+  LAPTOPM = "laptopM",
+  LAPTOPL = "laptopL",
+  DESKTOP = "desktop",
+}

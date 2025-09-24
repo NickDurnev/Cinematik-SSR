@@ -15,8 +15,8 @@ export const Hero = () => {
             <Image
               src="/Splash-min.png"
               alt="Splash"
-              layout="fill"
-              objectFit="contain"
+              width={1266}
+              height={1266}
             />
           </div>
           <div className="absolute top-0 laptopL:left-[170px] laptopM:left-[190px] left-[110px] tablet:left-[100px] h-[365px] laptopL:h-[580px] tablet:h-[465px] laptopL:w-[900px] tablet:w-[625px] w-[190px]">
@@ -24,16 +24,16 @@ export const Hero = () => {
             <Image
               src="/IPhone-min.png"
               alt="Phone"
-              layout="fill"
-              objectFit="contain"
+              width={365}
+              height={195}
               className="tablet:hidden"
             />
             {/* Tablet only */}
             <Image
               src="/Ipad-min.png"
               alt="Tablet"
-              layout="fill"
-              objectFit="contain"
+              width={1248}
+              height={932}
               className="tablet:block hidden laptop:hidden"
             />
             {/* Laptop and up */}

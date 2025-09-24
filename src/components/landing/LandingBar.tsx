@@ -14,6 +14,7 @@ import { MouseEvent, useState } from "react";
 
 import { useUserStoreHydrated } from "@/hooks/stores";
 import useSizeScreen from "@/hooks/useSizeScreen";
+import { ScreenType } from "@/types/general";
 
 import { Button, CustomLink, Show, Spinner, ThemeSwitcher } from "../common";
 import { UserBar } from "./UserBar";
@@ -72,10 +73,12 @@ const pages = [
 export const LandingBar = () => {
   const hydrated = useUserStoreHydrated();
 
-  const isSizeScreen = useSizeScreen();
+  const screenSize = useSizeScreen();
   const theme = useTheme();
 
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+
+  const isPhone = screenSize === ScreenType.PHONE;
 
   const handleOpenNavMenu = (e: MouseEvent<HTMLButtonElement>) => {
     setAnchorElNav(e.currentTarget);
@@ -100,16 +103,16 @@ export const LandingBar = () => {
                   display: "flex",
                   justifyContent: "space-between",
                   padding:
-                    isSizeScreen === "phone" || isSizeScreen === "tablet"
+                    isPhone || screenSize === ScreenType.TABLET
                       ? "0 12px"
                       : " 0 120px",
-                  height: isSizeScreen === "phone" ? "57px" : "122px",
+                  height: isPhone ? "57px" : "122px",
                   borderBottom: "0.5px solid var(--foreground)",
                 }}
               >
                 <div className="flex items-center gap-x-3">
                   <div className="flex items-center">
-                    {isSizeScreen === "phone" ? (
+                    {isPhone ? (
                       <Image
                         src="/icons/Logo.svg"
                         width={42}
@@ -153,7 +156,7 @@ export const LandingBar = () => {
                   }}
                 >
                   <Show
-                    when={isSizeScreen === "phone"}
+                    when={isPhone}
                     fallback={
                       <div className="flex w-auto items-center">
                         <nav>

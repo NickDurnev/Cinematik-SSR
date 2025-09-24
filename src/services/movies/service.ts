@@ -9,10 +9,22 @@ import {
   ITrailer,
 } from "@/types/movie";
 
-export const fetchTrendMovies = async (): Promise<IMovie[]> => {
+export const fetchTrendMovies = async ({
+  page,
+}: {
+  page: number;
+}): Promise<ImdbPaginatedResponse<IMovie>> => {
   try {
-    const response = await imdbApiClient.get("trending/movie/day");
-    return response.data.results;
+    const response = await imdbApiClient.get("trending/movie/week", {
+      params: {
+        page,
+      },
+    });
+    return {
+      data: response.data.results,
+      next_page: page + 1,
+      total_pages: response.data.total_pages,
+    };
   } catch (error) {
     const errorMessage = ErrorHelper.getMessage(error);
     throw new Error(errorMessage ?? "Failed to get trending movies");

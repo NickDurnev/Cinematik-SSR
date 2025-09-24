@@ -20,6 +20,7 @@ const DEFAULT_SELECT_STYLES = {
   },
   "& .MuiSelect-select": {
     color: "var(--foreground)",
+    padding: "8.5px",
   },
   "& .MuiSelect-icon": {
     color: "var(--foreground)",
@@ -64,7 +65,7 @@ export const Select = ({
   const resolvedId = id ?? `${generatedId}-select`;
 
   return (
-    <div className="motion-preset-pop motion-loop-once relative">
+    <div className="interactive relative">
       <Box sx={{ minWidth: 120 }}>
         <FormControl fullWidth={fullWidth} {...formControlProps}>
           {label ? (
