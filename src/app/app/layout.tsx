@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
-import { AppBar, Container, Header } from "@/components";
+import { AppBar, Container, Header } from "@/components/app";
 import { useSearchValueSetter } from "@/hooks/stores";
 
 export default function RootLayout({

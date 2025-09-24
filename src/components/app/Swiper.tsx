@@ -3,16 +3,17 @@ import { A11y, Autoplay, Navigation } from "swiper/modules";
 import { Swiper as SwiperComponent, SwiperSlide } from "swiper/react";
 
 import { IMovie } from "@/types/movie";
+import { ITVShow } from "@/types/tv-show";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
 
 import { CustomLink, Spinner } from "@/components/common";
 
-import MovieCard from "./movies/MovieCard";
+import { ContentCard } from "./ContentCard";
 
 interface IProps {
-  movies: IMovie[];
+  data: IMovie[] | ITVShow[];
   onAutoPlay?: boolean;
   onReachEnd?: () => void;
   hasNextPage?: boolean;
@@ -20,7 +21,7 @@ interface IProps {
 }
 
 export const Swiper = ({
-  movies,
+  data,
   onAutoPlay = false,
   onReachEnd,
   hasNextPage = false,
@@ -73,13 +74,18 @@ export const Swiper = ({
             height={60}
           />
         </div>
-        {movies.map(movie => (
-          <SwiperSlide key={movie.id}>
-            <CustomLink href={`/movies/${movie.id}`}>
-              <MovieCard movie={movie} />
-            </CustomLink>
-          </SwiperSlide>
-        ))}
+        {data.map(item => {
+          const isMovie = "title" in item;
+          return (
+            <SwiperSlide key={item.id}>
+              <CustomLink
+                href={`/${isMovie ? "movies" : "tv-shows"}/${item.id}`}
+              >
+                <ContentCard data={item} />
+              </CustomLink>
+            </SwiperSlide>
+          );
+        })}
         {isFetchingNextPage && (
           <SwiperSlide>
             <div className="flex h-full min-h-[200px] items-center justify-center">

@@ -2,23 +2,18 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { CustomLink, Show, SwiperSkeleton } from "@/components/common";
-import { useCategoryMovies } from "@/services/movies/query-hooks";
-import { IMovie, MovieCategoryType } from "@/types/movie";
+import { useTrendTVShows } from "@/services/tv-shows/query-hooks";
+import { ITVShow } from "@/types/tv-show";
 
 import { Swiper } from "../Swiper";
 
-interface IProps {
-  category: MovieCategoryType;
-  title: string;
-}
-
-export const TopCategoryMovies = ({ category, title }: IProps) => {
-  const [movies, setMovies] = useState<IMovie[]>([]);
+export const TrendTVShows = () => {
+  const [shows, setShows] = useState<ITVShow[]>([]);
 
   const [hasLoaded, setHasLoaded] = useState(false);
 
   const {
-    data: moviesData,
+    data: showsData,
     isError,
     isPending,
     error,
@@ -26,15 +21,15 @@ export const TopCategoryMovies = ({ category, title }: IProps) => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useCategoryMovies({ category });
+  } = useTrendTVShows();
 
   useEffect(() => {
-    if (isSuccess || moviesData?.pages?.length) {
+    if (isSuccess || showsData?.pages?.length) {
       setHasLoaded(true);
-      const allMovies = moviesData.pages.flatMap(page => page.data);
-      setMovies(allMovies);
+      const allShows = showsData.pages.flatMap(page => page.data);
+      setShows(allShows);
     }
-  }, [isSuccess, moviesData?.pages]);
+  }, [isSuccess, showsData?.pages]);
 
   if (isError) {
     return toast.error(error?.message);
@@ -42,15 +37,16 @@ export const TopCategoryMovies = ({ category, title }: IProps) => {
 
   return (
     <div className="home-content-container swiper-container">
-      <CustomLink href={`/movies/${category}`} className="home-content-title">
-        {title}
+      <CustomLink href={"/tv-shows/trending"} className="home-content-title">
+        Trend TV Shows
       </CustomLink>
-      <Show when={hasLoaded && movies.length !== 0}>
+      <Show when={hasLoaded && shows.length !== 0}>
         <Swiper
-          data={movies}
+          data={shows}
           onReachEnd={fetchNextPage}
           hasNextPage={hasNextPage}
           isFetchingNextPage={isFetchingNextPage}
+          onAutoPlay
         />
       </Show>
       <Show when={isPending}>

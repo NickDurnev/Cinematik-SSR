@@ -4,7 +4,8 @@ import { Box, Paper } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
-import { AnimatedPage, Button, CustomLink, GoogleLogin } from "@/components";
+import { AnimatedPage, Button, CustomLink } from "@/components/common";
+import { GoogleLogin } from "@/components/landing";
 import { useLoginUser } from "@/services/user/query-hooks";
 import { ILoginFormSchema } from "@/services/user/schemas";
 

@@ -304,11 +304,11 @@
   color: var(--secondary);
 }
 
-.home-movies-container {
+.home-content-container {
   @apply mx-auto overflow-hidden pb-10 xl:pb-15 2xl:pb-20;
 }
 
-.home-movies-title {
+.home-content-title {
   @apply mb-5 flex items-center w-fit text-left font-technovier text-base text-foreground leading-10 transition-all duration-300 ease-linear after:ml-2 after:content-['>'] hover:text-link focus:text-link xl:mb-10 xl:text-2xl xl:leading-[60px];
 }
 

@@ -13,6 +13,12 @@ export interface IPaginatedResponse<T> {
   meta: { total: number; page: number; limit: number; total_pages: number };
 }
 
+export interface ImdbPaginatedResponse<T> {
+  data: T[];
+  next_page: number;
+  total_pages: number;
+}
+
 export enum ContentType {
   MOVIE = "movie",
   TV = "tv",
@@ -31,4 +37,31 @@ export enum ScreenType {
   LAPTOPM = "laptopM",
   LAPTOPL = "laptopL",
   DESKTOP = "desktop",
+}
+
+export interface IGenre {
+  id: string;
+  name: string;
+}
+
+interface IContentData {
+  overview: string;
+  vote_average: number;
+  genre_ids: number[];
+  poster_path?: string;
+}
+
+export interface IBaseMovieData extends IContentData {
+  release_date: string;
+  title: string;
+  tagline: string;
+  runtime: number;
+  genres: IGenre[];
+  budget?: number;
+}
+
+export interface IBaseTVShowData extends IContentData {
+  first_air_date: string;
+  name: string;
+  tagline: string;
 }

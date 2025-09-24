@@ -49,7 +49,7 @@ export const SimilarMovies = ({ movieId }: { movieId: string }) => {
         }
       >
         <Swiper
-          movies={movies}
+          data={movies}
           onAutoPlay
           onReachEnd={fetchNextPage}
           hasNextPage={hasNextPage}

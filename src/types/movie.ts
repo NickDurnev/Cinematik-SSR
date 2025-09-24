@@ -1,3 +1,11 @@
+import { IBaseMovieData } from "./general";
+
+export enum MovieCategoryType {
+  NOW_PLAYING = "now_playing",
+  POPULAR = "popular",
+  TOP_RATED = "top_rated",
+  UPCOMING = "upcoming",
+}
 export interface IUser {
   _id: string;
   name: string;
@@ -18,24 +26,6 @@ export interface IActor {
   id: number;
   cast_id?: string;
   character?: string;
-}
-
-export interface IGenre {
-  id: string;
-  name: string;
-}
-
-export interface IBaseMovieData {
-  overview: string;
-  release_date: string;
-  title: string;
-  tagline: string;
-  runtime: number;
-  genres: IGenre[];
-  vote_average: number;
-  genre_ids: number[];
-  poster_path?: string;
-  budget?: number;
 }
 
 export interface IMovie extends IBaseMovieData {
@@ -63,18 +53,4 @@ export interface ITrailer {
   site: string;
   size: number;
   type: string;
-}
-
-export interface ITheme {
-  [x: string]: string;
-}
-
-export interface ILocation {
-  from: { location: object; prevLocation: object };
-}
-
-export interface ImdbPaginatedResponse<T> {
-  data: T[];
-  next_page: number;
-  total_pages: number;
 }

@@ -1,12 +1,12 @@
 import { imdbApiClient } from "@/libs/axios";
 import ErrorHelper from "@/libs/error-helper";
+import { IGenre, ImdbPaginatedResponse } from "@/types/general";
 import {
   IActor,
-  IGenre,
   IMovie,
-  ImdbPaginatedResponse,
   IReview,
   ITrailer,
+  MovieCategoryType,
 } from "@/types/movie";
 
 export const fetchTrendMovies = async ({
@@ -71,7 +71,7 @@ export const fetchCategoryMovies = async ({
   category,
 }: {
   page: number;
-  category: string;
+  category: MovieCategoryType;
 }): Promise<ImdbPaginatedResponse<IMovie>> => {
   try {
     const response = await imdbApiClient.get(`movie/${category}`, {

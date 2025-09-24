@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { Footer, LandingBar } from "@/components";
+import { Footer, LandingBar } from "@/components/landing";
 
 interface IProps {
   children: ReactNode | ReactNode[];

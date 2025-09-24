@@ -7,6 +7,7 @@ import {
   movieReviews,
   similarMovies,
 } from "@/services/movies/service";
+import { MovieCategoryType } from "@/types/movie";
 
 export const useMovieCast = ({ movieId }: { movieId: string }) =>
   useQuery({
@@ -54,7 +55,11 @@ export const useSimilarMovies = ({ movieId }: { movieId: string }) =>
     },
   });
 
-export const useCategoryMovies = ({ category }: { category: string }) =>
+export const useCategoryMovies = ({
+  category,
+}: {
+  category: MovieCategoryType;
+}) =>
   useInfiniteQuery({
     queryKey: ["category-movies", category],
     queryFn: ({ pageParam = 1 }) =>

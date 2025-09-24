@@ -6,7 +6,7 @@ import Image from "next/image";
 import { MouseEventHandler, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import { Button, CustomLink, ImageWrapper, Show } from "@/components";
+import { Button, CustomLink, Show } from "@/components/common";
 import { useMoviesLibrary } from "@/hooks/stores";
 import {
   useAddMovieToLibrary,
@@ -14,6 +14,8 @@ import {
 } from "@/services/library/query-hooks";
 import { CategoryEnum } from "@/types/library";
 import { IMovie } from "@/types/movie";
+
+import { ImageWrapper } from "../ImageWrapper";
 
 interface IProps {
   movieData: IMovie;

@@ -1,4 +1,3 @@
-export { MovieCard } from "./MovieCard";
 export { MovieCategories } from "./MovieCategories";
 export { MovieInfo } from "./MovieInfo";
 export { MovieList } from "./MovieList";

@@ -4,7 +4,7 @@ import DevicesIcon from "@mui/icons-material/Devices";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-import { Button, CustomLink, Show } from "@/components";
+import { Button, CustomLink, Show } from "@/components/common";
 import { UserStore, useUserStore, useUserStoreHydrated } from "@/hooks/stores";
 import useLogout from "@/hooks/useLogout";
 

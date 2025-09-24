@@ -3,7 +3,7 @@
 import { Box, Paper } from "@mui/material";
 import { toast } from "react-toastify";
 
-import { AnimatedPage } from "@/components";
+import { AnimatedPage } from "@/components/common";
 import { useForgotPassword } from "@/services/user/query-hooks";
 import { IForgotPasswordFormSchema } from "@/services/user/schemas";
 

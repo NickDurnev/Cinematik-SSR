@@ -3,34 +3,40 @@ import { Rating } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import { ImageWrapper, Show } from "@/components";
+import { Show } from "@/components/common";
 import { useMoviesGenres } from "@/hooks/stores";
 import { cn } from "@/libs/tailwind-merge";
-import { IGenre, IMovie } from "@/types/movie";
+import { IGenre } from "@/types/general";
+import { IMovie } from "@/types/movie";
+import { ITVShow } from "@/types/tv-show";
+
+import { ImageWrapper } from "./ImageWrapper";
 
 interface IProps {
-  movie: IMovie;
+  data: IMovie | ITVShow;
 }
 
-export const MovieCard = ({ movie }: IProps) => {
-  const { poster_path, title, vote_average, genre_ids } = movie;
+export const ContentCard = ({ data }: IProps) => {
   const [movieGenre, setMovieGenre] = useState<IGenre | null>(null);
   const genres = useMoviesGenres();
+  const title = "title" in data ? data.title : data.name;
 
   useEffect(() => {
-    if (genres?.length && genre_ids.length) {
-      const movieGenre = genres.find(({ id }) => Number(id) === genre_ids[0]);
+    if (genres?.length && data.genre_ids.length) {
+      const movieGenre = genres.find(
+        ({ id }) => Number(id) === data.genre_ids[0],
+      );
       if (movieGenre) {
         setMovieGenre(movieGenre);
       }
     }
-  }, [genres, genre_ids]);
+  }, [genres, data.genre_ids]);
 
   return (
     <div
       className={cn(
         "h-[465px] w-[310px] overflow-hidden text-link",
-        !poster_path ? "bg-[#666666]" : "",
+        !data.poster_path ? "bg-[#666666]" : "",
       )}
     >
       <div className="relative h-full">
@@ -41,7 +47,7 @@ export const MovieCard = ({ movie }: IProps) => {
         </Show>
 
         <Show
-          when={poster_path}
+          when={data.poster_path}
           fallback={
             <ImageWrapper>
               <Image
@@ -55,7 +61,7 @@ export const MovieCard = ({ movie }: IProps) => {
           }
         >
           <img
-            src={`https://image.tmdb.org/t/p/w400${poster_path}`}
+            src={`https://image.tmdb.org/t/p/w400${data.poster_path}`}
             alt={title}
             className="h-full w-full rounded-t-[10px] bg-gradient-to-b from-[rgba(29,29,29,0)] to-[rgba(29,29,29,0.8)]"
           />
@@ -66,10 +72,10 @@ export const MovieCard = ({ movie }: IProps) => {
             {title}
           </p>
 
-          <Show when={vote_average > 0}>
+          <Show when={data.vote_average > 0}>
             <Rating
               name="read-only"
-              value={+vote_average.toFixed(1) / 2}
+              value={Number(data.vote_average.toFixed(1)) / 2}
               readOnly
               precision={0.5}
               icon={
@@ -99,5 +105,3 @@ export const MovieCard = ({ movie }: IProps) => {
     </div>
   );
 };
-
-export default MovieCard;

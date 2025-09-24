@@ -1,4 +1,4 @@
-import { CustomLink } from "@/components";
+import { CustomLink } from "@/components/common";
 
 interface IProps {
   movieId: string;

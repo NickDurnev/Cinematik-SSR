@@ -2,23 +2,23 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { CustomLink, Show, SwiperSkeleton } from "@/components/common";
-import { useCategoryMovies } from "@/services/movies/query-hooks";
-import { IMovie, MovieCategoryType } from "@/types/movie";
+import { useCategoryTVShows } from "@/services/tv-shows/query-hooks";
+import { ITVShow, TVShowCategoryType } from "@/types/tv-show";
 
 import { Swiper } from "../Swiper";
 
 interface IProps {
-  category: MovieCategoryType;
+  category: TVShowCategoryType;
   title: string;
 }
 
-export const TopCategoryMovies = ({ category, title }: IProps) => {
-  const [movies, setMovies] = useState<IMovie[]>([]);
+export const TopCategoryTVShows = ({ category, title }: IProps) => {
+  const [shows, setShows] = useState<ITVShow[]>([]);
 
   const [hasLoaded, setHasLoaded] = useState(false);
 
   const {
-    data: moviesData,
+    data: showsData,
     isError,
     isPending,
     error,
@@ -26,15 +26,15 @@ export const TopCategoryMovies = ({ category, title }: IProps) => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useCategoryMovies({ category });
+  } = useCategoryTVShows({ category });
 
   useEffect(() => {
-    if (isSuccess || moviesData?.pages?.length) {
+    if (isSuccess || showsData?.pages?.length) {
       setHasLoaded(true);
-      const allMovies = moviesData.pages.flatMap(page => page.data);
-      setMovies(allMovies);
+      const allShows = showsData.pages.flatMap(page => page.data);
+      setShows(allShows);
     }
-  }, [isSuccess, moviesData?.pages]);
+  }, [isSuccess, showsData?.pages]);
 
   if (isError) {
     return toast.error(error?.message);
@@ -42,12 +42,12 @@ export const TopCategoryMovies = ({ category, title }: IProps) => {
 
   return (
     <div className="home-content-container swiper-container">
-      <CustomLink href={`/movies/${category}`} className="home-content-title">
+      <CustomLink href={`/tv-shows/${category}`} className="home-content-title">
         {title}
       </CustomLink>
-      <Show when={hasLoaded && movies.length !== 0}>
+      <Show when={hasLoaded && shows.length !== 0}>
         <Swiper
-          data={movies}
+          data={shows}
           onReachEnd={fetchNextPage}
           hasNextPage={hasNextPage}
           isFetchingNextPage={isFetchingNextPage}

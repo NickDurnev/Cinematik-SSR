@@ -4,13 +4,8 @@ import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { toast } from "react-toastify";
 
-import {
-  AddReviewForm,
-  QueryTrigger,
-  Review,
-  Show,
-  Spinner,
-} from "@/components";
+import { QueryTrigger, Show, Spinner } from "@/components/common";
+import { AddReviewForm, Review } from "@/components/landing";
 import { UserStore, useUserStore } from "@/hooks/stores";
 import {
   useAddReview,

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-import { BackButton } from "@/components";
+import { BackButton } from "@/components/common";
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (

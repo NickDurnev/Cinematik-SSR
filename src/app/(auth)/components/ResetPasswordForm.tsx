@@ -3,7 +3,7 @@
 import { useForm } from "@tanstack/react-form";
 import { useSearchParams } from "next/navigation";
 
-import { Button, Input } from "@/components";
+import { Button, Input } from "@/components/common";
 import { resetPasswordFormSchema } from "@/services/user/schemas";
 import { IResetPasswordDto } from "@/types/user";
 

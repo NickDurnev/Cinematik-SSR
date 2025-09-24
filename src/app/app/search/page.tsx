@@ -1,12 +1,17 @@
-// "use client";
+"use client";
 
-// import { AnimatedPage } from "@/components";
+import { AnimatedPage } from "@/components/common";
+
 // import { useSearchValue } from "@/hooks/stores";
 
-// const SearchPage = () => {
-//   const searchValue = useSearchValue();
+const SearchPage = () => {
+  //   const searchValue = useSearchValue();
 
-//   return <AnimatedPage></AnimatedPage>;
-// };
+  return (
+    <AnimatedPage>
+      <div>SearchPage</div>
+    </AnimatedPage>
+  );
+};
 
-// export default SearchPage;
+export default SearchPage;

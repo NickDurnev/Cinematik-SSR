@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { FaUserCircle } from "react-icons/fa";
 
-import { Show } from "@/components";
+import { Show } from "@/components/common";
 import { IReview } from "@/types/movie";
 
 export const ReviewCard = ({ data }: { data: IReview }) => {

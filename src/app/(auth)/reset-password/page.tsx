@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Suspense } from "react";
 import { toast } from "react-toastify";
 
-import { AnimatedPage, Spinner } from "@/components";
+import { AnimatedPage, Spinner } from "@/components/common";
 import { useResetPassword } from "@/services/user/query-hooks";
 import { IResetPasswordDto } from "@/types/user";
 

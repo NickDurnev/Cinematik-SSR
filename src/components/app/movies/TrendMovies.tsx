@@ -36,13 +36,13 @@ export const TrendMovies = () => {
   }
 
   return (
-    <div className="home-movies-container swiper-container">
-      <CustomLink href={"/movies/trending"} className="home-movies-title">
+    <div className="home-content-container swiper-container">
+      <CustomLink href={"/movies/trending"} className="home-content-title">
         Trend movies
       </CustomLink>
       <Show when={hasLoaded && movies.length !== 0}>
         <Swiper
-          movies={movies}
+          data={movies}
           onReachEnd={fetchNextPage}
           hasNextPage={hasNextPage}
           isFetchingNextPage={isFetchingNextPage}

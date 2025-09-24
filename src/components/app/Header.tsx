@@ -1,9 +1,12 @@
 "use client";
 
-import { SearchInput, Select, ThemeSwitcher, UserMenu } from "@/components";
+import { Select, ThemeSwitcher } from "@/components/common";
 import { useContentType, useContentTypeSetter } from "@/hooks/stores";
 import useSizeScreen from "@/hooks/useSizeScreen";
 import { ContentType, ScreenType } from "@/types/general";
+
+import { SearchInput } from "./SearchInput";
+import { UserMenu } from "./UserMenu";
 
 interface IProps {
   onChange: (value: string) => void;

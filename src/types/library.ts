@@ -1,4 +1,4 @@
-import { IBaseMovieData } from "./movie";
+import { IBaseMovieData } from "./general";
 
 export enum CategoryEnum {
   WATCHED = "watched",

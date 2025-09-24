@@ -3,9 +3,8 @@
 import { create } from "zustand";
 import { PersistStorage, persist } from "zustand/middleware";
 
-import { ContentType } from "@/types/general";
+import { ContentType, IGenre } from "@/types/general";
 import { ILibraryMoviePartial } from "@/types/library";
-import { IGenre } from "@/types/movie";
 import { IFormsData, IUser } from "@/types/user";
 import { DEFAULT_FORM_DATA, DEFAULT_USER } from "@/utils/constants";
 

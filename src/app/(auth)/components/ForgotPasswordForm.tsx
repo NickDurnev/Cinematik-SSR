@@ -3,7 +3,7 @@
 import { useForm } from "@tanstack/react-form";
 import { useEffect } from "react";
 
-import { Button, Input } from "@/components";
+import { Button, Input } from "@/components/common";
 import { useFormsDataStore } from "@/hooks/stores";
 import {
   forgotPasswordFormSchema,
