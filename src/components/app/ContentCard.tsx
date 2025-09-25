@@ -1,10 +1,10 @@
 import StarIcon from "@mui/icons-material/Star";
 import { Rating } from "@mui/material";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 
 import { Show } from "@/components/common";
-import { useMoviesGenres } from "@/hooks/stores";
+import { useMovieGenres, useTVShowGenres } from "@/hooks/stores";
 import { cn } from "@/libs/tailwind-merge";
 import { IGenre } from "@/types/general";
 import { IMovie } from "@/types/movie";
@@ -17,20 +17,22 @@ interface IProps {
 }
 
 export const ContentCard = ({ data }: IProps) => {
-  const [movieGenre, setMovieGenre] = useState<IGenre | null>(null);
-  const genres = useMoviesGenres();
-  const title = "title" in data ? data.title : data.name;
+  const movieGenres = useMovieGenres();
+  const tvShowGenres = useTVShowGenres();
+  const isMovie = "title" in data;
+  const title = isMovie ? data.title : data.name;
 
-  useEffect(() => {
-    if (genres?.length && data.genre_ids.length) {
-      const movieGenre = genres.find(
-        ({ id }) => Number(id) === data.genre_ids[0],
-      );
-      if (movieGenre) {
-        setMovieGenre(movieGenre);
-      }
+  const contentGenre = useMemo<IGenre | null>(() => {
+    const firstGenreId = data.genre_ids?.[0];
+    if (!firstGenreId) {
+      return null;
     }
-  }, [genres, data.genre_ids]);
+    const list = isMovie ? movieGenres : tvShowGenres;
+    if (!list?.length) {
+      return null;
+    }
+    return list.find(({ id }) => Number(id) === firstGenreId) ?? null;
+  }, [data.genre_ids, isMovie, movieGenres, tvShowGenres]);
 
   return (
     <div
@@ -40,9 +42,9 @@ export const ContentCard = ({ data }: IProps) => {
       )}
     >
       <div className="relative h-full">
-        <Show when={movieGenre}>
-          <span className="absolute top-[10px] left-[10px] rounded-[0px_10px] bg-[rgba(29,29,29,0.5)] px-[5px] text-base text-link leading-4 backdrop-blur-[2px]">
-            {movieGenre?.name}
+        <Show when={contentGenre}>
+          <span className="absolute top-[10px] left-[10px] rounded-lg bg-[rgba(29,29,29,0.5)] px-[5px] py-[3px] text-base text-link leading-4 backdrop-blur-[2px]">
+            {contentGenre?.name}
           </span>
         </Show>
 

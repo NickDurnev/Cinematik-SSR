@@ -1,6 +1,6 @@
 import { imdbApiClient } from "@/libs/axios";
 import ErrorHelper from "@/libs/error-helper";
-import { ImdbPaginatedResponse } from "@/types/general";
+import { IGenre, ImdbPaginatedResponse } from "@/types/general";
 import { ITVShow } from "@/types/tv-show";
 
 export const fetchTrendTVShows = async ({
@@ -49,15 +49,40 @@ export const fetchCategoryTVShows = async ({
   }
 };
 
-// export const fetchMoviesGenres = async (): Promise<IGenre[]> => {
-//   try {
-//     const response = await imdbApiClient.get("genre/movie/list");
-//     return response.data.genres;
-//   } catch (error) {
-//     const errorMessage = ErrorHelper.getMessage(error);
-//     throw new Error(errorMessage ?? "Failed to get movies genres");
-//   }
-// };
+export const fetchTVShowGenres = async (): Promise<IGenre[]> => {
+  try {
+    const response = await imdbApiClient.get("genre/tv/list");
+    return response.data.genres;
+  } catch (error) {
+    const errorMessage = ErrorHelper.getMessage(error);
+    throw new Error(errorMessage ?? "Failed to get tv show genres");
+  }
+};
+
+export const searchTVShow = async ({
+  page,
+  query,
+}: {
+  page: number;
+  query: string;
+}): Promise<ImdbPaginatedResponse<ITVShow>> => {
+  try {
+    const response = await imdbApiClient.get("search/tv", {
+      params: {
+        page,
+        query,
+      },
+    });
+    return {
+      data: response.data.results,
+      next_page: page + 1,
+      total_pages: response.data.total_pages,
+    };
+  } catch (error) {
+    const errorMessage = ErrorHelper.getMessage(error);
+    throw new Error(errorMessage ?? "Failed to search movie");
+  }
+};
 
 // export const fetchMoviesByGenre = async ({
 //   page,
@@ -81,32 +106,6 @@ export const fetchCategoryTVShows = async ({
 //   } catch (error) {
 //     const errorMessage = ErrorHelper.getMessage(error);
 //     throw new Error(errorMessage ?? "Failed to get movies by genre");
-//   }
-// };
-
-// export const searchMovie = async ({
-//   page,
-//   query,
-// }: {
-//   page: number;
-//   query: string;
-// }): Promise<ImdbPaginatedResponse<IMovie>> => {
-//   try {
-//     const response = await imdbApiClient.get("search/movie", {
-//       params: {
-//         page,
-//         query,
-//         include_adult: false,
-//       },
-//     });
-//     return {
-//       data: response.data.results,
-//       next_page: page + 1,
-//       total_pages: response.data.total_pages,
-//     };
-//   } catch (error) {
-//     const errorMessage = ErrorHelper.getMessage(error);
-//     throw new Error(errorMessage ?? "Failed to search movie");
 //   }
 // };
 

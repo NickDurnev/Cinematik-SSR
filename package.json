@@ -1,6 +1,9 @@
 {
   "name": "cinematik",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "description": "",
+  "author": "Nick Durnev",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "next dev",

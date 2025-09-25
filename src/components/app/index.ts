@@ -3,6 +3,7 @@ export { AppBar } from "./Appbar";
 export { Cast } from "./Cast";
 export { CastCard } from "./CastCard";
 export { Container } from "./Container";
+export { ContentCard } from "./ContentCard";
 export { Frame } from "./Frame";
 export { Header } from "./Header";
 export { ImageWrapper } from "./ImageWrapper";

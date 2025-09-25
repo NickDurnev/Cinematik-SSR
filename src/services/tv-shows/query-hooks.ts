@@ -1,8 +1,10 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 import {
   fetchCategoryTVShows,
   fetchTrendTVShows,
+  fetchTVShowGenres,
+  searchTVShow,
 } from "@/services/tv-shows/service";
 import { TVShowCategoryType } from "@/types/tv-show";
 
@@ -42,6 +44,34 @@ export const useCategoryTVShows = ({
       }
       return null;
     },
+  });
+
+export const useAllTVShowGenres = () =>
+  useQuery({
+    queryKey: ["tv-show-genres"],
+    queryFn: () => fetchTVShowGenres(),
+    staleTime: 25 * (60 * 1000), // 25 mins
+    gcTime: 30 * (60 * 1000), // 30 mins
+  });
+
+export const useSearchTVShows = ({
+  query,
+  enabled,
+}: {
+  query: string;
+  enabled: boolean;
+}) =>
+  useInfiniteQuery({
+    queryKey: ["search-tv-shows", query],
+    queryFn: ({ pageParam = 1 }) => searchTVShow({ page: pageParam, query }),
+    initialPageParam: 1,
+    getNextPageParam: lastPage => {
+      if (lastPage.next_page < lastPage.total_pages) {
+        return lastPage.next_page;
+      }
+      return null;
+    },
+    enabled,
   });
 
 // export const useMovieReviews = ({ movieId }: { movieId: string }) =>

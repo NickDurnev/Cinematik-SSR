@@ -6,7 +6,6 @@ import useSizeScreen from "@/hooks/useSizeScreen";
 import { ScreenType } from "@/types/general";
 
 const getItemsLength = (screenSize: ScreenType | null) => {
-  console.log("🚀 ~ screenSize:", screenSize);
   switch (screenSize) {
     case ScreenType.PHONE:
       return 1;
@@ -41,7 +40,7 @@ export const GallerySkeleton = () => {
   }, [screenSize]);
 
   return (
-    <div className="mx-auto block tablet:grid w-full desktop:grid-cols-6 laptop:grid-cols-3 laptopL:grid-cols-5 laptopM:grid-cols-4 tablet:grid-cols-2 items-stretch justify-items-center gap-5 space-y-5 tablet:space-y-0">
+    <div className="gallery-container">
       {Array.from({ length: itemsLength * 5 }).map((_, index) => (
         <CardSkeleton key={index} />
       ))}
@@ -52,7 +51,6 @@ export const GallerySkeleton = () => {
 export const SwiperSkeleton = () => {
   const screenSize = useSizeScreen();
   const [itemsLength, setItemsLength] = useState(0);
-  console.log("🚀 ~ itemsLength:", itemsLength);
 
   useEffect(() => {
     setItemsLength(getItemsLength(screenSize));

@@ -102,7 +102,6 @@ export const searchMovie = async ({
       params: {
         page,
         query,
-        include_adult: false,
       },
     });
     return {

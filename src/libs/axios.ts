@@ -17,6 +17,7 @@ export const imdbApiClient: AxiosInstance = axios.create({
   params: {
     api_key: IMDB_API_KEY,
     language: "en-US",
+    // language: "uk-UA",
   },
 });
 

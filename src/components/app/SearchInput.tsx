@@ -1,41 +1,54 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
+import { useSearchValue, useSearchValueSetter } from "@/hooks/stores";
 import { useDebounce } from "@/hooks/useDebounce";
 
 import { Input } from "../common";
 
 interface IProps {
-  onChange: (value: string) => void;
   isLoading?: boolean;
   width?: string; // e.g., "250px"
 }
 
-export const SearchInput = ({
-  onChange,
-  isLoading,
-  width = "250px",
-}: IProps) => {
-  const [inputValue, setInputValue] = useState("");
+export const SearchInput = ({ isLoading, width = "250px" }: IProps) => {
+  const searchValue = useSearchValue();
+  console.log("🚀 ~ searchValue:", searchValue);
+  const setSearchValue = useSearchValueSetter();
+
+  const [inputValue, setInputValue] = useState(searchValue);
+  console.log("🚀 ~ inputValue:", inputValue);
   const debounceValue = useDebounce(inputValue, 300);
   const router = useRouter();
+  const pathName = usePathname();
+
+  const isAppPage = pathName === "/app/home";
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!inputValue) {
       return;
     }
-    onChange(inputValue);
-    router.push(`/movies?query=${encodeURIComponent(inputValue)}`);
+    setSearchValue(inputValue);
+    if (isAppPage) {
+      return;
+    }
+    router.push("/app/home");
   };
 
   useEffect(() => {
     if (debounceValue.trim().length) {
-      onChange(debounceValue);
+      setSearchValue(debounceValue);
     }
-  }, [debounceValue, onChange]);
+  }, [debounceValue, setSearchValue]);
+
+  useEffect(() => {
+    if (!inputValue) {
+      setSearchValue("");
+    }
+  }, [inputValue]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value.trim());
@@ -51,6 +64,7 @@ export const SearchInput = ({
       <div className="flex-1">
         <Input
           placeholder="Search..."
+          value={inputValue}
           onChange={handleChange}
           disabled={isLoading}
           variant="outlined"
