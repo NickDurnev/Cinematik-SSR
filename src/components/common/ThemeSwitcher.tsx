@@ -1,14 +1,20 @@
 "use client";
 
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { BsMoonStars, BsSun } from "react-icons/bs";
+
+import useSizeScreen from "@/hooks/useSizeScreen";
+import { ScreenType } from "@/types/general";
 
 import { Button } from "../common";
 
 export const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const screenSize = useSizeScreen();
+  const isPhone = screenSize === ScreenType.PHONE;
 
   const changeTheme = () => {
     theme === "dark" ? setTheme("light") : setTheme("dark");
@@ -33,7 +39,11 @@ export const ThemeSwitcher = () => {
       aria-label="theme-switcher"
       onClick={changeTheme}
     >
-      {theme === "dark" ? <BsMoonStars size={25} /> : <BsSun size={25} />}
+      {theme === "dark" ? (
+        <DarkModeIcon fontSize={isPhone ? "medium" : "large"} />
+      ) : (
+        <LightModeIcon fontSize={isPhone ? "medium" : "large"} />
+      )}
     </Button>
   );
 };

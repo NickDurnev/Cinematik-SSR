@@ -15,11 +15,9 @@ interface IProps {
 
 export const SearchInput = ({ isLoading, width = "250px" }: IProps) => {
   const searchValue = useSearchValue();
-  console.log("🚀 ~ searchValue:", searchValue);
   const setSearchValue = useSearchValueSetter();
 
   const [inputValue, setInputValue] = useState(searchValue);
-  console.log("🚀 ~ inputValue:", inputValue);
   const debounceValue = useDebounce(inputValue, 300);
   const router = useRouter();
   const pathName = usePathname();

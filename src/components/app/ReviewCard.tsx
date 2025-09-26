@@ -1,5 +1,5 @@
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { motion } from "framer-motion";
-import { FaUserCircle } from "react-icons/fa";
 
 import { Show } from "@/components/common";
 import { IReview } from "@/types/movie";
@@ -18,7 +18,7 @@ export const ReviewCard = ({ data }: { data: IReview }) => {
       <div className="mb-[50px] w-[90px]">
         <Show
           when={avatar_path && formattedPath?.includes("www.gravatar.com")}
-          fallback={<FaUserCircle size="90" />}
+          fallback={<AccountCircleIcon sx={{ width: 90, height: 90 }} />}
         >
           <img
             src={formattedPath as string}

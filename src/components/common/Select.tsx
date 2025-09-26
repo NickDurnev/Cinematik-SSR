@@ -5,6 +5,8 @@ import MuiSelect, {
 } from "@mui/material/Select";
 import * as React from "react";
 
+import { Option } from "@/types/general";
+
 const DEFAULT_SELECT_STYLES = {
   "&.MuiOutlinedInput-root": {
     borderRadius: "10px",
@@ -30,18 +32,12 @@ const DEFAULT_SELECT_STYLES = {
   },
 };
 
-export type SelectOption = {
-  label: string;
-  value: string | number;
-  disabled?: boolean;
-};
-
 export type SelectProps = Omit<
   MuiSelectProps<string | number>,
   "children" | "label"
 > & {
   label?: string;
-  options?: SelectOption[];
+  options?: Option[];
   formControlProps?: FormControlProps;
   fullWidth?: boolean;
   children?: React.ReactNode;

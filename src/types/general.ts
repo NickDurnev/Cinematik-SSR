@@ -65,3 +65,9 @@ export interface IBaseTVShowData extends IContentData {
   name: string;
   tagline: string;
 }
+
+export type Option = {
+  label: string;
+  value: string | number;
+  disabled?: boolean;
+};

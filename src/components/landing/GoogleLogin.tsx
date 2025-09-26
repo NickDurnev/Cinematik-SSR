@@ -1,17 +1,15 @@
 "use client";
 
+import GoogleIcon from "@mui/icons-material/Google";
 import type { Session } from "next-auth";
 import { signIn, useSession } from "next-auth/react";
-import React, { useEffect, useState } from "react";
-import { BsGoogle } from "react-icons/bs";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { useSocialLoginUser } from "@/services/user/query-hooks";
 import { INextAuthUserData } from "@/types/user";
 
 import { Button } from "../common";
-
-const GoogleIcon = BsGoogle as React.ElementType;
 
 export const GoogleLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -67,7 +65,7 @@ export const GoogleLogin = () => {
       sx={{ fontSize: 16 }}
       loading={isLoginPending || isLoading}
       loadingPosition="start"
-      startIcon={(!isLoading || !isLoginPending) && <GoogleIcon size={16} />}
+      startIcon={(!isLoading || !isLoginPending) && <GoogleIcon />}
     >
       Continue with Google
     </Button>
