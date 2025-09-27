@@ -3,10 +3,14 @@
 import { create } from "zustand";
 import { PersistStorage, persist } from "zustand/middleware";
 
-import { ContentType, IGenre } from "@/types/general";
+import { ContentFilters, ContentType, IGenre } from "@/types/general";
 import { ILibraryMoviePartial } from "@/types/library";
 import { IFormsData, IUser } from "@/types/user";
-import { DEFAULT_FORM_DATA, DEFAULT_USER } from "@/utils/constants";
+import {
+  DEFAULT_CONTENT_FILTERS,
+  DEFAULT_FORM_DATA,
+  DEFAULT_USER,
+} from "@/utils/constants";
 
 // Create a sessionStorage adapter
 const sessionStorageAdapter: PersistStorage<UserStore> = {
@@ -93,6 +97,8 @@ export interface ContentDataStore {
   setSearchValue: (value: string) => void;
   contentType: ContentType;
   setContentType: (contentType: ContentType) => void;
+  contentFilters: ContentFilters;
+  setContentFilters: (contentFilters: ContentFilters) => void;
   library: ILibraryMoviePartial[];
   setLibrary: (library: ILibraryMoviePartial[]) => void;
 }
@@ -108,6 +114,9 @@ export const useContentDataStore = create<ContentDataStore>()(
       setSearchValue: (value: string) => set({ searchValue: value }),
       contentType: ContentType.MOVIE,
       setContentType: (contentType: ContentType) => set({ contentType }),
+      contentFilters: DEFAULT_CONTENT_FILTERS,
+      setContentFilters: (contentFilters: ContentFilters) =>
+        set({ contentFilters }),
       library: [],
       setLibrary: (library: ILibraryMoviePartial[]) => set({ library }),
       _hasHydrated: false,
@@ -137,7 +146,12 @@ export const useSearchValueSetter = () =>
 export const useSearchValue = () =>
   useContentDataStore(state => state.searchValue);
 
-export const useContentTypeSetter = () =>
-  useContentDataStore(state => state.setContentType);
 export const useContentType = () =>
   useContentDataStore(state => state.contentType);
+export const useContentTypeSetter = () =>
+  useContentDataStore(state => state.setContentType);
+
+export const useContentFilters = () =>
+  useContentDataStore(state => state.contentFilters);
+export const useContentFiltersSetter = () =>
+  useContentDataStore(state => state.setContentFilters);

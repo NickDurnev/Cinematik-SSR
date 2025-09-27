@@ -34,8 +34,9 @@ const DEFAULT_SELECT_STYLES = {
 
 export type SelectProps = Omit<
   MuiSelectProps<string | number>,
-  "children" | "label"
+  "children" | "label" | "value"
 > & {
+  value?: string;
   label?: string;
   options?: Option[];
   formControlProps?: FormControlProps;
@@ -79,6 +80,7 @@ export const Select = ({
             id={resolvedId}
             labelId={resolvedLabelId}
             label={label}
+            value={props.value}
             {...props}
             sx={[
               DEFAULT_SELECT_STYLES,

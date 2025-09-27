@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import { UserStore, useUserStore } from "@/hooks/stores";
 import { IReview } from "@/types/review";
 import { cardVariants } from "@/utils/animations";
-import { formatDate } from "@/utils/dateFormatter";
+import { formatDate } from "@/utils/dates";
 
 import { Avatar, Button, Show } from "../common";
 

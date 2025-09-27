@@ -71,3 +71,15 @@ export type Option = {
   value: string | number;
   disabled?: boolean;
 };
+
+export type DateOption = {
+  value: string;
+  index: number;
+};
+
+export type ContentFilters = {
+  selectedGenres: Option[];
+  selectedSort: Option | null;
+  startDate: DateOption | null;
+  endDate: DateOption | null;
+};

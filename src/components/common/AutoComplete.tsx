@@ -20,6 +20,9 @@ const DEFAULT_AUTOCOMPLETE_STYLES = {
   "& .MuiFormLabel-root": {
     color: "var(--foreground)",
   },
+  "& .MuiFormLabel-root:.Mui-focused": {
+    color: "var(--foreground)",
+  },
   "& .MuiAutocomplete-groupUlt": {
     color: "var(--foreground)",
   },
@@ -51,12 +54,13 @@ const DEFAULT_AUTOCOMPLETE_STYLES = {
 
 type Props = Omit<
   AutocompleteProps<Option, true, true, false>,
-  "renderInput" | "onChange" | "multiple"
+  "renderInput" | "onChange" | "multiple" | "value"
 > & {
   options: Option[];
   label: string;
   placeholder: string;
   onChange: (value: Option[] | Option) => void;
+  value?: Option[] | Option;
   multiple?: boolean;
   limitTags?: number;
   fullWidth?: boolean;
@@ -70,6 +74,7 @@ export const Autocomplete = ({
   multiple = true,
   limitTags = 3,
   fullWidth = true,
+  value,
   sx,
 }: Props) => {
   const mergedSx = [
@@ -83,14 +88,20 @@ export const Autocomplete = ({
         multiple={multiple}
         limitTags={limitTags}
         options={options}
-        getOptionLabel={option => option.label}
         renderInput={params => (
           <TextField {...params} label={label} placeholder={placeholder} />
         )}
         fullWidth={fullWidth}
         sx={mergedSx}
         freeSolo={false}
-        onChange={(_, value) => onChange(value as Option[])}
+        value={value}
+        onChange={(_, value) => {
+          if (multiple) {
+            onChange(value as Option[]);
+          } else {
+            onChange(value as Option);
+          }
+        }}
         slotProps={{
           paper: {
             sx: {

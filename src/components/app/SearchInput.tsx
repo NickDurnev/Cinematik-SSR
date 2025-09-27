@@ -24,6 +24,10 @@ export const SearchInput = ({ isLoading, width = "250px" }: IProps) => {
 
   const isAppPage = pathName === "/app/home";
 
+  useEffect(() => {
+    setInputValue(searchValue);
+  }, [searchValue]);
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!inputValue) {
@@ -42,14 +46,12 @@ export const SearchInput = ({ isLoading, width = "250px" }: IProps) => {
     }
   }, [debounceValue, setSearchValue]);
 
-  useEffect(() => {
-    if (!inputValue) {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.trim();
+    setInputValue(value);
+    if (!value) {
       setSearchValue("");
     }
-  }, [inputValue]);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value.trim());
   };
 
   return (

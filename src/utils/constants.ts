@@ -23,3 +23,10 @@ export const DEFAULT_FORM_DATA = {
   password: "",
   confirmPassword: "",
 };
+
+export const DEFAULT_CONTENT_FILTERS = {
+  selectedGenres: [],
+  selectedSort: null,
+  startDate: null,
+  endDate: null,
+};

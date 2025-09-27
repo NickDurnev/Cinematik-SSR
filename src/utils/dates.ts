@@ -12,3 +12,7 @@ export const formatDate = (date: string) => {
     return parsedDate.format("DD MMM YYYY");
   }
 };
+
+export const getCurrentDate = () => {
+  return moment().format("YYYY-MM-DD");
+};

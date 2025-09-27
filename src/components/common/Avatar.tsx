@@ -38,8 +38,8 @@ export const Avatar = ({ picture, name, size }: IProps) => {
             paddingTop: isPhone ? "3px" : "5px",
             letterSpacing: "0.05em",
             backgroundColor: "#00000000",
-            color: "#fff",
-            border: "1px solid #fff",
+            color: "var(--foreground)",
+            border: "1px solid var(--foreground)",
           }}
         />
       )}
