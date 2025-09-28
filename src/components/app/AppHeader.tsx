@@ -6,7 +6,9 @@ import { Select, ThemeSwitcher } from "@/components/common";
 import {
   useContentType,
   useContentTypeSetter,
+  useMovieGenres,
   useMovieGenresSetter,
+  useTVShowGenres,
   useTVShowGenresSetter,
 } from "@/hooks/stores";
 import useSizeScreen from "@/hooks/useSizeScreen";
@@ -33,13 +35,15 @@ export const AppHeader = () => {
   const screenSize = useSizeScreen();
   const isPhone = screenSize === ScreenType.PHONE;
 
+  const movieGenresValue = useMovieGenres();
+  const tvShowGenresValue = useTVShowGenres();
   const setMovieGenres = useMovieGenresSetter();
   const setTVShowGenres = useTVShowGenresSetter();
 
   const { data: movieGenres, isSuccess: movieGenresSuccess } =
-    useAllMovieGenres();
+    useAllMovieGenres(!movieGenresValue.length);
   const { data: tvShowGenres, isSuccess: tvShowGenresSuccess } =
-    useAllTVShowGenres();
+    useAllTVShowGenres(!tvShowGenresValue.length);
 
   useEffect(() => {
     if (movieGenresSuccess) {

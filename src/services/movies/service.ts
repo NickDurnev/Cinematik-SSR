@@ -1,6 +1,6 @@
 import { imdbApiClient } from "@/libs/axios";
 import ErrorHelper from "@/libs/error-helper";
-import { IGenre, ImdbPaginatedResponse } from "@/types/general";
+import { ContentFilters, IGenre, ImdbPaginatedResponse } from "@/types/general";
 import {
   IActor,
   IMovie,
@@ -41,18 +41,23 @@ export const fetchMoviesGenres = async (): Promise<IGenre[]> => {
   }
 };
 
-export const fetchMoviesByGenre = async ({
+export const fetchFilteredMovies = async ({
   page,
-  genreId,
+  filters,
+  // genreId,
 }: {
   page: number;
-  genreId: string;
+  filters: ContentFilters;
+  // genreId: string;
 }): Promise<ImdbPaginatedResponse<IMovie>> => {
   try {
     const response = await imdbApiClient.get("discover/movie", {
       params: {
         page,
-        with_genres: genreId,
+        with_genres: filters.selectedGenres.map(genre => genre.value).join(","),
+        sort_by: filters.selectedSort?.value,
+        "primary_release_date.gte": filters.startDate?.value,
+        "primary_release_date.lte": filters.endDate?.value,
       },
     });
     return {

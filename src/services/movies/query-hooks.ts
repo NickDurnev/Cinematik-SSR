@@ -2,6 +2,7 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 import {
   fetchCategoryMovies,
+  fetchFilteredMovies,
   fetchMoviesGenres,
   fetchTrendMovies,
   movieCast,
@@ -9,6 +10,7 @@ import {
   searchMovie,
   similarMovies,
 } from "@/services/movies/service";
+import { ContentFilters } from "@/types/general";
 import { MovieCategoryType } from "@/types/movie";
 
 export const useMovieCast = ({ movieId }: { movieId: string }) =>
@@ -75,12 +77,32 @@ export const useCategoryMovies = ({
     },
   });
 
-export const useAllMovieGenres = () =>
+export const useAllMovieGenres = (enabled: boolean) =>
   useQuery({
     queryKey: ["movie-genres"],
     queryFn: () => fetchMoviesGenres(),
-    staleTime: 25 * (60 * 1000), // 25 mins
-    gcTime: 30 * (60 * 1000), // 30 mins
+    enabled,
+  });
+
+export const useFilteredMovies = ({
+  filters,
+  enabled,
+}: {
+  filters: ContentFilters;
+  enabled: boolean;
+}) =>
+  useInfiniteQuery({
+    queryKey: ["filtered-movies", filters],
+    queryFn: ({ pageParam = 1 }) =>
+      fetchFilteredMovies({ page: pageParam, filters }),
+    initialPageParam: 1,
+    getNextPageParam: lastPage => {
+      if (lastPage.next_page < lastPage.total_pages) {
+        return lastPage.next_page;
+      }
+      return null;
+    },
+    enabled,
   });
 
 export const useSearchMovies = ({
@@ -91,7 +113,7 @@ export const useSearchMovies = ({
   enabled: boolean;
 }) =>
   useInfiniteQuery({
-    queryKey: ["search-movies", query],
+    queryKey: ["filtered-movies", query],
     queryFn: ({ pageParam = 1 }) => searchMovie({ page: pageParam, query }),
     initialPageParam: 1,
     getNextPageParam: lastPage => {

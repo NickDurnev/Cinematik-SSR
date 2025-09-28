@@ -46,12 +46,11 @@ export const useCategoryTVShows = ({
     },
   });
 
-export const useAllTVShowGenres = () =>
+export const useAllTVShowGenres = (enabled: boolean) =>
   useQuery({
     queryKey: ["tv-show-genres"],
     queryFn: () => fetchTVShowGenres(),
-    staleTime: 25 * (60 * 1000), // 25 mins
-    gcTime: 30 * (60 * 1000), // 30 mins
+    enabled,
   });
 
 export const useSearchTVShows = ({

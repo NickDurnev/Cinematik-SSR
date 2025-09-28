@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { toast } from "react-toastify";
 
@@ -14,17 +13,20 @@ import {
   QueryTrigger,
   Show,
 } from "@/components/common";
-import { useContentType, useSearchValue } from "@/hooks/stores";
-import { useSearchMovies } from "@/services/movies/query-hooks";
-import { useSearchTVShows } from "@/services/tv-shows/query-hooks";
+import {
+  useContentFilters,
+  useContentType,
+  useSearchValue,
+} from "@/hooks/stores";
+import { useFilteredContent } from "@/hooks/useFilteredContent";
 import { ContentType } from "@/types/general";
-import { IMovie, MovieCategoryType } from "@/types/movie";
-import { ITVShow, TVShowCategoryType } from "@/types/tv-show";
+import { MovieCategoryType } from "@/types/movie";
+import { TVShowCategoryType } from "@/types/tv-show";
 
 const HomePage = () => {
-  const [data, setData] = useState<(IMovie | ITVShow)[]>([]);
   const contentValue = useContentType();
   const searchValue = useSearchValue();
+  const contentFilters = useContentFilters();
 
   const isMovieContent = contentValue === ContentType.MOVIE;
   const isTVShowContent = contentValue === ContentType.TV;
@@ -34,89 +36,28 @@ const HomePage = () => {
   });
 
   const {
-    data: searchMovies,
-    isError: isErrorMovies,
-    isPending: isPendingMovies,
-    error: errorMovies,
-    fetchNextPage: fetchNextPageMovies,
-    hasNextPage: hasNextPageMovies,
-    isFetchingNextPage: isFetchingNextPageMovies,
-  } = useSearchMovies({
-    query: searchValue,
-    enabled: searchValue !== "" && isMovieContent,
-  });
-  const {
-    data: searchTVShows,
-    isError: isErrorTVShows,
-    isPending: isPendingTVShows,
-    error: errorTVShows,
-    fetchNextPage: fetchNextPageTVShows,
-    hasNextPage: hasNextPageTVShows,
-    isFetchingNextPage: isFetchingNextPageTVShows,
-  } = useSearchTVShows({
-    query: searchValue,
-    enabled: searchValue !== "" && isTVShowContent,
+    data,
+    isError,
+    error,
+    isPending,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useFilteredContent({
+    contentType: contentValue,
+    searchValue,
+    filters: contentFilters,
   });
 
-  // Consolidated derived state depending on selected content type
-  const activeSearch = isMovieContent ? searchMovies : searchTVShows;
-  const isError = isMovieContent ? isErrorMovies : isErrorTVShows;
-  const activeError = isMovieContent ? errorMovies : errorTVShows;
-  const isPending =
-    (isMovieContent ? isPendingMovies : isPendingTVShows) &&
-    Boolean(searchValue);
-  const fetchNextPage = isMovieContent
-    ? fetchNextPageMovies
-    : fetchNextPageTVShows;
-  const hasNextPage = isMovieContent ? hasNextPageMovies : hasNextPageTVShows;
-  const isFetchingNextPage = isMovieContent
-    ? isFetchingNextPageMovies
-    : isFetchingNextPageTVShows;
-
-  // Aggregate pages into a single flat list when results change
-  useEffect(() => {
-    if (activeSearch?.pages?.length) {
-      const combined = activeSearch.pages.flatMap(
-        page => page.data as (IMovie | ITVShow)[],
-      );
-      setData(combined);
-    }
-  }, [activeSearch?.pages]);
-
-  // Notify when search has no results
-  useEffect(() => {
-    if (!searchValue) {
-      return;
-    }
-    const pages = activeSearch?.pages;
-    if (!pages?.length) {
-      return;
-    }
-    const total = pages.reduce((sum, page) => sum + page.data.length, 0);
-    if (total === 0) {
-      toast.info("Nothing found");
-    }
-  }, [activeSearch?.pages, searchValue]);
-
-  useEffect(() => {
-    if (!inView) {
-      return;
-    }
-    if (hasNextPage && !isFetchingNextPage) {
-      fetchNextPage();
-    }
-  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
-
-  useEffect(() => {
-    if (!searchValue) {
-      setData([]);
-    }
-  }, [searchValue]);
-
-  if (isError) {
-    return toast.error(activeError?.message);
+  if (inView && hasNextPage && !isFetchingNextPage) {
+    fetchNextPage?.();
   }
 
+  if (isError) {
+    return toast.error(error?.message);
+  }
+
+  console.log("🚀 ~ isPending:", isPending);
   if (isPending) {
     return (
       <AnimatedPage>
