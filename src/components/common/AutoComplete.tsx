@@ -7,47 +7,77 @@ import TextField from "@mui/material/TextField";
 
 import { Option } from "@/types/general";
 
-const DEFAULT_AUTOCOMPLETE_STYLES = {
+const DEFAULT_AUTOCOMPLETE_STYLES: SxProps<Theme> = {
   "& .MuiOutlinedInput-root": {
     borderRadius: "10px",
-    "&.Mui-focused fieldset": {
+    backgroundColor: "transparent", // transparent background fix
+    color: "var(--foreground)",
+    "& fieldset": {
+      borderColor: "var(--primary)",
+      transition: "border-color 0.2s ease, background-color 0.2s ease",
+    },
+    "&:hover fieldset": {
       borderColor: "var(--foreground)",
     },
+    "&.Mui-focused fieldset": {
+      borderColor: "var(--foreground)",
+      borderWidth: "2px",
+    },
+    "& input": {
+      color: "var(--foreground)",
+    },
   },
-  "& .MuiOutlinedInput-notchedOutline": {
-    borderColor: "var(--primary)",
+
+  // Fix multiple mode (adds specificity)
+  "&& .MuiAutocomplete-inputRoot.MuiOutlinedInput-root:hover fieldset": {
+    borderColor: "var(--foreground)",
   },
+  "&& .MuiAutocomplete-inputRoot.MuiOutlinedInput-root.Mui-focused fieldset": {
+    borderColor: "var(--foreground)",
+    borderWidth: "2px",
+  },
+
+  // Label
   "& .MuiFormLabel-root": {
     color: "var(--foreground)",
+    "&.Mui-focused": {
+      color: "var(--foreground)",
+    },
   },
-  "& .MuiFormLabel-root:.Mui-focused": {
+
+  // Placeholder
+  "& .MuiInputBase-input::placeholder": {
     color: "var(--foreground)",
+    opacity: 0.6,
   },
-  "& .MuiAutocomplete-groupUlt": {
-    color: "var(--foreground)",
-  },
-  "&:hover .MuiOutlinedInput-notchedOutline": {
-    borderColor: "var(--foreground)",
-  },
-  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-    borderColor: "var(--foreground)",
-  },
-  "& .MuiAutocomplete-inputRoot": {
-    color: "var(--foreground)",
-    padding: "8.5px",
-  },
-  "& .MuiAutocomplete-popupIndicator": {
-    color: "var(--foreground)",
-  },
-  "& .MuiAutocomplete-clearIndicator": {
-    color: "var(--foreground)",
-  },
-  "& .MuiSvgIcon-root": {
-    color: "var(--foreground)",
-  },
+
+  // Chips (multiple mode)
   "& .MuiChip-root": {
     backgroundColor: "transparent",
     border: "1px solid var(--foreground)",
+    color: "var(--foreground)",
+    "& .MuiChip-deleteIcon": {
+      color: "var(--foreground)",
+      "&:hover": {
+        color: "var(--primary)",
+      },
+    },
+  },
+
+  // Icons (popup, clear, etc.)
+  "& .MuiAutocomplete-popupIndicator": {
+    color: "var(--foreground)",
+    "&:hover": {
+      color: "var(--primary)",
+    },
+  },
+  "& .MuiAutocomplete-clearIndicator": {
+    color: "var(--foreground)",
+    "&:hover": {
+      color: "var(--primary)",
+    },
+  },
+  "& .MuiSvgIcon-root": {
     color: "var(--foreground)",
   },
 };
@@ -105,8 +135,10 @@ export const Autocomplete = ({
         slotProps={{
           paper: {
             sx: {
-              backgroundColor: "var(--background)", // dropdown background
-              color: "var(--foreground)", // text color
+              backgroundColor: "var(--background)",
+              color: "var(--foreground)",
+              borderRadius: "10px",
+              boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.2)",
             },
           },
           popper: {
@@ -114,15 +146,20 @@ export const Autocomplete = ({
               "& .MuiAutocomplete-option": {
                 backgroundColor: "var(--background)",
                 color: "var(--foreground)",
+                transition: "background-color 0.15s ease, color 0.15s ease",
+                "&:hover": {
+                  backgroundColor: "var(--secondary)", // 👈 new hover color
+                  color: "var(--background)",
+                },
                 "&[aria-selected='true']": {
-                  backgroundColor: "var(--primary)", // selected item
-                  color: "var(--background)", // selected text
+                  backgroundColor: "var(--primary)",
+                  color: "var(--background)",
                 },
                 "&[aria-selected='true'].Mui-focused": {
                   backgroundColor: "var(--primary)",
                 },
                 "&.Mui-focused": {
-                  backgroundColor: "var(--foreground)",
+                  backgroundColor: "var(--secondary)",
                   color: "var(--background)",
                 },
               },

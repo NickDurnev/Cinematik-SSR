@@ -1,5 +1,6 @@
 "use client";
 
+import TuneIcon from "@mui/icons-material/Tune";
 import { useEffect, useState } from "react";
 
 import { Select, ThemeSwitcher } from "@/components/common";
@@ -16,8 +17,7 @@ import { useAllMovieGenres } from "@/services/movies/query-hooks";
 import { useAllTVShowGenres } from "@/services/tv-shows/query-hooks";
 import { ContentType, ScreenType } from "@/types/general";
 
-import { DropMenu } from "../common";
-import { Filter } from "./ContentFilter";
+import { Button, Drawer, DropMenu } from "../common";
 import { ContentFiltersForm } from "./ContentFiltersForm";
 import { SearchInput } from "./SearchInput";
 import { UserMenu } from "./UserMenu";
@@ -29,6 +29,9 @@ const TYPE_OPTIONS = [
 
 export const AppHeader = () => {
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
+  console.log("🚀 ~ isDropMenuOpen:", isDropMenuOpen);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  console.log("🚀 ~ isDrawerOpen:", isDrawerOpen);
 
   const contentValue = useContentType();
   const setContentValue = useContentTypeSetter();
@@ -57,6 +60,14 @@ export const AppHeader = () => {
     }
   }, [tvShowGenresSuccess, tvShowGenres, setTVShowGenres]);
 
+  const handleFilterClick = () => {
+    if (isPhone) {
+      setIsDrawerOpen(prev => !prev);
+    } else {
+      setIsDropMenuOpen(prev => !prev);
+    }
+  };
+
   return (
     <>
       <div className="mx-auto tablet:mr-0 mb-[60px] tablet:mb-[20px] tablet:ml-auto flex w-full flex-wrap items-start tablet:items-center justify-between px-3">
@@ -70,7 +81,15 @@ export const AppHeader = () => {
               options={TYPE_OPTIONS}
             />
           </div>
-          <Filter isPhone={isPhone} setIsDropMenuOpen={setIsDropMenuOpen} />
+          <div className="tablet:p-0 px-10">
+            <Button
+              isIconButton={true}
+              aria-label="content-filters"
+              onClick={handleFilterClick}
+            >
+              <TuneIcon sx={{ fontSize: isPhone ? 30 : 40 }} />
+            </Button>
+          </div>
         </div>
         <div className="flex items-center gap-x-6 tablet:p-0 py-3">
           <ThemeSwitcher />
@@ -78,8 +97,26 @@ export const AppHeader = () => {
         </div>
       </div>
       <DropMenu isOpen={isDropMenuOpen}>
-        <ContentFiltersForm contentValue={contentValue} />
+        <ContentFiltersForm
+          contentValue={contentValue}
+          handleFilterClick={handleFilterClick}
+        />
       </DropMenu>
+      <Drawer
+        isOpen={isDrawerOpen}
+        setIsOpen={setIsDrawerOpen}
+        sx={{
+          width: "100%",
+          height: "100%",
+          backgroundColor: "var(--secondary)",
+          color: "var(--foreground)",
+        }}
+      >
+        <ContentFiltersForm
+          contentValue={contentValue}
+          handleFilterClick={handleFilterClick}
+        />
+      </Drawer>
     </>
   );
 };

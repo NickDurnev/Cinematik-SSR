@@ -1,3 +1,5 @@
+"use client";
+
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { motion } from "framer-motion";
 

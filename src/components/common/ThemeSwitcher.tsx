@@ -40,9 +40,9 @@ export const ThemeSwitcher = () => {
       onClick={changeTheme}
     >
       {theme === "dark" ? (
-        <DarkModeIcon fontSize={isPhone ? "medium" : "large"} />
+        <DarkModeIcon sx={{ fontSize: isPhone ? 30 : 40 }} />
       ) : (
-        <LightModeIcon fontSize={isPhone ? "medium" : "large"} />
+        <LightModeIcon sx={{ fontSize: isPhone ? 30 : 40 }} />
       )}
     </Button>
   );

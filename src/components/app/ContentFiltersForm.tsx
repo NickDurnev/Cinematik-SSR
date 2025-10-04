@@ -5,6 +5,8 @@ import {
   useContentFilters,
   useContentFiltersSetter,
   useMovieGenres,
+  useSearchValue,
+  useSearchValueSetter,
   useTVShowGenres,
 } from "@/hooks/stores";
 import { ContentType, DateOption, Option } from "@/types/general";
@@ -15,6 +17,7 @@ import { Autocomplete, Button, Select } from "../common";
 
 type Props = {
   contentValue: ContentType;
+  handleFilterClick: () => void;
 };
 
 const DATE_OPTIONS = [
@@ -35,14 +38,21 @@ const SORT_OPTIONS = [
   { label: "Vote Average", value: "vote_average.desc" },
 ];
 
-export const ContentFiltersForm = ({ contentValue }: Props) => {
+export const ContentFiltersForm = ({
+  contentValue,
+  handleFilterClick,
+}: Props) => {
   const router = useRouter();
   const pathName = usePathname();
 
   const movieGenres = useMovieGenres();
   const tvShowGenres = useTVShowGenres();
+
   const contentFilters = useContentFilters();
   const setContentFilters = useContentFiltersSetter();
+
+  const searchValue = useSearchValue();
+  const setSearchValue = useSearchValueSetter();
 
   const [selectedGenres, setSelectedGenres] = useState<Option[]>([]);
   const [selectedSort, setSelectedSort] = useState<Option>(SORT_OPTIONS[0]);
@@ -102,6 +112,10 @@ export const ContentFiltersForm = ({ contentValue }: Props) => {
       startDate,
       endDate,
     });
+    handleFilterClick();
+    if (searchValue) {
+      setSearchValue("");
+    }
     if (isAppPage) {
       return;
     }
