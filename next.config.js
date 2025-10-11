@@ -17,14 +17,16 @@ const nextConfig = {
       },
     ],
   },
-     webpack(config) {
-         config.module.rules.push({
-           test: /\.svg$/i,
-           issuer: /\.[jt]sx?$/,
-           use: ['@svgr/webpack'],
-         });
-         return config;
-       },
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ["@svgr/webpack"],
+    });
+    return config;
+  },
 };
 
-module.exports = nextConfig;
+const withNextIntl = require("next-intl/plugin")("./i18n.ts");
+
+module.exports = withNextIntl(nextConfig);

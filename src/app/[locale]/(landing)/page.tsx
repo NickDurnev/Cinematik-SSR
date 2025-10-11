@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-import { Companies, Hero } from "@/app/(landing)/components";
+import { Companies, Hero } from "@/app/[locale]/(landing)/components";
 
 export const metadata: Metadata = {
   title: "Home page",

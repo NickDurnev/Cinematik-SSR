@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { AppLink } from "@/app/(landing)/components";
+import { AppLink } from "@/app/[locale]/(landing)/components";
 
 export const Hero = () => {
   return (

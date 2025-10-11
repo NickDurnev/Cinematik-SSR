@@ -1,9 +1,14 @@
 "use client";
 
-import Link, { LinkProps } from "next/link";
+import { LinkProps } from "next/link";
 import { AnchorHTMLAttributes, FC } from "react";
 
-type ICustomLink = LinkProps & AnchorHTMLAttributes<HTMLAnchorElement>;
+import { Link } from "../../i18n/navigation";
+
+type ICustomLink = LinkProps &
+  AnchorHTMLAttributes<HTMLAnchorElement> & {
+    locale?: string;
+  };
 
 export const CustomLink: FC<ICustomLink> = ({
   href,
