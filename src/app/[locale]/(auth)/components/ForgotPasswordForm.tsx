@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "@tanstack/react-form";
+import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 
 import { Button, Input } from "@/components/common";
@@ -18,6 +19,8 @@ type Props = {
 
 export const ForgotPasswordForm = ({ onSubmit, isLoading }: Props) => {
   const { data, setData } = useFormsDataStore();
+  const t = useTranslations("landing.auth");
+
   const form = useForm({
     defaultValues: {
       email: data.email,
@@ -65,7 +68,7 @@ export const ForgotPasswordForm = ({ onSubmit, isLoading }: Props) => {
         <form.Field name="email">
           {field => (
             <Input
-              label="Email"
+              label={t("email")}
               type="email"
               value={field.state.value}
               onChange={e => {
@@ -92,7 +95,9 @@ export const ForgotPasswordForm = ({ onSubmit, isLoading }: Props) => {
                 loadingPosition="end"
                 sx={{ padding: "10px 10px" }}
               >
-                {isSubmitting || isLoading ? "Sending..." : "Send email"}
+                {isSubmitting || isLoading
+                  ? t("sending")
+                  : `${t("send")} ${t("email")}`}
               </Button>
             </div>
           )}

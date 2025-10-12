@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "@tanstack/react-form";
+import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 
 import { Button, Input } from "@/components/common";
@@ -15,6 +16,8 @@ type Props = {
 
 export const SignUpForm = ({ onSubmit, isLoading }: Props) => {
   const { data, setData } = useFormsDataStore();
+  const t = useTranslations("landing.auth");
+
   const form = useForm({
     defaultValues: data,
     validators: {
@@ -59,7 +62,7 @@ export const SignUpForm = ({ onSubmit, isLoading }: Props) => {
         <form.Field name="email">
           {field => (
             <Input
-              label="Email"
+              label={t("email")}
               type="email"
               value={field.state.value}
               onChange={e => {
@@ -75,7 +78,7 @@ export const SignUpForm = ({ onSubmit, isLoading }: Props) => {
         <form.Field name="name">
           {field => (
             <Input
-              label="Name"
+              label={t("name")}
               type="name"
               value={field.state.value}
               onChange={e => {
@@ -91,7 +94,7 @@ export const SignUpForm = ({ onSubmit, isLoading }: Props) => {
         <form.Field name="password">
           {field => (
             <Input
-              label="Password"
+              label={t("password")}
               type="password"
               value={field.state.value}
               onChange={e => {
@@ -107,7 +110,7 @@ export const SignUpForm = ({ onSubmit, isLoading }: Props) => {
         <form.Field name="confirmPassword">
           {field => (
             <Input
-              label="Confirm Password"
+              label={t("confirmPassword")}
               type="confirmPassword"
               value={field.state.value}
               onChange={e => {
@@ -133,7 +136,7 @@ export const SignUpForm = ({ onSubmit, isLoading }: Props) => {
                 loadingPosition="end"
                 sx={{ padding: "10px 10px" }}
               >
-                {isSubmitting ? "Signing in..." : "Sign Up"}
+                {isSubmitting ? t("signingIn") : t("signUp")}
               </Button>
             </div>
           )}

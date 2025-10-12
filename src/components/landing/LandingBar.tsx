@@ -10,6 +10,7 @@ import { useTheme } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { MouseEvent, useState } from "react";
 
 import { useUserStoreHydrated } from "@/hooks/stores";
@@ -64,21 +65,23 @@ export const MenuIcon = ({ className = "", size = 24 }: MenuIconProps) => (
   </svg>
 );
 
-const pages = [
-  { name: "Home", href: "/" },
-  // { name: 'Benefits', href: '/benefits' },
-  { name: "Reviews", href: "/reviews" },
-];
-
 export const LandingBar = () => {
   const hydrated = useUserStoreHydrated();
-
   const screenSize = useSizeScreen();
   const theme = useTheme();
+  const t = useTranslations("landing");
+  const homeTitle = t("home.title");
+  const reviewsTitle = t("reviews.title");
 
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const isPhone = screenSize === ScreenType.PHONE;
+
+  const pages = [
+    { name: homeTitle, href: "/" },
+    // { name: 'Benefits', href: '/benefits' },
+    { name: reviewsTitle, href: "/reviews" },
+  ];
 
   const handleOpenNavMenu = (e: MouseEvent<HTMLButtonElement>) => {
     setAnchorElNav(e.currentTarget);

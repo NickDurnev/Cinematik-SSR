@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { toast } from "react-toastify";
@@ -20,6 +21,7 @@ const Reviews = () => {
   const [reviews, setReviews] = useState<IReview[]>([]);
   const [isReviewUpdateFormOpen, setIsReviewUpdateFormOpen] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
+  const t = useTranslations("landing.reviews");
 
   const { user, setUser } = useUserStore((state: UserStore) => state);
 
@@ -76,7 +78,7 @@ const Reviews = () => {
   const handleDelete = (): void => {
     deleteReview(undefined, {
       onSuccess: () => {
-        toast("Review deleted successfully");
+        toast(t("reviewDeleteToast"));
         setUser({ ...user, is_left_review: false });
         setReviews(prev => prev.filter(review => review.user_id !== user.id));
       },
@@ -112,7 +114,7 @@ const Reviews = () => {
   return (
     <section className="flex w-full flex-col laptopM:items-start laptopM:justify-between gap-y-16 laptopL:py-[80px] laptopM:py-[60px] py-[55px]">
       <h2 className="font-technovier laptopM:text-[50px] text-[35px] text-mainText uppercase laptopM:leading-[59px] leading-[41px] tracking-wider">
-        Reviews
+        {t("reviews")}
       </h2>
       <Show when={user.id && (!user.is_left_review || isReviewUpdateFormOpen)}>
         <AddReviewForm
@@ -126,9 +128,9 @@ const Reviews = () => {
         fallback={
           <div className="m-0 mx-auto laptopL:mb-[115px] laptopM:mb-[100px] mb-20 flex w-full laptopL:max-w-[900px] laptopM:max-w-[685px] flex-col gap-3 rounded-2xl text-center">
             <h2 className="font-technovier text-[35px] text-mainText uppercase leading-[41px] tracking-wider">
-              No reviews yet
+              {t("noReviewsTitle")}
             </h2>
-            <p className="text-main">Be the first to leave a review</p>
+            <p className="text-main"> {t("noReviewsDescription")}</p>
           </div>
         }
       >

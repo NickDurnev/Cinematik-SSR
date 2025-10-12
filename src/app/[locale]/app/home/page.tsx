@@ -57,7 +57,6 @@ const HomePage = () => {
     return toast.error(error?.message);
   }
 
-  console.log("🚀 ~ isPending:", isPending);
   if (isPending) {
     return (
       <AnimatedPage>

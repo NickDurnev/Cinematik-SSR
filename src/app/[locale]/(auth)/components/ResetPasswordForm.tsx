@@ -2,6 +2,7 @@
 
 import { useForm } from "@tanstack/react-form";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { Button, Input } from "@/components/common";
 import { resetPasswordFormSchema } from "@/services/user/schemas";
@@ -16,6 +17,7 @@ export const ResetPasswordForm = ({ onSubmit, isLoading }: Props) => {
   const searchParams = useSearchParams();
 
   const resetToken = searchParams.get("token");
+  const t = useTranslations("landing.auth");
 
   const form = useForm({
     defaultValues: {
@@ -46,7 +48,7 @@ export const ResetPasswordForm = ({ onSubmit, isLoading }: Props) => {
       <form.Field name="password">
         {field => (
           <Input
-            label="Password"
+            label={t("password")}
             type="password"
             value={field.state.value}
             onChange={e => {
@@ -62,7 +64,7 @@ export const ResetPasswordForm = ({ onSubmit, isLoading }: Props) => {
       <form.Field name="confirmPassword">
         {field => (
           <Input
-            label="Confirm Password"
+            label={t("confirmPassword")}
             type="confirmPassword"
             value={field.state.value}
             onChange={e => {
@@ -87,7 +89,7 @@ export const ResetPasswordForm = ({ onSubmit, isLoading }: Props) => {
               loadingPosition="end"
               sx={{ padding: "10px 10px" }}
             >
-              {isSubmitting || isLoading ? "Resetting..." : "Reset"}
+              {isSubmitting || isLoading ? t("resetting") : t("reset")}
             </Button>
           </div>
         )}

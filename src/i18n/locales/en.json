@@ -1,1 +1,37 @@
-{}
+{
+  "landing": {
+    "home": {
+      "title": "Home",
+      "heroTitle": "Change the World",
+      "companiesTitle": "by the biggest names in the industry",
+      "footerTitle": "Crafted by Dumb Gooses Labs",
+      "welcome": "Welcome",
+      "goToApp": "Go to App"
+    },
+    "reviews": {
+      "title": "Reviews",
+      "noReviewsTitle": "No reviews yet",
+      "noReviewsDescription": "Be the first to leave a review",
+      "reviewDeleteToast": "Review deleted successfully"
+    },
+    "auth": {
+      "login": "Login",
+      "register": "Register",
+      "logout": "Logout",
+      "email": "Email",
+      "name": "Name",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "logging": "Logging in...",
+      "send": "Send",
+      "sending": "Sending...",
+      "reset": "Reset",
+      "resetting": "Resetting...",
+      "signUp": "Sign Up",
+      "signingIn": "Signing in..."
+    }
+  },
+  "universal": {
+    "movies": "movies"
+  }
+}

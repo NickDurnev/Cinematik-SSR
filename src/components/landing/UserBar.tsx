@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import { UserStore, useUserStore } from "@/hooks/stores";
@@ -16,6 +17,7 @@ export const UserBar = () => {
   }, []);
 
   const user = useUserStore((state: UserStore) => state.user);
+  const t = useTranslations("landing.auth");
 
   return (
     <div className="ml-[50px]">
@@ -23,7 +25,7 @@ export const UserBar = () => {
         when={user.id}
         fallback={
           <CustomLink href="/login" passHref>
-            <Button variant="text">Login</Button>
+            <Button variant="text">{t("login")}</Button>
           </CustomLink>
         }
       >

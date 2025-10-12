@@ -1,13 +1,17 @@
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 import { AppLink } from "@/app/[locale]/(landing)/components";
 
 export const Hero = () => {
+  const tHome = useTranslations("landing.home");
+  const tUniversal = useTranslations("universal");
+
   return (
     <section className="laptopL:pt-[70px] laptopM:pt-[60px] pt-[55px]">
       <h1 className="mb-10 laptopL:w-[calc(100vw-240px)] laptopM:w-[calc(100vw-220px)] w-full font-technovier laptopL:text-[80px] laptopM:text-[60px] tablet:text-[50px] text-[35px] text-foreground uppercase laptopL:leading-[120px] laptopM:leading-[100px] leading-[41px] tablet:leading-[70px] tracking-wider">
-        Movies <br />
-        Change the world
+        {tUniversal("movies")} <br />
+        {tHome("heroTitle")}
       </h1>
       <section className="laptop:flex laptopL:w-[1550px] laptop:items-end laptop:gap-x-[60vw]">
         <div className="relative h-[420px] laptopL:h-[650px]">

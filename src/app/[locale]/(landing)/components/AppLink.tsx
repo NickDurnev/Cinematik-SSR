@@ -3,6 +3,7 @@
 import DevicesIcon from "@mui/icons-material/Devices";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useTranslations } from "next-intl";
 
 import { Button, CustomLink, Show } from "@/components/common";
 import { UserStore, useUserStore, useUserStoreHydrated } from "@/hooks/stores";
@@ -11,6 +12,7 @@ import useLogout from "@/hooks/useLogout";
 export const AppLink = () => {
   const user = useUserStore((state: UserStore) => state.user);
   const hydrated = useUserStoreHydrated();
+  const t = useTranslations("landing");
 
   const { handleLogout } = useLogout();
 
@@ -35,7 +37,7 @@ export const AppLink = () => {
                   textTransform: "uppercase",
                 }}
               >
-                Login
+                {t("auth.login")}
               </Button>
             </CustomLink>
           </div>
@@ -43,7 +45,7 @@ export const AppLink = () => {
       >
         <div>
           <h3 className="color-foreground mb-[30px] font-normal text-[35px] leading-[40px] tracking-[0.05em]">
-            Welcome <br />
+            {t("home.welcome")} <br />
             {user.name}
           </h3>
           <div className="flex w-full justify-between gap-x-5">
@@ -52,11 +54,11 @@ export const AppLink = () => {
               endIcon={<LogoutIcon />}
               variant="outlined"
             >
-              Logout
+              {t("auth.logout")}
             </Button>
             <CustomLink href="/app/home" passHref>
               <Button endIcon={<DevicesIcon />} variant="outlined">
-                Go to App
+                {t("home.goToApp")}
               </Button>
             </CustomLink>
           </div>
