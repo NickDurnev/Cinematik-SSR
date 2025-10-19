@@ -8,6 +8,48 @@ import axios, {
 import { API_BASE_URL, IMDB_API_KEY, IMDB_BASE_URL } from "@/utils/constants";
 import { clearAuthTokens, getCookie, setAccessToken } from "@/utils/cookies";
 
+// Global locale state for client-side usage
+let currentLocale: string | null = null;
+
+// Function to set the current locale (call this from your app layout or root component)
+export const setGlobalLocale = (locale: string) => {
+  currentLocale = locale;
+  // Also store in localStorage for persistence
+  if (typeof window !== "undefined") {
+    localStorage.setItem("app-locale", locale);
+  }
+};
+
+// Function to get the current locale
+export const getGlobalLocale = () => {
+  // If we have a current locale in memory, return it
+  if (currentLocale) {
+    return currentLocale;
+  }
+
+  // Otherwise, try to get it from localStorage (client-side only)
+  if (typeof window !== "undefined") {
+    const storedLocale = localStorage.getItem("app-locale");
+    if (storedLocale) {
+      currentLocale = storedLocale;
+      return storedLocale;
+    }
+  }
+
+  // Fallback: try to get from URL path
+  if (typeof window !== "undefined") {
+    const pathParts = window.location.pathname.split("/");
+    const potentialLocale = pathParts[1];
+    const validLocales = ["en", "ua"]; // Update this with your actual locales
+    if (validLocales.includes(potentialLocale)) {
+      currentLocale = potentialLocale;
+      return potentialLocale;
+    }
+  }
+
+  return "en"; // Default fallback
+};
+
 // IMDB axios instance with base URL
 export const imdbApiClient: AxiosInstance = axios.create({
   baseURL: IMDB_BASE_URL,
@@ -20,6 +62,25 @@ export const imdbApiClient: AxiosInstance = axios.create({
     // language: "uk-UA",
   },
 });
+
+// Add request interceptor to attach locale to IMDB requests
+imdbApiClient.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    // Get current locale and update language parameter
+    const locale = getGlobalLocale();
+    if (locale) {
+      config.params = {
+        ...config.params,
+        language: locale,
+      };
+    }
+
+    return config;
+  },
+  (error: AxiosError) => {
+    return Promise.reject(error);
+  },
+);
 
 // Base axios instance with base URL
 export const apiClient: AxiosInstance = axios.create({
@@ -44,6 +105,13 @@ apiClient.interceptors.request.use(
     const refreshToken = await getCookie("refreshToken");
     if (refreshToken) {
       config.headers["X-Refresh-Token"] = refreshToken;
+    }
+
+    // Get current locale and add to headers
+    const locale = getGlobalLocale();
+    console.log("🚀 ~ locale:", locale);
+    if (locale) {
+      config.headers["X-Accept-Language"] = locale;
     }
 
     return config;

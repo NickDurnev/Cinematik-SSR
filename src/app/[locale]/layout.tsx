@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 
 import { routing } from "@/i18n/routing";
+import { setGlobalLocale } from "@/libs/axios";
 
 type Props = {
   children: React.ReactNode;
@@ -14,6 +15,9 @@ export default async function LocaleLayout({ children, params }: Props) {
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+
+  // Set the global locale for axios requests
+  setGlobalLocale(locale);
 
   return (
     <NextIntlClientProvider locale={locale}>{children}</NextIntlClientProvider>
