@@ -2,11 +2,11 @@ import "server-only";
 
 const dictionaries = {
   en: (page: string) =>
-    import("../../locales/en.json").then(
+    import("../i18n/locales/en.json").then(
       module => (module.default as Record<string, unknown>)[page],
     ),
   ua: (page: string) =>
-    import("../../locales/ua.json").then(
+    import("../i18n/locales/ua.json").then(
       module => (module.default as Record<string, unknown>)[page],
     ),
 };

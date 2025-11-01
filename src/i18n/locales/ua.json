@@ -1,1 +1,37 @@
-{}
+{
+    "landing": {
+        "home": {
+            "title": "Головна",
+            "heroTitle": "Зміни світ",
+            "companiesTitle": "від найбільших імен у галузі",
+            "footerTitle": "Створено Dumb Gooses Labs",
+            "welcome": "Ласкаво просимо",
+            "goToApp": "Перейти до додатку"
+        },
+        "reviews": {
+            "title": "Відгуки",
+            "noReviewsTitle": "Відгуків ще немає",
+            "noReviewsDescription": "Будьте першим, хто залишить відгук",
+            "reviewDeleteToast": "Відгук успішно видалено"
+        },
+        "auth": {
+            "login": "Увійти",
+            "register": "Зареєструватися",
+            "logout": "Вийти",
+            "email": "Електронна пошта",
+            "name": "Ім'я",
+            "password": "Пароль",
+            "confirmPassword": "Підтвердіть пароль",
+            "logging": "Вхід у систему...",
+            "send": "Надіслати",
+            "sending": "Надсилання...",
+            "reset": "Скинути",
+            "resetting": "Скидання...",
+            "signUp": "Зареєструватися",
+            "signingIn": "Вхід..."
+        }
+    },
+    "universal": {
+        "movies": "фільми"
+    }
+}

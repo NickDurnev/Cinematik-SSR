@@ -3,6 +3,7 @@ import "./globals.css";
 
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import type { Metadata } from "next";
+import { NextIntlClientProvider } from "next-intl";
 
 import QueryProvider from "@/libs/query-provider";
 import { AuthProvider, StyleProviders } from "@/providers";
@@ -34,7 +35,9 @@ const RootLayout = ({ children }: Readonly<Props>) => {
         <AuthProvider>
           <QueryProvider>
             <AppRouterCacheProvider>
-              <StyleProviders>{children}</StyleProviders>
+              <StyleProviders>
+                <NextIntlClientProvider>{children}</NextIntlClientProvider>
+              </StyleProviders>
             </AppRouterCacheProvider>
           </QueryProvider>
         </AuthProvider>

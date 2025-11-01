@@ -1,8 +1,5 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import createMiddleware from "next-intl/middleware";
-
-import { routing } from "./src/i18n/routing";
 
 export function authMiddleware(request: NextRequest) {
   const token = request.cookies.get("accessToken")?.value;
@@ -15,9 +12,6 @@ export function authMiddleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-// Localization Middleware
-const localizationMiddleware = createMiddleware(routing);
-
 export default function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
@@ -25,11 +19,8 @@ export default function middleware(req: NextRequest) {
   if (pathname.startsWith("/app")) {
     return authMiddleware(req);
   }
-
-  // Apply localization to other routes
-  return localizationMiddleware(req);
 }
 
 export const config = {
-  matcher: ["/((?!api|_next|.*\\..*).*)"],
+  matcher: ["/((?!api|trpc|_next|_vercel|.*\\..*).*)"],
 };

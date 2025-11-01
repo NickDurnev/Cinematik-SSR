@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
-import { AppLink } from "@/app/[locale]/(landing)/components";
+import { AppLink } from "@/app/(landing)/components";
 
 export const Hero = () => {
   const tHome = useTranslations("landing.home");

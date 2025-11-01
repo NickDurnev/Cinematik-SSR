@@ -1,9 +1,7 @@
 "use client";
 
-import { LinkProps } from "next/link";
+import Link, { LinkProps } from "next/link";
 import { AnchorHTMLAttributes, FC } from "react";
-
-import { Link } from "../../i18n/navigation";
 
 type ICustomLink = LinkProps &
   AnchorHTMLAttributes<HTMLAnchorElement> & {
