@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2024",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -11,20 +15,42 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/providers/*": ["./src/providers/*"],
-      "@/hooks/*": ["./src/hooks/*"],
-      "@/services/*": ["./src/services/*"],
-      "@/middlewares/*": ["./src/middlewares/*"],
-      "@/types/*": ["./src/types/*"],
-      "@/db/*": ["./src/db/*"],
-      "@/utils/*": ["./src/utils/*"],
-      "@/public/*": ["./public/*"],
-      "react": [ "./node_modules/@types/react" ]
+      "@/*": [
+        "./src/*"
+      ],
+      "@/components/*": [
+        "./src/components/*"
+      ],
+      "@/providers/*": [
+        "./src/providers/*"
+      ],
+      "@/hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@/services/*": [
+        "./src/services/*"
+      ],
+      "@/middlewares/*": [
+        "./src/middlewares/*"
+      ],
+      "@/types/*": [
+        "./src/types/*"
+      ],
+      "@/db/*": [
+        "./src/db/*"
+      ],
+      "@/utils/*": [
+        "./src/utils/*"
+      ],
+      "@/public/*": [
+        "./public/*"
+      ],
+      "react": [
+        "./node_modules/@types/react"
+      ]
     },
     "plugins": [
       {
@@ -32,6 +58,15 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "src/types/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

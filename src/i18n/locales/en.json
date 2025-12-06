@@ -22,16 +22,29 @@
       "name": "Name",
       "password": "Password",
       "confirmPassword": "Confirm Password",
+      "forgotPassword": "Forgot your password",
+      "resetPassword": "Reset Password",
+      "notAccount": "Don't have an account yet",
+      "alreadyHaveAccount": "Already have an account",
       "logging": "Logging in...",
       "send": "Send",
       "sending": "Sending...",
       "reset": "Reset",
       "resetting": "Resetting...",
       "signUp": "Sign Up",
-      "signingIn": "Signing in..."
+      "signingIn": "Signing in...",
+      "continueWithGoogle": "Continue with Google"
+    }
+  },
+  "app": {
+    "profile": {
+      "accountSettings": "Account settings",
+      "profile": "Profile",
+      "logout": "Logout"
     }
   },
   "universal": {
-    "movies": "movies"
+    "movies": "movies",
+    "or": "or"
   }
 }

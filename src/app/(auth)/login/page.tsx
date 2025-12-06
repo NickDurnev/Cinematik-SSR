@@ -2,6 +2,7 @@
 
 import { Box, Paper } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { toast } from "react-toastify";
 
 import { AnimatedPage, Button, CustomLink } from "@/components/common";
@@ -13,6 +14,7 @@ import { LoginForm } from "../components";
 
 const LoginPage = () => {
   const router = useRouter();
+  const t = useTranslations("landing.auth");
 
   const { mutate: loginUser, isPending: isLoginPending } = useLoginUser();
 
@@ -38,7 +40,7 @@ const LoginPage = () => {
           }}
         >
           <h3 className="mb-4 tablet:mb-6 text-center font-semibold laptop:text-[36px] tablet:text-[32px] text-[24px] tracking-wide">
-            Login
+            {t("login")}
           </h3>
           <LoginForm onSubmit={handleSubmit} isLoading={isLoginPending} />
           <Box className="mt-4 flex flex-col gap-y-3 text-center">
@@ -48,7 +50,7 @@ const LoginPage = () => {
                 aria-label="Sign up"
                 sx={{ fontSize: 16 }}
               >
-                Forgot your password?
+                {t("forgotPassword")}?
               </Button>
             </CustomLink>
             <Box className="text-center">
@@ -58,10 +60,10 @@ const LoginPage = () => {
                   aria-label="Sign up"
                   className="text-base"
                 >
-                  Don't have an account yet?
+                  {t("notAccount")}?
                 </Button>
               </CustomLink>
-              <p className="text-center">or</p>
+              <p className="text-center">{t("or")}</p>
               <GoogleLogin />
             </Box>
           </Box>

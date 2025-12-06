@@ -6,7 +6,6 @@ import { useEffect } from "react";
 
 import { Button, Input } from "@/components/common";
 import { useFormsDataStore } from "@/hooks/stores";
-import { useLocale } from "@/hooks/useLocale";
 import { ISignupFormSchema, signupFormSchema } from "@/services/user/schemas";
 import { deepEqual } from "@/utils/general";
 
@@ -18,11 +17,6 @@ type Props = {
 export const SignUpForm = ({ onSubmit, isLoading }: Props) => {
   const { data, setData } = useFormsDataStore();
   const t = useTranslations("landing.auth");
-  const locale = useLocale();
-
-  console.log("Current locale:", locale);
-  console.log("Translation for email:", t("email"));
-  console.log("Translation for signUp:", t("signUp"));
 
   const form = useForm({
     defaultValues: data,

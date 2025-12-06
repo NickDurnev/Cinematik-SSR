@@ -1,7 +1,6 @@
 import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
 
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 
@@ -34,11 +33,9 @@ const RootLayout = ({ children }: Readonly<Props>) => {
       <body>
         <AuthProvider>
           <QueryProvider>
-            <AppRouterCacheProvider>
-              <StyleProviders>
-                <NextIntlClientProvider>{children}</NextIntlClientProvider>
-              </StyleProviders>
-            </AppRouterCacheProvider>
+            <StyleProviders>
+              <NextIntlClientProvider>{children}</NextIntlClientProvider>
+            </StyleProviders>
           </QueryProvider>
         </AuthProvider>
       </body>

@@ -3,7 +3,8 @@
 import GoogleIcon from "@mui/icons-material/Google";
 import type { Session } from "next-auth";
 import { signIn, useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { useSocialLoginUser } from "@/services/user/query-hooks";
@@ -12,6 +13,7 @@ import { INextAuthUserData } from "@/types/user";
 import { Button } from "../common";
 
 export const GoogleLogin = () => {
+  const t = useTranslations("landing.auth");
   const [isLoading, setIsLoading] = useState(false);
   const { data: nextAuthData } = useSession() as { data: Session | null };
   const { mutate: socialLoginUser, isPending: isLoginPending } =
@@ -28,22 +30,25 @@ export const GoogleLogin = () => {
       });
   };
 
-  const socialLogin = (data: INextAuthUserData) => {
-    const payload = {
-      email: data.email,
-      name: data.name,
-      picture: data.picture,
-    };
-    socialLoginUser(payload, {
-      onSuccess: response => {
-        console.log(" response:", response);
-      },
-      onError: error => {
-        console.log(" error:", error);
-        toast.error(error?.message);
-      },
-    });
-  };
+  const socialLogin = useCallback(
+    (data: INextAuthUserData) => {
+      const payload = {
+        email: data.email,
+        name: data.name,
+        picture: data.picture,
+      };
+      socialLoginUser(payload, {
+        onSuccess: response => {
+          console.log(" response:", response);
+        },
+        onError: error => {
+          console.log(" error:", error);
+          toast.error(error?.message);
+        },
+      });
+    },
+    [socialLoginUser],
+  );
 
   useEffect(() => {
     if (nextAuthData) {
@@ -54,12 +59,12 @@ export const GoogleLogin = () => {
       };
       socialLogin(userData);
     }
-  }, [nextAuthData]);
+  }, [nextAuthData, socialLogin]);
 
   return (
     <Button
       onClick={handleLogin}
-      aria-label="Login with Google"
+      aria-label={t("continueWithGoogle")}
       customVariant="ghost"
       disabled={isLoading}
       sx={{ fontSize: 16 }}
@@ -67,7 +72,7 @@ export const GoogleLogin = () => {
       loadingPosition="start"
       startIcon={(!isLoading || !isLoginPending) && <GoogleIcon />}
     >
-      Continue with Google
+      {t("continueWithGoogle")}
     </Button>
   );
 };

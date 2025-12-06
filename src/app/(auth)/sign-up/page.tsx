@@ -2,6 +2,7 @@
 
 import { Box, Paper } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { toast } from "react-toastify";
 
 import { AnimatedPage, Button, CustomLink } from "@/components/common";
@@ -13,6 +14,7 @@ import { SignUpForm } from "../components";
 
 const SignUpPage = () => {
   const router = useRouter();
+  const t = useTranslations("landing.auth");
 
   const { mutate: signUpUser, isPending: isSignUpPending } = useSignUpUser();
 
@@ -44,7 +46,7 @@ const SignUpPage = () => {
           }}
         >
           <h3 className="mb-4 tablet:mb-6 text-center font-semibold laptop:text-[36px] tablet:text-[32px] text-[24px] tracking-wide">
-            Sign Up
+            {t("signUp")}
           </h3>
           <SignUpForm onSubmit={handleSubmit} isLoading={isSignUpPending} />
           <Box className="mt-4 text-center">
@@ -54,10 +56,10 @@ const SignUpPage = () => {
                 aria-label="Sign up"
                 className="text-base"
               >
-                Already have an account?
+                {t("alreadyHaveAccount")}?
               </Button>
             </CustomLink>
-            <p className="text-center">or</p>
+            <p className="text-center">{t("or")}</p>
             <GoogleLogin />
           </Box>
         </Paper>

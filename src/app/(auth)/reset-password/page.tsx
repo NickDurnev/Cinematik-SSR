@@ -2,6 +2,7 @@
 
 import { Box, Paper } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Suspense } from "react";
 import { toast } from "react-toastify";
 
@@ -15,6 +16,7 @@ const ForgotPasswordPage = () => {
   const router = useRouter();
 
   const { mutate: resetPassword, isPending } = useResetPassword();
+  const t = useTranslations("landing.auth");
 
   const handleSubmit = (data: IResetPasswordDto) => {
     resetPassword(data, {
@@ -40,7 +42,7 @@ const ForgotPasswordPage = () => {
           }}
         >
           <h3 className="mb-4 tablet:mb-6 text-center font-semibold laptop:text-[36px] tablet:text-[32px] text-[24px] tracking-wide">
-            Reset Password
+            {t("resetPassword")}
           </h3>
           <Suspense
             fallback={

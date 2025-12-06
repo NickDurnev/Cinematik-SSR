@@ -1,7 +1,16 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
-  "vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
-  "files": { "ignoreUnknown": false, "includes": ["**"] },
+  "vcs": {
+    "enabled": false,
+    "clientKind": "git",
+    "useIgnoreFile": false
+  },
+  "files": {
+    "ignoreUnknown": false,
+    "includes": [
+      "**"
+    ]
+  },
   "assist": {
     "actions": {
       "source": {
@@ -75,7 +84,7 @@
       },
       "correctness": {
         "noChildrenProp": "error",
-        "noInvalidBuiltinInstantiation": "off",
+        "noInvalidBuiltinInstantiation": "error",
         "noUnusedImports": "error",
         "noConstAssign": "error",
         "noConstantCondition": "error",
@@ -117,7 +126,7 @@
         "useCollapsedElseIf": "error",
         "useDefaultParameterLast": "error",
         "useTemplate": "error",
-        "useArrayLiterals": "off"
+        "useArrayLiterals": "error"
       },
       "suspicious": {
         "noExplicitAny": "error",
@@ -175,6 +184,14 @@
     }
   },
   "overrides": [
-    { "includes": ["**/*.js", "**/*.mjs", "**/*.jsx", "**/*.ts", "**/*.tsx"] }
+    {
+      "includes": [
+        "**/*.js",
+        "**/*.mjs",
+        "**/*.jsx",
+        "**/*.ts",
+        "**/*.tsx"
+      ]
+    }
   ]
 }

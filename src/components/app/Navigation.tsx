@@ -1,28 +1,25 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/libs/tailwind-merge";
-import HomeIcon from "@/public/icons/Home.svg";
-import MovieIcon from "@/public/icons/Movie.svg";
-import StarIcon from "@/public/icons/Star.svg";
-import TelIcon from "@/public/icons/Telev.svg";
 
 import { CustomLink } from "../common";
 
 const navItems = [
-  { href: "/app/home", icon: HomeIcon, label: "Home" },
-  { href: "/movies", icon: MovieIcon, label: "Movies" },
-  { href: "/favorites", icon: StarIcon, label: "Favorites" },
-  { href: "/watched", icon: TelIcon, label: "Watched" },
+  { href: "/app/home", src: "/icons/Home.svg", label: "Home" },
+  { href: "/movies", src: "/icons/Movie.svg", label: "Movies" },
+  { href: "/favorites", src: "/icons/Star.svg", label: "Favorites" },
+  { href: "/watched", src: "/icons/Telev.svg", label: "Watched" },
 ];
 
 const Navigation = () => {
   const pathname = usePathname();
   return (
     <nav className="mt-0 tablet:mt-[125px] flex h-auto tablet:flex-col items-center tablet:justify-start justify-around">
-      {navItems.map(({ href, icon: Icon, label }, idx) => {
+      {navItems.map(({ href, src, label }, idx) => {
         const isActive = pathname === href;
 
         return (
@@ -36,7 +33,15 @@ const Navigation = () => {
               )}
               aria-label={label}
             >
-              <Icon className="mx-auto h-auto w-[70%]" />
+              <div className="mx-auto flex h-auto w-[70%] items-center justify-center">
+                <Image
+                  src={src}
+                  alt={label}
+                  width={20}
+                  height={20}
+                  className="h-full w-full"
+                />
+              </div>
             </motion.div>
           </CustomLink>
         );

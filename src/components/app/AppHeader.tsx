@@ -1,9 +1,10 @@
 "use client";
 
 import TuneIcon from "@mui/icons-material/Tune";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { Select, ThemeSwitcher } from "@/components/common";
+import { Select, Show, ThemeSwitcher } from "@/components/common";
 import {
   useContentType,
   useContentTypeSetter,
@@ -13,6 +14,7 @@ import {
   useTVShowGenresSetter,
 } from "@/hooks/stores";
 import useSizeScreen from "@/hooks/useSizeScreen";
+import { cn } from "@/libs/tailwind-merge";
 import { useAllMovieGenres } from "@/services/movies/query-hooks";
 import { useAllTVShowGenres } from "@/services/tv-shows/query-hooks";
 import { ContentType, ScreenType } from "@/types/general";
@@ -29,9 +31,7 @@ const TYPE_OPTIONS = [
 
 export const AppHeader = () => {
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
-  console.log("🚀 ~ isDropMenuOpen:", isDropMenuOpen);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  console.log("🚀 ~ isDrawerOpen:", isDrawerOpen);
 
   const contentValue = useContentType();
   const setContentValue = useContentTypeSetter();
@@ -42,6 +42,8 @@ export const AppHeader = () => {
   const tvShowGenresValue = useTVShowGenres();
   const setMovieGenres = useMovieGenresSetter();
   const setTVShowGenres = useTVShowGenresSetter();
+
+  const isNotPorfilePage = !usePathname().includes("profile");
 
   const { data: movieGenres, isSuccess: movieGenresSuccess } =
     useAllMovieGenres(!movieGenresValue.length);
@@ -71,27 +73,34 @@ export const AppHeader = () => {
   return (
     <>
       <div className="mx-auto tablet:mr-0 mb-[60px] tablet:mb-[20px] tablet:ml-auto flex w-full flex-wrap items-start tablet:items-center justify-between px-3">
-        <div className="flex tablet:flex-row flex-col items-start tablet:items-center justify-start gap-4">
-          <SearchInput width={isPhone ? "150px" : "250px"} />
-          <div className="pt-[6px]">
-            <Select
-              label="Type"
-              value={contentValue}
-              onChange={e => setContentValue(e.target.value as ContentType)}
-              options={TYPE_OPTIONS}
-            />
+        <Show when={isNotPorfilePage}>
+          <div className="flex tablet:flex-row flex-col items-start tablet:items-center justify-start gap-4">
+            <SearchInput width={isPhone ? "150px" : "250px"} />
+            <div className="pt-[6px]">
+              <Select
+                label="Type"
+                value={contentValue}
+                onChange={e => setContentValue(e.target.value as ContentType)}
+                options={TYPE_OPTIONS}
+              />
+            </div>
+            <div className="tablet:p-0 px-10">
+              <Button
+                isIconButton={true}
+                aria-label="content-filters"
+                onClick={handleFilterClick}
+              >
+                <TuneIcon sx={{ fontSize: isPhone ? 30 : 40 }} />
+              </Button>
+            </div>
           </div>
-          <div className="tablet:p-0 px-10">
-            <Button
-              isIconButton={true}
-              aria-label="content-filters"
-              onClick={handleFilterClick}
-            >
-              <TuneIcon sx={{ fontSize: isPhone ? 30 : 40 }} />
-            </Button>
-          </div>
-        </div>
-        <div className="flex items-center gap-x-6 tablet:p-0 py-3">
+        </Show>
+        <div
+          className={cn(
+            "flex items-center gap-x-6 tablet:p-0 py-3",
+            !isNotPorfilePage && "ml-auto",
+          )}
+        >
           <ThemeSwitcher />
           <UserMenu />
         </div>

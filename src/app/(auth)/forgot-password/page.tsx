@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Paper } from "@mui/material";
+import { useTranslations } from "next-intl";
 import { toast } from "react-toastify";
 
 import { AnimatedPage } from "@/components/common";
@@ -11,6 +12,7 @@ import { ForgotPasswordForm } from "../components";
 
 const ForgotPasswordPage = () => {
   const { mutate: forgotPassword, isPending } = useForgotPassword();
+  const t = useTranslations("landing.auth");
 
   const handleSubmit = (data: IForgotPasswordFormSchema) => {
     forgotPassword(data, {
@@ -35,7 +37,7 @@ const ForgotPasswordPage = () => {
           }}
         >
           <h3 className="mb-4 tablet:mb-6 text-center font-semibold laptop:text-[36px] tablet:text-[32px] text-[24px] tracking-wide">
-            Forgot Password
+            {t("forgotPassword")}
           </h3>
           <ForgotPasswordForm onSubmit={handleSubmit} isLoading={isPending} />
         </Paper>
