@@ -1,0 +1,36 @@
+---
+description: Zustand state management patterns for Cinematik-SSR
+globs: ["*.tsx", "*.ts"]
+alwaysApply: true
+---
+# Zustand State Management
+
+## 1. Store Definition
+- Each logical domain (auth, user, ui, etc) has its own store file.
+- Store lives in `src/hooks` or `src/stores`.
+- Always type state and actions exhaustively.
+
+## 2. Example Usage
+```typescript
+import create from 'zustand';
+interface AuthState {
+  user: User | null;
+  setUser: (user: User | null) => void;
+  logout: () => void;
+}
+export const useAuthStore = create<AuthState>((set) => ({
+  user: null,
+  setUser: (user) => set({ user }),
+  logout: () => set({ user: null })
+}));
+```
+- Use selectors to avoid rerenders.
+```typescript
+const user = useAuthStore(state => state.user);
+const setUser = useAuthStore(state => state.setUser);
+```
+
+## 3. Middleware
+- If persistence needed: use `zustand/middleware` for persist, immer, devtools.
+
+## 4. No Redux, MobX, Recoil, or Context as primary global state.

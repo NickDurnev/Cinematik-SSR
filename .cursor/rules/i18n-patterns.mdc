@@ -1,0 +1,33 @@
+---
+description: Internationalization patterns (next-intl) for Cinematik-SSR
+globs: ["*.tsx", "*.ts"]
+alwaysApply: true
+---
+# i18n (next-intl) Patterns
+
+## 1. Translation Files
+- All language files go in `src/i18n/locales/{lang}.json`.
+- JSON structure is flat with dot-notation keys (e.g. "auth.login").
+
+## 2. Translation Usage in Code
+- Use the `useTranslations` hook from `next-intl`.
+- Get a translation function by namespace.
+- Never hardcode UI text—always use message IDs.
+
+```typescript
+import { useTranslations } from "next-intl";
+const t = useTranslations("auth");
+<Button>{t("login")}</Button>
+```
+
+## 3. Top-Level Provider
+- At app root/layout include NextIntlProvider (see next-intl docs for usage).
+
+## 4. Example en.json
+```json
+{
+  "auth.login": "Login",
+  "auth.signup": "Sign Up",
+  "movie.title": "Title"
+}
+```

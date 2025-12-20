@@ -1,0 +1,29 @@
+---
+description: Color and palette conventions for Cinematik-SSR (MUI)
+globs: ["*.tsx", "*.ts"]
+alwaysApply: true
+---
+# MUI Color/Palette Rules
+
+## 1. No Tailwind or manually written CSS classes for colors
+- Only use palette keys provided by the MUI theme: primary, secondary, error, warning, info, success, background, text.
+- For all custom colors: extend theme.palette.
+
+## 2. Example Usage
+```typescript
+<Box sx={{ bgcolor: 'background.paper', color: 'text.primary', p: 2 }}>Content</Box>
+<Button color="primary">Save</Button>
+<Button color="error">Delete</Button>
+```
+
+## 3. Defining Custom Brand Colors
+```typescript
+const theme = createTheme({
+  palette: {
+    primary: { main: '#e85a4f' },
+    brand: { main: '#aabbcc' } // custom slot if needed
+  }
+});
+```
+
+## 4. Never use CSS variables or Tailwind mapping in component code.

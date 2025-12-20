@@ -1,0 +1,67 @@
+---
+description: Next.js development rules and patterns
+globs: ["*.ts", "*.tsx"]
+alwaysApply: true
+---
+# Next.js Development Rules
+
+This document serves as an index for Next.js/React/TypeScript-specific development rules. Each section is detailed in its own file for better organization and maintenance.
+
+## ⚠️ Project Context
+
+**This is a migration project** - rewriting pix-cdp (PHP/Vue/jQuery) to pixmoto-admin (Next.js 16/React 19).
+
+**CRITICAL**: Before implementing any feature, read:
+- [Project Context](mdc:.cursor/context/project-context.md) - Goals, route mappings, implementation status, API endpoints
+
+**Key Rules**:
+1. API endpoints MUST match pix-cdp exactly
+2. Routes should preserve pix-cdp structure
+3. Functionality MUST match pix-cdp behavior
+4. Use modern Next.js patterns (Server/Client Components)
+
+## Sections
+
+1. [nextjs-patterns.mdc](mdc:.cursor/rules/nextjs-patterns.mdc)
+   - Server vs Client Components
+   - App Router patterns
+   - Route organization
+   - Best practices
+
+2. [typescript-patterns.mdc](mdc:.cursor/rules/typescript-patterns.mdc)
+   - Type definitions
+   - Type safety
+   - Best practices
+
+3. [react-query-patterns.mdc](mdc:.cursor/rules/react-query-patterns.mdc)
+   - TanStack Query hooks
+   - Query and mutation patterns
+   - Error handling
+   - Loading states
+
+4. [form-patterns.mdc](mdc:.cursor/rules/form-patterns.mdc)
+   - TanStack Form usage
+   - Form validation
+   - Form state management
+
+5. [component-patterns.mdc](mdc:.cursor/rules/component-patterns.mdc)
+   - Component organization
+   - Reusability patterns
+   - Composition patterns
+
+6. [api-integration.mdc](mdc:.cursor/rules/api-integration.mdc)
+   - API client setup
+   - Request/response handling
+   - Error handling
+   - Authentication
+
+7. [migration-patterns.mdc](mdc:.cursor/rules/migration-patterns.mdc)
+   - Migrating from pix-cdp
+   - PHP → Next.js patterns
+   - Vue → React patterns
+   - jQuery → TanStack Query patterns
+
+8. [development-workflow.mdc](mdc:.cursor/rules/development-workflow.mdc)
+   - Development workflow steps
+   - Code quality checks
+   - Migration-specific guidelines

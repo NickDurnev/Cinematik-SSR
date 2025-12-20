@@ -1,0 +1,41 @@
+---
+description: Advanced theming and design token rules for Cinematik-SSR (MUI + Emotion)
+globs: ["*.tsx", "*.ts"]
+alwaysApply: true
+---
+# Advanced Theming & Design Tokens
+
+## 1. Theme Source of Truth
+- All color, spacing, shadow, typography, border radius, and design tokens live in the App theme (see `createTheme`).
+- Never use hardcoded hex/rgb in components. Always use theme variables/tokens.
+
+## 2. ThemeProvider Structure
+- App root (`_app.tsx`/layout) wraps in ThemeProvider.
+- Provide both light and dark themes (`palette.mode`), and switch using MUI (or context).
+- For custom tokens: extend the theme object with custom keys (e.g., `theme.custom.cardShadow`).
+
+## 3. Per-Component & Per-Page Overrides
+- Use the `overrides` or per-component overrides in the theme when needed.
+- For legacy/complex styling, prefer `styled()` from Emotion over inline or sx prop.
+
+## 4. Example for Custom Palette
+```typescript
+const lightTheme = createTheme({
+  palette: {
+    mode: "light",
+    primary: { main: "#e85a4f" },
+    secondary: { main: "#232323" }
+  },
+  custom: {
+    cardShadow: "0 1px 3px rgba(0,0,0,0.2)"
+  }
+});
+const darkTheme = createTheme({
+  ...lightTheme,
+  palette: { ...lightTheme.palette, mode: "dark", background: { default: "#181818" }}
+});
+```
+
+## 5. Dynamic Theming
+- Use the MUI hook `useTheme()` for runtime reading (respects light/dark mode).
+- Place all brand colors, status colors, and typography in the theme file.

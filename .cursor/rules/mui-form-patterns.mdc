@@ -1,0 +1,43 @@
+---
+description: TanStack Form patterns in combination with MUI for Cinematik-SSR
+globs: ["*.tsx", "*.ts"]
+alwaysApply: true
+---
+# TanStack Form Patterns (MUI Integration)
+
+## 1. Use TanStack Form for all but the simplest forms.
+## 2. Always connect fields to MUI controls (`TextField`, `Select`, etc).
+## 3. Use Zod for schema validation, connect via `@tanstack/zod-form-adapter`.
+## 4. Show errors and hints via MUI `error` and `helperText` props.
+
+### Example
+```typescript
+import { useForm } from '@tanstack/react-form';
+import { zodValidator } from '@tanstack/zod-form-adapter';
+import { z } from 'zod';
+import { TextField, Button } from '@mui/material';
+const schema = z.object({ email: z.string().email() });
+function EmailForm() {
+  const form = useForm({
+    defaultValues: { email: "" },
+    validatorAdapter: zodValidator(),
+    onSubmit: async ({ value }) => { /* ... */ }
+  });
+  return (
+    <form onSubmit={e => { e.preventDefault(); form.handleSubmit(); }}>
+      <form.Field name="email" validators={{ onChange: z.string().email("Invalid email") }}>
+        {field => (
+          <TextField  label="Email"
+            value={field.state.value}
+            onChange={e => field.handleChange(e.target.value)}
+            error={field.state.meta.errors.length > 0}
+            helperText={field.state.meta.errors[0]}
+            required
+          />
+        )}
+      </form.Field>
+      <Button type="submit" disabled={form.state.isSubmitting}>Submit</Button>
+    </form>
+  );
+}
+```}},{

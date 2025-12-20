@@ -1,0 +1,275 @@
+---
+description: Next.js patterns and best practices
+globs: ["*.tsx", "*.ts"]
+alwaysApply: true
+---
+# Next.js Patterns
+
+## Server vs Client Components
+
+### Default: Server Components
+
+**Always use Server Components by default** - they're more performant and reduce bundle size.
+
+```typescript
+// ✅ Good - Server Component (default)
+// app/(dashboard)/products/page.tsx
+export default function ProductsPage() {
+  return <div>Products</div>;
+}
+```
+
+### When to Use Client Components
+
+Use `"use client"` only when you need:
+- React hooks (`useState`, `useEffect`, `useQuery`, etc.)
+- Browser APIs (`window`, `localStorage`, etc.)
+- Event handlers (`onClick`, `onChange`, etc.)
+- Context providers
+- Third-party libraries that require client-side rendering
+
+```typescript
+// ✅ Good - Client Component (needs hooks)
+// app/(dashboard)/products/components/ProductForm.tsx
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
+
+export function ProductForm() {
+  const { data } = useQuery({ ... });
+  return <form>...</form>;
+}
+```
+
+### Server Component Wrapper Pattern
+
+Use Server Components as page wrappers, Client Components for interactivity:
+
+```typescript
+// ✅ Good - Server Component page
+// app/(dashboard)/products/edit/[productId]/page.tsx
+import { ProductFormWrapper } from "./ProductFormWrapper";
+
+export default function ProductEditPage({ params }: { params: { productId: string } }) {
+  return (
+    <div>
+      <h1>Edit Product</h1>
+      <ProductFormWrapper productId={params.productId} />
+    </div>
+  );
+}
+
+// ✅ Good - Client Component wrapper
+// app/(dashboard)/products/edit/[productId]/ProductFormWrapper.tsx
+"use client";
+
+import { useProductDetail } from "@/hooks/use-product-detail";
+import { ProductForm } from "../components/ProductForm";
+
+export function ProductFormWrapper({ productId }: { productId: string }) {
+  const { data, isLoading } = useProductDetail(Number(productId));
+  
+  if (isLoading) return <div>Loading...</div>;
+  if (!data) return <div>Not found</div>;
+  
+  return <ProductForm product={data} />;
+}
+```
+
+## Route Organization
+
+### Route Groups
+
+Use route groups `(dashboard)` and `(auth)` to organize routes without affecting URL structure:
+
+```
+app/
+  ├── (auth)/
+  │   └── sign-in/
+  │       └── page.tsx          # /sign-in
+  └── (dashboard)/
+      ├── products/
+      │   └── page.tsx          # /products
+      └── settings/
+          └── page.tsx          # /settings
+```
+
+### Dynamic Routes
+
+Use `[param]` for dynamic segments:
+
+```
+app/(dashboard)/products/
+  └── edit/
+      └── [productId]/
+          └── page.tsx          # /products/edit/123
+```
+
+Access params in Server Components:
+```typescript
+export default function Page({ params }: { params: { productId: string } }) {
+  return <div>Product {params.productId}</div>;
+}
+```
+
+### Layouts
+
+Use `layout.tsx` for shared UI:
+
+```typescript
+// app/(dashboard)/layout.tsx
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div>
+      <Sidebar />
+      <main>{children}</main>
+    </div>
+  );
+}
+```
+
+## File Naming Conventions
+
+- **Pages**: `page.tsx` (required for routes)
+- **Layouts**: `layout.tsx` (shared layouts)
+- **Components**: `PascalCase.tsx` (e.g., `ProductForm.tsx`)
+- **Hooks**: `use-kebab-case.ts` (e.g., `use-product-detail.ts`)
+- **Utilities**: `kebab-case.ts` (e.g., `api-client.ts`)
+
+## Component Organization
+
+### Page Components
+
+Keep page components in route directories:
+
+```
+app/(dashboard)/products/
+  ├── page.tsx                  # Main page component
+  └── components/               # Page-specific components
+      ├── ProductList.tsx
+      └── ProductForm.tsx
+```
+
+### Shared Components
+
+Put reusable components in `components/`:
+
+```
+components/
+  ├── ui/                       # shadcn/ui components
+  │   ├── button.tsx
+  │   └── input.tsx
+  └── header/
+      └── Header.tsx            # App-wide components
+```
+
+## Data Fetching Patterns
+
+### Server Components
+
+Fetch data directly in Server Components:
+
+```typescript
+// ✅ Good - Server Component data fetching
+export default async function ProductsPage() {
+  const products = await fetchProducts(); // Direct fetch or API call
+  return <ProductList products={products} />;
+}
+```
+
+### Client Components
+
+Use TanStack Query for Client Components:
+
+```typescript
+// ✅ Good - Client Component data fetching
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
+
+export function ProductList() {
+  const { data, isLoading } = useQuery({
+    queryKey: ["products"],
+    queryFn: fetchProducts,
+  });
+  
+  if (isLoading) return <div>Loading...</div>;
+  return <div>{/* render products */}</div>;
+}
+```
+
+## Best Practices
+
+### 1. Minimize Client Components
+
+Keep the component tree mostly Server Components. Only mark components as Client when necessary.
+
+### 2. Colocate Components
+
+Keep page-specific components in the same directory:
+
+```
+app/(dashboard)/products/
+  ├── page.tsx
+  └── components/
+      └── ProductList.tsx
+```
+
+### 3. Use TypeScript
+
+Always use TypeScript for type safety:
+
+```typescript
+// ✅ Good
+export default function Page({ params }: { params: { productId: string } }) {
+  // ...
+}
+
+// ❌ Bad
+export default function Page({ params }) {
+  // ...
+}
+```
+
+### 4. Handle Loading States
+
+Always handle loading and error states:
+
+```typescript
+// ✅ Good
+export function ProductList() {
+  const { data, isLoading, error } = useQuery({ ... });
+  
+  if (isLoading) return <LoadingSpinner />;
+  if (error) return <ErrorMessage error={error} />;
+  if (!data) return <EmptyState />;
+  
+  return <div>{/* render data */}</div>;
+}
+```
+
+### 5. Use Route Groups for Organization
+
+Organize routes without affecting URLs:
+
+```
+app/
+  ├── (auth)/          # Authentication routes
+  ├── (dashboard)/     # Dashboard routes
+  └── (marketing)/      # Marketing pages (if needed)
+```
+
+### 6. Metadata
+
+Add metadata to pages:
+
+```typescript
+export const metadata = {
+  title: "Products",
+  description: "Manage your products",
+};
+
+export default function ProductsPage() {
+  // ...
+}
+```

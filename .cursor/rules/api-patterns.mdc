@@ -1,0 +1,34 @@
+---
+description: API integration and axios/react-query rules for Cinematik-SSR
+globs: ["*.tsx", "*.ts"]
+alwaysApply: true
+---
+# API Integration Patterns
+
+## 1. Axios
+- All HTTP via a central axios client (`src/libs/axios.ts`).
+- Always handle errors using a wrapper (ErrorHelper).
+
+## 2. Async Patterns
+- Use `async/await` – never use `.then()` in real code.
+
+## 3. Example Usage
+```typescript
+// src/libs/axios.ts
+import axios from "axios";
+export const apiClient = axios.create({ baseURL: "/api" });
+
+// Error helper
+try {
+  const res = await apiClient.get<User>("/me");
+} catch (error) {
+  const msg = ErrorHelper.getMessage(error);
+}
+```
+
+## 4. React Query Integration
+- Use TanStack Query for all remote data/server state.
+- Always handle loading and error UI with MUI (Alert/Snackbar/Skeleton).
+
+## 5. Typed API Responses
+- All axios requests/response should use proper TypeScript generics, matching API contracts.
