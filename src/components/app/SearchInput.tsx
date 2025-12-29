@@ -3,7 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
-import { useSearchValue, useSearchValueSetter } from "@/hooks/stores";
+import { useIsChangedPageSetter, useSearchValue, useSearchValueSetter } from "@/hooks/stores";
 import { useDebounce } from "@/hooks/useDebounce";
 
 import { Input } from "../common";
@@ -16,7 +16,8 @@ interface IProps {
 export const SearchInput = ({ isLoading, width = "250px" }: IProps) => {
   const searchValue = useSearchValue();
   const setSearchValue = useSearchValueSetter();
-
+  const setIsChangedPage = useIsChangedPageSetter();
+  
   const [inputValue, setInputValue] = useState(searchValue);
   const debounceValue = useDebounce(inputValue, 300);
   const router = useRouter();
@@ -37,6 +38,7 @@ export const SearchInput = ({ isLoading, width = "250px" }: IProps) => {
     if (isAppPage) {
       return;
     }
+    setIsChangedPage(true);
     router.push("/app/home");
   };
 

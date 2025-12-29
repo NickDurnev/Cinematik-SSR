@@ -1,7 +1,13 @@
 // hooks/useFilteredContent.ts
+
+import {
+  InfiniteData,
+  InfiniteQueryObserverResult,
+} from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
+import { useIsChangedPage, useIsChangedPageSetter } from "@/hooks/stores";
 import {
   useFilteredMovies,
   useSearchMovies,
@@ -10,7 +16,11 @@ import {
   useSearchTVShows,
   //   useFilteredTVShows,
 } from "@/services/tv-shows/query-hooks";
-import { ContentFilters, ContentType } from "@/types/general";
+import {
+  ContentFilters,
+  ContentType,
+  ImdbPaginatedResponse,
+} from "@/types/general";
 import { IMovie } from "@/types/movie";
 import { ITVShow } from "@/types/tv-show";
 
@@ -26,6 +36,8 @@ export const useFilteredContent = ({
   filters,
 }: UseFilteredContentProps) => {
   const [data, setData] = useState<(IMovie | ITVShow)[]>([]);
+  const isChangedPage = useIsChangedPage();
+  const setIsChangedPage = useIsChangedPageSetter();
 
   const isMovieContent = contentType === ContentType.MOVIE;
   const isTVShowContent = contentType === ContentType.TV;
@@ -37,7 +49,6 @@ export const useFilteredContent = ({
       return val !== null && val !== undefined;
     })
     .some(Boolean);
-  console.log("🚀 ~ isEmptyFilters:", isEmptyFilters);
 
   // --- Movies queries ---
   const searchMovies = useSearchMovies({
@@ -60,7 +71,11 @@ export const useFilteredContent = ({
   //   }); // stub for later
 
   // Pick the right query depending on mode
-  let activeQuery;
+
+  let activeQuery: InfiniteQueryObserverResult<
+    InfiniteData<ImdbPaginatedResponse<IMovie | ITVShow>>,
+    Error
+  > | null = null;
 
   switch (contentType) {
     case ContentType.MOVIE:
@@ -68,20 +83,22 @@ export const useFilteredContent = ({
         activeQuery = searchMovies;
       } else if (!isEmptyFilters) {
         activeQuery = filteredMovies;
-      } else {
-        activeQuery = null; // nothing to run
       }
       break;
     case ContentType.TV:
       if (searchValue) {
         activeQuery = searchTVShows;
-      } else {
-        activeQuery = null; // later: filteredTVShows
       }
       break;
-    default:
-      activeQuery = null;
   }
+
+  useEffect(() => {
+    if (isChangedPage) {
+      activeQuery = searchMovies;
+      searchMovies?.refetch?.();
+      setIsChangedPage(false);
+    }
+  }, [isChangedPage, searchMovies, setIsChangedPage, activeQuery]);
 
   // Flatten infinite query pages
   useEffect(() => {
@@ -91,7 +108,7 @@ export const useFilteredContent = ({
       );
       setData(combined);
     }
-  }, [activeQuery?.data?.pages]);
+  }, [activeQuery?.data]);
 
   // Toast "nothing found"
   useEffect(() => {
@@ -117,13 +134,14 @@ export const useFilteredContent = ({
 
   // Reset when filters cleared
   useEffect(() => {
-    if (isEmptyFilters) {
+    if (isEmptyFilters && !activeQuery) {
       setData([]);
     }
-  }, [isEmptyFilters]);
+  }, [isEmptyFilters, activeQuery]);
 
   return {
     data,
+    refetch: activeQuery?.refetch,
     isError: activeQuery?.isError,
     error: activeQuery?.error,
     isPending: activeQuery?.isPending,

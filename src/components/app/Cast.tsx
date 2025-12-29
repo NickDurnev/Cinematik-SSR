@@ -5,8 +5,14 @@ import { usePathname } from "next/navigation";
 import { toast } from "react-toastify";
 
 import { CustomLink, Show, Spinner } from "@/components/common";
+import { cn } from "@/libs/tailwind-merge";
 import { useMovieCast } from "@/services/movies/query-hooks";
 import { IActor } from "@/types/movie";
+import {
+  BASE_CARD_CLASSES,
+  RESPONSIVE_CARD_CLASSES,
+  TABLET_CARD_CLASSES,
+} from "@/utils/constants";
 
 import { CastCard } from "./CastCard";
 import { Notify } from "./Notify";
@@ -36,7 +42,13 @@ export const Cast = ({ movieId }: { movieId: string }) => {
         </Notify>
       }
     >
-      <ul className="mx-auto block laptopM:w-full w-[300px] py-[15px] md:grid md:w-[640px] md:grid-cols-2 md:items-stretch md:justify-items-center md:gap-[10px] xl:grid-cols-4 2xl:grid-cols-5">
+      <ul
+        className={cn(
+          BASE_CARD_CLASSES,
+          TABLET_CARD_CLASSES,
+          RESPONSIVE_CARD_CLASSES,
+        )}
+      >
         {data.map((actor: IActor) => {
           const { id, cast_id } = actor;
           return (

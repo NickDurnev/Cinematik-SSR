@@ -33,7 +33,8 @@
       "resetting": "Resetting...",
       "signUp": "Sign Up",
       "signingIn": "Signing in...",
-      "continueWithGoogle": "Continue with Google"
+      "continueWithGoogle": "Continue with Google",
+      "or": "or"
     }
   },
   "app": {

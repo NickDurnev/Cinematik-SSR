@@ -30,3 +30,9 @@ export const DEFAULT_CONTENT_FILTERS = {
   startDate: null,
   endDate: null,
 };
+
+export const BASE_CARD_CLASSES = "mx-auto block w-[310px]";
+export const TABLET_CARD_CLASSES =
+  "tablet:grid tablet:w-[640px] tablet:grid-cols-2 tablet:items-stretch tablet:justify-items-center tablet:gap-5 tablet:whitespace-nowrap";
+export const RESPONSIVE_CARD_CLASSES =
+  "laptopM:w-full laptopM:grid-cols-4 laptopL:grid-cols-5";

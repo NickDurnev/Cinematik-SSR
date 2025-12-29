@@ -7,7 +7,7 @@ import { ITVShow } from "@/types/tv-show";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
-
+import { useMovieInfoSetter } from "@/hooks/stores";
 import { CustomLink, Spinner } from "@/components/common";
 
 import { ContentCard } from "./ContentCard";
@@ -27,6 +27,7 @@ export const Swiper = ({
   hasNextPage = false,
   isFetchingNextPage = false,
 }: IProps) => {
+  const setMovieInfo = useMovieInfoSetter();
   const autoplaySettings = onAutoPlay ? { delay: 5000 } : { delay: 2000000 };
 
   const handleReachEnd = () => {
@@ -76,10 +77,14 @@ export const Swiper = ({
         </div>
         {data.map(item => {
           const isMovie = "title" in item;
+
           return (
             <SwiperSlide key={item.id}>
               <CustomLink
-                href={`/${isMovie ? "movies" : "tv-shows"}/${item.id}`}
+                href={`${isMovie ? "movies" : "tv-shows"}/${item.id}`}
+                onClick={() => {
+                  setMovieInfo(item as IMovie);
+                }}
               >
                 <ContentCard data={item} />
               </CustomLink>

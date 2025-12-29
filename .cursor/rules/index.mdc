@@ -22,6 +22,8 @@ This document serves as an index for Next.js/React/TypeScript-specific developme
 
 ## Sections
 
+### Core Next.js Patterns
+
 1. [nextjs-patterns.mdc](mdc:.cursor/rules/nextjs-patterns.mdc)
    - Server vs Client Components
    - App Router patterns
@@ -33,35 +35,90 @@ This document serves as an index for Next.js/React/TypeScript-specific developme
    - Type safety
    - Best practices
 
-3. [react-query-patterns.mdc](mdc:.cursor/rules/react-query-patterns.mdc)
+3. [component-patterns.mdc](mdc:.cursor/rules/component-patterns.mdc)
+   - Component organization
+   - Reusability patterns
+   - Composition patterns
+
+### Data Management
+
+4. [react-query-patterns.mdc](mdc:.cursor/rules/react-query-patterns.mdc)
    - TanStack Query hooks
    - Query and mutation patterns
    - Error handling
    - Loading states
 
-4. [form-patterns.mdc](mdc:.cursor/rules/form-patterns.mdc)
+5. [zustand-patterns.mdc](mdc:.cursor/rules/zustand-patterns.mdc)
+   - Zustand state management
+   - Store patterns
+   - State composition
+
+6. [form-patterns.mdc](mdc:.cursor/rules/form-patterns.mdc)
    - TanStack Form usage
    - Form validation
    - Form state management
 
-5. [component-patterns.mdc](mdc:.cursor/rules/component-patterns.mdc)
-   - Component organization
-   - Reusability patterns
-   - Composition patterns
+### API & Integration
 
-6. [api-integration.mdc](mdc:.cursor/rules/api-integration.mdc)
+7. [api-integration.mdc](mdc:.cursor/rules/api-integration.mdc)
    - API client setup
    - Request/response handling
    - Error handling
    - Authentication
 
-7. [migration-patterns.mdc](mdc:.cursor/rules/migration-patterns.mdc)
-   - Migrating from pix-cdp
-   - PHP → Next.js patterns
-   - Vue → React patterns
-   - jQuery → TanStack Query patterns
+8. [api-patterns.mdc](mdc:.cursor/rules/api-patterns.mdc)
+   - API design patterns
+   - Request/response patterns
+   - Error handling strategies
 
-8. [development-workflow.mdc](mdc:.cursor/rules/development-workflow.mdc)
-   - Development workflow steps
-   - Code quality checks
-   - Migration-specific guidelines
+### UI & Styling
+
+9. [theming-patterns.mdc](mdc:.cursor/rules/theming-patterns.mdc)
+   - Theme setup
+   - Color schemes
+   - Dark/light mode patterns
+
+10. [color-variables.mdc](mdc:.cursor/rules/color-variables.mdc)
+    - Color palette definitions
+    - Semantic color usage
+    - Consistency guidelines
+
+11. [mui-component-patterns.mdc](mdc:.cursor/rules/mui-component-patterns.mdc)
+    - Material-UI component patterns
+    - Customization approaches
+    - Best practices
+
+12. [mui-form-patterns.mdc](mdc:.cursor/rules/mui-form-patterns.mdc)
+    - MUI-specific form patterns
+    - Validation with MUI
+    - Integration with TanStack Form
+
+13. [mui-colors.mdc](mdc:.cursor/rules/mui-colors.mdc)
+    - MUI color system integration
+    - Custom color definitions
+    - Theme color usage
+
+### Application Structure
+
+14. [app-structure.mdc](mdc:.cursor/rules/app-structure.mdc)
+    - Next.js app directory structure
+    - File organization patterns
+    - Routing conventions
+
+15. [i18n-patterns.mdc](mdc:.cursor/rules/i18n-patterns.mdc)
+    - Internationalization setup
+    - Locale management
+    - Translation patterns
+
+### Development & Migration
+
+16. [migration-patterns.mdc](mdc:.cursor/rules/migration-patterns.mdc)
+    - Migrating from pix-cdp
+    - PHP → Next.js patterns
+    - Vue → React patterns
+    - jQuery → TanStack Query patterns
+
+17. [development-workflow.mdc](mdc:.cursor/rules/development-workflow.mdc)
+    - Development workflow steps
+    - Code quality checks
+    - Migration-specific guidelines

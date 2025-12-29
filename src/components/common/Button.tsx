@@ -104,7 +104,7 @@ export const Button = ({
   return (
     <MuiButton
       {...props}
-      className={cn(className, "interactive !text-base")}
+      className={cn(className, "interactive")}
       sx={[selectedVariant, ...(Array.isArray(sx) ? sx : sx ? [sx] : [])]}
     >
       {children}

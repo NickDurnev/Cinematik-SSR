@@ -11,6 +11,7 @@ import {
   DEFAULT_FORM_DATA,
   DEFAULT_USER,
 } from "@/utils/constants";
+import { IMovie } from "@/types/movie";
 
 // Create a sessionStorage adapter
 const sessionStorageAdapter: PersistStorage<UserStore> = {
@@ -101,6 +102,10 @@ export interface ContentDataStore {
   setContentFilters: (contentFilters: ContentFilters) => void;
   library: ILibraryMoviePartial[];
   setLibrary: (library: ILibraryMoviePartial[]) => void;
+  movieInfo: IMovie | null,
+  setMovieInfo: (movieInfo: IMovie) => void;
+  isChangedPage: boolean;
+  setIsChangedPage: (isChangedPage: boolean) => void;
 }
 
 export const useContentDataStore = create<ContentDataStore>()(
@@ -119,6 +124,10 @@ export const useContentDataStore = create<ContentDataStore>()(
         set({ contentFilters }),
       library: [],
       setLibrary: (library: ILibraryMoviePartial[]) => set({ library }),
+      movieInfo: null,
+      setMovieInfo: (movieInfo: IMovie | null) => set({ movieInfo }),
+      isChangedPage: false,
+      setIsChangedPage: (isChangedPage: boolean) => set({ isChangedPage }),
       _hasHydrated: false,
     }),
     {
@@ -138,6 +147,11 @@ export const useTVShowGenres = () =>
 export const useTVShowGenresSetter = () =>
   useContentDataStore(state => state.setTVShowGenres);
 
+export const useMovieInfo = () =>
+  useContentDataStore(state => state.movieInfo);
+export const useMovieInfoSetter = () =>
+  useContentDataStore(state => state.setMovieInfo);
+
 export const useMoviesLibrary = () =>
   useContentDataStore(state => state.library);
 
@@ -145,6 +159,11 @@ export const useSearchValueSetter = () =>
   useContentDataStore(state => state.setSearchValue);
 export const useSearchValue = () =>
   useContentDataStore(state => state.searchValue);
+
+export const useIsChangedPage = () =>
+  useContentDataStore(state => state.isChangedPage);
+export const useIsChangedPageSetter = () =>
+  useContentDataStore(state => state.setIsChangedPage);
 
 export const useContentType = () =>
   useContentDataStore(state => state.contentType);

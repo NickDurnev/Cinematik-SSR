@@ -31,6 +31,8 @@ export const CastCard = ({ data }: { data: IActor }) => {
             <Image
               src="/icons/Actor404.svg"
               alt="Actor placeholder"
+              width={120}
+              height={180}
               className="h-auto w-[120px]"
             />
           </ImageWrapper>
