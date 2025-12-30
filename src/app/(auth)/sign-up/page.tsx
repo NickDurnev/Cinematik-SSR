@@ -26,8 +26,11 @@ const SignUpPage = () => {
     };
     signUpUser(payload, {
       onSuccess: () => {
-        //TODO Add confirm email step later
-        router.replace("/app/home");
+        toast.info(t("confirmEmailInfo"));
+
+        setTimeout(() => {
+          router.replace("/login");
+        }, 3000);
       },
       onError: error => {
         toast.error(error?.message);

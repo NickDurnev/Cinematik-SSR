@@ -41,7 +41,7 @@ export const BackButton: FC<BackButtonProps> = ({
   if (url) {
     return (
       <CustomLink passHref href={url}>
-        <Button customVariant="ghost">
+        <Button customVariant="ghost" className="z-10">
           {children ?? <KeyboardBackspaceIcon sx={{ width: 50, height: 50 }} />}
         </Button>
       </CustomLink>
@@ -52,6 +52,7 @@ export const BackButton: FC<BackButtonProps> = ({
     <Button
       customVariant="ghost"
       onClick={onBackClick ? onBackClick : handleBackClick}
+      className="z-10"
     >
       {children ?? <KeyboardBackspaceIcon sx={{ width: 50, height: 50 }} />}
     </Button>

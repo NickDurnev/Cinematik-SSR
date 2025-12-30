@@ -9,8 +9,9 @@ import {
   resetPassword,
   signUpUser,
   socialLoginUser,
+  updateUserProfile,
 } from "@/services/user/service";
-import { IAuthData } from "@/types/user";
+import { IAuthData, IUser } from "@/types/user";
 import { setAuthTokens } from "@/utils/cookies";
 
 export const useSignUpUser = () => {
@@ -79,6 +80,19 @@ export const useResetPassword = () => {
     mutationKey: ["reset-password"],
     mutationFn: resetPassword,
     onSuccess: (optimisticData: { success: boolean; message: string }) => {
+      return optimisticData;
+    },
+  });
+};
+
+export const useUpdateUserProfile = () => {
+  const setUser = useUserStore((state: UserStore) => state.setUser);
+
+  return useMutation({
+    mutationKey: ["update-user-profile"],
+    mutationFn: updateUserProfile,
+    onSuccess: (optimisticData: IUser) => {
+      setUser(optimisticData);
       return optimisticData;
     },
   });

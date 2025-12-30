@@ -15,21 +15,46 @@
             "reviewDeleteToast": "Відгук успішно видалено"
         },
         "auth": {
-            "login": "Увійти",
-            "register": "Зареєструватися",
-            "logout": "Вийти",
+            "login": "Вхід",
+            "register": "Реєстрація",
+            "logout": "Вихід",
             "email": "Електронна пошта",
             "name": "Ім'я",
             "password": "Пароль",
             "confirmPassword": "Підтвердіть пароль",
-            "logging": "Вхід у систему...",
+            "forgotPassword": "Забули пароль?",
+            "resetPassword": "Скинути пароль",
+            "confirmEmail": "Підтвердити пошту",
+            "confirmEmailInfo": "Будь ласка, перевірте вашу електронну пошту для посилання на підтвердження.",
+            "notAccount": "Ще немає акаунту?",
+            "alreadyHaveAccount": "Вже є акаунт?",
+            "logging": "Вхід...",
             "send": "Надіслати",
             "sending": "Надсилання...",
             "reset": "Скинути",
             "resetting": "Скидання...",
             "signUp": "Зареєструватися",
             "signingIn": "Вхід...",
+            "continueWithGoogle": "Продовжити з Google",
             "or": "або"
+        }
+    },
+    "app": {
+        "profile": {
+            "accountSettings": "Налаштування акаунту",
+            "profile": "Профіль",
+            "logout": "Вихід",
+            "profileUpdated": "Профіль успішно оновлено",
+            "title": "Налаштування профілю",
+            "name": "Ім'я",
+            "email": "Електронна пошта",
+            "language": "Мова",
+            "changePassword": "Змінити пароль",
+            "newPassword": "Новий пароль",
+            "confirmNewPassword": "Підтвердіть новий пароль",
+            "saveChanges": "Зберегти зміни",
+            "cancel": "Скасувати",
+            "passwordsDoNotMatch": "Паролі не збігаються"
         }
     },
     "universal": {

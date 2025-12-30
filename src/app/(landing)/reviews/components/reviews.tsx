@@ -114,7 +114,7 @@ const Reviews = () => {
   return (
     <section className="flex w-full flex-col laptopM:items-start laptopM:justify-between gap-y-16 laptopL:py-[80px] laptopM:py-[60px] py-[55px]">
       <h2 className="font-technovier laptopM:text-[50px] text-[35px] text-mainText uppercase laptopM:leading-[59px] leading-[41px] tracking-wider">
-        {t("reviews")}
+        {t("title")}
       </h2>
       <Show when={user.id && (!user.is_left_review || isReviewUpdateFormOpen)}>
         <AddReviewForm

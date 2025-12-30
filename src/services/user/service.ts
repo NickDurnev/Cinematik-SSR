@@ -8,6 +8,7 @@ import {
   ILoginCredentialsDto,
   IResetPasswordDto,
   ISocialLoginDto,
+  IUpdateUserProfileDto,
   IUser,
 } from "@/types/user";
 
@@ -81,6 +82,26 @@ export const getUserProfile = async (): Promise<IUser | null> => {
   }
 };
 
+export const updateUserProfile = async (
+  dto: IUpdateUserProfileDto,
+): Promise<IUser> => {
+  try {
+    const response = await apiClient.patch<IApiResponse<IUser>>(
+      "/profile",
+      dto,
+    );
+    if (!response.data.data) {
+      throw new Error(
+        response.data.message || "Failed to update user profile.",
+      );
+    }
+    return response.data.data;
+  } catch (error) {
+    const errorMessage = ErrorHelper.getMessage(error);
+    throw new Error(errorMessage ?? "Failed to fetch profile.");
+  }
+};
+
 export const forgotPassword = async (
   dto: IForgotPasswordDto,
 ): Promise<{ success: boolean; message: string }> => {
@@ -116,5 +137,24 @@ export const resetPassword = async (
   } catch (error) {
     const errorMessage = ErrorHelper.getMessage(error);
     throw new Error(errorMessage ?? "Failed to login.");
+  }
+};
+
+export const confirmEmail = async (
+  token: string,
+): Promise<{ success: boolean; message: string }> => {
+  try {
+    const response = await apiClient.get<
+      IApiResponse<{ success: boolean; message: string }>
+    >(`auth/confirm-email?token=${token}`);
+
+    if (!response.data.data) {
+      throw new Error(response.data.message);
+    }
+
+    return response.data.data;
+  } catch (error) {
+    const errorMessage = ErrorHelper.getMessage(error);
+    throw new Error(errorMessage ?? "Failed to confirm email.");
   }
 };

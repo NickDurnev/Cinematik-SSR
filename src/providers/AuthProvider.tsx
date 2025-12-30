@@ -6,7 +6,7 @@ import React, { createContext, useEffect, useMemo, useState } from "react";
 
 import { UserStore, useUserStore } from "@/hooks/stores";
 import { getUserProfile } from "@/services/user/service";
-import { DEFAULT_USER } from "@/utils/constants";
+import { usePathname, useRouter } from "next/navigation";
 
 export const OAuthDataContext = createContext({
   oAuthData: {} as Session,
@@ -40,14 +40,20 @@ const getProfile = async () => {
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [oAuthData, setOAuthData] = useState<Session>({} as Session);
   const setUser = useUserStore((state: UserStore) => state.setUser);
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const { data } = await getProfile();
-      setUser(data ?? DEFAULT_USER);
+      const { data, redirect: shouldRedirect } = await getProfile();
+      if (data) {
+        setUser(data);
+      } else if (shouldRedirect && pathname.startsWith("/app")) {
+        router.push("/login");
+      }
     };
     fetchProfile();
-  }, [setUser]);
+  }, [setUser, pathname, router]);
 
   const authContextValue = useMemo(() => {
     return {

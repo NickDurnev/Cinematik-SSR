@@ -2,43 +2,77 @@
 
 import { useForm } from "@tanstack/react-form";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useTranslations } from "next-intl";
+import { toast } from "react-toastify";
 
 import { Button, Input, Select } from "@/components/common";
 import { useUserStore } from "@/hooks/stores";
 import { useLocale } from "@/hooks/useLocale";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { useUpdateUserProfile } from "@/services/user/query-hooks";
 import { Option } from "@/types/general";
+import { LanguageEnum } from "@/types/user";
+import { clearAuthTokens } from "@/utils/cookies";
 
 const ProfilePage = () => {
   const router = useRouter();
-  const user = useUserStore(state => state.user);
+  const [_, setLanguage] = useLocalStorage("language", LanguageEnum.EN);
+  const user = useUserStore(state => {
+    return state.user;
+  });
   const currentLocale = useLocale();
-  const [isLoading, setIsLoading] = useState(false);
+  const tAuth = useTranslations("landing.auth");
+  const tApp = useTranslations("app.profile");
+
+  const { mutate: updateUserProfile, isPending: isUpdateUserProfilePending } =
+    useUpdateUserProfile();
 
   const languageOptions: Option[] = [
-    { value: "en", label: "English" },
-    { value: "uk", label: "Українська" },
+    { value: LanguageEnum.EN, label: "English" },
+    { value: LanguageEnum.UA, label: "Українська" },
   ];
 
   const form = useForm({
     defaultValues: {
-      email: user?.email || "",
       name: user?.name || "",
+      email: user?.email || "",
+      language: (currentLocale as LanguageEnum) || LanguageEnum.EN,
       newPassword: "",
       confirmPassword: "",
-      language: currentLocale || "en",
     },
-    onSubmit: async ({ value }) => {
-      setIsLoading(true);
+    onSubmit: ({ value }) => {
+      const isEmailChanged = value.email !== user?.email;
+
+      const payload = {
+        name: value.name,
+        email: value.email,
+        ...(value.newPassword.trim().length && {
+          newPassword: value.newPassword,
+        }),
+      };
+
       try {
-        console.log("Updating profile with data:", value);
-        // TODO: Add API call to update user profile
-        await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
-        console.log("Profile updated successfully");
+        updateUserProfile(payload, {
+          onSuccess: () => {
+            setLanguage(value.language);
+
+            if (isEmailChanged) {
+              toast.info(tAuth("confirmEmailInfo"));
+
+              setTimeout(() => {
+                clearAuthTokens();
+                router.replace("/login");
+              }, 3000);
+            } else {
+              toast.success(tApp("profileUpdated"));
+            }
+          },
+          onError: error => {
+            toast.error(error?.message);
+          },
+        });
       } catch (error) {
         console.error("Failed to update profile:", error);
-      } finally {
-        setIsLoading(false);
       }
     },
   });
@@ -46,7 +80,7 @@ const ProfilePage = () => {
   const validatePasswordMatch = ({ value }: { value: string }) => {
     const formValues = form.state.values;
     if (formValues.newPassword && formValues.newPassword !== value) {
-      return "Passwords do not match";
+      return tApp("passwordsDoNotMatch");
     }
     return;
   };
@@ -55,7 +89,7 @@ const ProfilePage = () => {
     <div className="container mx-auto max-w-2xl px-4 py-8">
       <div className="rounded-lg bg-[var(--background)] p-6 shadow-lg md:p-8">
         <h1 className="mb-6 font-bold text-2xl text-[var(--foreground)] md:text-3xl">
-          Profile Settings
+          {tApp("title")}
         </h1>
 
         <form
@@ -69,7 +103,7 @@ const ProfilePage = () => {
             <form.Field name="name">
               {field => (
                 <Input
-                  label="Name"
+                  label={tApp("name")}
                   value={field.state.value}
                   onChange={e => field.handleChange(e.target.value)}
                   required
@@ -82,7 +116,7 @@ const ProfilePage = () => {
             <form.Field name="email">
               {field => (
                 <Input
-                  label="Email"
+                  label={tApp("email")}
                   type="email"
                   value={field.state.value}
                   onChange={e => field.handleChange(e.target.value)}
@@ -97,10 +131,12 @@ const ProfilePage = () => {
           <form.Field name="language">
             {field => (
               <Select
-                label="Language"
+                label={tApp("language")}
                 options={languageOptions}
                 value={field.state.value}
-                onChange={e => field.handleChange(String(e.target.value))}
+                onChange={e =>
+                  field.handleChange(e.target.value as LanguageEnum)
+                }
                 fullWidth
               />
             )}
@@ -108,14 +144,14 @@ const ProfilePage = () => {
 
           <div className="border-[var(--border)] border-t pt-6">
             <h2 className="mb-4 font-semibold text-[var(--foreground)] text-xl">
-              Change Password
+              {tApp("changePassword")}
             </h2>
 
             <div className="space-y-4">
               <form.Field name="newPassword">
                 {field => (
                   <Input
-                    label="New Password"
+                    label={tApp("newPassword")}
                     type="password"
                     value={field.state.value}
                     onChange={e => field.handleChange(e.target.value)}
@@ -132,7 +168,7 @@ const ProfilePage = () => {
               >
                 {field => (
                   <Input
-                    label="Confirm New Password"
+                    label={tApp("confirmNewPassword")}
                     type="password"
                     value={field.state.value}
                     onChange={e => field.handleChange(e.target.value)}
@@ -152,13 +188,15 @@ const ProfilePage = () => {
                 <Button
                   type="submit"
                   variant="outlined"
-                  disabled={!canSubmit || isSubmitting || isLoading}
-                  loading={isSubmitting || isLoading}
+                  disabled={
+                    !canSubmit || isSubmitting || isUpdateUserProfilePending
+                  }
+                  loading={isSubmitting || isUpdateUserProfilePending}
                   loadingPosition="end"
                   className="w-full sm:w-auto"
                   sx={{ padding: "10px 24px" }}
                 >
-                  Save Changes
+                  {tApp("saveChanges")}
                 </Button>
               )}
             </form.Subscribe>
@@ -169,7 +207,7 @@ const ProfilePage = () => {
               className="w-full sm:w-auto"
               sx={{ padding: "10px 24px" }}
             >
-              Cancel
+              {tApp("cancel")}
             </Button>
           </div>
         </form>

@@ -1,3 +1,8 @@
+export enum LanguageEnum {
+  EN = "en",
+  UA = "ua",
+}
+
 export interface IAuthCredentialsDto {
   email: string;
   password: string;
@@ -45,8 +50,15 @@ export interface IUser {
   email: string;
   picture: string;
   is_left_review: boolean;
+  email_confirmed: boolean;
 }
 
 export interface IFormsData extends IAuthCredentialsDto {
   confirmPassword: string;
+}
+
+export interface IUpdateUserProfileDto {
+  name: string;
+  email: string;
+  newPassword?: string;
 }

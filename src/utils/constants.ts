@@ -15,6 +15,7 @@ export const DEFAULT_USER = {
   name: "",
   picture: "",
   is_left_review: false,
+  email_confirmed: false,
 };
 
 export const DEFAULT_FORM_DATA = {
