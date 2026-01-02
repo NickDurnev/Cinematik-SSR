@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 
 import { UserStore, useUserStore } from "@/hooks/stores";
 import {
+  confirmEmail,
   forgotPassword,
   loginUser,
   resetPassword,
@@ -93,6 +94,16 @@ export const useUpdateUserProfile = () => {
     mutationFn: updateUserProfile,
     onSuccess: (optimisticData: IUser) => {
       setUser(optimisticData);
+      return optimisticData;
+    },
+  });
+};
+
+export const useConfirmEmail = () => {
+  return useMutation({
+    mutationKey: ["confirm-email"],
+    mutationFn: confirmEmail,
+    onSuccess: (optimisticData: { success: boolean; message: string }) => {
       return optimisticData;
     },
   });

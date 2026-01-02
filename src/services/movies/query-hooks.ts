@@ -4,6 +4,7 @@ import {
   fetchCategoryMovies,
   fetchFilteredMovies,
   fetchMoviesGenres,
+  fetchMovieTrailers,
   fetchTrendMovies,
   movieCast,
   movieReviews,
@@ -123,4 +124,11 @@ export const useSearchMovies = ({
       return null;
     },
     enabled,
+  });
+
+export const useMovieTrailers = ({ movieId }: { movieId: string }) =>
+  useQuery({
+    queryKey: ["movie-trailers", { movieId }],
+    queryFn: () => fetchMovieTrailers({ movieId }),
+    // enabled: Boolean(movieId),
   });

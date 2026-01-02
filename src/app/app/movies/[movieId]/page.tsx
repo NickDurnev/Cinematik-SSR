@@ -16,7 +16,7 @@ const MoviePage = ({ params }: { params: Promise<{ movieId: string }> }) => {
 
   return (
     <>
-      <MovieInfo movieData={movieInfo} handleTrailerToggle={() => {}} />
+      <MovieInfo movieData={movieInfo} />
       <MovieTabs movieId={movieId} />
     </>
   );

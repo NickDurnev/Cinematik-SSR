@@ -1,17 +1,22 @@
 "use client";
 
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import StarIcon from "@mui/icons-material/Star";
 import TvIcon from "@mui/icons-material/Tv";
+import { AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { MouseEventHandler, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import { Button, CustomLink, Show } from "@/components/common";
+import { Frame, Notify } from "@/components/app";
+import { Button, CustomLink, Modal, Show } from "@/components/common";
 import { useMoviesLibrary } from "@/hooks/stores";
 import {
   useAddMovieToLibrary,
   useUpdateLibraryMovie,
 } from "@/services/library/query-hooks";
+import { useMovieTrailers } from "@/services/movies/query-hooks";
 import { CategoryEnum } from "@/types/library";
 import { IMovie } from "@/types/movie";
 
@@ -19,13 +24,13 @@ import { ImageWrapper } from "../ImageWrapper";
 
 interface Props {
   movieData: IMovie;
-  handleTrailerToggle: MouseEventHandler<HTMLButtonElement>;
 }
 
-export const MovieInfo = ({ movieData, handleTrailerToggle }: Props) => {
+export const MovieInfo = ({ movieData }: Props) => {
   const [movieCategory, setMovieCategory] = useState<null | CategoryEnum>(null);
+  const [isTrailerModalOpen, setIsTrailerModalOpen] = useState(false);
+  console.log("🚀 ~ isTrailerModalOpen:", isTrailerModalOpen);
   const library = useMoviesLibrary();
-
   const {
     poster_path,
     release_date,
@@ -41,6 +46,10 @@ export const MovieInfo = ({ movieData, handleTrailerToggle }: Props) => {
 
   const isWatched = movieCategory === CategoryEnum.WATCHED;
 
+  const { data: movieTrailers } = useMovieTrailers({
+    movieId: movieData.id.toString(),
+  });
+  console.log("🚀 ~ movieTrailers:", movieTrailers);
   const { mutate: addMovieToLibrary, isPending: isAddPending } =
     useAddMovieToLibrary();
   const { mutate: updateLibraryMovie, isPending: isUpdatePending } =
@@ -159,7 +168,7 @@ export const MovieInfo = ({ movieData, handleTrailerToggle }: Props) => {
               <li key={id}>
                 <CustomLink
                   href={`movies/by_genre=${id}`}
-                  className="relative inline-block bg-[-100%] bg-[length:200%_100%] bg-gradient-to-r from-50% from-link to-50% to-black bg-clip-text px-[30px] py-[15px] text-center font-sans text-transparent uppercase transition-all duration-300 ease-linear before:absolute before:bottom-[-3px] before:left-0 before:block before:h-[3px] before:w-0 before:bg-link before:transition-all before:duration-300 before:ease-in-out before:content-[''] hover:bg-[0] hover:before:w-full"
+                  className="relative inline-block bg-linear-to-r bg-position-[-100%] bg-size-[200%_100%] from-50% from-link to-50% to-black bg-clip-text px-[30px] py-[15px] text-center font-sans text-transparent uppercase transition-all duration-300 ease-linear before:absolute before:bottom-[-3px] before:left-0 before:block before:h-[3px] before:w-0 before:bg-link before:transition-all before:duration-300 before:ease-in-out before:content-[''] hover:bg-[0] hover:before:w-full"
                 >
                   {name}
                 </CustomLink>
@@ -170,8 +179,9 @@ export const MovieInfo = ({ movieData, handleTrailerToggle }: Props) => {
         <div className="mx-auto laptop:mt-[110px] mt-[50px] laptop:flex laptop:w-[550px] laptop:items-center laptop:justify-between">
           <Button
             type="button"
-            onClick={handleTrailerToggle}
-            className="!text-[1.5rem] mx-auto laptop:mb-0 mb-[30px] w-[220px] px-5 py-2.5 font-semibold!"
+            onClick={() => setIsTrailerModalOpen(true)}
+            endIcon={<PlayArrowIcon fontSize="inherit" />}
+            className="mx-auto laptop:mb-0 mb-[30px] w-[220px] px-5 py-2.5 font-semibold! text-[1.5rem]!"
           >
             Watch Trailer
           </Button>
@@ -185,7 +195,7 @@ export const MovieInfo = ({ movieData, handleTrailerToggle }: Props) => {
                 endIcon={!isAddPending && <StarIcon fontSize="inherit" />}
                 loading={isAddPending}
                 loadingPosition="end"
-                className="!text-[1.5rem] font-semibold!"
+                className="font-semibold! text-[1.5rem]!"
               >
                 Add to favorites
               </Button>
@@ -198,13 +208,46 @@ export const MovieInfo = ({ movieData, handleTrailerToggle }: Props) => {
               endIcon={!isUpdatePending && <TvIcon fontSize="inherit" />}
               loading={isUpdatePending}
               loadingPosition="end"
-              className="!text-[1.5rem] font-semibold!"
+              className="font-semibold! text-[1.5rem]!"
             >
               Add to watched
             </Button>
           </Show>
         </div>
       </div>
+      <AnimatePresence>
+        {isTrailerModalOpen && (
+          <Modal onModal={() => setIsTrailerModalOpen(false)}>
+            <div className="flex items-center justify-center">
+              <Show
+                when={movieTrailers?.length}
+                fallback={
+                  <Notify>
+                    <h2>We don't have trailer for this movie</h2>
+                    <SentimentVeryDissatisfiedIcon
+                      sx={{ fontSize: 70, mt: 1 }}
+                    />
+                  </Notify>
+                }
+              >
+                <Frame
+                  youtubeURL="https://www.youtube-nocookie.com/embed/"
+                  movieTrailer={
+                    movieTrailers?.find(
+                      t =>
+                        t.site === "YouTube" &&
+                        t.name.toLowerCase().includes("trailer"),
+                    )?.key ??
+                    movieTrailers?.find(t => t.site === "YouTube")?.key ??
+                    movieTrailers?.[0]?.key ??
+                    ""
+                  }
+                />
+              </Show>
+            </div>
+          </Modal>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

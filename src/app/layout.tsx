@@ -38,6 +38,7 @@ const RootLayout = ({ children }: Readonly<Props>) => {
             </StyleProviders>
           </QueryProvider>
         </AuthProvider>
+        <div id="modal-root" />
       </body>
     </html>
   );
