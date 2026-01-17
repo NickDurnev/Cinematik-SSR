@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useInView } from "react-intersection-observer";
 import { toast } from "react-toastify";
 
@@ -24,6 +25,7 @@ import { MovieCategoryType } from "@/types/movie";
 import { TVShowCategoryType } from "@/types/tv-show";
 
 const HomePage = () => {
+  const t = useTranslations("app.categories");
   const contentValue = useContentType();
   const searchValue = useSearchValue();
   const contentFilters = useContentFilters();
@@ -94,23 +96,23 @@ const HomePage = () => {
       <Show when={isMovieContent}>
         <TopCategoryMovies
           category={MovieCategoryType.UPCOMING}
-          title={"Upcoming movies"}
+          title={t("upcomingMovies")}
         />
         <TrendMovies />
         <TopCategoryMovies
           category={MovieCategoryType.TOP_RATED}
-          title={"Top rated movies"}
+          title={t("topRatedMovies")}
         />
       </Show>
       <Show when={isTVShowContent}>
         <TopCategoryTVShows
           category={TVShowCategoryType.ON_THE_AIR}
-          title={"On the air tv shows"}
+          title={t("onTheAirTVShows")}
         />
         <TrendTVShows />
         <TopCategoryTVShows
           category={TVShowCategoryType.TOP_RATED}
-          title={"Top rated tv shows"}
+          title={t("topRatedTVShows")}
         />
       </Show>
     </AnimatedPage>

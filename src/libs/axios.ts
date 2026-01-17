@@ -5,6 +5,7 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 
+import { LanguageEnum } from "@/types/user";
 import { API_BASE_URL, IMDB_API_KEY, IMDB_BASE_URL } from "@/utils/constants";
 import { clearAuthTokens, getCookie, setAccessToken } from "@/utils/cookies";
 
@@ -16,8 +17,6 @@ export const imdbApiClient: AxiosInstance = axios.create({
   },
   params: {
     api_key: IMDB_API_KEY,
-    language: "en-US",
-    // language: "uk-UA",
   },
 });
 
@@ -26,12 +25,12 @@ imdbApiClient.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
     // Get current locale and update language parameter
     const locale = await getCookie("NEXT_LOCALE");
-    if (locale) {
-      config.params = {
-        ...config.params,
-        language: locale,
-      };
-    }
+    const language = locale === LanguageEnum.EN ? "en-US" : "uk-UA";
+
+    config.params = {
+      ...config.params,
+      language,
+    };
 
     return config;
   },
@@ -67,7 +66,6 @@ apiClient.interceptors.request.use(
 
     // Get current locale and add to headers
     const locale = await getCookie("NEXT_LOCALE");
-    console.log("🚀 ~ locale:", locale);
     if (locale) {
       config.headers["X-Accept-Language"] = locale;
     }

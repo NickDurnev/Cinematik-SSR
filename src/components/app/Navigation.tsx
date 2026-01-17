@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useMemo } from "react";
 
 import { cn } from "@/libs/tailwind-merge";
 
@@ -14,16 +16,21 @@ import {
   WatchedIcon,
 } from "../icons";
 
-const navItems = [
-  { href: "/app/home", icon: HomeIcon, label: "Home" },
-  { href: "/movies", icon: MovieIcon, label: "Movies" },
-  { href: "/app/pairs", icon: PairsIcon, label: "Pairs" },
-  { href: "/favorites", icon: StarIcon, label: "Favorites" },
-  { href: "/watched", icon: WatchedIcon, label: "Watched" },
-];
-
 const Navigation = () => {
   const pathname = usePathname();
+  const t = useTranslations("app.navigation");
+
+  const navItems = useMemo(
+    () => [
+      { href: "/app/home", icon: HomeIcon, label: t("home") },
+      { href: "/movies", icon: MovieIcon, label: t("movies") },
+      { href: "/app/pairs", icon: PairsIcon, label: t("pairs") },
+      { href: "/favorites", icon: StarIcon, label: t("favorites") },
+      { href: "/watched", icon: WatchedIcon, label: t("watched") },
+    ],
+    [t],
+  );
+
   return (
     <nav className="mt-0 tablet:mt-[125px] flex h-auto tablet:flex-col items-center tablet:justify-start justify-around">
       {navItems.map(({ href, icon: Icon, label }, idx) => {

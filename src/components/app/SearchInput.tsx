@@ -1,9 +1,14 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
-import { useIsChangedPageSetter, useSearchValue, useSearchValueSetter } from "@/hooks/stores";
+import {
+  useIsChangedPageSetter,
+  useSearchValue,
+  useSearchValueSetter,
+} from "@/hooks/stores";
 import { useDebounce } from "@/hooks/useDebounce";
 
 import { Input } from "../common";
@@ -14,10 +19,11 @@ interface IProps {
 }
 
 export const SearchInput = ({ isLoading, width = "250px" }: IProps) => {
+  const t = useTranslations("app");
   const searchValue = useSearchValue();
   const setSearchValue = useSearchValueSetter();
   const setIsChangedPage = useIsChangedPageSetter();
-  
+
   const [inputValue, setInputValue] = useState(searchValue);
   const debounceValue = useDebounce(inputValue, 300);
   const router = useRouter();
@@ -65,7 +71,7 @@ export const SearchInput = ({ isLoading, width = "250px" }: IProps) => {
     >
       <div className="flex-1">
         <Input
-          placeholder="Search..."
+          placeholder={t("search.placeholder")}
           value={inputValue}
           onChange={handleChange}
           disabled={isLoading}

@@ -3,6 +3,7 @@ import "./globals.css";
 
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 
 import QueryProvider from "@/libs/query-provider";
 import { AuthProvider, StyleProviders } from "@/providers";
@@ -26,15 +27,20 @@ export const viewport = {
   initialScale: 1,
 };
 
-const RootLayout = ({ children }: Readonly<Props>) => {
+const RootLayout = async ({ children }: Readonly<Props>) => {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <ReactScan />
       <body>
         <AuthProvider>
           <QueryProvider>
             <StyleProviders>
-              <NextIntlClientProvider>{children}</NextIntlClientProvider>
+              <NextIntlClientProvider messages={messages}>
+                {children}
+              </NextIntlClientProvider>
             </StyleProviders>
           </QueryProvider>
         </AuthProvider>

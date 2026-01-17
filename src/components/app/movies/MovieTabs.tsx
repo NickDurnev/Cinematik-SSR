@@ -3,6 +3,7 @@
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
+import { useTranslations } from "next-intl";
 import * as React from "react";
 
 import { Cast } from "@/components/app/Cast";
@@ -62,6 +63,7 @@ interface MovieTabsProps {
 }
 
 export const MovieTabs = ({ movieId }: MovieTabsProps) => {
+  const t = useTranslations("app.movieInfo.tabs");
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -90,7 +92,7 @@ export const MovieTabs = ({ movieId }: MovieTabsProps) => {
           centered
         >
           <Tab
-            label="Cast"
+            label={t("cast")}
             sx={{
               ...DEFAULT_TAB_STYLES,
             }}
@@ -100,14 +102,14 @@ export const MovieTabs = ({ movieId }: MovieTabsProps) => {
             sx={{
               ...DEFAULT_TAB_STYLES,
             }}
-            label="Reviews"
+            label={t("reviews")}
             {...a11yProps(1)}
           />
           <Tab
             sx={{
               ...DEFAULT_TAB_STYLES,
             }}
-            label="Similar Movies"
+            label={t("similarMovies")}
             {...a11yProps(2)}
           />
         </Tabs>

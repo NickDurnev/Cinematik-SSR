@@ -8,15 +8,13 @@ import { toast } from "react-toastify";
 import { Button, Input, Select } from "@/components/common";
 import { useUserStore } from "@/hooks/stores";
 import { useLocale } from "@/hooks/useLocale";
-import useLocalStorage from "@/hooks/useLocalStorage";
 import { useUpdateUserProfile } from "@/services/user/query-hooks";
 import { Option } from "@/types/general";
 import { LanguageEnum } from "@/types/user";
-import { clearAuthTokens } from "@/utils/cookies";
+import { addCookie, clearAuthTokens } from "@/utils/cookies";
 
 const ProfilePage = () => {
   const router = useRouter();
-  const [_, setLanguage] = useLocalStorage("language", LanguageEnum.EN);
   const user = useUserStore(state => {
     return state.user;
   });
@@ -54,7 +52,7 @@ const ProfilePage = () => {
       try {
         updateUserProfile(payload, {
           onSuccess: () => {
-            setLanguage(value.language);
+            addCookie({ name: "NEXT_LOCALE", value: value.language });
 
             if (isEmailChanged) {
               toast.info(tAuth("confirmEmailInfo"));

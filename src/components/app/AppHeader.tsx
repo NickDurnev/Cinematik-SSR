@@ -2,7 +2,8 @@
 
 import TuneIcon from "@mui/icons-material/Tune";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
+import { useEffect, useMemo, useState } from "react";
 
 import { Select, Show, ThemeSwitcher } from "@/components/common";
 import {
@@ -24,12 +25,8 @@ import { ContentFiltersForm } from "./ContentFiltersForm";
 import { SearchInput } from "./SearchInput";
 import { UserMenu } from "./UserMenu";
 
-const TYPE_OPTIONS = [
-  { label: "Movie", value: ContentType.MOVIE },
-  { label: "TV Show", value: ContentType.TV },
-];
-
 export const AppHeader = () => {
+  const t = useTranslations("app.header");
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -49,6 +46,14 @@ export const AppHeader = () => {
     useAllMovieGenres(!movieGenresValue.length);
   const { data: tvShowGenres, isSuccess: tvShowGenresSuccess } =
     useAllTVShowGenres(!tvShowGenresValue.length);
+
+  const TYPE_OPTIONS = useMemo(
+    () => [
+      { label: t("movie"), value: ContentType.MOVIE },
+      { label: t("tvShow"), value: ContentType.TV },
+    ],
+    [t],
+  );
 
   useEffect(() => {
     if (movieGenresSuccess) {
@@ -78,7 +83,7 @@ export const AppHeader = () => {
             <SearchInput width={isPhone ? "150px" : "250px"} />
             <div className="pt-[6px]">
               <Select
-                label="Type"
+                label={t("type")}
                 value={contentValue}
                 onChange={e => setContentValue(e.target.value as ContentType)}
                 options={TYPE_OPTIONS}

@@ -6,6 +6,7 @@ import StarIcon from "@mui/icons-material/Star";
 import TvIcon from "@mui/icons-material/Tv";
 import { AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -27,9 +28,9 @@ interface Props {
 }
 
 export const MovieInfo = ({ movieData }: Props) => {
+  const t = useTranslations("app.movieInfo");
   const [movieCategory, setMovieCategory] = useState<null | CategoryEnum>(null);
   const [isTrailerModalOpen, setIsTrailerModalOpen] = useState(false);
-  console.log("🚀 ~ isTrailerModalOpen:", isTrailerModalOpen);
   const library = useMoviesLibrary();
   const {
     poster_path,
@@ -49,7 +50,7 @@ export const MovieInfo = ({ movieData }: Props) => {
   const { data: movieTrailers } = useMovieTrailers({
     movieId: movieData.id.toString(),
   });
-  console.log("🚀 ~ movieTrailers:", movieTrailers);
+
   const { mutate: addMovieToLibrary, isPending: isAddPending } =
     useAddMovieToLibrary();
   const { mutate: updateLibraryMovie, isPending: isUpdatePending } =
@@ -144,18 +145,20 @@ export const MovieInfo = ({ movieData }: Props) => {
         <p className="mb-[50px] text-xl leading-5">{overview}</p>
         <ul className="mx-auto mb-5 flex laptop:w-[500px] laptopM:w-[600px] tablet:w-[350px] w-full items-center justify-between laptop:text-xl text-lg laptop:leading-5 leading-[18px]">
           <li className="laptop:mr-[120px] mr-[60px] text-left [&>p+p]:mt-[30px]">
-            <p>Release date:</p>
+            <p>{t("releaseDate")}</p>
             <Show when={runtime}>
-              <p>Runtime:</p>
+              <p>{t("runtime")}</p>
             </Show>
             <Show when={budget}>
-              <p>Budget:</p>
+              <p>{t("budget")}</p>
             </Show>
           </li>
           <li className="text-right [&>p+p]:mt-[30px]">
             <p> {release_date}</p>
             <Show when={runtime}>
-              <p>{runtime} minutes </p>
+              <p>
+                {runtime} {t("minutes")}{" "}
+              </p>
             </Show>
             <Show when={budget}>
               <p>{budget} $</p>
@@ -183,7 +186,7 @@ export const MovieInfo = ({ movieData }: Props) => {
             endIcon={<PlayArrowIcon fontSize="inherit" />}
             className="mx-auto laptop:mb-0 mb-[30px] w-[220px] px-5 py-2.5 font-semibold! text-[1.5rem]!"
           >
-            Watch Trailer
+            {t("watchTrailer")}
           </Button>
           <Show
             when={movieCategory}
@@ -197,7 +200,7 @@ export const MovieInfo = ({ movieData }: Props) => {
                 loadingPosition="end"
                 className="font-semibold! text-[1.5rem]!"
               >
-                Add to favorites
+                {t("addToFavorites")}
               </Button>
             }
           >
@@ -210,7 +213,7 @@ export const MovieInfo = ({ movieData }: Props) => {
               loadingPosition="end"
               className="font-semibold! text-[1.5rem]!"
             >
-              Add to watched
+              {t("addToWatched")}
             </Button>
           </Show>
         </div>
@@ -223,7 +226,7 @@ export const MovieInfo = ({ movieData }: Props) => {
                 when={movieTrailers?.length}
                 fallback={
                   <Notify>
-                    <h2>We don't have trailer for this movie</h2>
+                    <h2>{t("noTrailer")}</h2>
                     <SentimentVeryDissatisfiedIcon
                       sx={{ fontSize: 70, mt: 1 }}
                     />

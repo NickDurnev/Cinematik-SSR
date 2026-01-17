@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -8,6 +9,7 @@ import { IMovie } from "@/types/movie";
 import { Swiper } from "../Swiper";
 
 export const TrendMovies = () => {
+  const t = useTranslations("app.categories");
   const [movies, setMovies] = useState<IMovie[]>([]);
 
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -38,7 +40,7 @@ export const TrendMovies = () => {
   return (
     <div className="home-content-container swiper-container">
       <CustomLink href={"/movies/trending"} className="home-content-title">
-        Trend movies
+        {t("trendMovies")}
       </CustomLink>
       <Show when={hasLoaded && movies.length !== 0}>
         <Swiper

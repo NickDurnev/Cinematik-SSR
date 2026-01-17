@@ -1,4 +1,5 @@
 import { usePathname, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 
 import {
@@ -20,28 +21,11 @@ type Props = {
   handleFilterClick: () => void;
 };
 
-const DATE_OPTIONS = [
-  { label: "1950s", value: "1950-01-01" },
-  { label: "1960s", value: "1960-01-01" },
-  { label: "1970s", value: "1970-01-01" },
-  { label: "1980s", value: "1980-01-01" },
-  { label: "1990s", value: "1990-01-01" },
-  { label: "2000s", value: "2000-01-01" },
-  { label: "2010s", value: "2010-01-01" },
-  { label: "2020s", value: "2020-01-01" },
-  { label: "Current", value: getCurrentDate() },
-];
-
-const SORT_OPTIONS = [
-  { label: "Popularity", value: "popularity.desc" },
-  { label: "Release Date", value: "primary_release_date.desc" },
-  { label: "Vote Average", value: "vote_average.desc" },
-];
-
 export const ContentFiltersForm = ({
   contentValue,
   handleFilterClick,
 }: Props) => {
+  const t = useTranslations("app.filters");
   const router = useRouter();
   const pathName = usePathname();
 
@@ -54,6 +38,30 @@ export const ContentFiltersForm = ({
   const searchValue = useSearchValue();
   const setSearchValue = useSearchValueSetter();
 
+  const DATE_OPTIONS = useMemo(
+    () => [
+      { label: t("decades.1950s"), value: "1950-01-01" },
+      { label: t("decades.1960s"), value: "1960-01-01" },
+      { label: t("decades.1970s"), value: "1970-01-01" },
+      { label: t("decades.1980s"), value: "1980-01-01" },
+      { label: t("decades.1990s"), value: "1990-01-01" },
+      { label: t("decades.2000s"), value: "2000-01-01" },
+      { label: t("decades.2010s"), value: "2010-01-01" },
+      { label: t("decades.2020s"), value: "2020-01-01" },
+      { label: t("dates.current"), value: getCurrentDate() },
+    ],
+    [t],
+  );
+
+  const SORT_OPTIONS = useMemo(
+    () => [
+      { label: t("sort.popularity"), value: "popularity.desc" },
+      { label: t("sort.releaseDate"), value: "primary_release_date.desc" },
+      { label: t("sort.voteAverage"), value: "vote_average.desc" },
+    ],
+    [t],
+  );
+
   const [selectedGenres, setSelectedGenres] = useState<Option[]>([]);
   const [selectedSort, setSelectedSort] = useState<Option>(SORT_OPTIONS[0]);
   const [startDate, setStartDate] = useState<DateOption | null>(null);
@@ -62,11 +70,15 @@ export const ContentFiltersForm = ({
   useEffect(() => {
     if (contentFilters) {
       setSelectedGenres(contentFilters.selectedGenres);
-      setSelectedSort(contentFilters.selectedSort || SORT_OPTIONS[0]);
+      setSelectedSort(
+        contentFilters.selectedSort ||
+          SORT_OPTIONS.find(opt => opt.value === "popularity.desc") ||
+          SORT_OPTIONS[0],
+      );
       setStartDate(contentFilters.startDate);
       setEndDate(contentFilters.endDate);
     }
-  }, [contentFilters]);
+  }, [contentFilters, SORT_OPTIONS]);
 
   const isAppPage = pathName === "/app/home";
   const isButtonDisabled = !!(
@@ -81,7 +93,7 @@ export const ContentFiltersForm = ({
       return null;
     }
     return list.map(({ id, name }) => ({ label: name, value: id }));
-  }, [movieGenres, tvShowGenres]);
+  }, [movieGenres, tvShowGenres, contentValue]);
 
   const handleSelectDate = (selectedValue: string, type: "start" | "end") => {
     const idx = DATE_OPTIONS.findIndex(({ value }) => value === selectedValue);
@@ -124,7 +136,7 @@ export const ContentFiltersForm = ({
 
   return (
     <div className="px-3 py-6 text-start text-foreground">
-      <h2 className="font-semibold text-2xl">Filters</h2>
+      <h2 className="font-semibold text-2xl">{t("title")}</h2>
       <form
         onSubmit={handleSubmit}
         className="flex flex-wrap items-center gap-4"
@@ -132,8 +144,8 @@ export const ContentFiltersForm = ({
       >
         <Autocomplete
           options={contentGenres || []}
-          label="Genres"
-          placeholder="All genres"
+          label={t("genres")}
+          placeholder={t("allGenres")}
           onChange={value => setSelectedGenres(value as Option[])}
           value={selectedGenres}
           sx={{ width: "250px" }}
@@ -141,8 +153,8 @@ export const ContentFiltersForm = ({
         <Autocomplete
           options={SORT_OPTIONS}
           multiple={false}
-          label="Show first by"
-          placeholder="Popularity"
+          label={t("showFirstBy")}
+          placeholder={t("sort.popularity")}
           onChange={value => setSelectedSort(value as Option)}
           value={selectedSort}
           sx={{ width: "200px" }}
@@ -150,14 +162,14 @@ export const ContentFiltersForm = ({
         <div className="flex gap-4">
           <Select
             options={DATE_OPTIONS}
-            label="From"
+            label={t("from")}
             onChange={e => handleSelectDate(e.target.value as string, "start")}
             value={startDate?.value ?? ""}
             sx={{ width: "150px", height: "55px" }}
           />
           <Select
             options={DATE_OPTIONS}
-            label="To"
+            label={t("to")}
             onChange={e => handleSelectDate(e.target.value as string, "end")}
             value={endDate?.value ?? ""}
             sx={{ width: "150px", height: "55px" }}
@@ -168,7 +180,7 @@ export const ContentFiltersForm = ({
           type="submit"
           customVariant="secondary"
         >
-          Apply
+          {t("apply")}
         </Button>
         <Button
           onClick={() => {
@@ -176,7 +188,7 @@ export const ContentFiltersForm = ({
           }}
           customVariant="secondary"
         >
-          Clear
+          {t("clear")}
         </Button>
       </form>
     </div>

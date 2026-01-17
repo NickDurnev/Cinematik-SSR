@@ -40,6 +40,72 @@
     }
   },
   "app": {
+    "filters": {
+      "title": "Filters",
+      "genres": "Genres",
+      "allGenres": "All genres",
+      "showFirstBy": "Show first by",
+      "from": "From",
+      "to": "To",
+      "apply": "Apply",
+      "clear": "Clear",
+      "sort": {
+        "popularity": "Popularity",
+        "releaseDate": "Release Date",
+        "voteAverage": "Vote Average"
+      },
+      "dates": {
+        "current": "Current"
+      },
+      "decades": {
+        "1950s": "1950s",
+        "1960s": "1960s",
+        "1970s": "1970s",
+        "1980s": "1980s",
+        "1990s": "1990s",
+        "2000s": "2000s",
+        "2010s": "2010s",
+        "2020s": "2020s"
+      }
+    },
+    "categories": {
+      "upcomingMovies": "Upcoming movies",
+      "topRatedMovies": "Top rated movies",
+      "onTheAirTVShows": "On the air tv shows",
+      "topRatedTVShows": "Top rated tv shows",
+      "trendMovies": "Trend movies"
+    },
+    "header": {
+      "type": "Type",
+      "movie": "Movie",
+      "tvShow": "TV Show"
+    },
+    "search": {
+      "placeholder": "Search..."
+    },
+    "navigation": {
+      "home": "Home",
+      "movies": "Movies",
+      "pairs": "Pairs",
+      "favorites": "Favorites",
+      "watched": "Watched"
+    },
+    "movieInfo": {
+      "notFound": "Movie not found",
+      "releaseDate": "Release date:",
+      "runtime": "Runtime:",
+      "budget": "Budget:",
+      "minutes": "minutes",
+      "watchTrailer": "Watch Trailer",
+      "addToFavorites": "Add to favorites",
+      "addToWatched": "Add to watched",
+      "noTrailer": "We don't have trailer for this movie",
+      "tabs": {
+        "cast": "Cast",
+        "reviews": "Reviews",
+        "similarMovies": "Similar Movies"
+      }
+    },
     "profile": {
       "accountSettings": "Account settings",
       "profile": "Profile",
