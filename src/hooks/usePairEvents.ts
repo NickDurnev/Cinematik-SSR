@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import type {
   MatchFoundEvent,
   PairUserOnlineEvent,
@@ -6,6 +7,7 @@ import type {
   PartnerTypingEvent,
   WebSocketEvent,
 } from "@/types/websocket";
+
 import { useWebSocket } from "./useWebSocket";
 
 export function usePairEvents(pairId: string | null) {

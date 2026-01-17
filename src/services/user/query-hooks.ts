@@ -1,6 +1,6 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { UserStore, useUserStore } from "@/hooks/stores";
 import {
@@ -8,6 +8,7 @@ import {
   forgotPassword,
   loginUser,
   resetPassword,
+  searchUsers,
   signUpUser,
   socialLoginUser,
   updateUserProfile,
@@ -108,3 +109,10 @@ export const useConfirmEmail = () => {
     },
   });
 };
+
+export const useSearchUsers = (query: string, enabled: boolean) =>
+  useQuery({
+    queryKey: ["users-search", query],
+    queryFn: () => searchUsers(query),
+    enabled,
+  });

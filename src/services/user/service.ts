@@ -158,3 +158,19 @@ export const confirmEmail = async (
     throw new Error(errorMessage ?? "Failed to confirm email.");
   }
 };
+
+export const searchUsers = async (
+  query: string,
+): Promise<Pick<IUser, "id" | "name" | "email" | "picture">[]> => {
+  try {
+    const response = await apiClient.get<
+      IApiResponse<Pick<IUser, "id" | "name" | "email" | "picture">[]>
+    >("/users/search", {
+      params: { query },
+    });
+    return response.data.data;
+  } catch (error) {
+    const errorMessage = ErrorHelper.getMessage(error);
+    throw new Error(errorMessage ?? "Failed to search users.");
+  }
+};

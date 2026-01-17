@@ -6,11 +6,18 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/libs/tailwind-merge";
 
 import { CustomLink } from "../common";
-import { HomeIcon, MovieIcon, StarIcon, WatchedIcon } from "../icons";
+import {
+  HomeIcon,
+  MovieIcon,
+  PairsIcon,
+  StarIcon,
+  WatchedIcon,
+} from "../icons";
 
 const navItems = [
   { href: "/app/home", icon: HomeIcon, label: "Home" },
   { href: "/movies", icon: MovieIcon, label: "Movies" },
+  { href: "/app/pairs", icon: PairsIcon, label: "Pairs" },
   { href: "/favorites", icon: StarIcon, label: "Favorites" },
   { href: "/watched", icon: WatchedIcon, label: "Watched" },
 ];
