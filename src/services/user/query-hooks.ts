@@ -1,0 +1,118 @@
+"use client";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { UserStore, useUserStore } from "@/hooks/stores";
+import {
+  confirmEmail,
+  forgotPassword,
+  loginUser,
+  resetPassword,
+  searchUsers,
+  signUpUser,
+  socialLoginUser,
+  updateUserProfile,
+} from "@/services/user/service";
+import { IAuthData, IUser } from "@/types/user";
+import { setAuthTokens } from "@/utils/cookies";
+
+export const useSignUpUser = () => {
+  const setUser = useUserStore((state: UserStore) => state.setUser);
+
+  return useMutation({
+    mutationKey: ["sign-up"],
+    mutationFn: signUpUser,
+    onSuccess: (optimisticData: IAuthData) => {
+      setAuthTokens(
+        optimisticData.tokens.access_token,
+        optimisticData.tokens.refresh_token,
+      );
+      setUser(optimisticData.user);
+      return optimisticData;
+    },
+  });
+};
+
+export const useLoginUser = () => {
+  const setUser = useUserStore((state: UserStore) => state.setUser);
+
+  return useMutation({
+    mutationKey: ["login"],
+    mutationFn: loginUser,
+    onSuccess: (optimisticData: IAuthData) => {
+      setAuthTokens(
+        optimisticData.tokens.access_token,
+        optimisticData.tokens.refresh_token,
+      );
+      setUser(optimisticData.user);
+      return optimisticData;
+    },
+  });
+};
+
+export const useSocialLoginUser = () => {
+  const setUser = useUserStore((state: UserStore) => state.setUser);
+
+  return useMutation({
+    mutationKey: ["social-login"],
+    mutationFn: socialLoginUser,
+    onSuccess: (optimisticData: IAuthData) => {
+      setAuthTokens(
+        optimisticData.tokens.access_token,
+        optimisticData.tokens.refresh_token,
+      );
+      setUser(optimisticData.user);
+      return optimisticData;
+    },
+  });
+};
+
+export const useForgotPassword = () => {
+  return useMutation({
+    mutationKey: ["forgot-password"],
+    mutationFn: forgotPassword,
+    onSuccess: (optimisticData: { success: boolean; message: string }) => {
+      return optimisticData;
+    },
+  });
+};
+
+export const useResetPassword = () => {
+  return useMutation({
+    mutationKey: ["reset-password"],
+    mutationFn: resetPassword,
+    onSuccess: (optimisticData: { success: boolean; message: string }) => {
+      return optimisticData;
+    },
+  });
+};
+
+export const useUpdateUserProfile = () => {
+  const setUser = useUserStore((state: UserStore) => state.setUser);
+
+  return useMutation({
+    mutationKey: ["update-user-profile"],
+    mutationFn: updateUserProfile,
+    onSuccess: (optimisticData: IUser) => {
+      setUser(optimisticData);
+      return optimisticData;
+    },
+  });
+};
+
+export const useConfirmEmail = () => {
+  return useMutation({
+    mutationKey: ["confirm-email"],
+    mutationFn: confirmEmail,
+    onSuccess: (optimisticData: { success: boolean; message: string }) => {
+      return optimisticData;
+    },
+  });
+};
+
+export const useSearchUsers = (query: string, enabled: boolean) =>
+  useQuery({
+    queryKey: ["users-search", query],
+    queryFn: () => searchUsers(query),
+    enabled,
+  });

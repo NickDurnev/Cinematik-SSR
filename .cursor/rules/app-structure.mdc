@@ -1,0 +1,33 @@
+---
+description: App folder structure and organization for Cinematik-SSR
+globs: ["*.tsx", "*.ts"]
+alwaysApply: true
+---
+# App Folder Structure Patterns
+
+## 1. Main app structure (Next.js 16 App Router)
+```
+src/
+  app/
+    (auth)/       # Authentication: login, sign-up, reset-password
+    (landing)/    # Marketing/landing pages
+    app/          # Main SPA: /home, /movies/[id], /profile, /search
+  components/
+    app/          # Feature-level co-located components
+    common/       # Truly shared UI components
+    landing/      # Landing-specific UI
+  hooks/          # Zustand, react-query, general hooks
+  libs/           # Axios, theme utils, ErrorHelper, etc.
+  providers/      # Context providers (Theme, Emotion, Auth, Query)
+  services/       # Per-domain API services
+  types/          # Domain models, enums, TypeScript types
+  i18n/locales/   # Translation JSON files
+  fonts/          # Custom fonts
+```
+
+## 2. Best Practices
+- Use route groups for organization (e.g., `(auth)`, `(landing)`).
+- Put page-level layout logic in `layout.tsx` next to route page.
+- Use client/server component split for data/side-effects.
+- Keep hooks and types always in their respective folders.
+- Co-locate feature-specific components under `components/app/` or similar.

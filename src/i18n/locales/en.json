@@ -1,0 +1,186 @@
+{
+  "landing": {
+    "home": {
+      "title": "Home",
+      "heroTitle": "Change the World",
+      "companiesTitle": "by the biggest names in the industry",
+      "footerTitle": "Crafted by Dumb Gooses Labs",
+      "welcome": "Welcome",
+      "goToApp": "Go to App"
+    },
+    "reviews": {
+      "title": "Reviews",
+      "noReviewsTitle": "No reviews yet",
+      "noReviewsDescription": "Be the first to leave a review",
+      "reviewDeleteToast": "Review deleted successfully"
+    },
+    "auth": {
+      "login": "Login",
+      "register": "Register",
+      "logout": "Logout",
+      "email": "Email",
+      "name": "Name",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "forgotPassword": "Forgot your password",
+      "resetPassword": "Reset Password",
+      "confirmEmail": "Confirm Email",
+      "confirmEmailInfo": "Please check your email for a confirmation link.",
+      "notAccount": "Don't have an account yet",
+      "alreadyHaveAccount": "Already have an account",
+      "logging": "Logging in...",
+      "send": "Send",
+      "sending": "Sending...",
+      "reset": "Reset",
+      "resetting": "Resetting...",
+      "signUp": "Sign Up",
+      "signingIn": "Signing in...",
+      "continueWithGoogle": "Continue with Google",
+      "or": "or"
+    }
+  },
+  "app": {
+    "filters": {
+      "title": "Filters",
+      "genres": "Genres",
+      "allGenres": "All genres",
+      "showFirstBy": "Show first by",
+      "from": "From",
+      "to": "To",
+      "apply": "Apply",
+      "clear": "Clear",
+      "sort": {
+        "popularity": "Popularity",
+        "releaseDate": "Release Date",
+        "voteAverage": "Vote Average"
+      },
+      "dates": {
+        "current": "Current"
+      },
+      "decades": {
+        "1950s": "1950s",
+        "1960s": "1960s",
+        "1970s": "1970s",
+        "1980s": "1980s",
+        "1990s": "1990s",
+        "2000s": "2000s",
+        "2010s": "2010s",
+        "2020s": "2020s"
+      }
+    },
+    "categories": {
+      "upcomingMovies": "Upcoming movies",
+      "topRatedMovies": "Top rated movies",
+      "onTheAirTVShows": "On the air tv shows",
+      "topRatedTVShows": "Top rated tv shows",
+      "trendMovies": "Trend movies"
+    },
+    "header": {
+      "type": "Type",
+      "movie": "Movie",
+      "tvShow": "TV Show"
+    },
+    "search": {
+      "placeholder": "Search..."
+    },
+    "navigation": {
+      "home": "Home",
+      "movies": "Movies",
+      "pairs": "Pairs",
+      "favorites": "Favorites",
+      "watched": "Watched"
+    },
+    "movieInfo": {
+      "notFound": "Movie not found",
+      "releaseDate": "Release date:",
+      "runtime": "Runtime:",
+      "budget": "Budget:",
+      "minutes": "minutes",
+      "watchTrailer": "Watch Trailer",
+      "addToFavorites": "Add to favorites",
+      "addToWatched": "Add to watched",
+      "noTrailer": "We don't have trailer for this movie",
+      "tabs": {
+        "cast": "Cast",
+        "reviews": "Reviews",
+        "similarMovies": "Similar Movies"
+      }
+    },
+    "profile": {
+      "accountSettings": "Account settings",
+      "profile": "Profile",
+      "logout": "Logout",
+      "profileUpdated": "Profile updated successfully",
+      "title": "Profile Settings",
+      "name": "Name",
+      "email": "Email",
+      "language": "Language",
+      "changePassword": "Change Password",
+      "newPassword": "New Password",
+      "confirmNewPassword": "Confirm New Password",
+      "saveChanges": "Save Changes",
+      "cancel": "Cancel",
+      "passwordsDoNotMatch": "Passwords do not match"
+    },
+    "pairs": {
+      "title": "Pairs",
+      "subtitle": "Find your movie soulmate and swipe together!",
+      "yourPairs": "Your Pairs",
+      "findFriends": "Find Friends",
+      "searchPlaceholder": "Search by email...",
+      "searching": "Searching...",
+      "add": "Add",
+      "sending": "Sending...",
+      "pendingRequests": "Pending Requests",
+      "wantsToPair": "wants to pair with you",
+      "accept": "Accept",
+      "reject": "Reject",
+      "loadingPairs": "Loading pairs...",
+      "noPairs": "No pairs yet. Invite a friend to get started!",
+      "startSession": "Start Session",
+      "remove": "Remove",
+      "removeConfirm": "Are you sure you want to remove this pair?",
+      "backToPairs": "Back to Pairs",
+      "sessionWith": "Session with {name}",
+      "findSomething": "Find something to watch together!",
+      "whatToWatch": "What to watch?",
+      "movies": "Movies",
+      "tvShows": "TV Shows",
+      "fromYear": "From Year",
+      "toYear": "To Year",
+      "startSwiping": "Start Swiping",
+      "starting": "Starting...",
+      "waitingForPartner": "Waiting for Partner",
+      "waitingForFilters": "Waiting for partner to accept filters...",
+      "settingUp": "Setting up session...",
+      "acceptFiltersStart": "Accept Filters & Start",
+      "cancel": "Cancel",
+      "noMoreContent": "No more content!",
+      "recommendationsDone": "You've gone through all the recommendations.",
+      "endSession": "End Session",
+      "partnerOnline": "Partner Online",
+      "partnerOffline": "Partner Offline",
+      "swiping": "swiping...",
+      "liked": "Liked",
+      "passed": "Passed",
+      "partner": "Partner",
+      "match": "It's a Match!",
+      "wantsToPairNotification": "{name} wants to pair!",
+      "invitationSent": "Invitation sent!",
+      "invitationFailed": "Failed to send invitation",
+      "requestAccepted": "Request accepted!",
+      "requestRejected": "Request rejected!",
+      "requestResponseFailed": "Failed to respond to request",
+      "swipeFailed": "Failed to record swipe",
+      "sessionEndFailed": "Failed to end session",
+      "sessionStarted": "Session started! Waiting for partner...",
+      "sessionStartFailed": "Failed to start session",
+      "filtersAccepted": "Filters accepted! Starting...",
+      "filtersAcceptFailed": "Failed to accept filters"
+    }
+  },
+  "universal": {
+    "movies": "movies",
+    "or": "or"
+  }
+}

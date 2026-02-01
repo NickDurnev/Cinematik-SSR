@@ -1,0 +1,88 @@
+---
+description: Command to create a new React component following project patterns
+globs: src/components/**/*
+triggers:
+  - create-component
+---
+# Create Component Command
+
+Use this guide when the user runs the "create-component" command or asks to create a new UI component.
+
+## 1. Component Architecture
+
+### Location Structure
+- **Feature Components**: `src/components/app/[feature]/[ComponentName].tsx`
+- **Shared Components**: `src/components/common/[ComponentName].tsx`
+- **Exports**: Always export via `index.ts` in the component's parent folder.
+
+### Boilerplate
+```tsx
+"use client"; // Only if interactive
+
+import { useTranslations } from "next-intl";
+import { useState } from "react";
+
+import { Button, Input } from "@/components/common";
+import { MyFeatureType } from "@/types/my-feature";
+
+interface ComponentProps {
+  data: MyFeatureType;
+}
+
+export const ComponentName = ({ data }: ComponentProps) => {
+  const t = useTranslations("app.feature");
+
+  return (
+    <div className="flex flex-col gap-4">
+      <h2>{t("title")}</h2>
+      <Button>{t("action")}</Button>
+    </div>
+  );
+};
+```
+
+## 2. Patterns & Standards
+
+### A. Common Components (Mandatory)
+Check `src/components/common/` before using raw MUI or HTML elements.
+- **Button**: Use `@/components/common/Button` instead of MUI Button directly.
+- **Input**: Use `@/components/common/Input`.
+- **Avatar**: Use `@/components/common/Avatar` (handles fallbacks/sizing).
+- **Modal**: Use `@/components/common/Modal`.
+- **Select**: Use `@/components/common/Select`.
+
+### B. MUI & Styling
+- **Library**: `@mui/material` v6.
+- **Styling**: Use **Tailwind CSS** for layout/spacing/colors.
+- **MUI Integration**:
+  - Pass Tailwind classes via `className`.
+  - Use `sx` prop ONLY for internal MUI overrides not exposed via classes.
+- **Icons**: Import from `@mui/icons-material` or `src/components/icons`.
+
+### C. Theming
+- **Source**: `src/app/globals.css`.
+- **Variables**: Use CSS variables for colors (e.g., `bg-secondary/20`, `text-muted-foreground`).
+- **Responsive**: Use custom breakpoints `tablet:`, `laptop:`, `desktop:`.
+
+### D. Internationalization (i18n)
+- **Library**: `next-intl`.
+- **Usage**: `const t = useTranslations("namespace");` -> `{t("key")}`.
+- **Files**: Add keys to **BOTH** `src/i18n/locales/en.json` and `ua.json`.
+
+### E. Data Fetching
+- **Library**: TanStack Query (React Query).
+- **Pattern**: Custom hooks in `src/services/[feature]/query-hooks.ts`.
+- **Usage**: `const { data, isLoading } = useMyData();`
+
+### F. Quality Control (Biome)
+- **Linting**: Run `npm run lint:fix` to auto-fix issues.
+- **Formatting**: Run `npm run format:fix`.
+- **Type Safety**: strict TypeScript (no `any`).
+
+## 3. Execution Checklist
+1. [ ] Check for existing types in `src/types/`.
+2. [ ] Check/Add query hooks in `src/services/`.
+3. [ ] Add translations to `en.json` & `ua.json`.
+4. [ ] Create component file.
+5. [ ] Export from `index.ts`.
+6. [ ] Run lint/format.

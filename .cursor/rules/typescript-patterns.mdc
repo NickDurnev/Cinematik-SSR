@@ -1,0 +1,289 @@
+---
+description: TypeScript patterns and best practices
+globs: ["*.ts", "*.tsx"]
+alwaysApply: true
+---
+# TypeScript Patterns
+
+## Type Definitions
+
+### Domain Types
+
+Define types in `types/` directory:
+
+```typescript
+// types/product.ts
+export interface Product {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  idaccount: number;
+}
+
+export interface ProductSummary {
+  idarticle: number;
+  title: string;
+  price: number;
+}
+```
+
+### API Response Types
+
+Match API response structure exactly:
+
+```typescript
+// types/api.ts
+export interface APIResponse<T> {
+  status: "success" | "error";
+  data?: T;
+  message?: string;
+  error?: string;
+}
+```
+
+### Component Props Types
+
+Always type component props:
+
+```typescript
+// ✅ Good
+interface ProductFormProps {
+  product?: Product;
+  onSubmit: (data: ProductFormData) => void;
+  isLoading?: boolean;
+}
+
+export function ProductForm({ product, onSubmit, isLoading }: ProductFormProps) {
+  // ...
+}
+
+// ❌ Bad
+export function ProductForm({ product, onSubmit, isLoading }) {
+  // ...
+}
+```
+
+## Type Safety Best Practices
+
+### 1. Use Interfaces for Objects
+
+```typescript
+// ✅ Good
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+// ❌ Avoid for simple objects
+type User = {
+  id: number;
+  name: string;
+};
+```
+
+### 2. Use Types for Unions and Intersections
+
+```typescript
+// ✅ Good
+type Status = "pending" | "completed" | "failed";
+type UserWithRole = User & { role: string };
+
+// ❌ Bad
+interface Status {
+  // Can't represent union types
+}
+```
+
+### 3. Avoid `any`
+
+Always use proper types:
+
+```typescript
+// ✅ Good
+function processData(data: Product[]): void {
+  // ...
+}
+
+// ❌ Bad
+function processData(data: any): void {
+  // ...
+}
+```
+
+### 4. Use `unknown` for Dynamic Data
+
+When dealing with unknown data, use `unknown` and narrow it:
+
+```typescript
+// ✅ Good
+function parseResponse(data: unknown): Product {
+  if (typeof data === "object" && data !== null && "id" in data) {
+    return data as Product;
+  }
+  throw new Error("Invalid data");
+}
+
+// ❌ Bad
+function parseResponse(data: any): Product {
+  return data;
+}
+```
+
+## Next.js Specific Types
+
+### Route Params
+
+```typescript
+// ✅ Good
+export default function Page({ params }: { params: { productId: string } }) {
+  const productId = Number(params.productId);
+  // ...
+}
+
+// For async params in Next.js 15+
+export default async function Page({ params }: { params: Promise<{ productId: string }> }) {
+  const { productId } = await params;
+  // ...
+}
+```
+
+### Search Params
+
+```typescript
+// ✅ Good
+export default function Page({ searchParams }: { searchParams: { page?: string; q?: string } }) {
+  const page = Number(searchParams.page) || 1;
+  const query = searchParams.q || "";
+  // ...
+}
+```
+
+## Utility Types
+
+### Common Patterns
+
+```typescript
+// Partial for optional updates
+type ProductUpdate = Partial<Product>;
+
+// Pick for selecting fields
+type ProductSummary = Pick<Product, "id" | "title" | "price">;
+
+// Omit for excluding fields
+type ProductFormData = Omit<Product, "id" | "created_at">;
+
+// Record for key-value maps
+type ProductMap = Record<number, Product>;
+```
+
+## Type Guards
+
+Use type guards for runtime type checking:
+
+```typescript
+// ✅ Good
+function isProduct(data: unknown): data is Product {
+  return (
+    typeof data === "object" &&
+    data !== null &&
+    "id" in data &&
+    "title" in data &&
+    typeof (data as Product).id === "number"
+  );
+}
+
+// Usage
+if (isProduct(data)) {
+  // TypeScript knows data is Product here
+  console.log(data.title);
+}
+```
+
+## Generic Types
+
+Use generics for reusable components:
+
+```typescript
+// ✅ Good
+interface ListProps<T> {
+  items: T[];
+  renderItem: (item: T) => React.ReactNode;
+}
+
+export function List<T>({ items, renderItem }: ListProps<T>) {
+  return (
+    <ul>
+      {items.map((item, index) => (
+        <li key={index}>{renderItem(item)}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Type Imports
+
+Use `type` imports for type-only imports:
+
+```typescript
+// ✅ Good
+import type { Product } from "@/types/product";
+import { fetchProduct } from "@/lib/api";
+
+// ✅ Also good - inline type import
+import { fetchProduct, type Product } from "@/lib/api";
+```
+
+## Strict Type Checking
+
+Always enable strict mode in `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true
+  }
+}
+```
+
+## Common Patterns
+
+### Optional Chaining
+
+```typescript
+// ✅ Good
+const title = product?.title ?? "Untitled";
+const price = product?.price || 0;
+```
+
+### Type Assertions (Use Sparingly)
+
+```typescript
+// ✅ Good - When you're certain of the type
+const product = data as Product;
+
+// ❌ Bad - When type is uncertain
+const product = data as Product; // Without validation
+```
+
+### Discriminated Unions
+
+```typescript
+// ✅ Good
+type Result<T> =
+  | { success: true; data: T }
+  | { success: false; error: string };
+
+function handleResult(result: Result<Product>) {
+  if (result.success) {
+    console.log(result.data); // TypeScript knows data exists
+  } else {
+    console.error(result.error); // TypeScript knows error exists
+  }
+}
+```

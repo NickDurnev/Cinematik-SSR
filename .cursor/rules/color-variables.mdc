@@ -1,0 +1,128 @@
+---
+alwaysApply: true
+---
+
+# Color Variables
+
+## Overview
+
+Always use CSS variables for colors instead of hardcoded hex values. This ensures consistency, maintainability, and easier theming.
+
+## Brand Colors
+
+The project defines brand colors in `app/globals.css`:
+
+```css
+:root {
+  /* Brand Colors */
+  --brand: #e85a4f;
+  --brand-hover: #d64a3f;
+  --brand-light: #f5a29b;
+}
+```
+
+These are mapped to Tailwind classes via `@theme inline`:
+
+```css
+@theme inline {
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-light: var(--brand-light);
+}
+```
+
+## Usage
+
+### ✅ Good - Use CSS variable classes
+
+```tsx
+// Background
+<div className="bg-brand">...</div>
+<button className="bg-brand hover:bg-brand-hover">...</button>
+
+// Text
+<span className="text-brand">...</span>
+
+// Border and ring
+<input className="focus:border-brand focus:ring-brand" />
+```
+
+### ❌ Bad - Hardcoded hex values
+
+```tsx
+// Don't use hardcoded colors
+<div className="bg-[#E85A4F]">...</div>
+<button className="bg-[#e85a4f] hover:bg-[#D64A3F]">...</button>
+<span className="text-[#E85A4F]">...</span>
+```
+
+## Available Brand Classes
+
+| Class            | CSS Variable    | Hex Value | Usage                          |
+| ---------------- | --------------- | --------- | ------------------------------ |
+| `bg-brand`       | `--brand`       | `#e85a4f` | Primary brand background       |
+| `bg-brand-hover` | `--brand-hover` | `#d64a3f` | Hover state for brand elements |
+| `bg-brand-light` | `--brand-light` | `#f5a29b` | Light brand accent             |
+| `text-brand`     | `--brand`       | `#e85a4f` | Brand text color               |
+| `border-brand`   | `--brand`       | `#e85a4f` | Brand border color             |
+| `ring-brand`     | `--brand`       | `#e85a4f` | Brand focus ring               |
+
+## Semantic Color Classes
+
+| Class                     | CSS Variable           | Usage                                |
+| ------------------------- | ---------------------- | ------------------------------------ |
+| `bg-success`              | `--success`            | Success state background             |
+| `bg-success-light`        | `--success-light`      | Success light background             |
+| `text-success`            | `--success`            | Success text color                   |
+| `text-success-foreground` | `--success-foreground` | Success foreground (darker)          |
+| `bg-info`                 | `--info`               | Info state background                |
+| `bg-info-light`           | `--info-light`         | Info light background                |
+| `text-info`               | `--info`               | Info text color                      |
+| `text-info-foreground`    | `--info-foreground`    | Info foreground (darker)             |
+| `bg-warning`              | `--warning`            | Warning state background             |
+| `bg-warning-light`        | `--warning-light`      | Warning light background             |
+| `text-warning`            | `--warning`            | Warning text color                   |
+| `text-warning-foreground` | `--warning-foreground` | Warning foreground (darker)          |
+| `text-destructive`        | `--destructive`        | Error/destructive text               |
+| `bg-destructive`          | `--destructive`        | Error/destructive background         |
+
+## Built-in Theme Colors (use these instead of gray-xxx)
+
+| Instead of     | Use this                | Purpose                    |
+| -------------- | ----------------------- | -------------------------- |
+| `gray-100`     | `muted`                 | Muted backgrounds          |
+| `gray-300`     | `border` or `input`     | Borders, input borders     |
+| `gray-400/500` | `muted-foreground`      | Muted text, placeholders   |
+| `gray-600`     | `muted-foreground`      | Secondary text             |
+| `gray-800`     | `foreground`            | Primary text               |
+| `red-500/600`  | `destructive`           | Errors, destructive actions|
+| `green-xxx`    | `success` / variants    | Success states             |
+| `blue-xxx`     | `info` / variants       | Info states                |
+| `yellow/orange-xxx` | `warning` / variants | Warning states            |
+
+## Adding New Colors
+
+When adding new colors:
+
+1. Add the CSS variable in `:root` in `app/globals.css`
+2. Add the Tailwind mapping in `@theme inline`
+3. Use the new class in components
+
+```css
+/* In app/globals.css */
+:root {
+  --new-color: #123456;
+}
+
+@theme inline {
+  --color-new-color: var(--new-color);
+}
+```
+
+## Why Use Variables?
+
+1. **Consistency** - Single source of truth for colors
+2. **Maintainability** - Change color in one place, updates everywhere
+3. **Theming** - Easier to implement dark mode or custom themes
+4. **Readability** - Semantic names (`brand`) vs hex codes (`#e85a4f`)
+5. **IDE Support** - Better autocomplete and color preview

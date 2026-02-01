@@ -1,0 +1,408 @@
+---
+description: API integration patterns
+globs: ["*.ts", "*.tsx"]
+alwaysApply: true
+---
+# API Integration Patterns
+
+## API Client Setup
+
+### Axios Configuration
+
+```typescript
+// lib/axios/index.ts
+import axios from "axios";
+import { getSession } from "next-auth/react";
+
+export const api = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://api.pixmoto.com",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+// Request interceptor for authentication
+api.interceptors.request.use(async (config) => {
+  const session = await getSession();
+  if (session?.accessToken) {
+    config.headers.Authorization = `Bearer ${session.accessToken}`;
+  }
+  return config;
+});
+
+// Response interceptor for error handling
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Handle unauthorized - redirect to login
+      window.location.href = "/sign-in";
+    }
+    return Promise.reject(error);
+  }
+);
+```
+
+## API Endpoint Patterns
+
+### GET Request
+
+```typescript
+// ✅ Good - GET request with TanStack Query
+// hooks/use-product-detail.ts
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/lib/axios";
+
+export function useProductDetail(productId: number) {
+  return useQuery({
+    queryKey: ["product", productId],
+    queryFn: async () => {
+      const response = await api.get(`/article/${productId}`);
+      return response.data.data; // Assuming API returns { data: Product }
+    },
+  });
+}
+```
+
+### POST Request
+
+```typescript
+// ✅ Good - POST request with mutation
+// hooks/use-product-mutations.ts
+import { useMutation } from "@tanstack/react-query";
+import { api } from "@/lib/axios";
+
+export function useCreateProduct() {
+  return useMutation({
+    mutationFn: async (data: CreateProductData) => {
+      const response = await api.post("/article/", data);
+      return response.data.data;
+    },
+  });
+}
+```
+
+### PUT Request
+
+```typescript
+// ✅ Good - PUT request
+export function useUpdateProduct() {
+  return useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: UpdateProductData }) => {
+      const response = await api.put(`/article/${id}`, data);
+      return response.data.data;
+    },
+  });
+}
+```
+
+### DELETE Request
+
+```typescript
+// ✅ Good - DELETE request
+export function useDeleteProduct() {
+  return useMutation({
+    mutationFn: async (id: number) => {
+      await api.delete(`/article/${id}`);
+    },
+  });
+}
+```
+
+## Query Parameters
+
+### URL Search Params
+
+```typescript
+// ✅ Good - Query parameters
+export function useProducts({ accountId, page, limit, query }: UseProductsParams) {
+  return useQuery({
+    queryKey: ["products", accountId, page, limit, query],
+    queryFn: async () => {
+      const params = new URLSearchParams({
+        o: String((page - 1) * limit), // offset
+        l: String(limit),               // limit
+      });
+      if (query) params.append("q", query);
+      
+      const response = await api.get(`/account/${accountId}/articlesummary?${params}`);
+      return response.data.data;
+    },
+  });
+}
+```
+
+### Multiple Query Parameters
+
+```typescript
+// ✅ Good - Multiple query parameters
+const params = new URLSearchParams({
+  o: String(offset),
+  l: String(limit),
+  t: type || "",
+});
+if (query) params.append("q", query);
+if (category) params.append("category", category);
+
+const response = await api.get(`/account/${accountId}/articlesummary?${params}`);
+```
+
+## Request Body Patterns
+
+### Simple Object
+
+```typescript
+// ✅ Good - Simple object body
+const response = await api.post("/article/", {
+  article: {
+    idaccount: accountId,
+    title: "Product Title",
+    price: 99.99,
+  },
+});
+```
+
+### Nested Objects
+
+```typescript
+// ✅ Good - Nested object body (matches pix-cdp structure)
+const response = await api.post("/article/", {
+  article: {
+    idaccount: accountId,
+    title: product.title,
+    description: product.description,
+    price: product.price,
+  },
+  urls: [
+    { url: "https://example.com", idmerchant: 1 },
+  ],
+  choices: [
+    {
+      name: "Size",
+      type: "list",
+      options: [
+        { name: "Small", value: "S" },
+        { name: "Large", value: "L" },
+      ],
+    },
+  ],
+});
+```
+
+## File Upload Patterns
+
+### S3 Pre-signed URL Pattern
+
+```typescript
+// ✅ Good - S3 upload pattern (matches pix-cdp)
+// 1. Get pre-signed URL
+const uploadUrlResponse = await api.post(`/article/${articleId}/image/uploadurl`, {
+  uploads: [
+    {
+      order: 1,
+      target: "all",
+      mime: file.type,
+    },
+  ],
+});
+
+const { url, filename } = uploadUrlResponse.data.data.uploads[0];
+
+// 2. Upload to S3
+await fetch(url, {
+  method: "PUT",
+  body: file,
+  headers: {
+    "Content-Type": file.type,
+  },
+});
+
+// 3. Finalize upload
+await api.put(`/article/${articleId}/image`, {
+  filename,
+  order: 1,
+  target: "all",
+  mime: file.type,
+});
+```
+
+## Error Handling
+
+### API Error Types
+
+```typescript
+// lib/errors/index.ts
+export class APIError extends Error {
+  constructor(
+    message: string,
+    public status: number,
+    public code?: string
+  ) {
+    super(message);
+    this.name = "APIError";
+  }
+}
+
+// In API client
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response) {
+      throw new APIError(
+        error.response.data.message || "An error occurred",
+        error.response.status,
+        error.response.data.code
+      );
+    }
+    throw error;
+  }
+);
+```
+
+### Error Handling in Hooks
+
+```typescript
+// ✅ Good - Error handling in query
+export function useProductDetail(productId: number) {
+  return useQuery({
+    queryKey: ["product", productId],
+    queryFn: async () => {
+      try {
+        const response = await api.get(`/article/${productId}`);
+        return response.data.data;
+      } catch (error) {
+        if (error instanceof APIError && error.status === 404) {
+          throw new Error("Product not found");
+        }
+        throw error;
+      }
+    },
+  });
+}
+```
+
+## Response Format
+
+### Standard API Response
+
+Match pix-cdp API response format:
+
+```typescript
+// API response structure
+interface APIResponse<T> {
+  status: "success" | "error";
+  data?: T;
+  message?: string;
+  error?: string;
+}
+
+// Usage
+const response = await api.get<Product>("/article/123");
+const product = response.data.data; // Extract data from response
+```
+
+## Authentication
+
+### Token Management
+
+```typescript
+// ✅ Good - Token in request interceptor
+api.interceptors.request.use(async (config) => {
+  const session = await getSession();
+  if (session?.accessToken) {
+    config.headers.Authorization = `Bearer ${session.accessToken}`;
+  }
+  return config;
+});
+```
+
+### Session Refresh
+
+```typescript
+// ✅ Good - Handle token refresh
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      
+      // Refresh token logic
+      const newSession = await refreshSession();
+      originalRequest.headers.Authorization = `Bearer ${newSession.accessToken}`;
+      
+      return api(originalRequest);
+    }
+    
+    return Promise.reject(error);
+  }
+);
+```
+
+## Best Practices
+
+### 1. Always Use TanStack Query for Data Fetching
+
+```typescript
+// ✅ Good
+const { data } = useQuery({
+  queryKey: ["products"],
+  queryFn: () => api.get("/products").then((res) => res.data.data),
+});
+
+// ❌ Bad - Direct fetch in component
+const [products, setProducts] = useState([]);
+useEffect(() => {
+  api.get("/products").then((res) => setProducts(res.data.data));
+}, []);
+```
+
+### 2. Match pix-cdp API Structure Exactly
+
+```typescript
+// ✅ Good - Matches pix-cdp structure
+await api.post("/article/", {
+  article: { ... },
+  urls: [...],
+  choices: [...],
+});
+
+// ❌ Bad - Different structure
+await api.post("/article/", {
+  title: "...",
+  urls: [...],
+});
+```
+
+### 3. Handle Loading and Error States
+
+```typescript
+// ✅ Good
+const { data, isLoading, error } = useQuery({ ... });
+if (isLoading) return <Loading />;
+if (error) return <Error error={error} />;
+```
+
+### 4. Use Query Parameters for Filters
+
+```typescript
+// ✅ Good - Query parameters
+const params = new URLSearchParams({ o: "0", l: "100", q: query });
+api.get(`/account/${accountId}/articlesummary?${params}`);
+
+// ❌ Bad - Body for GET requests
+api.get("/articles", { params: { query } }); // Still OK, but prefer URL params
+```
+
+### 5. Type API Responses
+
+```typescript
+// ✅ Good - Typed response
+const response = await api.get<Product>("/article/123");
+const product: Product = response.data.data;
+
+// ❌ Bad - Untyped
+const response = await api.get("/article/123");
+const product = response.data.data; // any type
+```

@@ -1,0 +1,33 @@
+---
+description: TanStack React Query usage and conventions for Cinematik-SSR
+globs: ["*.tsx", "*.ts"]
+alwaysApply: true
+---
+# React Query Patterns
+
+## 1. General Standards
+- Use Query/Mutation hooks for all server data and side-effect mutations.
+- Never fetch directly in components except leaf client components.
+- Query keys must be consistent and explicit.
+
+## 2. Loading/Error UI
+- Loading: always display MUI `Skeleton` or similar.
+- Error: always display MUI `Alert` or Snackbar.
+
+## 3. Keys & Factories
+- Use tuple keys. Use helper factories for complex domain keys.
+
+## 4. Example
+```typescript
+const { data, isLoading, isError } = useQuery({
+  queryKey: ["movies", filters],
+  queryFn: () => apiClient.get<Movie[]>("/movies").then(res => res.data)
+});
+if (isLoading) return <Skeleton variant="rectangular" width={210} height={118} />;
+if (isError) return <Alert severity="error">Loading failed</Alert>;
+```
+
+## 5. Don't use Query for Mutations
+- Use useMutation for POST/PUT/DELETE.
+
+## 6. Always type API responses for server state.

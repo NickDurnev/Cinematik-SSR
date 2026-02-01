@@ -1,0 +1,132 @@
+---
+description: Development workflow for Next.js project
+alwaysApply: true
+---
+# Development Workflow
+
+This rule describes the step-by-step workflow for implementing features and fixes in the pixmoto-admin project.
+
+## Purpose
+
+**This workflow is designed to maximize autonomy and minimize human interaction, speeding up development.**
+
+Key principles:
+
+- **Minimize token usage** – No over-verbose explanations
+- **Track your progress** – Use TODO lists when going through the plan
+- **Keep plans concise** – Don't write actual code implementation into the plan, only high-level approach
+- **Self-validate** – Verify changes yourself before asking for human review
+- **Be autonomous** – Work through all steps independently when possible
+
+## Workflow Steps
+
+### 1. Plan
+
+- Understand the requirements and scope
+- Review relevant context, specs, and existing code
+- Identify affected components and dependencies
+- **Create TODO list** to track progress through the workflow
+- **Keep it high-level** – no actual code implementation in the plan
+- Review [Project Context](mdc:.cursor/context/project-context.md) for migration status
+
+### 2. Decision
+
+- Figure out what options we have
+- Identify open questions regarding:
+  - Implementation approach
+  - Desired functionality
+  - Architecture considerations
+  - Design patterns to use
+- Check if similar functionality exists in pix-cdp
+
+#### 2b. Baseline Check
+
+Run `npm run lint` and `npm run build` to note the current state:
+
+- Linting status
+- TypeScript compilation status
+- Build errors
+
+This establishes a reference point before making changes.
+
+### 3. Implementation
+
+- Implement the feature or fix
+- **Don't overengineer** – keep it minimal and elegant
+- **Respect existing design patterns** or use new suitable ones
+- Don't duplicate code, inspect related modules and methods before adding new ones
+- **Don't just add more code** – minimize and refine
+- **Minimize workarounds** – stick to robust implementations
+- Follow established patterns from the codebase
+- Use Server Components by default, Client Components only when needed
+- Match API endpoints exactly from pix-cdp
+
+### 4. Check for Errors
+
+Run:
+- `npm run lint` – Check linting errors
+- `npm run build` – Check TypeScript and build errors
+- `npm run format` – Check formatting (or `npm run format:fix` to auto-fix)
+
+### 5. Address Issues
+
+- Fix any issues found in the check step
+- If no issues found, proceed to the next step
+- Re-run check after fixes to ensure they're resolved
+
+### 6. Self-Validation
+
+- Test the feature in development mode (`npm run dev`)
+- Verify API calls match pix-cdp endpoints
+- Check loading and error states
+- Test responsive design
+- Verify functionality matches pix-cdp behavior
+
+### 7. User Feedback
+
+- If unable to verify that everything works, ask the user
+- User will check and provide feedback
+- Based on feedback:
+  - Return to step 3 (Implementation)
+  - Apply fixes
+  - Go through steps 4-6 again
+
+## Key Commands
+
+**Development:**
+- `npm run dev` – Development mode with hot-reload
+- `npm run build` – Build for production
+- `npm run start` – Start production server
+
+**Code Quality:**
+- `npm run lint` – Run Biome linter
+- `npm run lint:fix` – Fix linting errors automatically
+- `npm run format` – Check code formatting
+- `npm run format:fix` – Fix formatting automatically
+
+**Type Checking:**
+- TypeScript is checked during `npm run build`
+- IDE should show TypeScript errors in real-time
+
+## Philosophy
+
+- **Maximize autonomy** – work independently through all steps when possible
+- **Minimize token usage** – be concise, avoid over-verbose explanations
+- **Minimal and elegant** over complex and comprehensive
+- **Robust implementations** over quick workarounds
+- **Respect patterns** that already exist
+- **Self-validate** before asking for human review
+- **Track progress** with TODO lists to stay organized
+- **Follow rules** at .cursor/rules
+- **Match pix-cdp** functionality and API endpoints exactly
+
+## Migration-Specific Guidelines
+
+When migrating from pix-cdp:
+
+1. **Analyze First** – Read the original PHP/JS code thoroughly
+2. **Match API** – Use exact same API endpoints and request/response formats
+3. **Preserve UX** – Keep similar user experience and design
+4. **Modernize** – Use Next.js best practices (Server/Client Components, React Query)
+5. **Type Safety** – Add full TypeScript coverage
+6. **Test** – Verify functionality matches pix-cdp exactly

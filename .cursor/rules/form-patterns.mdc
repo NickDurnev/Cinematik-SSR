@@ -1,0 +1,364 @@
+---
+description: TanStack Form patterns
+globs: ["*.tsx", "*.ts"]
+alwaysApply: true
+---
+# Form Patterns
+
+## When to Use TanStack Form
+
+Use TanStack Form for:
+- Complex forms with multiple fields
+- Forms with validation
+- Forms with conditional fields
+- Forms that need programmatic control
+
+Use native HTML forms for:
+- Simple forms (e.g., search input)
+- Forms with minimal validation
+
+## Basic Form Setup
+
+### Simple Form
+
+```typescript
+// ✅ Good - TanStack Form for complex forms
+"use client";
+
+import { useForm } from "@tanstack/react-form";
+import { zodValidator } from "@tanstack/zod-form-adapter";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
+const productSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  description: z.string().optional(),
+  price: z.number().min(0, "Price must be positive"),
+});
+
+export function ProductForm({ onSubmit }: { onSubmit: (data: z.infer<typeof productSchema>) => void }) {
+  const form = useForm({
+    defaultValues: {
+      title: "",
+      description: "",
+      price: 0,
+    },
+    validatorAdapter: zodValidator(),
+    onSubmit: async ({ value }) => {
+      onSubmit(value);
+    },
+  });
+
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        form.handleSubmit();
+      }}
+    >
+      <form.Field
+        name="title"
+        validators={{
+          onChange: z.string().min(1, "Title is required"),
+        }}
+      >
+        {(field) => (
+          <div>
+            <label htmlFor={field.name}>Title</label>
+            <Input
+              id={field.name}
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+              onBlur={field.handleBlur}
+            />
+            {field.state.meta.errors.length > 0 && (
+              <p className="text-red-500">{field.state.meta.errors[0]}</p>
+            )}
+          </div>
+        )}
+      </form.Field>
+
+      <form.Field name="description">
+        {(field) => (
+          <div>
+            <label htmlFor={field.name}>Description</label>
+            <Input
+              id={field.name}
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+            />
+          </div>
+        )}
+      </form.Field>
+
+      <form.Field
+        name="price"
+        validators={{
+          onChange: z.number().min(0, "Price must be positive"),
+        }}
+      >
+        {(field) => (
+          <div>
+            <label htmlFor={field.name}>Price</label>
+            <Input
+              id={field.name}
+              type="number"
+              value={field.state.value}
+              onChange={(e) => field.handleChange(Number(e.target.value))}
+              onBlur={field.handleBlur}
+            />
+            {field.state.meta.errors.length > 0 && (
+              <p className="text-red-500">{field.state.meta.errors[0]}</p>
+            )}
+          </div>
+        )}
+      </form.Field>
+
+      <Button type="submit" disabled={form.state.isSubmitting}>
+        {form.state.isSubmitting ? "Submitting..." : "Submit"}
+      </Button>
+    </form>
+  );
+}
+```
+
+## Form with Mutation
+
+### Integration with React Query
+
+```typescript
+// ✅ Good - Form with mutation
+"use client";
+
+import { useForm } from "@tanstack/react-form";
+import { useCreateProduct } from "@/hooks/use-product-mutations";
+import { zodValidator } from "@tanstack/zod-form-adapter";
+import { z } from "zod";
+
+const productSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  price: z.number().min(0),
+});
+
+export function ProductForm() {
+  const createProduct = useCreateProduct();
+
+  const form = useForm({
+    defaultValues: {
+      title: "",
+      price: 0,
+    },
+    validatorAdapter: zodValidator(),
+    onSubmit: async ({ value }) => {
+      await createProduct.mutateAsync(value);
+    },
+  });
+
+  return (
+    <form onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}>
+      {/* Form fields */}
+      <Button type="submit" disabled={form.state.isSubmitting || createProduct.isPending}>
+        {createProduct.isPending ? "Creating..." : "Create Product"}
+      </Button>
+    </form>
+  );
+}
+```
+
+## Form with Initial Values
+
+### Edit Form Pattern
+
+```typescript
+// ✅ Good - Form with initial values for editing
+"use client";
+
+import { useForm } from "@tanstack/react-form";
+import { useEffect } from "react";
+import type { Product } from "@/types/product";
+
+export function ProductEditForm({ product }: { product: Product }) {
+  const form = useForm({
+    defaultValues: {
+      title: product.title,
+      description: product.description || "",
+      price: product.price,
+    },
+    onSubmit: async ({ value }) => {
+      // Handle update
+    },
+  });
+
+  // Update form when product changes
+  useEffect(() => {
+    form.setFieldValue("title", product.title);
+    form.setFieldValue("description", product.description || "");
+    form.setFieldValue("price", product.price);
+  }, [product]);
+
+  return (
+    <form onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}>
+      {/* Form fields */}
+    </form>
+  );
+}
+```
+
+## Form Validation
+
+### Field-Level Validation
+
+```typescript
+// ✅ Good - Field-level validation
+<form.Field
+  name="email"
+  validators={{
+    onChange: z.string().email("Invalid email address"),
+    onChangeAsyncDebounceMs: 500,
+    onChangeAsync: async ({ value }) => {
+      // Async validation (e.g., check if email exists)
+      const exists = await checkEmailExists(value);
+      if (exists) {
+        return "Email already exists";
+      }
+    },
+  }}
+>
+  {(field) => (
+    <div>
+      <Input
+        value={field.state.value}
+        onChange={(e) => field.handleChange(e.target.value)}
+        onBlur={field.handleBlur}
+      />
+      {field.state.meta.errors.length > 0 && (
+        <p className="text-red-500">{field.state.meta.errors[0]}</p>
+      )}
+    </div>
+  )}
+</form.Field>
+```
+
+### Form-Level Validation
+
+```typescript
+// ✅ Good - Form-level validation
+const form = useForm({
+  defaultValues: { password: "", confirmPassword: "" },
+  validators: {
+    onChange: ({ value }) => {
+      if (value.password !== value.confirmPassword) {
+        return "Passwords do not match";
+      }
+    },
+  },
+  onSubmit: async ({ value }) => {
+    // Handle submit
+  },
+});
+```
+
+## Form Arrays
+
+### Dynamic Fields
+
+```typescript
+// ✅ Good - Form arrays for dynamic fields
+<form.Field name="urls" mode="array">
+  {(field) => (
+    <div>
+      {field.state.value.map((_, index) => (
+        <form.Field key={index} name={`urls.${index}.url`}>
+          {(urlField) => (
+            <Input
+              value={urlField.state.value}
+              onChange={(e) => urlField.handleChange(e.target.value)}
+            />
+          )}
+        </form.Field>
+      ))}
+      <Button
+        type="button"
+        onClick={() => field.pushValue({ url: "", idmerchant: null })}
+      >
+        Add URL
+      </Button>
+    </div>
+  )}
+</form.Field>
+```
+
+## Best Practices
+
+### 1. Use Zod for Validation
+
+```typescript
+// ✅ Good
+import { zodValidator } from "@tanstack/zod-form-adapter";
+import { z } from "zod";
+
+const schema = z.object({
+  title: z.string().min(1, "Title is required"),
+});
+
+const form = useForm({
+  validatorAdapter: zodValidator(),
+  validators: {
+    onChange: schema,
+  },
+});
+```
+
+### 2. Handle Loading States
+
+```typescript
+// ✅ Good
+<Button type="submit" disabled={form.state.isSubmitting || mutation.isPending}>
+  {form.state.isSubmitting || mutation.isPending ? "Submitting..." : "Submit"}
+</Button>
+```
+
+### 3. Show Validation Errors
+
+```typescript
+// ✅ Good
+{field.state.meta.errors.length > 0 && (
+  <p className="text-red-500 text-sm">{field.state.meta.errors[0]}</p>
+)}
+```
+
+### 4. Use Controlled Components
+
+```typescript
+// ✅ Good - Controlled input
+<Input
+  value={field.state.value}
+  onChange={(e) => field.handleChange(e.target.value)}
+  onBlur={field.handleBlur}
+/>
+
+// ❌ Bad - Uncontrolled input
+<Input defaultValue={field.state.value} />
+```
+
+### 5. Reset Form After Submit
+
+```typescript
+// ✅ Good
+onSubmit: async ({ value }) => {
+  await mutation.mutateAsync(value);
+  form.reset(); // Reset form after successful submit
+}
+```
+
+### 6. Use Native Forms for Simple Cases
+
+```typescript
+// ✅ Good - Simple form doesn't need TanStack Form
+<form onSubmit={handleSubmit}>
+  <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
+  <button type="submit">Search</button>
+</form>
+```

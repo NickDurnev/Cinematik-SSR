@@ -1,0 +1,371 @@
+---
+description: React component patterns and organization
+globs: ["*.tsx"]
+alwaysApply: true
+---
+# Component Patterns
+
+## Component Organization
+
+### Directory Structure
+
+```
+app/(dashboard)/products/
+  ├── page.tsx                    # Page component (Server Component)
+  ├── components/                 # Page-specific components
+  │   ├── ProductList.tsx        # Client Component
+  │   ├── ProductForm.tsx        # Client Component
+  │   └── ProductImageUpload.tsx # Client Component
+  └── create/
+      └── page.tsx                # Create page (Server Component)
+```
+
+### Shared Components
+
+```
+components/
+  ├── ui/                        # shadcn/ui components
+  │   ├── button.tsx
+  │   ├── input.tsx
+  │   └── card.tsx
+  ├── header/                    # App-wide components
+  │   └── Header.tsx
+  └── app-sidebar/               # Sidebar components
+      └── AppSidebar.tsx
+```
+
+## Component Patterns
+
+### 1. Server Component Wrapper
+
+Use Server Components as page wrappers:
+
+```typescript
+// ✅ Good - Server Component page
+// app/(dashboard)/products/page.tsx
+import { ProductListWrapper } from "./components/ProductListWrapper";
+
+export default function ProductsPage() {
+  return (
+    <div className="container">
+      <h1>Products</h1>
+      <ProductListWrapper />
+    </div>
+  );
+}
+```
+
+### 2. Client Component Wrapper
+
+Use Client Components for data fetching:
+
+```typescript
+// ✅ Good - Client Component wrapper
+// app/(dashboard)/products/components/ProductListWrapper.tsx
+"use client";
+
+import { useProducts } from "@/hooks/use-products";
+import { ProductList } from "./ProductList";
+
+export function ProductListWrapper() {
+  const { data, isLoading, error } = useProducts({ accountId: 1 });
+  
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+  
+  return <ProductList products={data || []} />;
+}
+```
+
+### 3. Presentational Component
+
+Keep components focused on presentation:
+
+```typescript
+// ✅ Good - Presentational component
+// app/(dashboard)/products/components/ProductList.tsx
+"use client";
+
+import type { ProductSummary } from "@/types/product";
+import { ProductItem } from "./ProductItem";
+
+interface ProductListProps {
+  products: ProductSummary[];
+  onProductClick?: (product: ProductSummary) => void;
+}
+
+export function ProductList({ products, onProductClick }: ProductListProps) {
+  return (
+    <div className="grid gap-4">
+      {products.map((product) => (
+        <ProductItem
+          key={product.idarticle}
+          product={product}
+          onClick={onProductClick}
+        />
+      ))}
+    </div>
+  );
+}
+```
+
+## Component Composition
+
+### Compound Components
+
+```typescript
+// ✅ Good - Compound component pattern
+// components/ui/card.tsx
+export function Card({ children, className }: CardProps) {
+  return <div className={cn("rounded-lg border", className)}>{children}</div>;
+}
+
+Card.Header = function CardHeader({ children }: { children: React.ReactNode }) {
+  return <div className="p-6 pb-0">{children}</div>;
+};
+
+Card.Content = function CardContent({ children }: { children: React.ReactNode }) {
+  return <div className="p-6">{children}</div>;
+};
+
+// Usage
+<Card>
+  <Card.Header>
+    <h2>Title</h2>
+  </Card.Header>
+  <Card.Content>
+    <p>Content</p>
+  </Card.Content>
+</Card>
+```
+
+### Render Props Pattern
+
+```typescript
+// ✅ Good - Render props for flexibility
+interface DataFetcherProps<T> {
+  queryKey: string[];
+  queryFn: () => Promise<T>;
+  children: (data: T, isLoading: boolean, error: Error | null) => React.ReactNode;
+}
+
+export function DataFetcher<T>({ queryKey, queryFn, children }: DataFetcherProps<T>) {
+  const { data, isLoading, error } = useQuery({ queryKey, queryFn });
+  return <>{children(data as T, isLoading, error as Error | null)}</>;
+}
+```
+
+## Props Patterns
+
+### Explicit Props Interface
+
+```typescript
+// ✅ Good - Explicit props interface
+interface ProductFormProps {
+  product?: Product;
+  onSubmit: (data: ProductFormData) => Promise<void>;
+  onCancel?: () => void;
+  isLoading?: boolean;
+}
+
+export function ProductForm({ product, onSubmit, onCancel, isLoading }: ProductFormProps) {
+  // ...
+}
+```
+
+### Children Props
+
+```typescript
+// ✅ Good - Children pattern
+interface CardProps {
+  title?: string;
+  children: React.ReactNode;
+}
+
+export function Card({ title, children }: CardProps) {
+  return (
+    <div className="card">
+      {title && <h2>{title}</h2>}
+      {children}
+    </div>
+  );
+}
+```
+
+## State Management in Components
+
+### Local State
+
+```typescript
+// ✅ Good - Local state for UI-only state
+"use client";
+
+import { useState } from "react";
+
+export function ProductSearch() {
+  const [query, setQuery] = useState("");
+  
+  return (
+    <input
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+      placeholder="Search products..."
+    />
+  );
+}
+```
+
+### Server State (TanStack Query)
+
+```typescript
+// ✅ Good - Server state with React Query
+"use client";
+
+import { useProducts } from "@/hooks/use-products";
+
+export function ProductList() {
+  const { data } = useProducts({ accountId: 1 });
+  // React Query handles loading/error states
+  return <div>{/* render products */}</div>;
+}
+```
+
+## Memoization
+
+### When to Use `memo`
+
+Use `memo` for expensive components that re-render frequently:
+
+```typescript
+// ✅ Good - Memoize expensive component
+import { memo } from "react";
+
+export const ExpensiveProductItem = memo(function ProductItem({ product }: { product: Product }) {
+  // Expensive rendering logic
+  return <div>{/* complex rendering */}</div>;
+});
+```
+
+### When to Use `useMemo`
+
+Use `useMemo` for expensive computations:
+
+```typescript
+// ✅ Good - Memoize expensive computation
+const sortedProducts = useMemo(() => {
+  return products.sort((a, b) => a.title.localeCompare(b.title));
+}, [products]);
+```
+
+### When to Use `useCallback`
+
+Use `useCallback` for functions passed as props:
+
+```typescript
+// ✅ Good - Memoize callback
+const handleProductClick = useCallback((product: Product) => {
+  router.push(`/products/edit/${product.id}`);
+}, [router]);
+```
+
+## Best Practices
+
+### 1. Keep Components Small and Focused
+
+```typescript
+// ✅ Good - Small, focused component
+export function ProductTitle({ title }: { title: string }) {
+  return <h2 className="text-xl font-semibold">{title}</h2>;
+}
+
+// ❌ Bad - Component does too much
+export function ProductCard({ product }: { product: Product }) {
+  // 200+ lines of code handling everything
+}
+```
+
+### 2. Extract Reusable Logic to Hooks
+
+```typescript
+// ✅ Good - Extract logic to hook
+// hooks/use-product-form.ts
+export function useProductForm(product?: Product) {
+  const form = useForm({ ... });
+  // Form logic
+  return { form, handleSubmit, handleReset };
+}
+
+// Component uses hook
+export function ProductForm({ product }: { product?: Product }) {
+  const { form, handleSubmit } = useProductForm(product);
+  return <form>{/* form fields */}</form>;
+}
+```
+
+### 3. Use TypeScript for Props
+
+```typescript
+// ✅ Good - Typed props
+interface Props {
+  product: Product;
+  onUpdate: (product: Product) => void;
+}
+
+// ❌ Bad - Untyped props
+function ProductCard(props: any) {
+  // ...
+}
+```
+
+### 4. Default Props Pattern
+
+```typescript
+// ✅ Good - Default props with TypeScript
+interface ProductCardProps {
+  product: Product;
+  showDescription?: boolean;
+  className?: string;
+}
+
+export function ProductCard({
+  product,
+  showDescription = true,
+  className,
+}: ProductCardProps) {
+  // ...
+}
+```
+
+### 5. Conditional Rendering
+
+```typescript
+// ✅ Good - Clear conditional rendering
+export function ProductList({ products }: { products: Product[] }) {
+  if (products.length === 0) {
+    return <EmptyState />;
+  }
+  
+  return (
+    <div>
+      {products.map((product) => (
+        <ProductItem key={product.id} product={product} />
+      ))}
+    </div>
+  );
+}
+```
+
+### 6. Error Boundaries
+
+```typescript
+// ✅ Good - Error boundary for error handling
+import { ErrorBoundary } from "react-error-boundary";
+
+export function ProductListWrapper() {
+  return (
+    <ErrorBoundary fallback={<ErrorFallback />}>
+      <ProductList />
+    </ErrorBoundary>
+  );
+}
+```

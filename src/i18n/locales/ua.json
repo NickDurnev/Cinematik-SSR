@@ -1,0 +1,185 @@
+{
+    "landing": {
+        "home": {
+            "title": "Головна",
+            "heroTitle": "Зміни світ",
+            "companiesTitle": "від найбільших імен у галузі",
+            "footerTitle": "Створено Dumb Gooses Labs",
+            "welcome": "Ласкаво просимо",
+            "goToApp": "Перейти до додатку"
+        },
+        "reviews": {
+            "title": "Відгуки",
+            "noReviewsTitle": "Відгуків ще немає",
+            "noReviewsDescription": "Будьте першим, хто залишить відгук",
+            "reviewDeleteToast": "Відгук успішно видалено"
+        },
+        "auth": {
+            "login": "Вхід",
+            "register": "Реєстрація",
+            "logout": "Вихід",
+            "email": "Електронна пошта",
+            "name": "Ім'я",
+            "password": "Пароль",
+            "confirmPassword": "Підтвердіть пароль",
+            "forgotPassword": "Забули пароль?",
+            "resetPassword": "Скинути пароль",
+            "confirmEmail": "Підтвердити пошту",
+            "confirmEmailInfo": "Будь ласка, перевірте вашу електронну пошту для посилання на підтвердження.",
+            "notAccount": "Ще немає акаунту?",
+            "alreadyHaveAccount": "Вже є акаунт?",
+            "logging": "Вхід...",
+            "send": "Надіслати",
+            "sending": "Надсилання...",
+            "reset": "Скинути",
+            "resetting": "Скидання...",
+            "signUp": "Зареєструватися",
+            "signingIn": "Вхід...",
+            "continueWithGoogle": "Продовжити з Google",
+            "or": "або"
+        }
+    },
+    "app": {
+        "filters": {
+            "title": "Фільтри",
+            "genres": "Жанри",
+            "allGenres": "Всі жанри",
+            "showFirstBy": "Сортувати за",
+            "from": "Від",
+            "to": "До",
+            "apply": "Застосувати",
+            "clear": "Очистити",
+            "sort": {
+                "popularity": "Популярність",
+                "releaseDate": "Дата випуску",
+                "voteAverage": "Середня оцінка"
+            },
+            "dates": {
+                "current": "Поточний"
+            },
+            "decades": {
+                "1950s": "1950-ті",
+                "1960s": "1960-ті",
+                "1970s": "1970-ті",
+                "1980s": "1980-ті",
+                "1990s": "1990-ті",
+                "2000s": "2000-ні",
+                "2010s": "2010-ті",
+                "2020s": "2020-ті"
+            }
+        },
+        "categories": {
+            "upcomingMovies": "Майбутні фільми",
+            "topRatedMovies": "Найрейтинговіші фільми",
+            "onTheAirTVShows": "Серіали в ефірі",
+            "topRatedTVShows": "Найрейтинговіші серіали",
+            "trendMovies": "Трендові фільми"
+        },
+        "header": {
+            "type": "Тип",
+            "movie": "Фільм",
+            "tvShow": "Серіал"
+        },
+        "search": {
+            "placeholder": "Пошук..."
+        },
+        "navigation": {
+            "home": "Головна",
+            "movies": "Фільми",
+            "pairs": "Пари",
+            "favorites": "Обране",
+            "watched": "Переглянуте"
+        },
+        "movieInfo": {
+            "notFound": "Фільм не знайдено",
+            "releaseDate": "Дата випуску:",
+            "runtime": "Тривалість:",
+            "budget": "Бюджет:",
+            "minutes": "хв",
+            "watchTrailer": "Дивитися трейлер",
+            "addToFavorites": "Додати в обране",
+            "addToWatched": "Додати в переглянуте",
+            "noTrailer": "Для цього фільму немає трейлера",
+            "tabs": {
+                "cast": "Актори",
+                "reviews": "Відгуки",
+                "similarMovies": "Схожі фільми"
+            }
+        },
+        "profile": {
+            "accountSettings": "Налаштування акаунту",
+            "profile": "Профіль",
+            "logout": "Вихід",
+            "profileUpdated": "Профіль успішно оновлено",
+            "title": "Налаштування профілю",
+            "name": "Ім'я",
+            "email": "Електронна пошта",
+            "language": "Мова",
+            "changePassword": "Змінити пароль",
+            "newPassword": "Новий пароль",
+            "confirmNewPassword": "Підтвердіть новий пароль",
+            "saveChanges": "Зберегти зміни",
+            "cancel": "Скасувати",
+            "passwordsDoNotMatch": "Паролі не збігаються"
+        },
+        "pairs": {
+            "title": "Пари",
+            "subtitle": "Знайдіть свою кіно-споріднену душу та свайпайте разом!",
+            "yourPairs": "Ваші пари",
+            "findFriends": "Знайти друзів",
+            "searchPlaceholder": "Пошук за email...",
+            "searching": "Пошук...",
+            "add": "Додати",
+            "sending": "Надсилання...",
+            "pendingRequests": "Очікувані запити",
+            "wantsToPair": "хоче створити пару з вами",
+            "accept": "Прийняти",
+            "reject": "Відхилити",
+            "loadingPairs": "Завантаження пар...",
+            "noPairs": "Ще немає пар. Запросіть друга, щоб почати!",
+            "startSession": "Почати сесію",
+            "remove": "Видалити",
+            "removeConfirm": "Ви впевнені, що хочете видалити цю пару?",
+            "backToPairs": "Назад до пар",
+            "sessionWith": "Сесія з {name}",
+            "findSomething": "Знайдіть щось для спільного перегляду!",
+            "whatToWatch": "Що дивитись?",
+            "movies": "Фільми",
+            "tvShows": "Серіали",
+            "fromYear": "Рік від",
+            "toYear": "Рік до",
+            "startSwiping": "Почати свайпати",
+            "starting": "Запуск...",
+            "waitingForPartner": "Очікування партнера",
+            "waitingForFilters": "Очікування прийняття фільтрів партнером...",
+            "settingUp": "Налаштування сесії...",
+            "acceptFiltersStart": "Прийняти фільтри та почати",
+            "cancel": "Скасувати",
+            "noMoreContent": "Більше немає контенту!",
+            "recommendationsDone": "Ви переглянули всі рекомендації.",
+            "endSession": "Завершити сесію",
+            "partnerOnline": "Партнер онлайн",
+            "partnerOffline": "Партнер офлайн",
+            "swiping": "свайпає...",
+            "liked": "Вподобав(ла)",
+            "passed": "Пропустив(ла)",
+            "partner": "Партнер",
+            "match": "Це збіг!",
+            "wantsToPairNotification": "{name} хоче створити пару!",
+            "invitationSent": "Запрошення надіслано!",
+            "invitationFailed": "Не вдалося надіслати запрошення",
+            "requestAccepted": "Запит прийнято!",
+            "requestRejected": "Запит відхилено!",
+            "requestResponseFailed": "Не вдалося відповісти на запит",
+            "swipeFailed": "Не вдалося записати свайп",
+            "sessionEndFailed": "Не вдалося завершити сесію",
+            "sessionStarted": "Сесію розпочато! Очікування партнера...",
+            "sessionStartFailed": "Не вдалося розпочати сесію",
+            "filtersAccepted": "Фільтри прийнято! Запуск...",
+            "filtersAcceptFailed": "Не вдалося прийняти фільтри"
+        }
+    },
+    "universal": {
+        "movies": "фільми"
+    }
+}
