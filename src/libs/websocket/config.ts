@@ -1,5 +1,5 @@
 export const WEBSOCKET_CONFIG = {
-  url: process.env.NEXT_PUBLIC_WS_URL || "http://localhost:8080",
+  url: process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080",
   namespace: "/pairs",
   options: {
     autoConnect: false,
