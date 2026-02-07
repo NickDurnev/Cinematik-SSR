@@ -8,7 +8,6 @@ import type {
   WebSocketEvent,
 } from "@/types/websocket";
 
-import { showMatchToast } from "@/components/common/Toast";
 import { useWebSocket } from "./useWebSocket";
 
 export function usePairEvents(pairId: string | null) {
@@ -27,14 +26,10 @@ export function usePairEvents(pairId: string | null) {
     // Join the pair room
     ws.joinPair(pairId);
 
-    // Subscribe to events
+    // Subscribe to events (match toast shown globally by GlobalNotificationListener)
     const unsubscribeMatch = ws.onMatchFound(
       ({ data }: WebSocketEvent<MatchFoundEvent>) => {
         setLatestMatch(data);
-        showMatchToast({
-          title: data.title,
-          poster_path: data.poster_path,
-        });
       },
     );
 

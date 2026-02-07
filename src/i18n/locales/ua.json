@@ -176,7 +176,17 @@
             "sessionStarted": "Сесію розпочато! Очікування партнера...",
             "sessionStartFailed": "Не вдалося розпочати сесію",
             "filtersAccepted": "Фільтри прийнято! Запуск...",
-            "filtersAcceptFailed": "Не вдалося прийняти фільтри"
+            "filtersAcceptFailed": "Не вдалося прийняти фільтри",
+            "notificationSessionCreated": "Сесію свайпів розпочато!",
+            "notificationSessionCreatedMessage": "Партнер розпочав сесію. Натисніть, щоб відкрити Пари.",
+            "notificationFiltersProposed": "Фільтри запропоновано",
+            "notificationFiltersProposedMessage": "Партнер встановив фільтри. Натисніть, щоб відкрити Пари.",
+            "notificationFiltersAccepted": "Фільтри прийнято!",
+            "notificationFiltersAcceptedMessage": "Сесія запускається. Натисніть, щоб відкрити Пари.",
+            "notificationSessionEnded": "Сесію свайпів завершено",
+            "notificationSessionEndedMessage": "Натисніть, щоб відкрити Пари.",
+            "notificationMatchMessage": "Натисніть, щоб відкрити Пари.",
+            "goToPairs": "До пар"
         }
     },
     "universal": {

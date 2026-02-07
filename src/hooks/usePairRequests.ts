@@ -7,7 +7,6 @@ import type {
   WebSocketEvent,
 } from "@/types/websocket";
 
-import { showPairRequestAcceptedToast } from "@/components/common/Toast";
 import { useWebSocket } from "./useWebSocket";
 
 export function usePairRequests() {
@@ -21,6 +20,9 @@ export function usePairRequests() {
     // Subscribe to incoming pair requests
     const unsubscribeRequest = ws.onPairRequest(
       ({ data }: WebSocketEvent<PairRequestEvent>) => {
+        if (!data?.requester) {
+          return;
+        }
         setNewRequest(data);
 
         // Invalidate pending requests query
@@ -32,17 +34,13 @@ export function usePairRequests() {
       },
     );
 
-    // Subscribe to pair request responses
+    // Subscribe to pair request responses (toast with redirect shown by GlobalNotificationListener)
     const unsubscribeResponse = ws.onPairRequestResponse(
       ({ data }: WebSocketEvent<PairRequestResponseEvent>) => {
         setRequestResponse(data);
 
         // Invalidate pairs list query
         queryClient.invalidateQueries({ queryKey: ["pairs"] });
-
-        if (data.accepted) {
-          showPairRequestAcceptedToast();
-        }
       },
     );
 
