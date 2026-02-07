@@ -134,8 +134,15 @@ export class PairsWebSocketService {
     ];
 
     events.forEach(event => {
-      this.socket?.on(event, data => {
-        console.log(`Received ${event}:`, data);
+      this.socket?.on(event, payload => {
+        // Server may send envelope { type, data, timestamp }; unwrap so handlers receive inner data
+        const data =
+          payload &&
+          typeof payload === "object" &&
+          "data" in payload &&
+          "type" in payload
+            ? (payload as { data: unknown }).data
+            : payload;
         this.notifyHandlers(event, data);
       });
     });

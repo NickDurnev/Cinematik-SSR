@@ -176,7 +176,17 @@
       "sessionStarted": "Session started! Waiting for partner...",
       "sessionStartFailed": "Failed to start session",
       "filtersAccepted": "Filters accepted! Starting...",
-      "filtersAcceptFailed": "Failed to accept filters"
+      "filtersAcceptFailed": "Failed to accept filters",
+      "notificationSessionCreated": "A swipe session was started!",
+      "notificationSessionCreatedMessage": "Your partner started a session. Tap to open Pairs.",
+      "notificationFiltersProposed": "Filters proposed",
+      "notificationFiltersProposedMessage": "Your partner set filters. Tap to open Pairs.",
+      "notificationFiltersAccepted": "Filters accepted!",
+      "notificationFiltersAcceptedMessage": "Session is starting. Tap to open Pairs.",
+      "notificationSessionEnded": "Swipe session ended",
+      "notificationSessionEndedMessage": "Tap to open Pairs.",
+      "notificationMatchMessage": "Tap to open Pairs.",
+      "goToPairs": "Go to Pairs"
     }
   },
   "universal": {

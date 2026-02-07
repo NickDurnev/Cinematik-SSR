@@ -19,9 +19,12 @@ export { Show } from "./Show";
 export { ThemeSwitcher } from "./ThemeSwitcher";
 export { Autocomplete } from "./AutoComplete";
 export {
+  AppNotificationToast,
   MatchToastContent,
   PairRequestAcceptedToastContent,
+  showAppNotificationToast,
   showMatchToast,
   showPairRequestAcceptedToast,
+  type AppNotificationToastData,
   type MatchToastData,
 } from "./Toast";
