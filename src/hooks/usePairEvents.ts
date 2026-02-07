@@ -8,6 +8,7 @@ import type {
   WebSocketEvent,
 } from "@/types/websocket";
 
+import { showMatchToast } from "@/components/common/Toast";
 import { useWebSocket } from "./useWebSocket";
 
 export function usePairEvents(pairId: string | null) {
@@ -30,15 +31,10 @@ export function usePairEvents(pairId: string | null) {
     const unsubscribeMatch = ws.onMatchFound(
       ({ data }: WebSocketEvent<MatchFoundEvent>) => {
         setLatestMatch(data);
-        // Show notification
-        if ("Notification" in window && Notification.permission === "granted") {
-          new Notification("New Match! 🎉", {
-            body: `You both liked "${data.title}"!`,
-            icon: data.poster_path
-              ? `https://image.tmdb.org/t/p/w92${data.poster_path}`
-              : undefined,
-          });
-        }
+        showMatchToast({
+          title: data.title,
+          poster_path: data.poster_path,
+        });
       },
     );
 

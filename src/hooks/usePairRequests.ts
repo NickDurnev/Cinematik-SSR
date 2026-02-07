@@ -7,6 +7,7 @@ import type {
   WebSocketEvent,
 } from "@/types/websocket";
 
+import { showPairRequestAcceptedToast } from "@/components/common/Toast";
 import { useWebSocket } from "./useWebSocket";
 
 export function usePairRequests() {
@@ -27,13 +28,7 @@ export function usePairRequests() {
           queryKey: ["pairs", "pending-requests"],
         });
 
-        // Show browser notification
-        if ("Notification" in window && Notification.permission === "granted") {
-          new Notification("New Pair Request", {
-            body: `${data.requester.name} wants to pair with you!`,
-            icon: data.requester.picture,
-          });
-        }
+        // In-app toast for new request is shown by NotificationListener
       },
     );
 
@@ -45,15 +40,8 @@ export function usePairRequests() {
         // Invalidate pairs list query
         queryClient.invalidateQueries({ queryKey: ["pairs"] });
 
-        // Show notification
-        if (
-          data.accepted &&
-          "Notification" in window &&
-          Notification.permission === "granted"
-        ) {
-          new Notification("Pair Request Accepted! 🎉", {
-            body: "Your pair request was accepted!",
-          });
+        if (data.accepted) {
+          showPairRequestAcceptedToast();
         }
       },
     );

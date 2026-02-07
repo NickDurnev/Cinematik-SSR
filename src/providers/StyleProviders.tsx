@@ -1,20 +1,31 @@
 "use client";
 
 import { ThemeProvider } from "@mui/material/styles";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
 import React from "react";
 import { ToastContainer } from "react-toastify";
 
-import EmotionCacheProvider from "./EmotionCacheProvider";
 import theme from "@/utils/theme";
+
+import EmotionCacheProvider from "./EmotionCacheProvider";
 
 type Props = {
   children: React.ReactNode;
 };
 
-const ToastProvider = () => {
-  return <ToastContainer autoClose={3000} position="top-center" limit={1} />;
-};
+function ToastProvider() {
+  const { resolvedTheme } = useTheme();
+  const toastTheme = resolvedTheme === "dark" ? "dark" : "light";
+
+  return (
+    <ToastContainer
+      autoClose={3000}
+      position="top-center"
+      limit={3}
+      theme={toastTheme}
+    />
+  );
+}
 
 export const StyleProviders = ({ children }: Props) => {
   return (
