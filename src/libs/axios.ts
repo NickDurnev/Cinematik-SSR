@@ -24,7 +24,7 @@ export const imdbApiClient: AxiosInstance = axios.create({
 imdbApiClient.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
     // Get current locale and update language parameter
-    const locale = await getCookie("NEXT_LOCALE");
+    const locale = (await getCookie("NEXT_LOCALE")) ?? LanguageEnum.EN;
     const language = locale === LanguageEnum.EN ? "en-US" : "uk-UA";
 
     config.params = {

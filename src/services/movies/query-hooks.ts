@@ -7,7 +7,9 @@ import {
   fetchMovieTrailers,
   fetchTrendMovies,
   movieCast,
+  movieDetails,
   movieReviews,
+  moviesByActor,
   searchMovie,
   similarMovies,
 } from "@/services/movies/service";
@@ -130,5 +132,17 @@ export const useMovieTrailers = ({ movieId }: { movieId: string }) =>
   useQuery({
     queryKey: ["movie-trailers", { movieId }],
     queryFn: () => fetchMovieTrailers({ movieId }),
-    // enabled: Boolean(movieId),
+  });
+
+export const useMoviesByActor = ({ actorId }: { actorId: string }) =>
+  useQuery({
+    queryKey: ["movies-by-actor", actorId],
+    queryFn: () => moviesByActor({ actorId }),
+  });
+
+export const useMovieDetails = ({ movieId }: { movieId: string }) =>
+  useQuery({
+    queryKey: ["movie-details", movieId],
+    queryFn: () => movieDetails({ movieId }),
+    enabled: Boolean(movieId),
   });

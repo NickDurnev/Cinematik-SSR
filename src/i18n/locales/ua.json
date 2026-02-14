@@ -106,6 +106,26 @@
                 "similarMovies": "Схожі фільми"
             }
         },
+        "tvShowInfo": {
+            "notFound": "Серіал не знайдено",
+            "firstAirDate": "Перша дата ефіру:",
+            "episodeRuntime": "Тривалість серії:",
+            "numberOfSeasons": "Кількість сезонів:",
+            "numberOfEpisodes": "Кількість серій:",
+            "status": "Статус:",
+            "creators": "Творці",
+            "networks": "Мережі",
+            "watchTrailer": "Дивитися трейлер",
+            "addToFavorites": "Додати в обране",
+            "addToWatched": "Додати в переглянуте",
+            "noTrailer": "Для цього серіала немає трейлера",
+            "minutes": "хв",
+            "tabs": {
+                "cast": "Актори",
+                "reviews": "Відгуки",
+                "similarTVShows": "Схожі серіали"
+            }
+        },
         "profile": {
             "accountSettings": "Налаштування акаунту",
             "profile": "Профіль",

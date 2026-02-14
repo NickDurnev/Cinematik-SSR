@@ -4,7 +4,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { motion } from "framer-motion";
 
 import { Show } from "@/components/common";
-import { IReview } from "@/types/movie";
+import { IReview } from "@/types/general";
 
 export const ReviewCard = ({ data }: { data: IReview }) => {
   const { id, formattedPath, avatar_path, author, content, created_at } = data;

@@ -1,13 +1,14 @@
 import { imdbApiClient } from "@/libs/axios";
 import ErrorHelper from "@/libs/error-helper";
-import { ContentFilters, IGenre, ImdbPaginatedResponse } from "@/types/general";
 import {
+  ContentFilters,
   IActor,
-  IMovie,
+  IGenre,
+  ImdbPaginatedResponse,
   IReview,
   ITrailer,
-  MovieCategoryType,
-} from "@/types/movie";
+} from "@/types/general";
+import { IMovie, MovieCategoryType } from "@/types/movie";
 
 export const fetchTrendMovies = async ({
   page,
@@ -158,22 +159,7 @@ export const similarMovies = async ({
   }
 };
 
-export const actorDetails = async ({
-  actorId,
-}: {
-  actorId: string;
-}): Promise<IActor> => {
-  try {
-    const response = await imdbApiClient.get(`person/${actorId}`);
-    const data = await response.data;
-    return data;
-  } catch (error) {
-    const errorMessage = ErrorHelper.getMessage(error);
-    throw new Error(errorMessage ?? "Failed to get actor details");
-  }
-};
-
-export const filmsByActor = async ({
+export const moviesByActor = async ({
   actorId,
 }: {
   actorId: string;
@@ -183,7 +169,7 @@ export const filmsByActor = async ({
     return response.data;
   } catch (error) {
     const errorMessage = ErrorHelper.getMessage(error);
-    throw new Error(errorMessage ?? "Failed to get films by actor");
+    throw new Error(errorMessage ?? "Failed to get movies by actor");
   }
 };
 

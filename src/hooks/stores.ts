@@ -5,13 +5,14 @@ import { PersistStorage, persist } from "zustand/middleware";
 
 import { ContentFilters, ContentType, IGenre } from "@/types/general";
 import { ILibraryMoviePartial } from "@/types/library";
+import { IMovie } from "@/types/movie";
+import { ITVShow } from "@/types/tv-show";
 import { IFormsData, IUser } from "@/types/user";
 import {
   DEFAULT_CONTENT_FILTERS,
   DEFAULT_FORM_DATA,
   DEFAULT_USER,
 } from "@/utils/constants";
-import { IMovie } from "@/types/movie";
 
 // Create a sessionStorage adapter
 const sessionStorageAdapter: PersistStorage<UserStore> = {
@@ -102,8 +103,10 @@ export interface ContentDataStore {
   setContentFilters: (contentFilters: ContentFilters) => void;
   library: ILibraryMoviePartial[];
   setLibrary: (library: ILibraryMoviePartial[]) => void;
-  movieInfo: IMovie | null,
-  setMovieInfo: (movieInfo: IMovie) => void;
+  movieInfo: IMovie | null;
+  setMovieInfo: (movieInfo: IMovie | null) => void;
+  tvShowInfo: ITVShow | null;
+  setTVShowInfo: (tvShowInfo: ITVShow | null) => void;
   isChangedPage: boolean;
   setIsChangedPage: (isChangedPage: boolean) => void;
 }
@@ -126,6 +129,8 @@ export const useContentDataStore = create<ContentDataStore>()(
       setLibrary: (library: ILibraryMoviePartial[]) => set({ library }),
       movieInfo: null,
       setMovieInfo: (movieInfo: IMovie | null) => set({ movieInfo }),
+      tvShowInfo: null,
+      setTVShowInfo: (tvShowInfo: ITVShow | null) => set({ tvShowInfo }),
       isChangedPage: false,
       setIsChangedPage: (isChangedPage: boolean) => set({ isChangedPage }),
       _hasHydrated: false,
@@ -147,10 +152,14 @@ export const useTVShowGenres = () =>
 export const useTVShowGenresSetter = () =>
   useContentDataStore(state => state.setTVShowGenres);
 
-export const useMovieInfo = () =>
-  useContentDataStore(state => state.movieInfo);
+export const useMovieInfo = () => useContentDataStore(state => state.movieInfo);
 export const useMovieInfoSetter = () =>
   useContentDataStore(state => state.setMovieInfo);
+
+export const useTVShowInfo = () =>
+  useContentDataStore(state => state.tvShowInfo);
+export const useTVShowInfoSetter = () =>
+  useContentDataStore(state => state.setTVShowInfo);
 
 export const useMoviesLibrary = () =>
   useContentDataStore(state => state.library);

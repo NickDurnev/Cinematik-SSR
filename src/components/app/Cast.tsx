@@ -7,7 +7,8 @@ import { toast } from "react-toastify";
 import { CustomLink, Show, Spinner } from "@/components/common";
 import { cn } from "@/libs/tailwind-merge";
 import { useMovieCast } from "@/services/movies/query-hooks";
-import { IActor } from "@/types/movie";
+import { useTVShowCast } from "@/services/tv-shows/query-hooks";
+import { IActor } from "@/types/general";
 import {
   BASE_CARD_CLASSES,
   RESPONSIVE_CARD_CLASSES,
@@ -17,12 +18,19 @@ import {
 import { CastCard } from "./CastCard";
 import { Notify } from "./Notify";
 
-export const Cast = ({ movieId }: { movieId: string }) => {
+export const Cast = ({
+  movieId,
+  isTVShow = false,
+}: {
+  movieId: string;
+  isTVShow?: boolean;
+}) => {
   const pathname = usePathname();
 
-  const { data, error, isPending, isError } = useMovieCast({
-    movieId,
-  });
+  const movieCast = useMovieCast({ movieId });
+  const tvShowCast = useTVShowCast({ tvShowId: movieId });
+
+  const { data, error, isPending, isError } = isTVShow ? tvShowCast : movieCast;
 
   if (isPending) {
     return <Spinner />;
@@ -34,10 +42,13 @@ export const Cast = ({ movieId }: { movieId: string }) => {
 
   return (
     <Show
-      when={data.length !== 0}
+      when={data && data.length !== 0}
       fallback={
         <Notify>
-          <h2>We don't have info about cast for this movie</h2>
+          <h2>
+            We don't have info about cast for this{" "}
+            {isTVShow ? "TV show" : "movie"}
+          </h2>
           <SentimentVeryDissatisfiedIcon sx={{ fontSize: 70, mt: 1 }} />
         </Notify>
       }
@@ -49,7 +60,7 @@ export const Cast = ({ movieId }: { movieId: string }) => {
           RESPONSIVE_CARD_CLASSES,
         )}
       >
-        {data.map((actor: IActor) => {
+        {data?.map((actor: IActor) => {
           const { id, cast_id } = actor;
           return (
             <li key={cast_id} className="[&+li]:mt-5 md:[&+li]:mt-0">

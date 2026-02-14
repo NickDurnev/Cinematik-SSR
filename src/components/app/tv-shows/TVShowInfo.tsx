@@ -1,0 +1,289 @@
+"use client";
+
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
+import StarIcon from "@mui/icons-material/Star";
+import TvIcon from "@mui/icons-material/Tv";
+import { AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
+import { Frame, Notify } from "@/components/app";
+import { Button, CustomLink, Modal, Show } from "@/components/common";
+import { useMoviesLibrary } from "@/hooks/stores";
+import {
+  useAddMovieToLibrary,
+  useUpdateLibraryMovie,
+} from "@/services/library/query-hooks";
+import { useTVShowTrailers } from "@/services/tv-shows/query-hooks";
+import { CategoryEnum } from "@/types/library";
+import { ITVShow } from "@/types/tv-show";
+
+import { ImageWrapper } from "../ImageWrapper";
+
+interface Props {
+  tvShowData: ITVShow;
+}
+
+export const TVShowInfo = ({ tvShowData }: Props) => {
+  const t = useTranslations("app.tvShowInfo");
+  const [tvShowCategory, setTVShowCategory] = useState<null | CategoryEnum>(
+    null,
+  );
+  const [isTrailerModalOpen, setIsTrailerModalOpen] = useState(false);
+  const library = useMoviesLibrary();
+  const {
+    poster_path,
+    first_air_date,
+    vote_average,
+    name,
+    tagline,
+    episode_run_time,
+    overview,
+    genres,
+    genre_ids,
+    number_of_episodes,
+    number_of_seasons,
+    status,
+    created_by,
+    networks,
+  } = tvShowData;
+
+  const isWatched = tvShowCategory === CategoryEnum.WATCHED;
+
+  const { data: tvShowTrailers } = useTVShowTrailers({
+    tvShowId: tvShowData.id.toString(),
+  });
+
+  const { mutate: addMovieToLibrary, isPending: isAddPending } =
+    useAddMovieToLibrary();
+  const { mutate: updateLibraryMovie, isPending: isUpdatePending } =
+    useUpdateLibraryMovie();
+
+  useEffect(() => {
+    if (library.length) {
+      const libraryTVShow = library.find(
+        movie => movie.id === `${tvShowData.id}`,
+      );
+      if (libraryTVShow) {
+        setTVShowCategory(libraryTVShow.category);
+      }
+    }
+  }, [library, tvShowData.id]);
+
+  const handleClick = () => {
+    if (tvShowCategory) {
+      updateLibraryMovie(
+        {
+          movie_id: `${tvShowData.id}`,
+          category:
+            tvShowCategory === CategoryEnum.FAVORITES
+              ? CategoryEnum.WATCHED
+              : CategoryEnum.FAVORITES,
+        },
+        {
+          onError: (error: Error) => {
+            toast.error(error?.message);
+          },
+        },
+      );
+    } else {
+      addMovieToLibrary(
+        {
+          overview,
+          release_date: first_air_date,
+          title: name,
+          tagline,
+          runtime: episode_run_time?.[0] || 0,
+          genres,
+          vote_average,
+          genre_ids,
+          poster_path,
+          category: CategoryEnum.FAVORITES,
+        },
+        {
+          onError: (error: Error) => {
+            toast.error(error?.message);
+          },
+        },
+      );
+    }
+  };
+
+  return (
+    <div className="mt-[60px] tablet:flex laptopL:w-[1370px] laptopM:w-[1200px] tablet:w-[80vw] w-full tablet:items-start tablet:justify-between text-foreground">
+      <div
+        className={`tablet:m-0 mx-auto h-[465px] laptopM:h-[600px] tablet:h-[400px] laptopM:w-[400px] tablet:w-[250px] w-[310px] text-link ${
+          !poster_path && "bg-[#666666]"
+        }`}
+      >
+        <Show
+          when={poster_path}
+          fallback={
+            <ImageWrapper>
+              <Image
+                src="/icons/Movie404.svg"
+                alt="TV Show placeholder"
+                width={120}
+                height={180}
+                className="h-auto w-[120px]"
+              />
+            </ImageWrapper>
+          }
+        >
+          <img
+            src={`https://image.tmdb.org/t/p/w400${poster_path}`}
+            alt={name}
+            className="h-full w-full"
+          />
+        </Show>
+      </div>
+      <div className="mt-5 laptop:w-[640px] laptopL:w-[850px] laptopM:w-[700px] tablet:w-[380px] w-full">
+        <h2 className="mb-[30px] font-technovier laptop:text-[40px] text-[30px] laptop:leading-[47px] leading-[37px]">
+          {name}
+        </h2>
+        <Show when={tagline}>
+          <h3 className="mb-5 text-xl">"{tagline}"</h3>
+        </Show>
+        <p className="mb-[50px] text-xl leading-5">{overview}</p>
+        <ul className="mx-auto mb-5 flex laptop:w-[500px] laptopM:w-[600px] tablet:w-[350px] w-full items-center justify-between laptop:text-xl text-lg laptop:leading-5 leading-[18px]">
+          <li className="laptop:mr-[120px] mr-[60px] text-left [&>p+p]:mt-[30px]">
+            <p>{t("firstAirDate")}</p>
+            <Show when={episode_run_time?.[0]}>
+              <p>{t("episodeRuntime")}</p>
+            </Show>
+            <Show when={number_of_seasons}>
+              <p>{t("numberOfSeasons")}</p>
+            </Show>
+            <Show when={number_of_episodes}>
+              <p>{t("numberOfEpisodes")}</p>
+            </Show>
+            <Show when={status}>
+              <p>{t("status")}</p>
+            </Show>
+          </li>
+          <li className="text-right [&>p+p]:mt-[30px]">
+            <p>{first_air_date}</p>
+            <Show when={episode_run_time?.[0]}>
+              <p>
+                {episode_run_time[0]} {t("minutes")}
+              </p>
+            </Show>
+            <Show when={number_of_seasons}>
+              <p>{number_of_seasons}</p>
+            </Show>
+            <Show when={number_of_episodes}>
+              <p>{number_of_episodes}</p>
+            </Show>
+            <Show when={status}>
+              <p>{status}</p>
+            </Show>
+          </li>
+        </ul>
+        <Show when={created_by?.length}>
+          <div className="mb-[30px]">
+            <p className="mb-2 text-lg">{t("creators")}:</p>
+            <p className="text-xl">
+              {created_by?.map(creator => creator.name).join(", ")}
+            </p>
+          </div>
+        </Show>
+        <Show when={networks?.length}>
+          <div className="mb-[30px]">
+            <p className="mb-2 text-lg">{t("networks")}:</p>
+            <p className="text-xl">
+              {networks?.map(network => network.name).join(", ")}
+            </p>
+          </div>
+        </Show>
+        <Show when={genres?.length}>
+          <ul className="mx-auto mt-[50px] flex w-full flex-wrap items-center laptop:justify-start justify-center text-link">
+            {genres?.map(({ id, name }) => (
+              <li key={id}>
+                <CustomLink
+                  href={`tv-shows/by_genre=${id}`}
+                  className="relative inline-block bg-linear-to-r bg-position-[-100%] bg-size-[200%_100%] from-50% from-link to-50% to-black bg-clip-text px-[30px] py-[15px] text-center font-sans text-transparent uppercase transition-all duration-300 ease-linear before:absolute before:bottom-[-3px] before:left-0 before:block before:h-[3px] before:w-0 before:bg-link before:transition-all before:duration-300 before:ease-in-out before:content-[''] hover:bg-[0] hover:before:w-full"
+                >
+                  {name}
+                </CustomLink>
+              </li>
+            ))}
+          </ul>
+        </Show>
+        <div className="mx-auto laptop:mt-[110px] mt-[50px] laptop:flex laptop:w-[550px] laptop:items-center laptop:justify-between">
+          <Button
+            type="button"
+            onClick={() => setIsTrailerModalOpen(true)}
+            endIcon={<PlayArrowIcon fontSize="inherit" />}
+            className="mx-auto laptop:mb-0 mb-[30px] w-[220px] px-5 py-2.5 font-semibold! text-[1.5rem]!"
+          >
+            {t("watchTrailer")}
+          </Button>
+          <Show
+            when={tvShowCategory}
+            fallback={
+              <Button
+                onClick={handleClick}
+                aria-label="Add to favorites"
+                disabled={isAddPending || isWatched}
+                endIcon={!isAddPending && <StarIcon fontSize="inherit" />}
+                loading={isAddPending}
+                loadingPosition="end"
+                className="font-semibold! text-[1.5rem]!"
+              >
+                {t("addToFavorites")}
+              </Button>
+            }
+          >
+            <Button
+              onClick={handleClick}
+              aria-label="Add to watched"
+              disabled={isUpdatePending || isWatched}
+              endIcon={!isUpdatePending && <TvIcon fontSize="inherit" />}
+              loading={isUpdatePending}
+              loadingPosition="end"
+              className="font-semibold! text-[1.5rem]!"
+            >
+              {t("addToWatched")}
+            </Button>
+          </Show>
+        </div>
+      </div>
+      <AnimatePresence>
+        {isTrailerModalOpen && (
+          <Modal onModal={() => setIsTrailerModalOpen(false)}>
+            <div className="flex items-center justify-center">
+              <Show
+                when={tvShowTrailers?.length}
+                fallback={
+                  <Notify>
+                    <h2>{t("noTrailer")}</h2>
+                    <SentimentVeryDissatisfiedIcon
+                      sx={{ fontSize: 70, mt: 1 }}
+                    />
+                  </Notify>
+                }
+              >
+                <Frame
+                  youtubeURL="https://www.youtube-nocookie.com/embed/"
+                  movieTrailer={
+                    tvShowTrailers?.find(
+                      t =>
+                        t.site === "YouTube" &&
+                        t.name.toLowerCase().includes("trailer"),
+                    )?.key ??
+                    tvShowTrailers?.find(t => t.site === "YouTube")?.key ??
+                    tvShowTrailers?.[0]?.key ??
+                    ""
+                  }
+                />
+              </Show>
+            </div>
+          </Modal>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};

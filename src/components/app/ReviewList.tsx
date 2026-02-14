@@ -5,15 +5,25 @@ import { toast } from "react-toastify";
 
 import { QueryTrigger, Show, Spinner } from "@/components/common";
 import { useMovieReviews } from "@/services/movies/query-hooks";
-import { IReview } from "@/types/movie";
+import { useTVShowReviews } from "@/services/tv-shows/query-hooks";
+import { IReview } from "@/types/general";
 
 import { Notify } from "./Notify";
 import { ReviewCard } from "./ReviewCard";
 
-const ReviewList = ({ movieId }: { movieId: string }) => {
+const ReviewList = ({
+  movieId,
+  isTVShow = false,
+}: {
+  movieId: string;
+  isTVShow?: boolean;
+}) => {
   const [reviews, setReviews] = useState<IReview[]>([]);
 
   const [hasLoaded, setHasLoaded] = useState(false);
+
+  const movieReviews = useMovieReviews({ movieId });
+  const tvShowReviews = useTVShowReviews({ tvShowId: movieId });
 
   const {
     data: reviewsData,
@@ -24,7 +34,7 @@ const ReviewList = ({ movieId }: { movieId: string }) => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useMovieReviews({ movieId });
+  } = isTVShow ? tvShowReviews : movieReviews;
 
   const { ref: ListRef, inView } = useInView({
     threshold: 0.1,
@@ -34,7 +44,7 @@ const ReviewList = ({ movieId }: { movieId: string }) => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
-  }, [inView]);
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   useEffect(() => {
     if (isSuccess || reviewsData?.pages?.length) {
@@ -42,7 +52,7 @@ const ReviewList = ({ movieId }: { movieId: string }) => {
       const allReviews = reviewsData.pages.flatMap(page => page.data);
       setReviews(allReviews);
     }
-  }, [isSuccess, reviewsData?.pages, hasNextPage]);
+  }, [isSuccess, reviewsData?.pages]);
 
   if (isError) {
     return toast.error(error?.message);
@@ -54,7 +64,10 @@ const ReviewList = ({ movieId }: { movieId: string }) => {
         when={hasLoaded && reviews.length !== 0}
         fallback={
           <Notify>
-            <h2>We don't have any reviews for this movie</h2>
+            <h2>
+              We don't have any reviews for this{" "}
+              {isTVShow ? "TV show" : "movie"}
+            </h2>
             <SentimentVeryDissatisfiedIcon sx={{ fontSize: 70, mt: 1 }} />
           </Notify>
         }

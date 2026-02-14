@@ -1,6 +1,12 @@
 import { imdbApiClient } from "@/libs/axios";
 import ErrorHelper from "@/libs/error-helper";
-import { IGenre, ImdbPaginatedResponse } from "@/types/general";
+import {
+  IActor,
+  IGenre,
+  ImdbPaginatedResponse,
+  IReview,
+  ITrailer,
+} from "@/types/general";
 import { ITVShow } from "@/types/tv-show";
 
 export const fetchTrendTVShows = async ({
@@ -84,146 +90,106 @@ export const searchTVShow = async ({
   }
 };
 
-// export const fetchMoviesByGenre = async ({
-//   page,
-//   genreId,
-// }: {
-//   page: number;
-//   genreId: string;
-// }): Promise<ImdbPaginatedResponse<IMovie>> => {
-//   try {
-//     const response = await imdbApiClient.get("discover/movie", {
-//       params: {
-//         page,
-//         with_genres: genreId,
-//       },
-//     });
-//     return {
-//       data: response.data.results,
-//       next_page: page + 1,
-//       total_pages: response.data.total_pages,
-//     };
-//   } catch (error) {
-//     const errorMessage = ErrorHelper.getMessage(error);
-//     throw new Error(errorMessage ?? "Failed to get movies by genre");
-//   }
-// };
+export const tvShowDetails = async ({
+  tvShowId,
+}: {
+  tvShowId: string;
+}): Promise<ITVShow> => {
+  try {
+    const response = await imdbApiClient.get(`tv/${tvShowId}`);
+    return response.data;
+  } catch (error) {
+    const errorMessage = ErrorHelper.getMessage(error);
+    throw new Error(errorMessage ?? "Failed to get tv show details");
+  }
+};
 
-// export const movieDetails = async ({
-//   movieId,
-// }: {
-//   movieId: string;
-// }): Promise<IMovie> => {
-//   try {
-//     const response = await imdbApiClient.get(`movie/${movieId}`);
-//     return response.data;
-//   } catch (error) {
-//     const errorMessage = ErrorHelper.getMessage(error);
-//     throw new Error(errorMessage ?? "Failed to get movie details");
-//   }
-// };
+export const similarTVShows = async ({
+  page,
+  tvShowId,
+}: {
+  page: number;
+  tvShowId: string;
+}): Promise<ImdbPaginatedResponse<ITVShow>> => {
+  try {
+    const response = await imdbApiClient.get(`tv/${tvShowId}/similar`, {
+      params: {
+        page,
+      },
+    });
+    return {
+      data: response.data.results,
+      next_page: page + 1,
+      total_pages: response.data.total_pages,
+    };
+  } catch (error) {
+    const errorMessage = ErrorHelper.getMessage(error);
+    throw new Error(errorMessage ?? "Failed to get similar tv shows");
+  }
+};
 
-// export const similarMovies = async ({
-//   page,
-//   movieId,
-// }: {
-//   page: number;
-//   movieId: string;
-// }): Promise<ImdbPaginatedResponse<IMovie>> => {
-//   try {
-//     const response = await imdbApiClient.get(`movie/${movieId}/similar`, {
-//       params: {
-//         page,
-//       },
-//     });
-//     return {
-//       data: response.data.results,
-//       next_page: page + 1,
-//       total_pages: response.data.total_pages,
-//     };
-//   } catch (error) {
-//     const errorMessage = ErrorHelper.getMessage(error);
-//     throw new Error(errorMessage ?? "Failed to get similar movies");
-//   }
-// };
+export const tvShowsByActor = async ({
+  actorId,
+}: {
+  actorId: string;
+}): Promise<ITVShow[]> => {
+  try {
+    const response = await imdbApiClient.get(`person/${actorId}/tv_credits`);
+    return response.data;
+  } catch (error) {
+    const errorMessage = ErrorHelper.getMessage(error);
+    throw new Error(errorMessage ?? "Failed to get tv shows by actor");
+  }
+};
 
-// export const actorDetails = async ({
-//   actorId,
-// }: {
-//   actorId: string;
-// }): Promise<IActor> => {
-//   try {
-//     const response = await imdbApiClient.get(`person/${actorId}`);
-//     const data = await response.data;
-//     return data;
-//   } catch (error) {
-//     const errorMessage = ErrorHelper.getMessage(error);
-//     throw new Error(errorMessage ?? "Failed to get actor details");
-//   }
-// };
+export const tvShowCast = async ({
+  tvShowId,
+}: {
+  tvShowId: string;
+}): Promise<IActor[]> => {
+  try {
+    const response = await imdbApiClient.get(`tv/${tvShowId}/credits`);
+    return response.data.cast;
+  } catch (error) {
+    const errorMessage = ErrorHelper.getMessage(error);
+    throw new Error(errorMessage ?? "Failed to get tv show cast");
+  }
+};
 
-// export const filmsByActor = async ({
-//   actorId,
-// }: {
-//   actorId: string;
-// }): Promise<IMovie[]> => {
-//   try {
-//     const response = await imdbApiClient.get(`person/${actorId}/movie_credits`);
-//     return response.data;
-//   } catch (error) {
-//     const errorMessage = ErrorHelper.getMessage(error);
-//     throw new Error(errorMessage ?? "Failed to get films by actor");
-//   }
-// };
+export const tvShowReviews = async ({
+  page,
+  tvShowId,
+}: {
+  page: number;
+  tvShowId: string;
+}): Promise<ImdbPaginatedResponse<IReview>> => {
+  try {
+    const response = await imdbApiClient.get(`tv/${tvShowId}/reviews`, {
+      params: {
+        page,
+      },
+    });
+    return {
+      data: response.data.results,
+      next_page: page + 1,
+      total_pages: response.data.total_pages,
+    };
+  } catch (error) {
+    const errorMessage = ErrorHelper.getMessage(error);
+    throw new Error(errorMessage ?? "Failed to get tv show reviews");
+  }
+};
 
-// export const movieCast = async ({
-//   movieId,
-// }: {
-//   movieId: string;
-// }): Promise<IActor[]> => {
-//   try {
-//     const response = await imdbApiClient.get(`movie/${movieId}/credits`);
-//     return response.data.cast;
-//   } catch (error) {
-//     const errorMessage = ErrorHelper.getMessage(error);
-//     throw new Error(errorMessage ?? "Failed to get movie cast");
-//   }
-// };
-
-// export const movieReviews = async ({
-//   page,
-//   movieId,
-// }: {
-//   page: number;
-//   movieId: string;
-// }): Promise<ImdbPaginatedResponse<IReview>> => {
-//   try {
-//     const response = await imdbApiClient.get(`movie/${movieId}/reviews`, {
-//       params: {
-//         page,
-//       },
-//     });
-//     return {
-//       data: response.data.results,
-//       next_page: page + 1,
-//       total_pages: response.data.total_pages,
-//     };
-//   } catch (error) {
-//     const errorMessage = ErrorHelper.getMessage(error);
-//     throw new Error(errorMessage ?? "Failed to get movie reviews");
-//   }
-// };
-
-// export const fetchMovieTrailers = async ({
-//   movieId,
-// }: {
-//   movieId: string;
-// }): Promise<ITrailer[]> => {
-//   try {
-//     const response = await imdbApiClient.get(`movie/${movieId}/videos`);
-//     return response.data.results;
-//   } catch (error) {
-//     const errorMessage = ErrorHelper.getMessage(error);
-//     throw new Error(errorMessage ?? "Failed to get movie trailers");
-//   }
-// };
+export const fetchTVShowTrailers = async ({
+  tvShowId,
+}: {
+  tvShowId: string;
+}): Promise<ITrailer[]> => {
+  try {
+    const response = await imdbApiClient.get(`tv/${tvShowId}/videos`);
+    return response.data.results;
+  } catch (error) {
+    const errorMessage = ErrorHelper.getMessage(error);
+    throw new Error(errorMessage ?? "Failed to get tv show trailers");
+  }
+};

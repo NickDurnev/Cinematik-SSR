@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 import { cn } from "@/libs/tailwind-merge";
-import { IActor } from "@/types/movie";
+import { IActor } from "@/types/general";
 import { cardVariants } from "@/utils/animations";
 
 import { Show } from "../common";
@@ -44,11 +44,11 @@ export const CastCard = ({ data }: { data: IActor }) => {
           className="h-auto w-full rounded-t-[10px]"
         />
       </Show>
-      <div className="absolute bottom-0 left-0 h-[70px] w-full bg-nav-bar-bg px-[20px] py-[10px] text-left backdrop-blur-[12px]">
+      <div className="absolute bottom-0 left-0 h-[70px] w-full max-w-full bg-nav-bar-bg px-[20px] py-[10px] text-left backdrop-blur-[12px]">
         <p className="mb-[10px] break-words font-bold text-[16px] leading-[16px]">
           {name}
         </p>
-        <p className="break-words text-[16px] text-link leading-[16px]">
+        <p className="truncate break-words text-[16px] text-link leading-[16px]">
           {character}
         </p>
       </div>

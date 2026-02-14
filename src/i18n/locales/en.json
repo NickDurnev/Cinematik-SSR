@@ -106,6 +106,26 @@
         "similarMovies": "Similar Movies"
       }
     },
+    "tvShowInfo": {
+      "notFound": "TV Show not found",
+      "firstAirDate": "First air date:",
+      "episodeRuntime": "Episode runtime:",
+      "numberOfSeasons": "Number of seasons:",
+      "numberOfEpisodes": "Number of episodes:",
+      "status": "Status:",
+      "creators": "Creators",
+      "networks": "Networks",
+      "watchTrailer": "Watch Trailer",
+      "addToFavorites": "Add to favorites",
+      "addToWatched": "Add to watched",
+      "noTrailer": "We don't have trailer for this TV show",
+      "minutes": "minutes",
+      "tabs": {
+        "cast": "Cast",
+        "reviews": "Reviews",
+        "similarTVShows": "Similar TV Shows"
+      }
+    },
     "profile": {
       "accountSettings": "Account settings",
       "profile": "Profile",

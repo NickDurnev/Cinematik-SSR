@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 
 import { cn } from "@/libs/tailwind-merge";
-import { IActor } from "@/types/movie";
+import { IActor } from "@/types/general";
 
 import { CustomLink, Show } from "../common";
 import { ImageWrapper } from "./ImageWrapper";
